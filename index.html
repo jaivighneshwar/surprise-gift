@@ -3,408 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Golden Envelope | Your Surprise Adventure</title>
+    <title>The Secret Garden | A Journey of Surprises</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap');
+
         :root {
-            /* Immersive Color Palette */
-            --bg-gradient: linear-gradient(135deg, #0d0124 0%, #300150 100%);
-            --card-base: rgba(18, 5, 40, 0.85); /* Frost effect */
-            --accent-gold: #f6d365; /* Warm gold gradient start */
-            --accent-gold-end: #fda085; /* Warm peach end */
-            --glow-gold: 0 0 20px rgba(246, 211, 101, 0.6);
-            --glow-primary: 0 0 25px rgba(187, 134, 252, 0.5); /* Soft purple neon */
-            --text-main: #e0d0f0;
-            --font-stack: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', sans-serif;
-            --transition-main: cubic-bezier(0.23, 1, 0.32, 1);
+            --bg-deep-emerald: #0b2218;
+            --card-glass: rgba(251, 244, 242, 0.95); /* Elegant blush/cream paper */
+            --accent-gold: linear-gradient(135deg, #b89742 0%, #d4af37 50%, #f3e5ab 100%);
+            --text-dark: #1c352d;
+            --text-gold: #aa8437;
+            --text-muted: #5a7367;
+            --transition-delicate: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body {
-            font-family: var(--font-stack);
-            background: var(--bg-gradient);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep-emerald);
+            /* Delicate abstract botanical aura shapes via radial gradients */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(251, 244, 242, 0.1) 0%, transparent 50%);
             margin: 0;
-            padding: 0;
-            color: var(--text-main);
+            padding: 30px 15px;
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden; /* For animations */
         }
 
-        /* The core application container */
-        .app-envelope {
-            width: 90%;
-            max-width: 440px;
-            background: var(--card-base);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px); /* Soft frost */
-            box-shadow: 0 15px 45px rgba(0,0,0,0.4), var(--glow-primary);
-            padding: 40px 30px;
-            text-align: center;
+        /* Styled Elegant Invitation-style Card */
+        .invitation-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-glass);
+            border-radius: 30px;
+            padding: 45px 35px;
             box-sizing: border-box;
-            transition: transform 0.6s var(--transition-main), box-shadow 0.6s var(--transition-main);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+            text-align: center;
             position: relative;
+            animation: cardFadeIn 1s var(--transition-delicate);
         }
 
-        .app-envelope:hover {
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(187, 134, 252, 0.7);
+        @keyframes cardFadeIn {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(5px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* Title styling */
+        /* Delicate Botanical Corner Accents mimicking luxury wedding design */
+        .invitation-card::before, .invitation-card::after {
+            content: "🌿";
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.25;
+            color: var(--text-dark);
+        }
+        .invitation-card::before { top: 20px; left: 20px; transform: rotate(-45px); }
+        .invitation-card::after { bottom: 20px; right: 20px; transform: rotate(135px); }
+
         h1 {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-end) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2rem;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
+            margin: 0 0 10px 0;
+            color: var(--text-dark);
         }
 
-        /* Immersive Gift Vault Section */
-        .vault-experience {
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-gold);
             margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .vault-label {
-            font-size: 0.85rem;
-            color: rgba(224, 208, 240, 0.7);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: block;
+        /* Vault Section without text numbers */
+        .vault-section {
+            margin-bottom: 35px;
         }
 
-        .gift-array {
+        .gift-row {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
+            gap: 14px;
         }
 
-        .gift-box-item {
-            font-size: 2.8rem;
-            cursor: pointer;
-            transition: transform 0.3s var(--transition-main), filter 0.3s var(--transition-main);
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-            user-select: none;
+        .gift-token {
+            font-size: 2.6rem;
+            transition: var(--transition-delicate);
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        .gift-token.claimed {
+            opacity: 0.15;
+            transform: scale(0.8) rotate(-10deg);
+            filter: grayscale(100%);
         }
 
-        .gift-box-item:hover {
-            transform: scale(1.1) translateY(-3px);
-            filter: drop-shadow(var(--glow-gold));
-        }
-
-        .balance-summary {
+        /* Group Rows & Clean Canvas Segment Selection tiles */
+        .section-label {
+            font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
-            color: var(--accent-gold);
             font-weight: 700;
-            margin-top: 15px;
-            letter-spacing: -0.2px;
-            text-shadow: 0 0 10px rgba(246, 211, 101, 0.4);
-        }
-
-        /* Custom, Aesthetic Radio Selectors (NO DROPDOWNS) */
-        .selector-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .group-title {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
-            color: #bbb;
+            color: var(--text-dark);
+            text-align: left;
+            border-bottom: 1px solid rgba(28, 53, 45, 0.1);
+            padding-bottom: 4px;
         }
 
-        .options-container {
+        .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
+            margin-bottom: 25px;
         }
 
-        /* Hiding actual input, styling the label */
-        input[type="radio"] {
-            display: none;
-        }
+        input[type="radio"] { display: none; }
 
-        .option-tile {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #ddd;
-            padding: 12px 10px;
-            border-radius: 14px;
+        .tile-button {
+            background: #fff;
+            border: 1px solid rgba(28, 53, 45, 0.15);
+            padding: 12px 6px;
+            border-radius: 12px;
             cursor: pointer;
-            text-align: center;
-            transition: all 0.3s var(--transition-main);
-            font-size: 0.8rem;
+            transition: var(--transition-delicate);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 60px;
+            min-height: 65px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        .option-tile:hover {
-            background: rgba(255,255,255,0.12);
-        }
-
-        /* Style when radio is selected */
-        input[type="radio"]:checked + .option-tile {
-            border-color: var(--accent-gold);
-            color: #fff;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(246, 211, 101, 0.4);
-            background: linear-gradient(135deg, rgba(246, 211, 101, 0.2) 0%, rgba(253, 160, 133, 0.2) 100%);
-        }
-
-        .icon {
-            font-size: 1.4rem;
+        .tile-button .emoji {
+            font-size: 1.3rem;
             margin-bottom: 4px;
+            transition: transform 0.3s;
         }
 
-        /* Main Reveal Button */
-        .reveal-button {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-end) 100%);
-            color: #0d0124;
+        .tile-button:hover {
+            border-color: var(--text-gold);
+            background: #fdfcfb;
+        }
+
+        .tile-button:hover .emoji {
+            transform: scale(1.15);
+        }
+
+        input[type="radio"]:checked + .tile-button {
+            border-color: #b89742;
+            color: var(--text-dark);
+            background: #f7eedf;
+            box-shadow: 0 4px 15px rgba(184, 151, 66, 0.2);
+            font-weight: 700;
+        }
+
+        /* Premium Golden Invitation Action Button */
+        .btn-gold-action {
+            background: var(--accent-gold);
+            color: #fff;
             width: 100%;
             padding: 16px;
-            margin-top: 15px;
-            border-radius: 16px;
+            border-radius: 40px;
             border: none;
-            font-size: 1.1rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.3s var(--transition-main);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(184, 151, 66, 0.3);
+            transition: var(--transition-delicate);
+            margin-top: 10px;
         }
 
-        .reveal-button:hover {
+        .btn-gold-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4), var(--glow-gold);
+            box-shadow: 0 10px 25px rgba(184, 151, 66, 0.5);
         }
 
-        /* Immersive Reveal Animation Card */
-        .cinematic-reveal {
+        /* Romantic Reveal Area */
+        .reveal-envelope {
             margin-top: 35px;
             padding: 25px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid transparent;
-            position: relative;
-            display: none; /* Initially hidden */
-            overflow: hidden;
+            background: #fff;
+            border: 1px dashed #b89742;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        /* Border animation on reveal */
-        @keyframes borderGlow {
-            0% { border-color: rgba(187, 134, 252, 0.3); box-shadow: 0 0 10px rgba(187, 134, 252, 0); }
-            50% { border-color: var(--accent-gold); box-shadow: 0 0 30px rgba(246, 211, 101, 0.5); }
-            100% { border-color: rgba(187, 134, 252, 0.3); box-shadow: 0 0 10px rgba(187, 134, 252, 0); }
-        }
-
-        .cinematic-reveal.active {
+        .reveal-envelope.open {
             display: block;
-            animation: popEnvelope 0.7s var(--transition-main), borderGlow 2.5s infinite alternate;
+            animation: envelopeOpen 0.6s var(--transition-main);
         }
 
-        @keyframes popEnvelope {
-            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
+        @keyframes envelopeOpen {
+            0% { opacity: 0; transform: scale(0.95); filter: blur(3px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        .surprise-title {
-            color: var(--accent-gold);
-            font-weight: 800;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .booking-confirm {
-            background-color: var(--card-base);
-            color: var(--accent-gold);
-            border: 2px solid var(--accent-gold);
-            margin-top: 20px;
-            font-size: 0.9rem;
+        .reveal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
             font-weight: 700;
-            width: auto;
-            display: inline-block;
-            padding: 10px 20px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .btn-confirm-adventure {
+            background: var(--bg-deep-emerald);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
             border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: var(--transition-delicate);
+        }
+
+        .btn-confirm-adventure:hover {
+            background: #174230;
+            transform: scale(1.03);
         }
     </style>
 </head>
 <body>
 
-<div class="app-envelope">
-    <h1>The Golden Envelope</h1>
+<div class="invitation-card">
+    <h1>The Secret Garden</h1>
+    <div class="subtitle">A curation of handpicked adventures</div>
     
-    <div class="vault-experience">
-        <label class="vault-label">Your Experience Vault</label>
+    <div class="vault-section">
+        <div class="gift-row" id="giftVault">
+            <span class="gift-token" id="box1">🎁</span>
+            <span class="gift-token" id="box2">🎁</span>
+            <span class="gift-token" id="box3">🎁</span>
+            <span class="gift-token" id="box4">🎁</span>
+            <span class="gift-token" id="box5">🎁</span>
+        </div>
+    </div>
+
+    <span class="section-label">Select Your Desired Vibe</span>
+    <div class="options-grid">
+        <label><input type="radio" name="mood" value="lazy" checked><div class="tile-button"><span class="emoji">🧖‍♀️</span><span>Pure Chill</span></div></label>
+        <label><input type="radio" name="mood" value="adventurous"><div class="tile-button"><span class="emoji">🧗‍♀️</span><span>Adventure</span></div></label>
+        <label><input type="radio" name="mood" value="foodie"><div class="tile-button"><span class="emoji">🥂</span><span>Gourmet</span></div></label>
+        <label><input type="radio" name="mood" value="cultured"><div class="tile-button"><span class="emoji">🎻</span><span>Art & Culture</span></div></label>
+        <label><input type="radio" name="mood" value="nature"><div class="tile-button"><span class="emoji">🌲</span><span>Forest Escape</span></div></label>
+        <label><input type="radio" name="mood" value="romantic"><div class="tile-button"><span class="emoji">🕯️</span><span>Cozy Magic</span></div></label>
+    </div>
+
+    <span class="section-label">The Current Atmosphere</span>
+    <div class="options-grid">
+        <label><input type="radio" name="weather" value="sunny" checked><div class="tile-button"><span class="emoji">☀️</span><span>Sun-Drenched</span></div></label>
+        <label><input type="radio" name="weather" value="rainy"><div class="tile-button"><span class="emoji">🌧️</span><span>Rainy Days</span></div></label>
+        <label><input type="radio" name="weather" value="cozy"><div class="tile-button"><span class="emoji">❄️</span><span>Crisp / Frosty</span></div></label>
+    </div>
+
+    <span class="section-label">Your Available Time</span>
+    <div class="options-grid">
+        <label><input type="radio" name="duration" value="short" checked><div class="tile-button"><span>A Few Hours</span></div></label>
+        <label><input type="radio" name="duration" value="medium"><div class="tile-button"><span>Half / Full Day</span></div></label>
+        <label><input type="radio" name="duration" value="long"><div class="tile-button"><span>Weekend Getaway</span></div></label>
+    </div>
+
+    <button class="btn-gold-action" onclick="unveilSurprise()">Unveil Experience ✨</button>
+
+    <div class="reveal-envelope" id="revealBox">
+        <div class="reveal-title" id="outTitle"></div>
+        <p id="outDesc" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin: 0 0 15px 0;"></p>
+        <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-gold);" id="outTime"></div>
         
-        <div class="gift-array" id="giftVault">
-            <span class="gift-box-item" title="€20 Experience">🎁</span>
-            <span class="gift-box-item" title="€20 Experience">🎁</span>
-            <span class="gift-box-item" title="€20 Experience">🎁</span>
-            <span class="gift-box-item" title="€20 Experience">🎁</span>
-            <span class="gift-box-item" title="€20 Experience">🎁</span>
-        </div>
-        <div class="balance-summary">€<span id="balanceText">100</span> / €100 Remaining</div>
-    </div>
-
-    <div class="selector-group">
-        <span class="group-title">How is the vibe?</span>
-        <div class="options-container">
-            <label>
-                <input type="radio" name="mood" value="adventurous">
-                <div class="option-tile">
-                    <span class="icon">🧗</span>
-                    <span>Adventure</span>
-                </div>
-            </label>
-            <label>
-                <input type="radio" name="mood" value="lazy" checked>
-                <div class="option-tile">
-                    <span class="icon">🧖</span>
-                    <span>Chill</span>
-                </div>
-            </label>
-            <label>
-                <input type="radio" name="mood" value="foodie">
-                <div class="option-tile">
-                    <span class="icon">🍰</span>
-                    <span>Foodie</span>
-                </div>
-            </label>
-        </div>
-    </div>
-
-    <div class="selector-group">
-        <span class="group-title">The Outlook:</span>
-        <div class="options-container">
-            <label>
-                <input type="radio" name="weather" value="sunny" checked>
-                <div class="option-tile">
-                    <span class="icon">☀️</span>
-                    <span>Sunny</span>
-                </div>
-            </label>
-            <label>
-                <input type="radio" name="weather" value="rainy">
-                <div class="option-tile">
-                    <span class="icon">🌧️</span>
-                    <span>Rainy</span>
-                </div>
-            </label>
-        </div>
-    </div>
-
-    <div class="selector-group">
-        <span class="group-title">Available Time:</span>
-        <div class="options-container" style="grid-template-columns: repeat(3, 1fr);">
-            <label>
-                <input type="radio" name="duration" value="short" checked>
-                <div class="option-tile">
-                    <span>1-3 Hrs</span>
-                </div>
-            </label>
-            <label>
-                <input type="radio" name="duration" value="medium">
-                <div class="option-tile">
-                    <span>Half/Full Day</span>
-                </div>
-            </label>
-            <label>
-                <input type="radio" name="duration" value="long">
-                <div class="option-tile">
-                    <span>1-2 Days</span>
-                </div>
-            </label>
-        </div>
-    </div>
-
-    <button class="reveal-button" onclick="findExperience()">Reveal My Surprise ✨</button>
-
-    <div class="cinematic-reveal" id="revealCard">
-        <div class="surprise-title" id="expTitle"></div>
-        <p style="color: #ccc; font-size: 0.95rem; line-height: 1.5; margin: 0 0 15px 0;" id="expDesc"></p>
-        <div style="display: flex; justify-content: space-around; font-size: 0.85rem; color: #999;">
-            <span>Estimated: €<span id="expCost" style="color: #fff; font-weight:700;"></span></span>
-            <span>Duration: <span id="expTime" style="color: #fff; font-weight:700;"></span></span>
-        </div>
-        
-        <button class="booking-confirm" onclick="sendBooking()">Lock in this adventure! 🔒</button>
+        <button class="btn-confirm-adventure" onclick="lockInSelection()">Request This Invitation 💌</button>
     </div>
 </div>
 
 <script>
-    // System Config
-    let currentBalance = 100;
-    const BOX_VALUE = 20; // 🎁 = €20
+    // INVISIBLE BACKGROUND LEDGER (Total: €100 Max)
+    let maxHiddenBudget = 100;
+    const SINGLE_BOX_VALUE = 20; 
+    let currentActiveSelection = null;
 
-    // Experience Database (Stuttgart Center)
-    const experiences = [
-        { title: "Bad Cannstatt Mineral Baths", desc: "Soak away all stress in the classic local springs. Warm waters and saunas await!", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
-        { title: "Stuttgart Fernsehturm & Café", desc: "Panoramic vineyard views from the world's first television tower.", cost: 20, mood: "cultured", weather: "sunny", duration: "short" },
-        { title: "Choco-Workshop Waldenbuch", desc: "A sweet road trip south to custom design your own mega-bars of Ritter Sport.", cost: 20, mood: "foodie", weather: "rainy", duration: "medium" },
-        { title: "Sup on the Neckar & Lunch", desc: "Rent a paddleboard directly on the Neckar, followed by traditional Maultaschen.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" },
-        { title: "Burg Hohenzollern Expedition", desc: "A majestic fairy-tale castle on a cliff edge an hour south.", cost: 40, mood: "cultured", weather: "sunny", duration: "medium" },
-        { title: "Black Forest Sleepover", desc: "Epic overnight in a boutique cabin, hiking, and evening local gin-tasting.", cost: 100, mood: "adventurous", weather: "sunny", duration: "long" },
-        { title: "Vineyard Wanderung & Dinner", desc: "A traditional Besenwirtschaft feast inside Stuttgart's rolling vineyards.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" }
+    // EXPANSIVE, FAIL-SAFE SOUTHERN GERMANY MATRIX
+    const adventureMatrix = [
+        // Short/Chill/Sunny Matrix
+        { title: "Stuttgart Vineyard Wine Tasting Picnic", desc: "A luxury gourmet basket waiting for you directly inside the rolling hills of Stuttgart-Uhlbach.", cost: 20, mood: "lazy", weather: "sunny", duration: "short" },
+        { title: "Killesberg Park Steam Train Ride & Ice Cream", desc: "Soaking up the sun in the historical gardens with high-end gelato on me.", cost: 20, mood: "lazy", weather: "sunny", duration: "short" },
+        
+        // Short/Chill/Rainy Matrix
+        { title: "MineralThermen Bad Cannstatt", desc: "Indulge in a tranquil evening soaking in the natural mineral-dense hot pools.", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
+        { title: "Classic High Tea at the Steigenberger Graf Zeppelin", desc: "Rooftop warmth, dynamic loose leaf teas, and fresh scones while looking out at the rain.", cost: 20, mood: "foodie", weather: "rainy", duration: "short" },
+
+        // Adventure Matrix
+        { title: "Waldklettergarten Stuttgart (Zuffenhausen)", desc: "An adrenaline-fueled high ropes adventure course hidden high up in the local treetops.", cost: 20, mood: "adventurous", weather: "sunny", duration: "short" },
+        { title: "Neckar River Stand-Up Paddleboard Drift", desc: "Rentals and safety instruction for a stunning sunset cruise along the river.", cost: 20, mood: "adventurous", weather: "sunny", duration: "medium" },
+        { title: "Sensory Indoor Bouldering Experience", desc: "A private session at the world-class Vels Bouldering gym in Stuttgart West.", cost: 20, mood: "adventurous", weather: "rainy", duration: "short" },
+        
+        // Culture & Art Matrix
+        { title: "Staatsgalerie Art Pass & Custom Coffee Guide", desc: "Explore world-class masterpieces followed by specialty roastery flat whites in Stuttgart West.", cost: 20, mood: "cultured", weather: "rainy", duration: "short" },
+        { title: "Ludwigsburg Residential Palace Audio Exploration", desc: "A breathtaking wander through Germany's finest baroque castle gardens just 15 mins north.", cost: 20, mood: "cultured", weather: "sunny", duration: "medium" },
+
+        // Gourmet/Foodie Matrix
+        { title: "Stuttgart Markthalle Culinary Discovery", desc: "A voucher to choose fine Mediterranean cheeses, fresh tapas, and French pastries inside the art-nouveau market hall.", cost: 20, mood: "foodie", weather: "rainy", duration: "short" },
+        { title: "Ritter Sport Chocolate Creation Laboratory", desc: "Head out to Waldenbuch to craft your own gourmet customized chocolate squares.", cost: 20, mood: "foodie", weather: "cozy", duration: "medium" },
+        { title: "Swabian Maultaschen Masterclass Feast", desc: "A hand-picked luxury dinner reservation at a hidden traditional dining spot.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" },
+
+        // Forest & Nature Matrix
+        { title: "Schönbuch Nature Park Deer Sanctuary Hike", desc: "A dynamic trekking path into ancient protected woodlands with premium trail provisions.", cost: 20, mood: "nature", weather: "sunny", duration: "medium" },
+        { title: "Bärensee Glasshouse Coffee Hike", desc: "A peaceful morning walk surrounding the tree-lined lakes ending at the historic Bärenschlössle lodge.", cost: 20, mood: "nature", weather: "sunny", duration: "short"5 },
+
+        // Romantic/Cozy Magic
+        { title: "Candlelit Cinema Night at Delphi Arthaus", desc: "Premium vintage seating, velvet curtains, indie films, and bubbly prosecco.", cost: 20, mood: "romantic", weather: "rainy", duration: "short" },
+        { title: "Stuttgart Fernsehturm Evening Sunset Toast", desc: "Climb the TV tower as city lights flicker alive, topped off with local sparkling wine.", cost: 40, mood: "romantic", weather: "sunny", duration: "short" },
+
+        // High Budget / Weekend Options
+        { title: "Black Forest Boutique Lakeview Sleepover", desc: "An incredible escape deeper into the Schwarzwald complete with a hiking path and cozy cabin aesthetics.", cost: 100, mood: "nature", weather: "sunny", duration: "long" },
+        { title: "Burg Hohenzollern Fairy-tale Expedition", desc: "A majestic royal castle perched spectacularly on a mountain peaks profile.", cost: 40, mood: "cultured", weather: "cozy", duration: "medium" },
+        { title: "Bad Wildbad Treetop Suspension Bridge Trek", desc: "Walk directly above the Black Forest pine trees across an epic architectural suspension bridge.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" }
     ];
 
-    // Balance Setup (Based on remaining boxes)
+    // OMAKASE WILDCARD: High-quality flexible fallback if user clicks a combinations with 0 matches
+    const wildcards = [
+        { title: "The Secret Garden Bespoke Box", desc: "A hand-tailored surprise chosen directly by me to match your vibe perfectly in downtown Stuttgart!", cost: 20, duration: "Short Event" },
+        { title: "The Grand Stuttgart Mystery Day Out", desc: "An all-inclusive mystery day out planned step-by-step by your admin helper.", cost: 40, duration: "Full Day Experience" }
+    ];
+
+    // Read initial structural status
     window.addEventListener('DOMContentLoaded', () => {
-        const totalBoxes = document.querySelectorAll('#giftVault .gift-box-item').length;
-        currentBalance = totalBoxes * BOX_VALUE;
-        document.getElementById('balanceText').innerText = currentBalance;
+        const totalBoxes = document.querySelectorAll('#giftVault .gift-token:not(.claimed)').length;
+        maxHiddenBudget = totalBoxes * SINGLE_BOX_VALUE;
     });
 
-    // Immersive Find/Reveal
-    function findExperience() {
+    function unveilSurprise() {
         const mood = document.querySelector('input[name="mood"]:checked').value;
         const weather = document.querySelector('input[name="weather"]:checked').value;
         const duration = document.querySelector('input[name="duration"]:checked').value;
         
-        const pool = experiences.filter(e => e.mood === mood && e.weather === weather && e.duration === duration && e.cost <= currentBalance);
-        const card = document.getElementById('revealCard');
+        // Filter out items matching configurations AND affordable under remaining backend budget
+        let matches = adventureMatrix.filter(e => 
+            e.mood === mood && 
+            e.weather === weather && 
+            e.duration === duration &&
+            e.cost <= maxHiddenBudget
+        );
+
+        // Fail-Safe Fallback Strategy: If zero matches, pull an affordable Wildcard item instead!
+        if (matches.length === 0) {
+            matches = wildcards.filter(w => w.cost <= maxHiddenBudget);
+        }
         
-        if (pool.length === 0) {
-            // Special Aesthetic Alert
-            alert("No standard surprises match that *exact* vibe with your current balance. Try another mix!");
-            card.classList.remove('active');
-            return;
+        // Absolute fail-safe fallback baseline
+        if (matches.length === 0) {
+            matches = [{ title: "A Custom Handcrafted Surprise Coffee & Cake Rendezvous", desc: "A lovely afternoon treat inside Stuttgart West customized completely on demand.", cost: 20, duration: "1-2 Hours" }];
         }
 
-        const selectedExperience = pool[Math.floor(Math.random() * pool.length)];
+        currentActiveSelection = matches[Math.floor(Math.random() * matches.length)];
 
-        // Update UI
-        document.getElementById('expTitle').innerText = selectedExperience.title;
-        document.getElementById('expDesc').innerText = selectedExperience.desc;
-        document.getElementById('expCost').innerText = selectedExperience.cost;
-        let timeTxt = selectedExperience.duration === 'short' ? '1-3 Hrs' : selectedExperience.duration === 'medium' ? 'Day Trip' : '1-2 Days';
-        document.getElementById('expTime').innerText = timeTxt;
+        // Map data to DOM UI seamlessly
+        document.getElementById('outTitle').innerText = currentActiveSelection.title;
+        document.getElementById('outDesc').innerText = currentActiveSelection.desc;
+        document.getElementById('outTime').innerText = `✨ Time Allocation Required: ${currentActiveSelection.duration || 'Flexible'}`;
 
-        // Trigger Cinematic Pop
-        card.classList.add('active');
-        window.scrollTo({ top: card.offsetTop + 100, behavior: 'smooth' });
+        const rBox = document.getElementById('revealBox');
+        rBox.classList.add('open');
+        window.scrollTo({ top: rBox.offsetTop + 120, behavior: 'smooth' });
     }
 
-    function sendBooking() {
-        // Formulate WhatsApp Redirect (Same logic)
-        const adminPhoneNumber = "491700000000"; // Replace with YOUR mobile number (e.g., 49170...)
-        const exp = document.getElementById('expTitle').innerText;
-        const cost = document.getElementById('expCost').innerText;
-        const message = `Hey! I just locked in a surprise adventure via The Golden Envelope! 🎁%0A%0A✨ Adventure: ${exp}%0A💰 Value: €${cost}%0A%0APlease book this for me!`;
-        window.open(`https://wa.me/${adminPhoneNumber}?text=${message}`, '_blank');
+    function lockInSelection() {
+        if (!currentActiveSelection) return;
+
+        // Custom Whatsapp payload configuration
+        const yourMobileNumber = "491700000000"; // 🌟 CHANGE TO YOUR ACTUAL TELEPHONE NUMBER
+        const payloadText = `Dearest Admin! 🌸%0A%0AI have chosen an invitation from the Secret Garden App!%0A%0A💌 Surprise Selected: ${currentActiveSelection.title}%0A⏳ Allocation: ${currentActiveSelection.duration}%0A%0APlease prepare this arrangement!`;
+        
+        window.open(`https://wa.me/${yourMobileNumber}?text=${payloadText}`, '_blank');
     }
 </script>
 </body>
