@@ -131,3 +131,82 @@
         
         <button class="booking-btn" id="bookBtn" onclick="sendBooking()">Lock This In! 🔒</button>
     </div>
+</div>
+
+<script>
+    // Global App Variables
+    let currentBalance = 100;
+    let selectedExperience = null;
+    const BOX_VALUE = 20; // Each 🎁 icon left in the HTML represents 20 Euros
+
+    // Automatically calculate balance when the page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        // Find all elements with the 'gift-box' class inside the vault
+        const totalBoxes = document.querySelectorAll('#giftVault .gift-box').length;
+        
+        // Math: Number of boxes * 20
+        currentBalance = totalBoxes * BOX_VALUE;
+        
+        // Push the calculated number visually to the 'balanceText' span
+        document.getElementById('balanceText').innerText = currentBalance;
+    });
+
+    // Experience Database centered around Stuttgart/Southern Germany
+    const experiences = [
+        { title: "MineralThermen Bad Cannstatt", desc: "Soak away all stress in the classic local mineral springs. Warm waters and saunas await!", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
+        { title: "Stuttgart Fernsehturm Climb & Coffee", desc: "Head up the world's first television tower for breath-taking panoramic views of the vineyards, paired with cake at the top.", cost: 20, mood: "cultured", weather: "sunny", duration: "short" },
+        { title: "Ritter Sport Choco-Workshop Waldenbuch", desc: "A sweet road trip just south of Stuttgart to custom design your own mega-bars of chocolate.", cost: 20, mood: "foodie", weather: "rainy", duration: "medium" },
+        { title: "Sup-ing on the Neckar River & Maultaschen Lunch", desc: "Rent a Stand-Up Paddleboard right on the Neckar, followed by a hearty traditional Swabian lunch.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" },
+        { title: "Burg Hohenzollern Day Expedition", desc: "A majestic fairy-tale castle perched high on a cliff edge an hour south of Stuttgart.", cost: 40, mood: "cultured", weather: "sunny", duration: "medium" },
+        { title: "Black Forest Boutique Cabin Sleepover", desc: "An epic overnight stay deep in the woods of the Schwarzwald complete with a hiking route and evening local gin-tasting.", cost: 100, mood: "adventurous", weather: "sunny", duration: "long" },
+        { title: "Cozy Stuttgart Wine-Wanderung & Dinner", desc: "A gorgeous trek directly through the local rolling hillside vineyards ending at a traditional Besenwirtschaft tavern.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" }
+    ];
+
+    function findExperience() {
+        const mood = document.getElementById('mood').value;
+        const weather = document.getElementById('weather').value;
+        const duration = document.getElementById('duration').value;
+        
+        // Filter pool based on choices AND remaining budget
+        const pool = experiences.filter(e => 
+            e.mood === mood && 
+            e.weather === weather && 
+            e.duration === duration &&
+            e.cost <= currentBalance
+        );
+
+        const card = document.getElementById('resultCard');
+        
+        if (pool.length === 0) {
+            alert("No hidden surprises match this exact combination under your current box budget! Try switching up your parameters.");
+            card.style.display = 'none';
+            return;
+        }
+
+        // Pick a random one from matching candidates
+        selectedExperience = pool[Math.floor(Math.random() * pool.length)];
+
+        document.getElementById('expTitle').innerText = selectedExperience.title;
+        document.getElementById('expDesc').innerText = selectedExperience.desc;
+        document.getElementById('expCost').innerText = selectedExperience.cost;
+        let timeTxt = selectedExperience.duration === 'short' ? '1-3 Hours' : selectedExperience.duration === 'medium' ? 'Half/Full Day' : '1-2 Days';
+        document.getElementById('expTime').innerText = timeTxt;
+
+        card.style.display = 'block';
+    }
+
+    function sendBooking() {
+        if (!selectedExperience) return;
+
+        // Formulate a pre-filled WhatsApp message back to YOU (the admin)
+        const adminPhoneNumber = "491700000000"; // Replace with your actual mobile number (with country code, no + or 00)
+        const message = `Hey! I just locked in a surprise experience via my Gift App! 🎁%0A%0A✨ Adventure: ${selectedExperience.title}%0A💰 Value: €${selectedExperience.cost}%0A%0APlease book this for me!`;
+        
+        const whatsappUrl = `https://wa.me/${adminPhoneNumber}?text=${message}`;
+        
+        // Open WhatsApp chat directly
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
+</body>
+</html>
