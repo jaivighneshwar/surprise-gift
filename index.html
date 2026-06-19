@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Surprise Adventure Generator</title>
+    <style>
+        :root {
+            --primary: #ff4757;
+            --secondary: #2ed573;
+            --dark: #2f3542;
+            --light: #f1f2f6;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeaa7 0%, #ff7675 100%);
+            margin: 0;
+            padding: 20px;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        .vault {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .gift-box {
+            font-size: 2.5rem;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        .gift-box.spent {
+            opacity: 0.2;
+            transform: scale(0.8);
+            filter: grayscale(100%);
+        }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid var(--light);
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+        select:focus { border-color: var(--primary); }
+        button {
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:hover { background-color: #ff6b81; transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+        .result-card {
+            margin-top: 25px;
+            padding: 20px;
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            background: #fff5f5;
+            display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .booking-btn { background-color: var(--secondary); margin-top: 15px; }
+        .booking-btn:hover { background-color: #26af5f; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎁 Adventure Roulette</h1>
+    <p>Your current bank of surprises:</p>
+    
+    <!-- Balance represented by gift boxes -->
+    <div class="vault" id="giftVault">
+        <span class="gift-box" title="€20 Box">🎁</span>
+        <span class="gift-box" title="€20 Box">🎁</span>
+        <span class="gift-box" title="€20 Box">🎁</span>
+        <span class="gift-box" title="€20 Box">🎁</span>
+        <span class="gift-box" title="€20 Box">🎁</span>
+    </div>
+    <p style="font-weight: bold; color: #777;">Remaining Balance: €<span id="balanceText">100</span></p>
+    
+    <hr style="border: 0; border-top: 1px solid var(--light); margin: 20px 0;">
+
+    <!-- Filters -->
+    <label for="mood">How are you feeling?</label>
+    <select id="mood">
+        <option value="adventurous">Adventurous 🧗</option>
+        <option value="lazy">Chilled / Lazy 🧖</option>
+        <option value="cultured">Cultured 🏰</option>
+        <option value="foodie">Hungry / Foodie 🍰</option>
+    </select>
+
+    <label for="weather">What's it looking like outside?</label>
+    <select id="weather">
+        <option value="sunny">Beautiful & Sunny ☀️</option>
+        <option value="rainy">Classic German Rain 🌧️</option>
+    </select>
+
+    <label for="duration">How much time do you have?</label>
+    <select id="duration">
+        <option value="short">Just a few hours (1-3h)</option>
+        <option value="medium">Half / Full Day</option>
+        <option value="long">Weekend Trip (1-2 Days)</option>
+    </select>
+
+    <button onclick="findExperience()">Generate My Surprise ✨</button>
+
+    <!-- Reveal section -->
+    <div class="result-card" id="resultCard">
+        <h3 id="expTitle">Adventure Found!</h3>
+        <p id="expDesc"></p>
+        <p><strong>Estimated Cost:</strong> €<span id="expCost"></span></p>
+        <p><strong>Duration:</strong> <span id="expTime"></span></p>
+        
+        <button class="booking-btn" id="bookBtn" onclick="sendBooking()">Lock This In! 🔒</button>
+    </div>
+</div>
+
+<script>
+    // App State (In a local frontend-only app, resetting the browser resets the balance. 
+    // You as the admin will manage the true absolute balance manually!)
+    let currentBalance = 100;
+    let selectedExperience = null;
+
+    // Experience Database centered around Stuttgart/Southern Germany
+    const experiences = [
+        { title: "MineralThermen Bad Cannstatt", desc: "Soak away all stress in the classic local mineral springs. Warm waters and saunas await!", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
+        { title: "Stuttgart Fernsehturm Climb & Coffee", desc: "Head up the world's first television tower for breath-taking panoramic views of the vineyards, paired with cake at the top.", cost: 20, mood: "cultured", weather: "sunny", duration: "short" },
+        { title: "Ritter Sport Choco-Workshop Waldenbuch", desc: "A sweet road trip just south of Stuttgart to custom design your own mega-bars of chocolate.", cost: 20, mood: "foodie", weather: "rainy", duration: "medium" },
+        { title: "Sup-ing on the Neckar River & Maultaschen Lunch", desc: "Rent a Stand-Up Paddleboard right on the Neckar, followed by a hearty traditional Swabian lunch.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" },
+        { title: "Burg Hohenzollern Day Expedition", desc: "A majestic fairy-tale castle perched high on a cliff edge an hour south of Stuttgart.", cost: 40, mood: "cultured", weather: "sunny", duration: "medium" },
+        { title: "Black Forest Boutique Cabin Sleepover", desc: "An epic overnight stay deep in the woods of the Schwarzwald complete with a hiking route and evening local gin-tasting.", cost: 100, mood: "adventurous", weather: "sunny", duration: "long" },
+        { title: "Cozy Stuttgart Wine-Wanderung & Dinner", desc: "A gorgeous trek directly through the local rolling hillside vineyards ending at a traditional Besenwirtschaft tavern.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" }
+    ];
+
+    function findExperience() {
+        const mood = document.getElementById('mood').value;
+        const weather = document.getElementById('weather').value;
+        const duration = document.getElementById('duration').value;
+        
+        // Filter pool based on choices AND remaining budget
+        const pool = experiences.filter(e => 
+            e.mood === mood && 
+            e.weather === weather && 
+            e.duration === duration &&
+            e.cost <= currentBalance
+        );
+
+        const card = document.getElementById('resultCard');
+        
+        if (pool.length === 0) {
+            alert("No hidden surprises match this exact combination under your current box budget! Try switching up your parameters.");
+            card.style.display = 'none';
+            return;
+        }
+
+        // Pick a random one from matching candidates
+        selectedExperience = pool[Math.floor(Math.random() * pool.length)];
+
+        document.getElementById('expTitle').innerText = selectedExperience.title;
+        document.getElementById('expDesc').innerText = selectedExperience.desc;
+        document.getElementById('expCost').innerText = selectedExperience.cost;
+        let timeTxt = selectedExperience.duration === 'short' ? '1-3 Hours' : selectedExperience.duration === 'medium' ? 'Half/Full Day' : '1-2 Days';
+        document.getElementById('expTime').innerText = timeTxt;
+
+        card.style.display = 'block';
+    }
+
+    function sendBooking() {
+        if (!selectedExperience) return;
+
+        // Formulate a pre-filled WhatsApp message back to YOU (the admin)
+        const adminPhoneNumber = "491700000000"; // Put your actual mobile number here (with country code, no + or 00)
+        const message = `Hey! I just locked in a surprise experience via my Gift App! 🎁%0A%0A✨ Adventure: ${selectedExperience.title}%0A💰 Value: €${selectedExperience.cost}%0A%0APlease book this for me!`;
+        
+        const whatsappUrl = `https://wa.me/${adminPhoneNumber}?text=${message}`;
+        
+        // Open WhatsApp chat directly
+        window.open(whatsappUrl, '_blank');
+    </style>
+</body>
+</html>
