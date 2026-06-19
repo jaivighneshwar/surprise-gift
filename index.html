@@ -3,209 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Surprise Adventure Generator</title>
+    <title>The Golden Envelope | Your Surprise Adventure</title>
     <style>
         :root {
-            --primary: #ff4757;
-            --secondary: #2ed573;
-            --dark: #2f3542;
-            --light: #f1f2f6;
+            /* Immersive Color Palette */
+            --bg-gradient: linear-gradient(135deg, #0d0124 0%, #300150 100%);
+            --card-base: rgba(18, 5, 40, 0.85); /* Frost effect */
+            --accent-gold: #f6d365; /* Warm gold gradient start */
+            --accent-gold-end: #fda085; /* Warm peach end */
+            --glow-gold: 0 0 20px rgba(246, 211, 101, 0.6);
+            --glow-primary: 0 0 25px rgba(187, 134, 252, 0.5); /* Soft purple neon */
+            --text-main: #e0d0f0;
+            --font-stack: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', sans-serif;
+            --transition-main: cubic-bezier(0.23, 1, 0.32, 1);
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffeaa7 0%, #ff7675 100%);
+            font-family: var(--font-stack);
+            background: var(--bg-gradient);
             margin: 0;
-            padding: 20px;
-            color: var(--dark);
+            padding: 0;
+            color: var(--text-main);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden; /* For animations */
+        }
+
+        /* The core application container */
+        .app-envelope {
+            width: 90%;
+            max-width: 440px;
+            background: var(--card-base);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px); /* Soft frost */
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4), var(--glow-primary);
+            padding: 40px 30px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: transform 0.6s var(--transition-main), box-shadow 0.6s var(--transition-main);
+            position: relative;
+        }
+
+        .app-envelope:hover {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(187, 134, 252, 0.7);
+        }
+
+        /* Title styling */
+        h1 {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-end) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* Immersive Gift Vault Section */
+        .vault-experience {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .vault-label {
+            font-size: 0.85rem;
+            color: rgba(224, 208, 240, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .gift-array {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .gift-box-item {
+            font-size: 2.8rem;
+            cursor: pointer;
+            transition: transform 0.3s var(--transition-main), filter 0.3s var(--transition-main);
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            user-select: none;
+        }
+
+        .gift-box-item:hover {
+            transform: scale(1.1) translateY(-3px);
+            filter: drop-shadow(var(--glow-gold));
+        }
+
+        .balance-summary {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-top: 15px;
+            letter-spacing: -0.2px;
+            text-shadow: 0 0 10px rgba(246, 211, 101, 0.4);
+        }
+
+        /* Custom, Aesthetic Radio Selectors (NO DROPDOWNS) */
+        .selector-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .group-title {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #bbb;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+
+        /* Hiding actual input, styling the label */
+        input[type="radio"] {
+            display: none;
+        }
+
+        .option-tile {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ddd;
+            padding: 12px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s var(--transition-main);
+            font-size: 0.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        h1 { color: var(--primary); margin-top: 0; }
-        .vault {
-            display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+            height: 60px;
         }
-        .gift-box {
-            font-size: 2.5rem;
-            transition: transform 0.3s;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+
+        .option-tile:hover {
+            background: rgba(255,255,255,0.12);
         }
-        select, button {
+
+        /* Style when radio is selected */
+        input[type="radio"]:checked + .option-tile {
+            border-color: var(--accent-gold);
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(246, 211, 101, 0.4);
+            background: linear-gradient(135deg, rgba(246, 211, 101, 0.2) 0%, rgba(253, 160, 133, 0.2) 100%);
+        }
+
+        .icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        /* Main Reveal Button */
+        .reveal-button {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-end) 100%);
+            color: #0d0124;
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: 2px solid var(--light);
-            font-size: 1rem;
-            outline: none;
-            box-sizing: border-box;
-        }
-        select:focus { border-color: var(--primary); }
-        button {
-            background-color: var(--primary);
-            color: white;
-            font-weight: bold;
+            padding: 16px;
+            margin-top: 15px;
+            border-radius: 16px;
             border: none;
+            font-size: 1.1rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
+            transition: all 0.3s var(--transition-main);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        button:hover { background-color: #ff6b81; transform: translateY(-2px); }
-        button:active { transform: translateY(0); }
-        .result-card {
-            margin-top: 25px;
-            padding: 20px;
-            border: 3px dashed var(--primary);
-            border-radius: 15px;
-            background: #fff5f5;
-            display: none;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), var(--glow-gold);
         }
-        @keyframes popIn {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+
+        /* Immersive Reveal Animation Card */
+        .cinematic-reveal {
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid transparent;
+            position: relative;
+            display: none; /* Initially hidden */
+            overflow: hidden;
         }
-        .booking-btn { background-color: var(--secondary); margin-top: 15px; }
-        .booking-btn:hover { background-color: #26af5f; }
+
+        /* Border animation on reveal */
+        @keyframes borderGlow {
+            0% { border-color: rgba(187, 134, 252, 0.3); box-shadow: 0 0 10px rgba(187, 134, 252, 0); }
+            50% { border-color: var(--accent-gold); box-shadow: 0 0 30px rgba(246, 211, 101, 0.5); }
+            100% { border-color: rgba(187, 134, 252, 0.3); box-shadow: 0 0 10px rgba(187, 134, 252, 0); }
+        }
+
+        .cinematic-reveal.active {
+            display: block;
+            animation: popEnvelope 0.7s var(--transition-main), borderGlow 2.5s infinite alternate;
+        }
+
+        @keyframes popEnvelope {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .surprise-title {
+            color: var(--accent-gold);
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .booking-confirm {
+            background-color: var(--card-base);
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            margin-top: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            width: auto;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🎁 Adventure Roulette</h1>
-    <p>Your current bank of surprises:</p>
+<div class="app-envelope">
+    <h1>The Golden Envelope</h1>
     
-    <div class="vault" id="giftVault">
-        <span class="gift-box" title="€20 Box">🎁</span>
-        <span class="gift-box" title="€20 Box">🎁</span>
-        <span class="gift-box" title="€20 Box">🎁</span>
-        <span class="gift-box" title="€20 Box">🎁</span>
-        <span class="gift-box" title="€20 Box">🎁</span>
-    </div>
-    <p style="font-weight: bold; color: #777;">Remaining Balance: €<span id="balanceText">100</span></p>
-    
-    <hr style="border: 0; border-top: 1px solid var(--light); margin: 20px 0;">
-
-    <label for="mood">How are you feeling?</label>
-    <select id="mood">
-        <option value="adventurous">Adventurous 🧗</option>
-        <option value="lazy">Chilled / Lazy 🧖</option>
-        <option value="cultured">Cultured 🏰</option>
-        <option value="foodie">Hungry / Foodie 🍰</option>
-    </select>
-
-    <label for="weather">What's it looking like outside?</label>
-    <select id="weather">
-        <option value="sunny">Beautiful & Sunny ☀️</option>
-        <option value="rainy">Classic German Rain 🌧️</option>
-    </select>
-
-    <label for="duration">How much time do you have?</label>
-    <select id="duration">
-        <option value="short">Just a few hours (1-3h)</option>
-        <option value="medium">Half / Full Day</option>
-        <option value="long">Weekend Trip (1-2 Days)</option>
-    </select>
-
-    <button onclick="findExperience()">Generate My Surprise ✨</button>
-
-    <div class="result-card" id="resultCard">
-        <h3 id="expTitle">Adventure Found!</h3>
-        <p id="expDesc"></p>
-        <p><strong>Estimated Cost:</strong> €<span id="expCost"></span></p>
-        <p><strong>Duration:</strong> <span id="expTime"></span></p>
+    <div class="vault-experience">
+        <label class="vault-label">Your Experience Vault</label>
         
-        <button class="booking-btn" id="bookBtn" onclick="sendBooking()">Lock This In! 🔒</button>
+        <div class="gift-array" id="giftVault">
+            <span class="gift-box-item" title="€20 Experience">🎁</span>
+            <span class="gift-box-item" title="€20 Experience">🎁</span>
+            <span class="gift-box-item" title="€20 Experience">🎁</span>
+            <span class="gift-box-item" title="€20 Experience">🎁</span>
+            <span class="gift-box-item" title="€20 Experience">🎁</span>
+        </div>
+        <div class="balance-summary">€<span id="balanceText">100</span> / €100 Remaining</div>
+    </div>
+
+    <div class="selector-group">
+        <span class="group-title">How is the vibe?</span>
+        <div class="options-container">
+            <label>
+                <input type="radio" name="mood" value="adventurous">
+                <div class="option-tile">
+                    <span class="icon">🧗</span>
+                    <span>Adventure</span>
+                </div>
+            </label>
+            <label>
+                <input type="radio" name="mood" value="lazy" checked>
+                <div class="option-tile">
+                    <span class="icon">🧖</span>
+                    <span>Chill</span>
+                </div>
+            </label>
+            <label>
+                <input type="radio" name="mood" value="foodie">
+                <div class="option-tile">
+                    <span class="icon">🍰</span>
+                    <span>Foodie</span>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="selector-group">
+        <span class="group-title">The Outlook:</span>
+        <div class="options-container">
+            <label>
+                <input type="radio" name="weather" value="sunny" checked>
+                <div class="option-tile">
+                    <span class="icon">☀️</span>
+                    <span>Sunny</span>
+                </div>
+            </label>
+            <label>
+                <input type="radio" name="weather" value="rainy">
+                <div class="option-tile">
+                    <span class="icon">🌧️</span>
+                    <span>Rainy</span>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="selector-group">
+        <span class="group-title">Available Time:</span>
+        <div class="options-container" style="grid-template-columns: repeat(3, 1fr);">
+            <label>
+                <input type="radio" name="duration" value="short" checked>
+                <div class="option-tile">
+                    <span>1-3 Hrs</span>
+                </div>
+            </label>
+            <label>
+                <input type="radio" name="duration" value="medium">
+                <div class="option-tile">
+                    <span>Half/Full Day</span>
+                </div>
+            </label>
+            <label>
+                <input type="radio" name="duration" value="long">
+                <div class="option-tile">
+                    <span>1-2 Days</span>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <button class="reveal-button" onclick="findExperience()">Reveal My Surprise ✨</button>
+
+    <div class="cinematic-reveal" id="revealCard">
+        <div class="surprise-title" id="expTitle"></div>
+        <p style="color: #ccc; font-size: 0.95rem; line-height: 1.5; margin: 0 0 15px 0;" id="expDesc"></p>
+        <div style="display: flex; justify-content: space-around; font-size: 0.85rem; color: #999;">
+            <span>Estimated: €<span id="expCost" style="color: #fff; font-weight:700;"></span></span>
+            <span>Duration: <span id="expTime" style="color: #fff; font-weight:700;"></span></span>
+        </div>
+        
+        <button class="booking-confirm" onclick="sendBooking()">Lock in this adventure! 🔒</button>
     </div>
 </div>
 
 <script>
-    // Global App Variables
+    // System Config
     let currentBalance = 100;
-    let selectedExperience = null;
-    const BOX_VALUE = 20; // Each 🎁 icon left in the HTML represents 20 Euros
+    const BOX_VALUE = 20; // 🎁 = €20
 
-    // Automatically calculate balance when the page loads
+    // Experience Database (Stuttgart Center)
+    const experiences = [
+        { title: "Bad Cannstatt Mineral Baths", desc: "Soak away all stress in the classic local springs. Warm waters and saunas await!", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
+        { title: "Stuttgart Fernsehturm & Café", desc: "Panoramic vineyard views from the world's first television tower.", cost: 20, mood: "cultured", weather: "sunny", duration: "short" },
+        { title: "Choco-Workshop Waldenbuch", desc: "A sweet road trip south to custom design your own mega-bars of Ritter Sport.", cost: 20, mood: "foodie", weather: "rainy", duration: "medium" },
+        { title: "Sup on the Neckar & Lunch", desc: "Rent a paddleboard directly on the Neckar, followed by traditional Maultaschen.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" },
+        { title: "Burg Hohenzollern Expedition", desc: "A majestic fairy-tale castle on a cliff edge an hour south.", cost: 40, mood: "cultured", weather: "sunny", duration: "medium" },
+        { title: "Black Forest Sleepover", desc: "Epic overnight in a boutique cabin, hiking, and evening local gin-tasting.", cost: 100, mood: "adventurous", weather: "sunny", duration: "long" },
+        { title: "Vineyard Wanderung & Dinner", desc: "A traditional Besenwirtschaft feast inside Stuttgart's rolling vineyards.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" }
+    ];
+
+    // Balance Setup (Based on remaining boxes)
     window.addEventListener('DOMContentLoaded', () => {
-        // Find all elements with the 'gift-box' class inside the vault
-        const totalBoxes = document.querySelectorAll('#giftVault .gift-box').length;
-        
-        // Math: Number of boxes * 20
+        const totalBoxes = document.querySelectorAll('#giftVault .gift-box-item').length;
         currentBalance = totalBoxes * BOX_VALUE;
-        
-        // Push the calculated number visually to the 'balanceText' span
         document.getElementById('balanceText').innerText = currentBalance;
     });
 
-    // Experience Database centered around Stuttgart/Southern Germany
-    const experiences = [
-        { title: "MineralThermen Bad Cannstatt", desc: "Soak away all stress in the classic local mineral springs. Warm waters and saunas await!", cost: 20, mood: "lazy", weather: "rainy", duration: "short" },
-        { title: "Stuttgart Fernsehturm Climb & Coffee", desc: "Head up the world's first television tower for breath-taking panoramic views of the vineyards, paired with cake at the top.", cost: 20, mood: "cultured", weather: "sunny", duration: "short" },
-        { title: "Ritter Sport Choco-Workshop Waldenbuch", desc: "A sweet road trip just south of Stuttgart to custom design your own mega-bars of chocolate.", cost: 20, mood: "foodie", weather: "rainy", duration: "medium" },
-        { title: "Sup-ing on the Neckar River & Maultaschen Lunch", desc: "Rent a Stand-Up Paddleboard right on the Neckar, followed by a hearty traditional Swabian lunch.", cost: 40, mood: "adventurous", weather: "sunny", duration: "medium" },
-        { title: "Burg Hohenzollern Day Expedition", desc: "A majestic fairy-tale castle perched high on a cliff edge an hour south of Stuttgart.", cost: 40, mood: "cultured", weather: "sunny", duration: "medium" },
-        { title: "Black Forest Boutique Cabin Sleepover", desc: "An epic overnight stay deep in the woods of the Schwarzwald complete with a hiking route and evening local gin-tasting.", cost: 100, mood: "adventurous", weather: "sunny", duration: "long" },
-        { title: "Cozy Stuttgart Wine-Wanderung & Dinner", desc: "A gorgeous trek directly through the local rolling hillside vineyards ending at a traditional Besenwirtschaft tavern.", cost: 40, mood: "foodie", weather: "sunny", duration: "medium" }
-    ];
-
+    // Immersive Find/Reveal
     function findExperience() {
-        const mood = document.getElementById('mood').value;
-        const weather = document.getElementById('weather').value;
-        const duration = document.getElementById('duration').value;
+        const mood = document.querySelector('input[name="mood"]:checked').value;
+        const weather = document.querySelector('input[name="weather"]:checked').value;
+        const duration = document.querySelector('input[name="duration"]:checked').value;
         
-        // Filter pool based on choices AND remaining budget
-        const pool = experiences.filter(e => 
-            e.mood === mood && 
-            e.weather === weather && 
-            e.duration === duration &&
-            e.cost <= currentBalance
-        );
-
-        const card = document.getElementById('resultCard');
+        const pool = experiences.filter(e => e.mood === mood && e.weather === weather && e.duration === duration && e.cost <= currentBalance);
+        const card = document.getElementById('revealCard');
         
         if (pool.length === 0) {
-            alert("No hidden surprises match this exact combination under your current box budget! Try switching up your parameters.");
-            card.style.display = 'none';
+            // Special Aesthetic Alert
+            alert("No standard surprises match that *exact* vibe with your current balance. Try another mix!");
+            card.classList.remove('active');
             return;
         }
 
-        // Pick a random one from matching candidates
-        selectedExperience = pool[Math.floor(Math.random() * pool.length)];
+        const selectedExperience = pool[Math.floor(Math.random() * pool.length)];
 
+        // Update UI
         document.getElementById('expTitle').innerText = selectedExperience.title;
         document.getElementById('expDesc').innerText = selectedExperience.desc;
         document.getElementById('expCost').innerText = selectedExperience.cost;
-        let timeTxt = selectedExperience.duration === 'short' ? '1-3 Hours' : selectedExperience.duration === 'medium' ? 'Half/Full Day' : '1-2 Days';
+        let timeTxt = selectedExperience.duration === 'short' ? '1-3 Hrs' : selectedExperience.duration === 'medium' ? 'Day Trip' : '1-2 Days';
         document.getElementById('expTime').innerText = timeTxt;
 
-        card.style.display = 'block';
+        // Trigger Cinematic Pop
+        card.classList.add('active');
+        window.scrollTo({ top: card.offsetTop + 100, behavior: 'smooth' });
     }
 
     function sendBooking() {
-        if (!selectedExperience) return;
-
-        // Formulate a pre-filled WhatsApp message back to YOU (the admin)
-        const adminPhoneNumber = "491700000000"; // Replace with your actual mobile number (with country code, no + or 00)
-        const message = `Hey! I just locked in a surprise experience via my Gift App! 🎁%0A%0A✨ Adventure: ${selectedExperience.title}%0A💰 Value: €${selectedExperience.cost}%0A%0APlease book this for me!`;
-        
-        const whatsappUrl = `https://wa.me/${adminPhoneNumber}?text=${message}`;
-        
-        // Open WhatsApp chat directly
-        window.open(whatsappUrl, '_blank');
+        // Formulate WhatsApp Redirect (Same logic)
+        const adminPhoneNumber = "491700000000"; // Replace with YOUR mobile number (e.g., 49170...)
+        const exp = document.getElementById('expTitle').innerText;
+        const cost = document.getElementById('expCost').innerText;
+        const message = `Hey! I just locked in a surprise adventure via The Golden Envelope! 🎁%0A%0A✨ Adventure: ${exp}%0A💰 Value: €${cost}%0A%0APlease book this for me!`;
+        window.open(`https://wa.me/${adminPhoneNumber}?text=${message}`, '_blank');
     }
 </script>
 </body>
