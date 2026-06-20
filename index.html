@@ -26,6 +26,7 @@
             --border-soft: rgba(197, 168, 128, 0.22);
             --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             --success-green: #68a37b;
+            --action-purple: #897993;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -108,9 +109,11 @@
             color: var(--text-dark);
             display: block;
             text-align: left;
-            margin-bottom: 12px;
+            margin-top: 15px;
+            margin-bottom: 8px;
             letter-spacing: 0.3px;
         }
+        .explain-tip { font-size: 0.72rem; color: var(--text-light); display: block; text-align: left; margin-top: -6px; margin-bottom: 10px; font-style: italic; }
 
         .cake-container {
             position: relative;
@@ -237,9 +240,13 @@
         .custom-input { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid rgba(197, 168, 128, 0.22); background-color: var(--paper-white); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; outline: none; color: var(--text-dark); -webkit-appearance: none; }
         @media (min-width: 400px) { .custom-input { padding: 14px; font-size: 0.85rem; } }
 
-        .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; width: 100%; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); font-size: 0.8rem; }
-        @media (min-width: 400px) { .btn-spin { font-size: 0.85rem; } }
+        .control-row-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
+        .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; flex: 2; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); font-size: 0.8rem; }
+        .btn-surprise { background-color: var(--action-purple); color: var(--paper-white); border: none; flex: 1; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(137, 121, 147, 0.15); transition: var(--transition-smooth); font-size: 0.8rem; }
+        
+        @media (min-width: 400px) { .btn-spin, .btn-surprise { font-size: 0.85rem; } }
         .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
+        .btn-surprise:hover { background-color: #72627c; transform: translateY(-1px); }
 
         .animation-container { display: none; margin-top: 25px; justify-content: center; align-items: center; height: 80px; }
         .spinning-dice { font-size: 2.8rem; animation: tumble 0.7s infinite linear; }
@@ -252,8 +259,8 @@
         .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); text-transform: capitalize; }
         @media (min-width: 400px) { .reveal-title { font-size: 1.6rem; } }
 
-        .reveal-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; text-align: left; }
-        @media (min-width: 400px) { .reveal-desc { font-size: 0.86rem; line-height: 1.65; } }
+        .reveal-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; text-align: left; }
+        .why-this-box { font-size: 0.78rem; background: #fdfcf9; border-left: 2px solid var(--primary-gold); padding: 10px 12px; margin-bottom: 15px; text-align: left; line-height: 1.5; color: #4a423d; }
 
         .qr-output-box { display: inline-block; margin: 10px auto; padding: 10px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
         .qr-output-box canvas, .qr-output-box img { max-width: 110px; height: auto !important; }
@@ -311,12 +318,14 @@
         <p class="tagline" style="margin-bottom: 25px;">Infinite Procedural Spatial Generator</p>
 
         <div class="spatial-map-wrapper">
-            <span class="group-label" style="margin-bottom:6px; font-size: 1.15rem;">Drop a Pin to Targeted Coordinates</span>
+            <span class="group-label" style="margin-bottom:2px; font-size: 1.15rem;">Drop a Pin to Targeted Coordinates</span>
+            <span class="explain-tip">Pick your ideal anchor point anywhere globally.</span>
             <div id="map"></div>
             <div class="telemetry-strip" id="telemetryData">📍 Map System Online. Click anywhere to capture custom spatial target coordinates.</div>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
+        <span class="explain-tip">Dictates the spatial matrix type generated.</span>
         <div class="selection-grid">
             <label><input type="radio" name="mood" value="chill places hidden gems"><div class="tile">🧖‍♀️ Chill</div></label>
             <label><input type="radio" name="mood" value="outdoor adventures activities" checked><div class="tile">🧗‍♀️ Action</div></label>
@@ -324,6 +333,9 @@
             <label><input type="radio" name="mood" value="cultural heritage unique sites"><div class="tile">🎻 Culture</div></label>
             <label><input type="radio" name="mood" value="scenic nature landscape views"><div class="tile">🌲 Escape</div></label>
             <label><input type="radio" name="mood" value="cozy romantic boutique locations"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="luxury day spa boutique wellness wellness resort"><div class="tile">💆‍♀️ Wellness</div></label>
+            <label><input type="radio" name="mood" value="speakeasy cocktail bar premium nightlife dancing lounge"><div class="tile">🍸 After Dark</div></label>
+            <label><input type="radio" name="mood" value="artisan bakery micro roastery specialty cozy cafe"><div class="tile">☕ Hidden Cafes</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
@@ -338,13 +350,17 @@
         </div>
 
         <span class="group-label">Curation Horizon Duration</span>
+        <span class="explain-tip">Tailors experience pathways to map your schedule layout perfectly.</span>
         <div class="duration-grid">
             <label><input type="radio" name="duration" value="1-3 Hours" checked><div class="tile">⏱️ 1-3 Hours</div></label>
             <label><input type="radio" name="duration" value="Half Day"><div class="tile">🌗 Half Day</div></label>
             <label><input type="radio" name="duration" value="Full Day"><div class="tile">☀️ Full Day</div></label>
         </div>
 
-        <button class="btn-spin" onclick="runAnimatedRoulette()">Synthesize Destination ✨</button>
+        <div class="control-row-buttons">
+            <button class="btn-spin" onclick="runAnimatedRoulette()">Synthesize ✨</button>
+            <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise Me 🎲</button>
+        </div>
 
         <div class="animation-container" id="diceStage">
             <div class="spinning-dice">🎲</div>
@@ -352,6 +368,254 @@
 
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea" style="padding:15px; background:#ffffff; border-radius:12px;">
-                <div class="live-status-badge">🛰️ Location Synthesized Natively</div>
+                <div class="live-status-badge" id="searchRadiusBadge">🛰️ Hyperlocal Synthesis</div>
                 <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Live Passport</div>
-                <h3 class="reveal-
+                <h3 class="reveal-title" id="displayTitle"></h3>
+                <p class="reveal-desc" id="displayDesc"></p>
+                <div class="why-this-box" id="displayWhyText"></div>
+                <div class="qr-output-box"><div id="qrcode"></div></div>
+                <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.45; text-align: left; word-break: break-all;" id="displayMeta"></div>
+            </div>
+            
+            <div class="action-button-group">
+                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Send Confirmation 💌</button>
+                <a id="liveSearchLink" class="btn-action-panel btn-panel-gold" target="_blank">Explore Curation Realism ✨</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let mapEngine = null;
+    let droppedPinMarker = null;
+    let userPinnedCoordinates = null; 
+    let activeSubregionalLocalityName = ""; 
+    let parentDistrictOrCounty = "";
+
+    const whyCurationManifest = {
+        "Chill": "You deserve a breather. This selection filters out noise and prioritizes restorative calm over typical high-traffic avenues.",
+        "Action": "Break up the routine! This pathway is designed to kickstart endorphins and let you engage directly with the geography.",
+        "Fine Eat": "A sensory celebration. Curated specifically because premium flavor curation sets a special anchor for unforgettable memories.",
+        "Culture": "Feed your curiosity. This bypasses typical visual attractions to connect you deeply with history and local creative heritage.",
+        "Escape": "Unplug completely. Chosen because quiet horizons and immersion in nature provide clarity that city centers cannot duplicate.",
+        "Cozy": "Intimate and tailored. This selects smaller spaces that excel at soft lighting, warm acoustic balance, and genuine conversation.",
+        "Wellness": "Prioritize your alignment. Perfect for shedding environmental stress and shifting your biological tempo into intentional recovery mode.",
+        "After Dark": "Vibrant and magnetic. This route uncovers spaces offering premium mixology and unique sonic atmospheres long after twilight fades.",
+        "Hidden Cafes": "Slow down and savor. Designed to uncover specialized baristas and secluded alcoves ideal for quiet contemplation or shared confidence."
+    };
+
+    function showPage(pageId) {
+        const currentActive = document.querySelector('.page-view.active');
+        if (currentActive) {
+            currentActive.style.opacity = '0';
+            currentActive.style.transform = 'translateY(15px)';
+            setTimeout(() => {
+                currentActive.classList.remove('active');
+                const targetPage = document.getElementById(pageId);
+                targetPage.classList.add('active');
+                setTimeout(() => {
+                    targetPage.style.opacity = '1';
+                    targetPage.style.transform = 'translateY(0)';
+                    if (pageId === 'enginePage') initiateSpatialMap();
+                }, 50);
+            }, 500);
+        }
+    }
+
+    function handleCandleBlowout(element) {
+        if (!element.classList.contains('extinguished')) {
+            element.classList.add('extinguished');
+            const statusTxt = document.getElementById('candleStatusText');
+            statusTxt.style.color = "var(--primary-gold)";
+            statusTxt.innerHTML = "💨 <i>Your secret wish has been registered beautifully...</i>";
+        }
+    }
+
+    function navigateToEngineTab() { showPage('enginePage'); }
+
+    function initiateSpatialMap() {
+        if (mapEngine !== null) return;
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
+
+        mapEngine = L.map('map').setView([48.6200, 9.3500], 9); 
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(mapEngine);
+
+        mapEngine.on('click', (e) => {
+            const { lat, lng } = e.latlng;
+            userPinnedCoordinates = { lat: lat, lon: lng };
+
+            if (droppedPinMarker) { droppedPinMarker.setLatLng(e.latlng); } 
+            else { droppedPinMarker = L.marker(e.latlng, { draggable: false }).addTo(mapEngine); }
+
+            document.getElementById('revealZone').style.display = 'none';
+            document.getElementById('telemetryData').innerHTML = `📍 <b>Coordinate Pin Locked</b><br><span style="color:var(--primary-gold); font-weight:600;">Interpreting micro-regional telemetry fields...</span>`;
+
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.address) {
+                        activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.city || "";
+                        parentDistrictOrCounty = data.address.county || data.address.state || "";
+                        let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
+                    }
+                }).catch(() => {
+                    activeSubregionalLocalityName = "";
+                    parentDistrictOrCounty = "";
+                    document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
+                });
+        });
+    }
+
+    function executeSurpriseMeRoulette() {
+        if (!userPinnedCoordinates) { alert("Please drop a pin on the map target canvas first! 🗺️"); return; }
+        
+        const moodInputs = document.querySelectorAll('input[name="mood"]');
+        const randomMood = moodInputs[Math.floor(Math.random() * moodInputs.length)];
+        randomMood.checked = true;
+
+        const durationInputs = document.querySelectorAll('input[name="duration"]');
+        const randomDuration = durationInputs[Math.floor(Math.random() * durationInputs.length)];
+        randomDuration.checked = true;
+
+        const prospectiveDate = new Date();
+        prospectiveDate.setDate(prospectiveDate.getDate() + Math.floor(Math.random() * 14) + 1);
+        document.getElementById('targetDate').value = prospectiveDate.toISOString().split('T')[0];
+
+        const randomHour = String(Math.floor(Math.random() * 14) + 9).padStart(2, '0');
+        const randomMin = Math.random() > 0.5 ? "00" : "30";
+        document.getElementById('targetTime').value = `${randomHour}:${randomMin}`;
+
+        runAnimatedRoulette();
+    }
+
+    function runAnimatedRoulette() {
+        if (!userPinnedCoordinates) { alert("Please drop a marker pin on the map viewport canvas configuration first! 🗺️"); return; }
+        if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) { alert("Please specify calendar booking metrics first! 🌸"); return; }
+        
+        document.getElementById('revealZone').style.display = 'none';
+        document.getElementById('diceStage').style.display = 'flex';
+
+        setTimeout(() => {
+            document.getElementById('diceStage').style.display = 'none';
+            generateInfiniteSpatialExperience();
+        }, 1300); 
+    }
+
+    function generateInfiniteSpatialExperience() {
+        if (!userPinnedCoordinates) return;
+
+        const moodQuery = document.querySelector('input[name="mood"]:checked').value;
+        const duration = document.querySelector('input[name="duration"]:checked').value;
+        const dateInput = document.getElementById('targetDate').value;
+        const timeInput = document.getElementById('targetTime').value;
+
+        const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
+        const latString = userPinnedCoordinates.lat.toFixed(4);
+        const lonString = userPinnedCoordinates.lon.toFixed(4);
+
+        const generatedDesc = `Custom localized search matrix constructed perfectly for a [${duration}] immersion profile on ${dateInput}. Curation vectors will generate live options around your selected map region starting exactly at ${timeInput}. Mapped parameters: [${latString}°N, ${lonString}°E].`;
+
+        document.getElementById('displayTitle').innerText = `${readableMood} Exploration`;
+        document.getElementById('displayDesc').innerText = generatedDesc;
+        document.getElementById('displayWhyText').innerHTML = `<b>Why this is perfect for Ana:</b> ${whyCurationManifest[readableMood] || "Handpicked alternative pathway to ensure a distinct experience away from mundane routines."}`;
+
+        const token = Math.random().toString(36).substring(2, 7).toUpperCase();
+        const refPassport = `HBD-ANA-${token}`;
+        
+        const metaLocationString = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : `${latString}°N, ${lonString}°E`;
+        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nREGION: ${metaLocationString}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
+
+        const qrContainer = document.getElementById("qrcode");
+        qrContainer.innerHTML = "";
+        const qrString = `PASSPORT: ${refPassport}\nMOOD: ${readableMood}\nGEO: ${latString},${lonString}\nMETRICS: ${dateInput}_${timeInput}`;
+        
+        new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+
+        // ADAPTIVE RADIUS DYNAMIC EXPLORATION SEARCH GENERATOR
+        let geoQueryFilter = "";
+        let badgeSelector = document.getElementById('searchRadiusBadge');
+
+        if (activeSubregionalLocalityName) {
+            badgeSelector.innerText = "🛰️ Hyperlocal Matrix Active";
+            badgeSelector.style.color = "var(--success-green)";
+            badgeSelector.style.background = "rgba(104, 163, 123, 0.1)";
+            // High-density priority query target formulation
+            geoQueryFilter = `"${activeSubregionalLocalityName}"`;
+        } else {
+            badgeSelector.innerText = "🛰️ Regional Radius Expanded";
+            badgeSelector.style.color = "var(--primary-gold)";
+            badgeSelector.style.background = "rgba(197, 168, 128, 0.12)";
+            geoQueryFilter = `${latString} ${lonString}`;
+        }
+
+        let strictQueryString = `best ${moodQuery} in ${geoQueryFilter}`;
+        
+        // Adaptive Fallback Array String Formulation (Google automatically parses this as a radius cascade)
+        if (activeSubregionalLocalityName && parentDistrictOrCounty) {
+            strictQueryString += ` | best ${moodQuery} near "${parentDistrictOrCounty}"`;
+        }
+
+        const searchTerms = encodeURIComponent(strictQueryString);
+        document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
+
+        const zone = document.getElementById('revealZone');
+        zone.style.display = 'block';
+        window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
+    }
+
+    function executeGroupDirectDispatch() {
+        if (!userPinnedCoordinates) return;
+
+        const targetNode = document.getElementById('ticketCaptureArea');
+        const duration = document.querySelector('input[name="duration"]:checked').value;
+        const locationMessageFragment = activeSubregionalLocalityName ? `Around ${activeSubregionalLocalityName}` : `Coordinates`;
+        
+        const latVal = userPinnedCoordinates.lat.toFixed(4);
+        const lonVal = userPinnedCoordinates.lon.toFixed(4);
+        
+        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (http://maps.google.com/?q=${latVal},${lonVal})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
+        
+        const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
+
+        function performClipboardCopy(textToCopy) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                const temporaryTextArea = document.createElement("textarea");
+                temporaryTextArea.value = textToCopy;
+                temporaryTextArea.style.position = "fixed"; 
+                temporaryTextArea.style.opacity = "0";
+                document.body.appendChild(temporaryTextArea);
+                temporaryTextArea.focus();
+                temporaryTextArea.select();
+                const successful = document.execCommand("copy");
+                document.body.removeChild(temporaryTextArea);
+                return successful ? Promise.resolve() : Promise.reject();
+            }
+        }
+
+        performClipboardCopy(textPayload).then(() => {
+            console.log("Payload copied securely to target system clipboards.");
+        }).catch((err) => {
+            console.error("Manual clipboard execution error encountered: ", err);
+        }).finally(() => {
+            html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
+                const imageBlob = canvas.toDataURL("image/png");
+                const structuralDownloader = document.createElement('a');
+                const fileLocationSlug = activeSubregionalLocalityName ? activeSubregionalLocalityName.replace(/\s+/g, '-') : 'coordinates';
+                
+                structuralDownloader.download = `Secret-Garden-Passport-${fileLocationSlug}.png`;
+                structuralDownloader.href = imageBlob;
+                structuralDownloader.click();
+                
+                window.open(unifiedGroupInviteLink, '_blank');
+            });
+        });
+    }
+</script>
+</body>
+</html>
