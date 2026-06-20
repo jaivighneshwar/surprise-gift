@@ -460,7 +460,6 @@
         const timeInput = document.getElementById('targetTime').value;
 
         const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
-        const dynamicLocationDescriptor = activeSubregionalLocalityName ? `the ${activeSubregionalLocalityName} zone` : `your selected coordinates`;
 
         const generatedDesc = `Custom localized search matrix constructed perfectly for a [${duration}] immersion profile on ${dateInput}. Curation vectors will generate live options around your selected map region starting exactly at ${timeInput}. Mapped parameters: [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
@@ -479,7 +478,7 @@
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // CLEAN SPATIAL SEARCH MATRIX: Stripped of geographic generalizations
+        // CLEAN SPATIAL SEARCH MATRIX
         const geoQueryFilter = activeSubregionalLocalityName ? `"${activeSubregionalLocalityName}"` : `${userPinnedCoordinates.lat.toFixed(4)} ${userPinnedCoordinates.lon.toFixed(4)}`;
         const strictQueryString = `best ${moodQuery} in ${geoQueryFilter}`;
         
@@ -498,12 +497,14 @@
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const locationMessageFragment = activeSubregionalLocalityName ? `Around ${activeSubregionalLocalityName}` : `Coordinates`;
         
-        // Corrected URL structure to eliminate runtime string breaks
-        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (http://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
+        // Cleaned string templates to prevent script interpretation crashes
+        const latVal = userPinnedCoordinates.lat.toFixed(4);
+        const lonVal = userPinnedCoordinates.lon.toFixed(4);
+        
+        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (https://maps.google.com/?q=${latVal},${lonVal})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
         
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
-        // Robust clipboard handling block designed for internal mobile webviews
         function performClipboardCopy(textToCopy) {
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(textToCopy);
@@ -521,7 +522,6 @@
             }
         }
 
-        // Fire clipboard capture instantly, then run canvas asset generation safely
         performClipboardCopy(textPayload).then(() => {
             console.log("Payload copied securely to target system clipboards.");
         }).catch((err) => {
@@ -536,7 +536,6 @@
                 structuralDownloader.href = imageBlob;
                 structuralDownloader.click();
                 
-                // Open the WhatsApp connection layer cleanly
                 window.open(unifiedGroupInviteLink, '_blank');
             });
         });
