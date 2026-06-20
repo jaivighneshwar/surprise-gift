@@ -475,7 +475,7 @@
         document.getElementById('displayDesc').innerText = generatedDesc;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
-        const refPassport = `TSG-ANA-${token}`;
+        const refPassport = `HBD-ANA-${token}`;
         document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nREGION: ${activeSubregionalLocalityName.toUpperCase()}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
 
         // Build serialization QR barcode graphics
@@ -494,7 +494,7 @@
         zone.style.display = 'block';
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
-
+/*
     // DIRECT SINGLE-STAGE PRE-FILLED WHATSAPP WORKSPACE ROUTER Engine
     function executeGroupDirectDispatch() {
         if (!userPinnedCoordinates) return;
@@ -521,6 +521,47 @@
             window.open(unifiedGroupInjectionEndpoint, '_blank');
         });
     }
+*/
+
+// DIRECT SINGLE-STAGE PRE-FILLED WHATSAPP WORKSPACE ROUTER ENGINE (WITH SILENT CLIPBOARD FALLBACK)
+function executeGroupDirectDispatch() {
+    if (!userPinnedCoordinates) return;
+
+    const targetNode = document.getElementById('ticketCaptureArea');
+    const duration = document.querySelector('input[name="duration"]:checked').value;
+    
+    // Formulates beautiful, aesthetic text output arrays block
+    const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED VENUE: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: Around ${activeSubregionalLocalityName} (https://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
+    
+    // Step 1: Force copy the payload text beautifully to the user's device clipboard
+    navigator.clipboard.writeText(textPayload).then(() => {
+        console.log("Aesthetic text confirmation cached successfully to clipboard.");
+    }).catch(err => {
+        // Fallback for older browsers/restrictive mobile webviews
+        const temporaryTextArea = document.createElement("textarea");
+        temporaryTextArea.value = textPayload;
+        document.body.appendChild(temporaryTextArea);
+        temporaryTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(temporaryTextArea);
+    });
+
+    // Step 2: Target group invite workspace routing
+    const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
+
+    // Step 3: Render canvas ticket snapshot vectors cleanly onto background storage frame layers asynchronously 
+    html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
+        const imageBlob = canvas.toDataURL("image/png");
+        const structuralDownloader = document.createElement('a');
+        structuralDownloader.download = `Secret-Garden-Passport-${activeSubregionalLocalityName}.png`;
+        structuralDownloader.href = imageBlob;
+        structuralDownloader.click();
+        
+        // ONE CLICK ACTION: Fires right into the permanent WhatsApp workspace. User just presses paste & send!
+        window.open(unifiedGroupInviteLink, '_blank');
+    });
+}
+
 </script>
 </body>
 </html>
