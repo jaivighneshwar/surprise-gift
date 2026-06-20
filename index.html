@@ -41,7 +41,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 25px 15px;
+            padding: 15px;
             overflow-x: hidden;
         }
 
@@ -49,6 +49,7 @@
             width: 100%;
             max-width: 480px;
             position: relative;
+            margin: 0 auto;
         }
 
         .page-view {
@@ -58,7 +59,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 28px;
-            padding: 40px 30px;
+            padding: 30px 20px;
             box-shadow: 0 20px 50px rgba(44, 39, 36, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.8);
             position: relative;
@@ -66,6 +67,12 @@
             opacity: 0;
             transform: translateY(15px);
             transition: var(--transition-smooth);
+        }
+
+        @media (min-width: 400px) {
+            .page-view {
+                padding: 40px 30px;
+            }
         }
 
         .page-view.active {
@@ -77,17 +84,33 @@
         .page-view::before {
             content: '';
             position: absolute;
-            top: 14px; left: 14px; right: 14px; bottom: 14px;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
             border: 1px solid var(--border-soft);
-            border-radius: 20px;
+            border-radius: 22px;
             pointer-events: none;
         }
 
+        @media (min-width: 400px) {
+            .page-view::before {
+                top: 14px; left: 14px; right: 14px; bottom: 14px;
+                border-radius: 20px;
+            }
+        }
+
         /* Typography Styles */
-        .birthday-header-zone { margin-bottom: 30px; }
+        .birthday-header-zone { margin-bottom: 25px; }
         .curation-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 12px; }
-        .birthday-title { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
-        .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--text-light); line-height: 1.5; }
+        .birthday-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
+        
+        @media (min-width: 400px) {
+            .birthday-title { font-size: 2.8rem; }
+        }
+        
+        .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); line-height: 1.5; }
+
+        @media (min-width: 400px) {
+            .tagline { font-size: 1.15rem; }
+        }
         
         .group-label {
             font-family: 'Cormorant Garamond', serif;
@@ -103,24 +126,35 @@
         /* Minimal Layered Cake CSS Curation */
         .cake-container {
             position: relative;
-            width: 220px;
-            height: 160px;
-            margin: 20px auto 25px auto;
+            width: 100%;
+            max-width: 220px;
+            height: 140px;
+            margin: 15px auto 20px auto;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
         }
+
+        @media (min-width: 400px) {
+            .cake-container { height: 160px; margin: 20px auto 25px auto; }
+        }
+
         .cake-tier {
             width: 150px;
-            height: 65px;
+            height: 60px;
             background: #fdfaf5;
             border-radius: 12px 12px 6px 6px;
             border: 1px solid rgba(197, 168, 128, 0.35);
             position: relative;
             box-shadow: 0 6px 15px rgba(197, 168, 128, 0.08);
         }
+
+        @media (min-width: 400px) {
+            .cake-tier { height: 65px; }
+        }
+
         .cake-frosting-trim {
             width: 100%;
             height: 16px;
@@ -133,13 +167,18 @@
         .gold-band { width: 100%; height: 3px; background: var(--primary-gold); position: absolute; bottom: 12px; opacity: 0.7; }
         .slender-candle {
             width: 5px;
-            height: 45px;
+            height: 40px;
             background: linear-gradient(to right, var(--primary-gold), var(--dark-gold));
             position: relative;
             margin-bottom: -1px;
             border-radius: 3px 3px 0 0;
             z-index: 5;
         }
+
+        @media (min-width: 400px) {
+            .slender-candle { height: 45px; }
+        }
+
         .minimal-wick { width: 1px; height: 6px; background: #5c534c; position: absolute; top: -6px; left: 2px; }
         .organic-flame {
             width: 10px;
@@ -171,10 +210,14 @@
             100% { transform: translateY(-75px) translateX(4px) scale(12); opacity: 0; filter: blur(4px); }
         }
 
-        .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 35px; min-height: 20px; transition: var(--transition-smooth); }
+        .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 25px; min-height: 20px; transition: var(--transition-smooth); }
+
+        @media (min-width: 400px) {
+            .status-feedback-text { margin-bottom: 35px; }
+        }
 
         /* Premium Gift Launcher Module */
-        .gift-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 30px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
+        .gift-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
         .gift-capsule { position: relative; width: 75px; height: 75px; cursor: pointer; transition: var(--transition-smooth); animation: calmFloating 4s infinite ease-in-out; display: flex; justify-content: center; align-items: center; margin-bottom: 12px; }
         .gift-capsule:hover { transform: scale(1.06) rotate(2deg); }
         @keyframes calmFloating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
@@ -182,31 +225,77 @@
         .minimal-gift-lid { width: 60px; height: 12px; background: #ffffff; border: 1.5px solid var(--text-dark); position: absolute; top: -9px; left: -4.5px; border-radius: 3px; }
         .gold-ribbon-line-v { width: 6px; height: 100%; background: var(--primary-gold); position: absolute; left: 50%; transform: translateX(-50%); top: 0; }
         .gold-ribbon-line-h { width: 100%; height: 6px; background: var(--primary-gold); position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
-        .launcher-action-label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s ease; }
+        .launcher-action-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s ease; }
+
+        @media (min-width: 400px) {
+            .launcher-action-label { font-size: 0.85rem; }
+        }
 
         /* Map & Selection Framework Layouts */
-        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 12px; margin-bottom: 20px; text-align: left; }
-        #map { width: 100%; height: 240px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
-        .telemetry-strip { margin-top: 10px; font-size: 0.76rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 14px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.4; }
+        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 10px; margin-bottom: 20px; text-align: left; }
         
-        .selection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
-        .duration-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 25px; }
+        @media (min-width: 400px) {
+            .spatial-map-wrapper { padding: 12px; }
+        }
+
+        #map { width: 100%; height: 200px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
+        
+        @media (min-width: 400px) {
+            #map { height: 240px; }
+        }
+
+        .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; word-break: break-word; }
+        
+        @media (min-width: 400px) {
+            .telemetry-strip { font-size: 0.76rem; padding: 10px 14px; }
+        }
+
+        .selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 20px; }
+        
+        @media (min-width: 360px) {
+            .selection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        }
+        
+        .duration-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 25px; }
+        
+        @media (min-width: 360px) {
+            .duration-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        }
         
         input[type="radio"] { display: none; }
         .tile {
-            background: var(--paper-white); border: 1px solid rgba(197, 168, 128, 0.22); padding: 14px 6px; border-radius: 14px; cursor: pointer; transition: var(--transition-smooth);
-            font-size: 0.76rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 68px;
+            background: var(--paper-white); border: 1px solid rgba(197, 168, 128, 0.22); padding: 12px 4px; border-radius: 14px; cursor: pointer; transition: var(--transition-smooth);
+            font-size: 0.72rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60px;
         }
+
+        @media (min-width: 400px) {
+            .tile { font-size: 0.76rem; padding: 14px 6px; min-height: 68px; }
+        }
+
         .tile:hover { border-color: var(--primary-gold); background-color: #fdfcf9; }
         input[type="radio"]:checked + .tile {
             border-color: var(--primary-gold); background-color: #f7f3eb; color: var(--text-dark); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold);
         }
 
-        .datetime-picker-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; text-align: left; }
-        .input-block { display: flex; flex-direction: column; }
-        .custom-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(197, 168, 128, 0.22); background-color: var(--paper-white); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; outline: none; color: var(--text-dark); }
+        .datetime-picker-wrap { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; text-align: left; }
+        
+        @media (min-width: 360px) {
+            .datetime-picker-wrap { grid-template-columns: 1fr 1fr; gap: 12px; }
+        }
 
-        .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; width: 100%; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); }
+        .input-block { display: flex; flex-direction: column; }
+        .custom-input { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid rgba(197, 168, 128, 0.22); background-color: var(--paper-white); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; outline: none; color: var(--text-dark); -webkit-appearance: none; }
+
+        @media (min-width: 400px) {
+            .custom-input { padding: 14px; font-size: 0.85rem; }
+        }
+
+        .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; width: 100%; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); font-size: 0.8rem; }
+        
+        @media (min-width: 400px) {
+            .btn-spin { font-size: 0.85rem; }
+        }
+        
         .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
 
         .animation-container { display: none; margin-top: 25px; justify-content: center; align-items: center; height: 80px; }
@@ -214,13 +303,39 @@
         @keyframes tumble { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .live-status-badge { display: inline-block; padding: 5px 12px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 14px; background: rgba(104, 163, 123, 0.1); color: var(--success-green); letter-spacing: 0.5px; }
-        .reveal-zone { margin-top: 30px; padding: 24px; border-radius: 20px; background: #ffffff; border: 1px dashed var(--primary-gold); display: none; }
-        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
-        .reveal-desc { font-size: 0.86rem; color: var(--text-light); line-height: 1.65; margin-bottom: 15px; }
-        .qr-output-box { display: inline-block; margin: 12px auto; padding: 12px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
+        .reveal-zone { margin-top: 25px; padding: 18px; border-radius: 20px; background: #ffffff; border: 1px dashed var(--primary-gold); display: none; }
+        
+        @media (min-width: 400px) {
+            .reveal-zone { margin-top: 30px; padding: 24px; }
+        }
+
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
+        
+        @media (min-width: 400px) {
+            .reveal-title { font-size: 1.6rem; }
+        }
+
+        .reveal-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; text-align: left; }
+        
+        @media (min-width: 400px) {
+            .reveal-desc { font-size: 0.86rem; line-height: 1.65; }
+        }
+
+        .qr-output-box { display: inline-block; margin: 10px auto; padding: 10px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
+        .qr-output-box canvas, .qr-output-box img { max-width: 110px; height: auto !important; }
+
+        @media (min-width: 400px) {
+            .qr-output-box { padding: 12px; margin: 12px auto; }
+            .qr-output-box canvas, .qr-output-box img { max-width: 130px; }
+        }
 
         .action-button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
-        .btn-action-panel { border: none; padding: 15px; border-radius: 35px; font-weight: 600; font-size: 0.82rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; box-sizing: border-box; text-align: center; }
+        .btn-action-panel { border: none; padding: 14px; border-radius: 35px; font-weight: 600; font-size: 0.78rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; box-sizing: border-box; text-align: center; }
+        
+        @media (min-width: 400px) {
+            .btn-action-panel { padding: 15px; font-size: 0.82rem; }
+        }
+
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); }
         .btn-panel-dark:hover { background-color: var(--primary-gold); }
         .btn-panel-gold { background-color: transparent; color: var(--text-dark); border: 1px solid var(--primary-gold); }
@@ -297,9 +412,9 @@
 
         <span class="group-label">Curation Horizon Duration</span>
         <div class="duration-grid">
-            <label><input type="radio" name="duration" value="1-3 Hours" checked><div class="tile" style="min-height:50px;">⏱️ 1-3 Hours</div></label>
-            <label><input type="radio" name="duration" value="Half Day"><div class="tile" style="min-height:50px;">🌗 Half Day</div></label>
-            <label><input type="radio" name="duration" value="Full Day"><div class="tile" style="min-height:50px;">☀️ Full Day</div></label>
+            <label><input type="radio" name="duration" value="1-3 Hours" checked><div class="tile">⏱️ 1-3 Hours</div></label>
+            <label><input type="radio" name="duration" value="Half Day"><div class="tile">🌗 Half Day</div></label>
+            <label><input type="radio" name="duration" value="Full Day"><div class="tile">☀️ Full Day</div></label>
         </div>
 
         <button class="btn-spin" onclick="runAnimatedRoulette()">Synthesize Destination ✨</button>
@@ -315,7 +430,7 @@
                 <h3 class="reveal-title" id="displayTitle"></h3>
                 <p class="reveal-desc" id="displayDesc"></p>
                 <div class="qr-output-box"><div id="qrcode"></div></div>
-                <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.4;" id="displayMeta"></div>
+                <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.45; text-align: left; word-break: break-all;" id="displayMeta"></div>
             </div>
             
             <div class="action-button-group">
@@ -330,7 +445,7 @@
     let mapEngine = null;
     let droppedPinMarker = null;
     let userPinnedCoordinates = null; 
-    let activeSubregionalLocalityName = "the selected area"; // Tracks reverse geocoded names to override Stuttgart search bias
+    let activeSubregionalLocalityName = ""; 
 
     // Micro-Real Venue Matrix Engine (<100 Euro Constraints Embedded)
     const architecturalVenues = {
@@ -404,7 +519,7 @@
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
 
-        mapEngine = L.map('map').setView([48.6200, 9.3500], 9); // Centers closer over Swabian Alb/South regional areas
+        mapEngine = L.map('map').setView([48.6200, 9.3500], 9); 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(mapEngine);
 
         mapEngine.on('click', (e) => {
@@ -417,16 +532,19 @@
             document.getElementById('revealZone').style.display = 'none';
             document.getElementById('telemetryData').innerHTML = `📍 <b>Coordinate Pin Locked</b><br><span style="color:var(--primary-gold); font-weight:600;">Interpreting micro-regional telemetry fields...</span>`;
 
-            // REVERSE-GEOCODING RADAR: Eradicates the Stuttgart search engine bias by identifying actual town names
             fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.address) {
-                        activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.county || "this region";
-                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Area near ${activeSubregionalLocalityName}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
+                        activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.city_district || data.address.city || data.address.county || "";
+                        
+                        let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                        
+                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
                     }
                 }).catch(() => {
-                    activeSubregionalLocalityName = "this precise region";
+                    activeSubregionalLocalityName = "";
+                    document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
                 });
         });
     }
@@ -452,41 +570,41 @@
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
 
-        // CALCULATE OPERATIONAL HORIZON OPENING TIMEFRAMES
         const targetHour = parseInt(timeInput.split(':')[0]);
         const dayPeriod = (targetHour >= 7 && targetHour < 17) ? "day" : "night";
 
-        // ROUTE LOGIC MATRIX TO CONCRETE VENUES
         let pool = architecturalVenues[mood];
         if (pool.day || pool.night) {
             pool = pool[dayPeriod];
         }
 
-        // ALGORITHMIC VENUE SELECTION DERIVED FROM PIN SEED
         const selectionSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 100);
         const selectedVenueObject = pool[Math.floor(selectionSeed % pool.length)];
 
         const generatedTitle = selectedVenueObject.venue;
+        const dynamicLocationDescriptor = activeSubregionalLocalityName ? `the ${activeSubregionalLocalityName} region` : `your selected coordinates`;
         
-        // CONTEXTUAL TRANSFORMATION EMBEDDING LOCAL SELECTIONS & DURATION HORIZONS
-        const generatedDesc = `${selectedVenueObject.detail} Perfectly configured for a custom [${duration}] immersion profile on ${dateInput}. Operations open natively for your selected arrival timeline window starting exactly at ${timeInput}. Experience mapped natively inside the ${activeSubregionalLocalityName} zone [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
+        const generatedDesc = `${selectedVenueObject.detail} Perfectly configured for a custom [${duration}] immersion profile on ${dateInput}. Operations open natively for your selected arrival timeline window starting exactly at ${timeInput}. Experience mapped natively inside ${dynamicLocationDescriptor} [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
         document.getElementById('displayTitle').innerText = generatedTitle;
         document.getElementById('displayDesc').innerText = generatedDesc;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
         const refPassport = `HBD-ANA-${token}`;
-        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nREGION: ${activeSubregionalLocalityName.toUpperCase()}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
+        
+        const metaLocationString = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : `${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E`;
+        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nREGION: ${metaLocationString}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
 
-        // Build serialization QR barcode graphics
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
         const qrString = `PASSPORT: ${refPassport}\nVENUE: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nMETRICS: ${dateInput}_${timeInput}_${duration}`;
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // PERFECTED ANTI-BIAS SEARCH RADAR STAGE: Intercepts search vectors, locks local names, and subtracts Stuttgart bias explicitly
-        const strictQueryString = `"${generatedTitle}" OR ("${activeSubregionalLocalityName}" ${mood} spots things to do) -Stuttgart`;
+        // VERIFIED SEARCH RADAR ENGINE FIXED: Uses dynamic localized variables directly instead of fallback statements to guarantee accuracy 
+        const geoQueryFilter = activeSubregionalLocalityName ? `"${activeSubregionalLocalityName}"` : `${userPinnedCoordinates.lat.toFixed(4)} ${userPinnedCoordinates.lon.toFixed(4)}`;
+        const strictQueryString = `"${generatedTitle}" OR (${geoQueryFilter} ${mood} hidden gems things to do) -Stuttgart`;
+        
         const searchTerms = encodeURIComponent(strictQueryString);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
 
@@ -495,45 +613,39 @@
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
-// DIRECT SINGLE-STAGE PRE-FILLED WHATSAPP WORKSPACE ROUTER ENGINE (WITH SILENT CLIPBOARD FALLBACK)
-function executeGroupDirectDispatch() {
-    if (!userPinnedCoordinates) return;
+    function executeGroupDirectDispatch() {
+        if (!userPinnedCoordinates) return;
 
-    const targetNode = document.getElementById('ticketCaptureArea');
-    const duration = document.querySelector('input[name="duration"]:checked').value;
-    
-    // Formulates beautiful, aesthetic text output arrays block
-    const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED VENUE: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: Around ${activeSubregionalLocalityName} (https://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
-    
-    // Step 1: Force copy the payload text beautifully to the user's device clipboard
-    navigator.clipboard.writeText(textPayload).then(() => {
-        console.log("Aesthetic text confirmation cached successfully to clipboard.");
-    }).catch(err => {
-        // Fallback for older browsers/restrictive mobile webviews
-        const temporaryTextArea = document.createElement("textarea");
-        temporaryTextArea.value = textPayload;
-        document.body.appendChild(temporaryTextArea);
-        temporaryTextArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(temporaryTextArea);
-    });
-
-    // Step 2: Target group invite workspace routing
-    const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
-
-    // Step 3: Render canvas ticket snapshot vectors cleanly onto background storage frame layers asynchronously 
-    html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
-        const imageBlob = canvas.toDataURL("image/png");
-        const structuralDownloader = document.createElement('a');
-        structuralDownloader.download = `Secret-Garden-Passport-${activeSubregionalLocalityName}.png`;
-        structuralDownloader.href = imageBlob;
-        structuralDownloader.click();
+        const targetNode = document.getElementById('ticketCaptureArea');
+        const duration = document.querySelector('input[name="duration"]:checked').value;
+        const locationMessageFragment = activeSubregionalLocalityName ? `Around ${activeSubregionalLocalityName}` : `Coordinates`;
         
-        // ONE CLICK ACTION: Fires right into the permanent WhatsApp workspace. User just presses paste & send!
-        window.open(unifiedGroupInviteLink, '_blank');
-    });
-}
+        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED VENUE: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (https://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
+        
+        navigator.clipboard.writeText(textPayload).then(() => {
+            console.log("Aesthetic text confirmation cached successfully to clipboard.");
+        }).catch(err => {
+            const temporaryTextArea = document.createElement("textarea");
+            temporaryTextArea.value = textPayload;
+            document.body.appendChild(temporaryTextArea);
+            temporaryTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(temporaryTextArea);
+        });
 
+        const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
+
+        html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
+            const imageBlob = canvas.toDataURL("image/png");
+            const structuralDownloader = document.createElement('a');
+            const fileLocationSlug = activeSubregionalLocalityName ? activeSubregionalLocalityName.replace(/\s+/g, '-') : 'coordinates';
+            structuralDownloader.download = `Secret-Garden-Passport-${fileLocationSlug}.png`;
+            structuralDownloader.href = imageBlob;
+            structuralDownloader.click();
+            
+            window.open(unifiedGroupInviteLink, '_blank');
+        });
+    }
 </script>
 </body>
 </html>
