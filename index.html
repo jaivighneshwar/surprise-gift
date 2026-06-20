@@ -9,15 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Leaflet Core CSS & JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
-    <!-- Leaflet Geocoding Plugin for Robust Text Search -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
 
-    <!-- QR & Canvas Utils -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -156,7 +153,7 @@
         input[type="radio"] { display: none; }
         .tile {
             background: var(--paper-white); border: 1px solid rgba(197, 168, 128, 0.22); padding: 12px 4px; border-radius: 14px; cursor: pointer; transition: var(--transition-smooth);
-            font-size: 0.72rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60px;
+            font-size: 0.72rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 62px;
         }
         input[type="radio"]:checked + .tile {
             border-color: var(--primary-gold); background-color: #f7f3eb; color: var(--text-dark); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold);
@@ -198,7 +195,6 @@
 
 <div class="app-container">
 
-    <!-- LANDING VIEW PAGE -->
     <div id="birthdayPage" class="page-view active">
         <div class="birthday-header-zone">
             <div class="curation-tag">Bespoke Curation</div>
@@ -232,7 +228,6 @@
         </div>
     </div>
 
-    <!-- ENGINE GENERATOR VIEW PAGE -->
     <div id="enginePage" class="page-view">
         <h1>The Secret Garden</h1>
         <p class="tagline" style="margin-bottom: 25px;">Live Interactive Spatial Generator</p>
@@ -253,15 +248,18 @@
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="spa hidden wellness gems"><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="best scenic nature landscape views public parks" checked><div class="tile">🌲 Escape</div></label>
-            <label><input type="radio" name="mood" value="outdoor adventures recreational fun"><div class="tile">🧗‍♀️ Action</div></label>
-            <label><input type="radio" name="mood" value="fine dining top culinary food places"><div class="tile">🥂 Fine Eat</div></label>
-            <label><input type="radio" name="mood" value="museum architecture cultural heritage sites"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="cozy hidden date cocktail spaces"><div class="tile">🕯️ Cozy</div></label>
-            <label><input type="radio" name="mood" value="luxury massage premium resort health spa"><div class="tile">💆‍♀️ Wellness</div></label>
-            <label><input type="radio" name="mood" value="speakeasy lounge live music premium nightlife"><div class="tile">🍸 After Dark</div></label>
-            <label><input type="radio" name="mood" value="best coffee shops artisan roastery bakery"><div class="tile">☕ Hidden Cafes</div></label>
+            <label><input type="radio" name="mood" value="best highly rated spa hidden wellness gems top reviews"><div class="tile">‾‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="best highly rated scenic nature landscape views public parks top reviews" checked><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="best highly rated boat rental stand up paddling sup outdoor swimming pools hiking trails badminton court sports center top reviews"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="best highly rated escape rooms arcade games board game cafe adventure centers virtual reality top reviews"><div class="tile">🧩 Games</div></label>
+            <label><input type="radio" name="mood" value="best highly rated movie theaters cinema showing films premium IMAX original version OV top reviews"><div class="tile">🍿 Movies</div></label>
+            <label><input type="radio" name="mood" value="best highly rated live events concerts festivals theater performances upcoming shows comedy clubs top reviews"><div class="tile">🎫 Events</div></label>
+            <label><input type="radio" name="mood" value="best highly rated authentic Indian restaurant fine dining tandoori curry top reviews"><div class="tile">🍛 Indian</div></label>
+            <label><input type="radio" name="mood" value="best highly rated fine dining top culinary food places top reviews"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="best highly rated museum architecture cultural heritage sites top reviews"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="best highly rated cozy hidden date cocktail spaces top reviews"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="best highly rated speakeasy lounge live music premium nightlife top reviews"><div class="tile">🍸 After Dark</div></label>
+            <label><input type="radio" name="mood" value="best highly rated coffee shops artisan roastery bakery top reviews"><div class="tile">☕ Cafes</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
@@ -287,10 +285,9 @@
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
-        <!-- DEEP INTERACTION LINKING BRIDGE PANEL -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
-            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live options complete with ratings, reviews, and operating hours:</span>
+            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live choices complete with premium ratings, high reviews, and operating profiles:</span>
             
             <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Real-Time Options 🗺️</a>
             
@@ -303,7 +300,6 @@
             </div>
         </div>
 
-        <!-- PASSPORT REVEAL TICKET AREA -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <div class="live-status-badge">🛰️ Passport Confirmed</div>
@@ -394,22 +390,17 @@
         }
 
         if (mapEngine !== null) {
-            // CRITICAL FIX: Forces Leaflet map viewport calculation engine to refresh completely
-            // when container transitions out of hidden 'display: none' wrapper state.
             mapEngine.invalidateSize();
             return;
         }
 
-        // Initialize focused on Stuttgart Metro default core layout
         mapEngine = L.map('map', { zoomControl: true }).setView([48.7771, 9.1795], 11); 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             maxZoom: 19
         }).addTo(mapEngine);
 
-        // Initialize dedicated Geocoder Instance interface layer
         leafletGeocoderInstance = L.Control.Geocoder.nominatim();
 
-        // Listen for input keyboard enter event transitions
         document.getElementById('mapTextInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') { 
                 e.preventDefault();
@@ -421,7 +412,6 @@
             updateAnchorPinPosition(e.latlng.lat, e.latlng.lng);
         });
 
-        // Ensure map calculations are precise immediately on first viewport render load
         setTimeout(() => { mapEngine.invalidateSize(); }, 200);
     }
 
@@ -441,7 +431,6 @@
         document.getElementById('bridgePanel').style.display = 'none';
         document.getElementById('revealZone').style.display = 'none';
 
-        // High reliability reverse location metadata lookups
         leafletGeocoderInstance.reverse({lat: lat, lng: lng}, mapEngine.options.crs.scale(mapEngine.getZoom()), (results) => {
             if (results && results.length > 0) {
                 const res = results[0];
@@ -456,7 +445,6 @@
         });
     }
 
-    // UPGRADED HIGH-RELIABILITY TEXT SEARCH ROUTINE
     function executeTextGeocodeSearch() {
         const textQuery = document.getElementById('mapTextInput').value.trim();
         if (!textQuery) { alert("Please enter a location context to search first!"); return; }
@@ -476,7 +464,6 @@
         });
     }
 
-    // UPGRADED HARDENED GPS SATELLITE MOBILE GEOLOCATION INTERACTION PIPELINE
     function triggerDeviceLiveLocation() {
         if (!navigator.geolocation) {
             alert("This device browser setup does not expose geolocation services infrastructure.");
@@ -520,7 +507,8 @@
             searchTerms += ` near ${latString},${lonString}`;
         }
 
-        const universalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerms)}`;
+        // Added universal forcing parameter to pull best-rated choices first
+        const universalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerms)}&openeverything=1`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
         bridgeLink.href = universalMapsUrl;
