@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Secret Garden | Happy Birthday Ana ✨</title>
+    <title>Experience Roulette | Live On-Demand Discovery ✨</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
+    <!-- Leaflet Core CSS & JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
+    <!-- Leaflet Geocoding Plugin for Robust Text Search -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
 
+    <!-- QR & Canvas Utils -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -82,9 +85,9 @@
         }
         @media (min-width: 400px) { .page-view::before { top: 14px; left: 14px; right: 14px; bottom: 14px; border-radius: 20px; } }
 
-        .birthday-header-zone { margin-bottom: 25px; }
+        .app-header-zone { margin-bottom: 25px; }
         .curation-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 12px; }
-        .birthday-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
+        .app-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
         .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); line-height: 1.5; }
 
         .group-label {
@@ -93,32 +96,31 @@
         }
         .explain-tip { font-size: 0.72rem; color: var(--text-light); display: block; text-align: left; margin-top: -6px; margin-bottom: 10px; font-style: italic; }
 
-        .cake-container {
+        /* ROULETTE TOKEN INTERACTIVE ELEMENT */
+        .token-container {
             position: relative; width: 100%; max-width: 220px; height: 140px; margin: 15px auto 20px auto;
-            cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+            cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        .cake-tier {
-            width: 150px; height: 60px; background: #fdfaf5; border-radius: 12px 12px 6px 6px;
-            border: 1px solid rgba(197, 168, 128, 0.35); position: relative; box-shadow: 0 6px 15px rgba(197, 168, 128, 0.08);
+        .roulette-token {
+            width: 100px; height: 100px; background: #fdfaf5; border-radius: 50%;
+            border: 2px dashed rgba(197, 168, 128, 0.6); position: relative; box-shadow: 0 10px 25px rgba(197, 168, 128, 0.15);
+            display: flex; align-items: center; justify-content: center; transition: var(--transition-smooth);
         }
-        .cake-frosting-trim { width: 100%; height: 16px; background: #f3ede2; border-radius: 11px 11px 0 0; border-bottom: 1px dashed rgba(197, 168, 128, 0.4); position: absolute; top: 0; }
-        .gold-band { width: 100%; height: 3px; background: var(--primary-gold); position: absolute; bottom: 12px; opacity: 0.7; }
-        .slender-candle { width: 5px; height: 40px; background: linear-gradient(to right, var(--primary-gold), var(--dark-gold)); position: relative; margin-bottom: -1px; border-radius: 3px 3px 0 0; z-index: 5; }
-        .minimal-wick { width: 1px; height: 6px; background: #5c534c; position: absolute; top: -6px; left: 2px; }
-        .organic-flame {
-            width: 10px; height: 22px; background: #ffa14a; border-radius: 50% 50% 25% 25%; position: absolute; top: -28px; left: -2.5px;
-            background-image: linear-gradient(to bottom, #fff3a1, #ffa14a); box-shadow: 0 0 15px rgba(255,161,74,0.6);
-            animation: softFlicker 0.8s infinite alternate ease-in-out; transition: all 0.4s ease;
+        .token-inner { width: 76px; height: 76px; background: #ffffff; border-radius: 50%; border: 1px solid var(--primary-gold); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--dark-gold); }
+        .glowing-pulse {
+            width: 110px; height: 110px; border: 1px solid var(--primary-gold); border-radius: 50%; position: absolute;
+            animation: softPulseCircle 2s infinite ease-in-out; opacity: 0.4; pointer-events: none;
         }
 
-        @keyframes softFlicker {
-            0% { transform: scale(1) rotate(-0.5deg); opacity: 0.95; }
-            100% { transform: scale(1.06) rotate(1deg); box-shadow: 0 0 20px rgba(255,161,74,0.75); opacity: 1; }
+        @keyframes softPulseCircle {
+            0% { transform: scale(0.92); opacity: 0.6; }
+            50% { transform: scale(1.08); opacity: 0.1; }
+            100% { transform: scale(0.92); opacity: 0.6; }
         }
 
-        .smoke-particle { position: absolute; top: -35px; left: 1px; width: 3px; height: 3px; background: rgba(170, 160, 150, 0.5); border-radius: 50%; opacity: 0; }
-        .extinguished .organic-flame { opacity: 0 !important; transform: scale(0.5) translateY(5px); pointer-events: none; }
-        .extinguished .smoke-particle { animation: liftSmokeTrail 2.5s cubic-bezier(0.06, 0.7, 0.2, 1) forwards; }
+        .activated .roulette-token { transform: rotate(360deg); border-style: solid; border-color: var(--success-green); }
+        .activated .token-inner { border-color: var(--success-green); color: var(--success-green); }
+        .activated .glowing-pulse { display: none; }
 
         .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 25px; min-height: 20px; }
         .gift-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
@@ -195,26 +197,22 @@
 
 <div class="app-container">
 
-    <div id="birthdayPage" class="page-view active">
-        <div class="birthday-header-zone">
-            <div class="curation-tag">Bespoke Curation</div>
-            <h1 class="birthday-title">Happy Birthday<br>Anaaaaaaaa</h1>
-            <p class="tagline">Make a silent wish and blow out the candlelight.</p>
+    <!-- LANDING VIEW PAGE -->
+    <div id="welcomePage" class="page-view active">
+        <div class="app-header-zone">
+            <div class="curation-tag">On-Demand Exploration</div>
+            <h1 class="app-title">Experience<br>Roulette</h1>
+            <p class="tagline">Break the routine. Let serendipity choose your next destination.</p>
         </div>
 
-        <div class="cake-container" onclick="handleCandleBlowout(this)">
-            <div class="slender-candle">
-                <div class="minimal-wick"></div>
-                <div class="organic-flame"></div>
-                <div class="smoke-particle"></div>
-            </div>
-            <div class="cake-tier">
-                <div class="cake-frosting-trim"></div>
-                <div class="gold-band"></div>
+        <div class="token-container" onclick="handleTokenActivation(this)">
+            <div class="glowing-pulse"></div>
+            <div class="roulette-token">
+                <div class="token-inner">✨</div>
             </div>
         </div>
 
-        <p class="status-feedback-text" id="candleStatusText">✨ Tap the flame gently to blow it out.</p>
+        <p class="status-feedback-text" id="tokenStatusText">🎯 Tap the engine token to initialize system matching.</p>
 
         <div class="gift-launcher-zone">
             <div class="gift-capsule" onclick="navigateToEngineTab()">
@@ -224,12 +222,13 @@
                     <div class="minimal-gift-lid"></div>
                 </div>
             </div>
-            <div class="launcher-action-label">Unwrap Your Gift Capsule 🎁</div>
+            <div class="launcher-action-label">Open Discovery Engine 🗺️</div>
         </div>
     </div>
 
+    <!-- ENGINE GENERATOR VIEW PAGE -->
     <div id="enginePage" class="page-view">
-        <h1>The Secret Garden</h1>
+        <h1>Experience Roulette</h1>
         <p class="tagline" style="margin-bottom: 25px;">Live Interactive Spatial Generator</p>
 
         <div class="spatial-map-wrapper">
@@ -248,7 +247,8 @@
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="best highly rated spa hidden wellness gems top reviews"><div class="tile">‾‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="best highly rated shopping boutique design market retail district store top reviews"><div class="tile">🛍️ Shopping</div></label>
+            <label><input type="radio" name="mood" value="best highly rated spa hidden wellness gems top reviews"><div class="tile">🧖‍♀️ Chill</div></label>
             <label><input type="radio" name="mood" value="best highly rated scenic nature landscape views public parks top reviews" checked><div class="tile">🌲 Escape</div></label>
             <label><input type="radio" name="mood" value="best highly rated boat rental stand up paddling sup outdoor swimming pools hiking trails badminton court sports center top reviews"><div class="tile">🧗‍♀️ Action</div></label>
             <label><input type="radio" name="mood" value="best highly rated escape rooms arcade games board game cafe adventure centers virtual reality top reviews"><div class="tile">🧩 Games</div></label>
@@ -285,6 +285,7 @@
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
+        <!-- DEEP INTERACTION LINKING BRIDGE PANEL -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
             <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live choices complete with premium ratings, high reviews, and operating profiles:</span>
@@ -293,17 +294,18 @@
             
             <div class="lock-input-zone">
                 <span class="group-label" style="margin-top:0; color:#ffffff;">✍️ Step 2: Finalize Selection</span>
-                <span class="explain-tip" style="color: #bcaea3;">Type your favorite choice from the live verified map listings to lock in the ticket package:</span>
-                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Höhenpark Killesberg" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
+                <span class="explain-tip" style="color: #bcaea3;">Type your favorite choice from the live verified map listings to lock in the experience package:</span>
+                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Local Design District Store" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
                 
                 <button class="btn-action-panel btn-panel-dark" onclick="compileFinalPassportTicket()">Generate Pass & QR Code 🎟></button>
             </div>
         </div>
 
+        <!-- PASSPORT REVEAL TICKET AREA -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <div class="live-status-badge">🛰️ Passport Confirmed</div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--primary-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">Secret Garden Destination Pass</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--primary-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">Experience Roulette Destination Pass</div>
                 
                 <h3 class="reveal-title" id="displayTitle"></h3>
                 
@@ -335,7 +337,7 @@
             </div>
             
             <div class="action-button-group">
-                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Live Ticket to WhatsApp 💌</button>
+                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Plan to WhatsApp 💌</button>
             </div>
         </div>
 
@@ -370,12 +372,12 @@
         }
     }
 
-    function handleCandleBlowout(element) {
-        if (!element.classList.contains('extinguished')) {
-            element.classList.add('extinguished');
-            const statusTxt = document.getElementById('candleStatusText');
-            statusTxt.style.color = "var(--primary-gold)";
-            statusTxt.innerHTML = "💨 <i>Your secret wish has been registered beautifully...</i>";
+    function handleTokenActivation(element) {
+        if (!element.classList.contains('activated')) {
+            element.classList.add('activated');
+            const statusTxt = document.getElementById('tokenStatusText');
+            statusTxt.style.color = "var(--success-green)";
+            statusTxt.innerHTML = "🎯 <i>Roulette engine initialized. Tap the capsule below to step inside...</i>";
         }
     }
 
@@ -459,7 +461,7 @@
                 updateAnchorPinPosition(lat, lon, true);
             } else {
                 document.getElementById('telemetryData').innerHTML = `❌ <b>Search Index Missed:</b> Query location not found.`;
-                alert("We couldn't resolve that specific text address. Try including a city name (e.g., 'Stuttgart West' or 'Esslingen').");
+                alert("We couldn't resolve that specific text address. Try including a city name (e.g., 'Stuttgart West').");
             }
         });
     }
@@ -507,7 +509,6 @@
             searchTerms += ` near ${latString},${lonString}`;
         }
 
-        // Added universal forcing parameter to pull best-rated choices first
         const universalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerms)}&openeverything=1`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
@@ -538,7 +539,7 @@
         document.getElementById('metaCoords').innerText = `${latString}°N, ${lonString}°E`;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
-        document.getElementById('displayRefToken').innerText = `PASSPORT REFMETA: HBD-ANA-${token}`;
+        document.getElementById('displayRefToken').innerText = `ROULETTE REFMETA: RLT-${token}`;
 
         const secureMapTargetUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueSelectionString + " " + (activeSubregionalLocalityName || ""))}`;
 
@@ -578,7 +579,7 @@
         
         const absoluteMapsIntentUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueTitle + " " + cleanArea)}`;
         
-        const textPayload = `✨ Unlocked Secret Garden Destination Ticket ✨\n\n🌿 SELECTION:\n👉 *${venueTitle}*\n\n📍 DIRECTIONS (LIVE LINK):\n${absoluteMapsIntentUrl}\n\n📅 DATE & TIME:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMFIELD PROFILE:\n${duration}`;
+        const textPayload = `✨ Unlocked Experience Roulette Destination Pass ✨\n\n🌿 SELECTION:\n👉 *${venueTitle}*\n\n📍 DIRECTIONS (LIVE LINK):\n${absoluteMapsIntentUrl}\n\n📅 DATE & TIME:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMFIELD PROFILE:\n${duration}`;
         
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
@@ -598,12 +599,12 @@
         }
 
         performClipboardCopy(textPayload).then(() => {
-            alert("Ticket details copied securely! Generating image and launching WhatsApp...");
+            alert("Adventure details copied securely! Generating ticket image and launching chat...");
         }).finally(() => {
             html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
                 const imageBlob = canvas.toDataURL("image/png");
                 const structuralDownloader = document.createElement('a');
-                structuralDownloader.download = `Garden-Passport-${venueTitle.replace(/\s+/g, '-')}.png`;
+                structuralDownloader.download = `Roulette-Pass-${venueTitle.replace(/\s+/g, '-')}.png`;
                 structuralDownloader.href = imageBlob;
                 structuralDownloader.click();
                 
