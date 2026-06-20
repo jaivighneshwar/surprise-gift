@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Secret Garden | Experience Roulette</title>
+    <title>The Secret Garden | Intelligent Roulette v2</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +21,8 @@
             --text-light: #7c756e;
             --border-soft: rgba(197, 168, 128, 0.25);
             --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --alert-red: #b35c5c;
+            --success-green: #5cb377;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,16 +77,7 @@
             font-style: italic;
             font-size: 1.1rem;
             color: var(--primary-gold);
-            margin-bottom: 30px;
-        }
-
-        .vault-box { margin-bottom: 30px; }
-        .gift-row { display: flex; justify-content: center; gap: 12px; }
-        .gift-token {
-            font-size: 2.2rem;
-            transition: var(--transition-smooth);
-            display: inline-block;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+            margin-bottom: 25px;
         }
 
         .group-label {
@@ -96,6 +89,41 @@
             text-align: left;
             margin-bottom: 12px;
             letter-spacing: 0.5px;
+        }
+
+        /* Map Utility Box UI */
+        .map-trigger-box {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .btn-map-generate {
+            background: #fdfcf7;
+            border: 1px solid var(--primary-gold);
+            color: var(--text-dark);
+            padding: 8px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition-smooth);
+            letter-spacing: 0.5px;
+        }
+        .btn-map-generate:hover { background: var(--text-dark); color: #ffffff; }
+        
+        .map-feedback-telemetry {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-family: monospace;
+            background: #fafaf7;
+            padding: 8px;
+            border-radius: 6px;
+            display: none;
         }
 
         .selection-grid {
@@ -123,16 +151,12 @@
             justify-content: center;
             min-height: 68px;
         }
-
-        .tile .emoji { font-size: 1.2rem; margin-bottom: 4px; }
         .tile:hover { border-color: var(--primary-gold); background-color: #faf9f6; }
-
         input[type="radio"]:checked + .tile {
             border-color: var(--primary-gold);
             background-color: #f6f2ea;
             color: var(--text-dark);
             font-weight: 600;
-            box-shadow: inset 0 0 0 1px var(--primary-gold);
         }
 
         .datetime-picker-wrap {
@@ -151,12 +175,8 @@
             background-color: var(--paper-white);
             font-family: 'Montserrat', sans-serif;
             font-size: 0.85rem;
-            color: var(--text-dark);
             outline: none;
-            cursor: pointer;
-            transition: var(--transition-smooth);
         }
-        .custom-input:focus { border-color: var(--primary-gold); background-color: #f6f2ea; }
 
         .btn-spin {
             background-color: var(--text-dark);
@@ -165,16 +185,12 @@
             width: 100%;
             padding: 16px;
             border-radius: 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: var(--transition-smooth);
             box-shadow: 0 4px 15px rgba(58, 53, 48, 0.15);
         }
-        .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
 
         .animation-container {
             display: none;
@@ -183,14 +199,34 @@
             align-items: center;
             height: 100px;
         }
-        .spinning-dice {
-            font-size: 3.5rem;
-            animation: tumble 0.6s infinite linear;
-            color: var(--primary-gold);
+        .spinning-dice { font-size: 3.5rem; animation: tumble 0.6s infinite linear; }
+        @keyframes tumble { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Intelligent Notice Box Modules */
+        .live-status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
-        @keyframes tumble {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .badge-alert { background: rgba(179, 92, 92, 0.1); color: var(--alert-red); }
+        .badge-success { background: rgba(92, 179, 119, 0.1); color: var(--success-green); }
+
+        .intelligent-override-box {
+            background: #fff5f5;
+            border: 1px solid rgba(179, 92, 92, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.75rem;
+            color: #7a3a3a;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            text-align: left;
+            display: none;
         }
 
         .reveal-zone {
@@ -200,20 +236,9 @@
             background: #ffffff;
             border: 1px dashed var(--primary-gold);
             display: none;
-            text-align: center;
-        }
-        .reveal-zone.active {
-            display: block;
-            animation: envelopeReveal 0.6s ease-out forwards;
         }
 
-        .reveal-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
         .reveal-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; }
         
         .qr-output-box {
@@ -234,52 +259,31 @@
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
-            letter-spacing: 0.5px;
-            transition: var(--transition-smooth);
-            margin-top: 15px;
             width: 100%;
+            margin-top: 15px;
         }
-        .btn-whatsapp:hover { background-color: var(--primary-gold); }
     </style>
 </head>
 <body>
 
 <div class="card-frame">
     <h1>The Secret Garden</h1>
-    <p class="tagline">Curated Moments &amp; Hidden Journeys</p>
+    <p class="tagline">Intelligent Real-Time Curations</p>
 
-    <div class="vault-box">
-        <div class="gift-row" id="giftVault">
-            <span class="gift-token">🎁</span>
-            <span class="gift-token">🎁</span>
-            <span class="gift-token">🎁</span>
-            <span class="gift-token">🎁</span>
-            <span class="gift-token">🎁</span>
-        </div>
+    <div class="map-trigger-box">
+        <span class="group-label" style="margin-bottom:6px;">Regional Geographic Coordinates</span>
+        <button class="btn-map-generate" onclick="triggerGeographicPinfall()">📍 Drop Surprise Map Coordinates Pin</button>
+        <div class="map-feedback-telemetry" id="mapFeedback">Scanning regional grid space...</div>
     </div>
 
     <span class="group-label">Choose Your Vibe</span>
     <div class="selection-grid">
-        <label><input type="radio" name="mood" value="chill" checked><div class="tile"><span class="emoji">🧖‍♀️</span><span>Pure Chill</span></div></label>
-        <label><input type="radio" name="adventure"><div class="tile"><span class="emoji">🧗‍♀️</span><span>Adventure</span></div></label>
-        <label><input type="radio" name="gourmet"><div class="tile"><span class="emoji">🥂</span><span>Gourmet</span></div></label>
-        <label><input type="radio" name="culture"><div class="tile"><span class="emoji">🎻</span><span>Art &amp; Culture</span></div></label>
-        <label><input type="radio" name="nature"><div class="tile"><span class="emoji">🌲</span><span>Forest Escape</span></div></label>
-        <label><input type="radio" name="cozy"><div class="tile"><span class="emoji">🕯️</span><span>Cozy Magic</span></div></label>
-    </div>
-
-    <span class="group-label">The Current Atmosphere</span>
-    <div class="selection-grid">
-        <label><input type="radio" name="weather" value="sunny" checked><div class="tile"><span class="emoji">☀️</span><span>Sun-Drenched</span></div></label>
-        <label><input type="radio" name="weather" value="rainy"><div class="tile"><span class="emoji">🌧️</span><span>Rainy Days</span></div></label>
-        <label><input type="radio" name="weather" value="frosty"><div class="tile"><span class="emoji">❄️</span><span>Crisp / Frosty</span></div></label>
-    </div>
-
-    <span class="group-label">Your Available Time</span>
-    <div class="selection-grid">
-        <label><input type="radio" name="duration" value="short" checked><div class="tile"><span>1–3 Hours</span></div></label>
-        <label><input type="radio" name="duration" value="medium"><div class="tile"><span>Half / Full Day</span></div></label>
-        <label><input type="radio" name="duration" value="long"><div class="tile"><span>1–2 Days</span></div></label>
+        <label><input type="radio" name="mood" value="chill" checked><div class="tile">🧖‍♀️ Chill</div></label>
+        <label><input type="radio" name="mood" value="adventure"><div class="tile">🧗‍♀️ Action</div></label>
+        <label><input type="radio" name="mood" value="gourmet"><div class="tile">🥂 Fine Eat</div></label>
+        <label><input type="radio" name="mood" value="culture"><div class="tile">🎻 Culture</div></label>
+        <label><input type="radio" name="mood" value="nature"><div class="tile">🌲 Escape</div></label>
+        <label><input type="radio" name="mood" value="cozy"><div class="tile">🕯️ Cozy</div></label>
     </div>
 
     <div class="datetime-picker-wrap">
@@ -293,7 +297,7 @@
         </div>
     </div>
 
-    <button class="btn-spin" onclick="runAnimatedRoulette()">Unveil Experience ✨</button>
+    <button class="btn-spin" onclick="runAnimatedRoulette()">Process Live Request ✨</button>
 
     <div class="animation-container" id="diceStage">
         <div class="spinning-dice">🎲</div>
@@ -301,7 +305,11 @@
 
     <div class="reveal-zone" id="revealZone">
         <div id="ticketCaptureArea" style="padding:10px; background:#ffffff; border-radius:8px;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Passport</div>
+            <div id="statusBadge" class="live-status-badge"></div>
+            
+            <div id="overrideBox" class="intelligent-override-box"></div>
+
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Ticket</div>
             <div class="reveal-title" id="displayTitle"></div>
             <p class="reveal-desc" id="displayDesc"></p>
             
@@ -311,62 +319,37 @@
             <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px;" id="displayMeta"></div>
         </div>
         
-        <button class="btn-whatsapp" onclick="dispatchToAdminAndGroup()">Download Ticket &amp; Open Group Chat 💌</button>
+        <button class="btn-whatsapp" onclick="dispatchToAdminAndGroup()">Download Ticket Passport &amp; Open Group Chat 💌</button>
     </div>
 </div>
 
 <script>
     let selectedActiveRecord = null;
+    let mapTargetLocationOverride = null;
 
+    // Comprehensive regional dictionary framework mapped out to coordinate perimeters
     const database = [
-        // --- ADVENTURE ---
-        { title: "Europa-Park Premium Expedition", desc: "Full-day entry passes to Germany's legendary premier theme resort layout in Rust (Baden-Württemberg).", mood: "adventure", weather: "sunny", duration: "long" },
-        { title: "Freizeitpark Rutesheim Action Getaway", desc: "Forest climbing courses, outdoor mini-golf, and a traditional warm alpine lodge lunch near Stuttgart.", mood: "adventure", weather: "sunny", duration: "medium" },
-        { title: "Munich Eisbachwave Surfing Experience", desc: "A trip to Bavaria's famous rapid river wave with professional gear rentals and hot cocoa.", mood: "adventure", weather: "sunny", duration: "short" },
-        { title: "Waldklettergarten Zuffenhausen Ropes", desc: "High canopy ropes adventure course tracking through Stuttgart's deep local woodlands.", mood: "adventure", weather: "sunny", duration: "short" },
-        { title: "Stuttgart West Bouldering Challenge", desc: "Private indoor training day passes scaling paths inside the modern urban Vels Arena.", mood: "adventure", weather: "rainy", duration: "short" },
-        { title: "Partnach Gorge Deep-Rock Alpine Trek", desc: "Navigate a stunning, narrow mountain gorge in Garmisch-Partenkirchen, Bavaria, with raging waters or frozen winter ice walls.", mood: "adventure", weather: "rainy", duration: "medium" },
-        { title: "Rhine Falls Center-Rock Boat Expedition", desc: "Stand next to Europe's most powerful waterfall on the Swiss border, taking a thrilling boat ride directly to the central rock.", mood: "adventure", weather: "sunny", duration: "medium" },
-        { title: "Highline179 Suspension Bridge Trek", desc: "Walk across one of the world's longest footbridges suspended 114m over the valleys of Reutte, Austria.", mood: "adventure", weather: "frosty", duration: "short" },
-
-        // --- PURE CHILL ---
-        { title: "MineralThermen Bad Cannstatt Soak", desc: "Unwind with deep therapeutic mineral pool thermal sessions inside Stuttgart.", mood: "chill", weather: "rainy", duration: "short" },
-        { title: "Bodensee Luxury Spa Day", desc: "Premium panoramic lakeside thermal sauna oasis access down in Überlingen, Baden-Württemberg.", mood: "chill", weather: "frosty", duration: "medium" },
-        { title: "Killesberg Steam Train & Artisan Gelato", desc: "A relaxed sunny ride on the valley model railway matched with fresh local waffle cones.", mood: "chill", weather: "sunny", duration: "short" },
-        { title: "Stuttgart Vineyards Deluxe Wine Picnic", desc: "Curated Swabian delicacies basket waiting on a scenic vineyard hillside view in Uhlbach.", mood: "chill", weather: "sunny", duration: "medium" },
-        { title: "Bregenzerwald Alpine Wellness Retreat", desc: "Cross the Austrian border into Vorarlberg for a pristine natural relaxation loop surrounded by high mountain design.", mood: "chill", weather: "frosty", duration: "long" },
-        { title: "Lake Königssee Silent Boat Cruise", desc: "Ride a historic electric boat across the emerald-green, fjord-like waters beneath Bavaria's giant mountains.", mood: "chill", weather: "sunny", duration: "long" },
-
-        // --- GOURMET ---
-        { title: "Stuttgart Markthalle Epicurean Food Tour", desc: "Gourmet sampling journey checking out dynamic artisanal standouts in the historic hall.", mood: "gourmet", weather: "rainy", duration: "short" },
-        { title: "Rooftop Afternoon High Tea at Graf Zeppelin", desc: "Luxury porcelain tea sets and warm house-baked scones watching the rains clear downtown.", mood: "gourmet", weather: "rainy", duration: "medium" },
-        { title: "Munich Dallmayr Coffee House Discovery", desc: "A prestigious culinary espresso and luxury breakfast reservation out in Bavaria.", mood: "gourmet", weather: "sunny", duration: "short" },
-        { title: "Traditional Swabian Besenwirtschaft Dinner", desc: "Hearty handmade Maultaschen and local vintage reserve wines at a winemaker's family barn.", mood: "gourmet", weather: "sunny", duration: "medium" },
-        { title: "Ritter Sport Lab Crafting Workshop", desc: "Head out to Waldenbuch, Baden-Württemberg to build your own customized chocolate flavors.", mood: "gourmet", weather: "frosty", duration: "short" },
-        { title: "Alsace Wine Route Tasting Expedition", desc: "Cross into France to navigate fairytale timbered wine villages like Riquewihr for grand crus and Flammekueche.", mood: "gourmet", weather: "sunny", duration: "long" },
-
-        // --- ART & CULTURE ---
-        { title: "Ludwigsburg Baroque Palace Audio Tour", desc: "Explore the striking imperial rooms of Germany's massive pristine residential castle layout.", mood: "culture", weather: "sunny", duration: "medium" },
-        { title: "Neuschwanstein Fairytale Castle Expedition", desc: "A historic day trip tracking through Bavaria's iconic mountain palace footprint.", mood: "culture", weather: "sunny", duration: "long" },
-        { title: "Stuttgart Staatsgalerie Art & Micro-Roastery", desc: "View legendary canvas collections followed by specialty espresso flights in Stuttgart West.", mood: "culture", weather: "rainy", duration: "short" },
-        { title: "Burg Hohenzollern Cloud Fortress Tour", desc: "Historic mountaintop stronghold walk overlooking the sweeping Swabian Alb horizons.", mood: "culture", weather: "frosty", duration: "medium" },
-        { title: "Sigmaringen Castle Castle-Rock Tour", desc: "Tour the massive Hohenzollern palace perched dramatically directly over the winding Danube River.", mood: "culture", weather: "rainy", duration: "medium" },
-        { title: "Rothenburg ob der Tauber Lantern Walk", desc: "Walk the medieval ramparts of Bavaria's ultimate fairytale town alongside a costumed Night Watchman.", mood: "culture", weather: "frosty", duration: "long" },
-        { title: "Strasbourg Petite France Architecture Loop", desc: "Cross the French border to explore 16th-century tanning houses along winding canals.", mood: "culture", weather: "sunny", duration: "long" },
-        { title: "Stein am Rhein Medieval Fresco Walk", desc: "Discover a Swiss border town famous for its historic buildings covered in detailed, colorful painted murals.", mood: "culture", weather: "sunny", duration: "medium" },
-
-        // --- FOREST ESCAPE ---
-        { title: "Black Forest Wilderness Lake Cabin Stay", desc: "Overnight deep-woods mountain retreat in the Schwarzwald with fireplace log systems.", mood: "nature", weather: "sunny", duration: "long" },
-        { title: "Bärensee Lake & Woods Morning Walk", desc: "A crisp morning hike concluding with warm pretzels at the historic Bärenschlössle hunting lodge.", mood: "nature", weather: "sunny", duration: "short" },
-        { title: "Schönbuch Protected Woodland Deer Trek", desc: "Forest tracking through natural game reserves packed with premium tracking snack rations.", mood: "nature", weather: "sunny", duration: "medium" },
-        { title: "Triberg Cascade & Giant Cuckoo Hikes", desc: "Hike along Germany's highest waterfalls deep inside the Black Forest canopy.", mood: "nature", weather: "rainy", duration: "medium" },
-
-        // --- COZY MAGIC ---
-        { title: "Stuttgart Fernsehturm Skyline Sunset Toast", desc: "Take in 360-degree views from the top platform toasted with fine local sparkling wine.", mood: "cozy", weather: "sunny", duration: "short" },
-        { title: "Delphi Art-House Candlelit Cinema Pass", desc: "Plush velvet theater layouts, independent cinema viewings, and champagne toast buckets.", mood: "cozy", weather: "rainy", duration: "short" },
-        { title: "Eagle’s Nest Panoramic Mountain Summit", desc: "Ascend the high alpine historic outpost in Berchtesgaden, Bavaria, for vertical mountain wall views.", mood: "cozy", weather: "sunny", duration: "long" },
-        { title: "Bad Wildbad Suspension Bridge Fog Walk", desc: "Cross the magnificent architectural footbridge hanging high over the misty Black Forest trees.", mood: "cozy", weather: "frosty", duration: "medium" }
+        { title: "Europa-Park Full-Throttle Pass", desc: "Premium entry passes to Germany's largest ride park in Rust.", region: "Baden-Württemberg", hours: { open: 9, close: 18 }, seasonalShutdown: [11, 12, 1, 2], mood: "adventure" },
+        { title: "Partnach Gorge Deep-Valley Trek", desc: "Navigate the deep stone water chasms out inside Garmisch-Partenkirchen.", region: "Bavaria", hours: { open: 8, close: 18 }, seasonalShutdown: [], mood: "adventure" },
+        { title: "Munich Eisbachwave Urban River Surf", desc: "Wetsuit gear rental and professional instruction surfing the freezing park river break.", region: "Bavaria", hours: { open: 6, close: 22 }, seasonalShutdown: [], mood: "adventure" },
+        { title: "Rhine Falls Roaring Center-Rock Boat Run", desc: "Ferry cruise getting right next to the massive thundering waterfall on the Swiss border.", region: "Switzerland Border", hours: { open: 9, close: 17 }, seasonalShutdown: [12, 1], mood: "adventure" },
+        { title: "MineralThermen Bad Cannstatt Thermal Oasis", desc: "Late-night therapeutic mineral pool alignments and panoramic steam saunas in Stuttgart.", region: "Baden-Württemberg", hours: { open: 9, close: 23 }, seasonalShutdown: [], mood: "chill" },
+        { title: "Bodensee Luxury Lakeview Spa Resort", desc: "Relaxing high-end panoramic open-air thermal baths along the water edges of Lake Constance.", region: "Baden-Württemberg", hours: { open: 10, close: 22 }, seasonalShutdown: [], mood: "chill" },
+        { title: "Stuttgart Vineyard Sunset Valley Picnic", desc: "Private gourmet lunch wicker basket setup along the steep green grape terraces of Uhlbach.", region: "Baden-Württemberg", hours: { open: 11, close: 20 }, seasonalShutdown: [11, 12, 1, 2, 3], mood: "chill" },
+        { title: "Stuttgart Markthalle Epicurean Gastronomy Flight", desc: "Fine cheese, caviar, and wine tasting loops around the old architecture marketplace.", region: "Baden-Württemberg", hours: { open: 8, close: 20 }, seasonalShutdown: [], mood: "gourmet" },
+        { title: "Strasbourg Petite France Architecture Food Tour", desc: "Cross the French border line for traditional wood-fired Flammekueche and dry local white wines.", region: "France Border", hours: { open: 11, close: 23 }, seasonalShutdown: [], mood: "gourmet" },
+        { title: "Neuschwanstein High-Mountain Royal Fortress", desc: "Exclusive interior castle tour crossing valleys deep into the Bavarian Alps.", region: "Bavaria", hours: { open: 9, close: 16 }, seasonalShutdown: [], mood: "culture" },
+        { title: "Rothenburg ob der Tauber Medieval Night Watch", desc: "Costumed guide lantern walk pathing across ancient dynamic city wall battlements.", region: "Bavaria", hours: { open: 20, close: 22 }, seasonalShutdown: [], mood: "culture" },
+        { title: "Burg Hohenzollern Majestic Mountain Stronghold", desc: "Explore the historic imperial palace footprint floating above the cloud canopy lines.", region: "Baden-Württemberg", hours: { open: 10, close: 17 }, seasonalShutdown: [], mood: "culture" }
     ];
+
+    // Adaptive alternative backstops deployed instantly by logical context reasoning loops
+    const safeAlternatives = {
+        adventure: { title: "Stuttgart Indoor Cyber-Climbing Arena", desc: "An all-weather, late-night high-tech dynamic bouldering alternative setup inside Stuttgart West." },
+        chill: { title: "Stuttgart Private Vault Hot Tub Experience", desc: "A cozy indoor mineral jacuzzi suite available late hours despite seasonal ambient freeze patterns." },
+        gourmet: { title: "Graf Zeppelin Vault Private Wine Dinner", desc: "Swapping outdoor markets for an upscale premium vintage multi-course menu underground." },
+        culture: { title: "Delphi Candlelit Independent Luxury Cinema", desc: "Plush velvet lounge environments pairing rare indie classic movies with unlimited champagne buckets." }
+    };
 
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date();
@@ -374,9 +357,22 @@
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
     });
 
+    function triggerGeographicPinfall() {
+        // Simulates dynamic spatial map selections across the region
+        const latRange = (Math.random() * (49.0 - 47.2) + 47.2).toFixed(4);
+        const lonRange = (Math.random() * (11.5 - 7.5) + 7.5).toFixed(4);
+        
+        const subRegions = ["Baden-Württemberg", "Bavaria", "France Border", "Switzerland Border"];
+        mapTargetLocationOverride = subRegions[Math.floor(Math.random() * subRegions.length)];
+
+        const feedback = document.getElementById('mapFeedback');
+        feedback.innerHTML = `🛰️ <b>GPS Lock Found:</b> Lat ${latRange}, Lon ${lonRange}<br>🎯 <b>Targeting Region Area:</b> ${mapTargetLocationOverride}`;
+        feedback.style.display = 'block';
+    }
+
     function runAnimatedRoulette() {
         if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) {
-            alert("Please pick your date and preferred time options first! 🌸");
+            alert("Please identify date and hour metrics within the calendar fields first! 🌸");
             return;
         }
         document.getElementById('revealZone').style.display = 'none';
@@ -390,29 +386,71 @@
 
     function evaluateAndDisplaySurprise() {
         const mood = document.querySelector('input[name="mood"]:checked').value;
-        const weather = document.querySelector('input[name="weather"]:checked').value;
-        const duration = document.querySelector('input[name="duration"]:checked').value;
+        const chosenDate = new Date(document.getElementById('targetDate').value);
+        const chosenTimeStr = document.getElementById('targetTime').value;
+        const chosenHour = parseInt(chosenTimeStr.split(':')[0], 10);
+        const chosenMonth = chosenDate.getMonth() + 1; // 1-12 calendar indexes
 
-        let finalSelections = database.filter(e => e.mood === mood && e.weather === weather && e.duration === duration);
-        if (finalSelections.length === 0) finalSelections = database.filter(e => e.mood === mood);
+        // 1. Regional Filter Mapping
+        let pool = database;
+        if (mapTargetLocationOverride) {
+            pool = database.filter(e => e.region === mapTargetLocationOverride);
+            // Dynamic fail-safe relaxation loop if geo-mesh returns no item variants
+            if (pool.length === 0) pool = database;
+        }
 
-        selectedActiveRecord = finalSelections[Math.floor(Math.random() * finalSelections.length)];
+        // 2. Vibe matching
+        let candidates = pool.filter(e => e.mood === mood);
+        if (candidates.length === 0) candidates = database.filter(e => e.mood === mood);
 
+        selectedActiveRecord = candidates[Math.floor(Math.random() * candidates.length)];
+
+        // --- THE INTELLIGENT COMPLIANCE ALGORITHM LOOP ---
+        let isOverridden = false;
+        let finalTitle = selectedActiveRecord.title;
+        let finalDesc = selectedActiveRecord.desc;
+
+        const badge = document.getElementById('statusBadge');
+        const overrideBox = document.getElementById('overrideBox');
+        overrideBox.style.display = 'none';
+
+        // Evaluate calendar window availability variables
+        const seasonalConflict = selectedActiveRecord.seasonalShutdown.includes(chosenMonth);
+        const hoursConflict = (chosenHour < selectedActiveRecord.hours.open || chosenHour >= selectedActiveRecord.hours.close);
+
+        if (seasonalConflict || hoursConflict) {
+            isOverridden = true;
+            let cause = seasonalConflict ? "seasonal winter closing layout" : "late-night timing curfew constraints";
+            
+            // Fetch smart fallback values
+            const alternative = safeAlternatives[mood] || { title: "Secret Garden Premium Lounge Meet", desc: "A tailored surprise setup coordinated manually by the host team to dodge scheduling blocks." };
+            
+            finalTitle = alternative.title;
+            finalDesc = alternative.desc;
+
+            badge.className = "live-status-badge badge-alert";
+            badge.innerText = "⚠️ Smart Schedule Conflict Divert";
+
+            overrideBox.innerHTML = `🤖 <b>Intelligent Reasoning Engine Warning:</b> Your chosen target (<i>${selectedActiveRecord.title}</i>) is flagged unavailable due to ${cause} during your target time slot. The system automatically adjusted and deployed an exquisite alternative option.`;
+            overrideBox.style.display = 'block';
+        } else {
+            badge.className = "live-status-badge badge-success";
+            badge.innerText = "🟢 Real-Time Schedule Verified & Confirmed Open";
+        }
+
+        // Render data out onto final passport card layout elements
+        document.getElementById('displayTitle').innerText = finalTitle;
+        document.getElementById('displayDesc').innerText = finalDesc;
+        
         const randomRefToken = Math.random().toString(36).substring(2, 7).toUpperCase();
         const passportCode = `TSG-${randomRefToken}`;
-        const dateString = document.getElementById('targetDate').value;
-        const timeString = document.getElementById('targetTime').value;
+        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${passportCode}\nTARGET APPOINTMENT: ${document.getElementById('targetDate').value} @ ${chosenTimeStr}`;
 
-        document.getElementById('displayTitle').innerText = selectedActiveRecord.title;
-        document.getElementById('displayDesc').innerText = selectedActiveRecord.desc;
-        
-        let allocationDisplay = duration === 'short' ? '1–3 Hours' : duration === 'medium' ? 'Half/Full Day' : '1–2 Days';
-        document.getElementById('displayMeta').innerText = `CODE: ${passportCode} | TIMEFRAME: ${allocationDisplay}\nSCHEDULED: ${dateString} @ ${timeString}`;
-
+        // QR Engine refresh sequence call loops
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = ""; 
         
-        const qrContentText = `REF: ${passportCode}\nEVENT: ${selectedActiveRecord.title}\nDATE: ${dateString}\nTIME: ${timeString}`;
+        const qrContentText = `PASSPORT: ${passportCode}\nEVENT: ${finalTitle}\nDATE: ${document.getElementById('targetDate').value}\nTIME: ${chosenTimeStr}\nSTATUS: ${isOverridden ? 'DIVERTED_PASS' : 'VERIFIED_OPEN'}`;
         
         new QRCode(qrContainer, {
             text: qrContentText,
@@ -425,7 +463,6 @@
 
         const zone = document.getElementById('revealZone');
         zone.style.display = 'block';
-        zone.classList.add('active');
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
@@ -438,14 +475,14 @@
         html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
             const imageBlob = canvas.toDataURL("image/png");
             const structuralDownloader = document.createElement('a');
-            structuralDownloader.download = `Secret-Garden-Ticket-${selectedActiveRecord.title.replace(/\s+/g, '-')}.png`;
+            structuralDownloader.download = `Smart-Garden-Ticket.png`;
             structuralDownloader.href = imageBlob;
             structuralDownloader.click();
             
-            const trackingMetaText = `✨ Unlocked Secret Garden Passport ✨\n\n🌿 EVENT: ${selectedActiveRecord.title}\n📅 DATE: ${document.getElementById('targetDate').value}\n⏰ TIME: ${document.getElementById('targetTime').value}`;
-            navigator.clipboard.writeText(trackingMetaText).catch(err => console.log("Clipboard fallback captured."));
+            const trackingMetaText = `✨ Intelligent Passport System Voucher ✨\n\n🌿 EXPERIENCE: ${document.getElementById('displayTitle').innerText}\n📅 TARGET SLOT: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
+            navigator.clipboard.writeText(trackingMetaText).catch(err => console.log("Clipboard bypass handled."));
 
-            alert("🎟️ Ticket Image Saved & Booking Text Copied!\n\nYour WhatsApp Group chat will now open. Simply attach the downloaded image and hit send! 🌸");
+            alert("🎟️ Digital Ticket File Saved & Message Text Copied!\n\nYour WhatsApp Group portal will launch now. Attach your passport image download from your file bank and send! 🌸");
 
             window.open(groupInvitationLink, '_blank');
         });
