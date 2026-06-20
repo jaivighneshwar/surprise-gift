@@ -434,11 +434,15 @@
     function navigateToEngineTab() { showPage('enginePage'); }
 
     function initiateSpatialMap() {
-        if (mapEngine !== null) return;
+        // Date limitation configuration is initialized safely when the page layout component mounts
+        const datePickerElement = document.getElementById('targetDate');
+        if (datePickerElement) {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            datePickerElement.min = tomorrow.toISOString().split('T')[0];
+        }
 
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
+        if (mapEngine !== null) return;
 
         mapEngine = L.map('map').setView([48.6200, 9.3500], 9); 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(mapEngine);
@@ -535,7 +539,6 @@
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // ADAPTIVE RADIUS DYNAMIC EXPLORATION SEARCH GENERATOR
         let geoQueryFilter = "";
         let badgeSelector = document.getElementById('searchRadiusBadge');
 
@@ -543,7 +546,6 @@
             badgeSelector.innerText = "🛰️ Hyperlocal Matrix Active";
             badgeSelector.style.color = "var(--success-green)";
             badgeSelector.style.background = "rgba(104, 163, 123, 0.1)";
-            // High-density priority query target formulation
             geoQueryFilter = `"${activeSubregionalLocalityName}"`;
         } else {
             badgeSelector.innerText = "🛰️ Regional Radius Expanded";
@@ -554,7 +556,6 @@
 
         let strictQueryString = `best ${moodQuery} in ${geoQueryFilter}`;
         
-        // Adaptive Fallback Array String Formulation (Google automatically parses this as a radius cascade)
         if (activeSubregionalLocalityName && parentDistrictOrCounty) {
             strictQueryString += ` | best ${moodQuery} near "${parentDistrictOrCounty}"`;
         }
