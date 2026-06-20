@@ -9,9 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
+    <!-- Leaflet Core CSS & JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
+    <!-- Leaflet Geocoding Plugin for Robust Text Search -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
+
+    <!-- QR & Canvas Utils -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -130,7 +136,6 @@
         /* ROBUST SPATIAL CONTROL CONTAINER */
         .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 12px; margin-bottom: 20px; text-align: left; }
         
-        /* STANDALONE INTERACTION HUD BLOCK */
         .map-search-bar-hud { display: flex; gap: 8px; margin-bottom: 12px; width: 100%; }
         .map-search-input { flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; outline: none; color: var(--text-dark); background-color: var(--bg-beige); }
         .map-search-input:focus { border-color: var(--primary-gold); box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.15); }
@@ -139,7 +144,7 @@
         .map-hud-btn.gps-btn { background: var(--primary-gold); font-size: 1.1rem; padding: 0 12px; display: flex; align-items: center; justify-content: center; }
         .map-hud-btn:hover { opacity: 0.9; }
 
-        #map { width: 100%; height: 210px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.05); z-index: 1; }
+        #map { width: 100%; height: 230px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.05); z-index: 1; }
         
         .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; }
 
@@ -167,14 +172,11 @@
         .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; flex: 2; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); }
         .btn-surprise { background-color: var(--action-purple); color: var(--paper-white); border: none; flex: 1; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth); }
 
-        /* BRIDGING INTERACTION LAYER */
         .bridge-discovery-panel { display: none; background: var(--dark-panel); border-radius: 24px; padding: 22px 16px; margin-top: 20px; text-align: left; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #3d3532; }
         .explore-intent-btn { display: flex; align-items: center; justify-content: center; background: var(--primary-gold); color: #ffffff; padding: 14px; border-radius: 30px; font-weight: 600; font-size: 0.82rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; width: 100%; text-align: center; box-shadow: 0 4px 12px rgba(197,168,128,0.25); transition: var(--transition-smooth); margin-bottom: 18px; }
-        .explore-intent-btn:hover { background: var(--dark-gold); }
 
         .lock-input-zone { border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 16px; }
 
-        /* PASSPORT GENERATION OUTPUT SCREEN */
         .reveal-zone { margin-top: 25px; display: none; }
         #ticketCaptureArea { padding: 25px 20px; background: #ffffff; border-radius: 20px; border: 1px dashed var(--primary-gold); text-align: center; box-shadow: 0 10px 30px rgba(197, 168, 128, 0.08); position: relative; }
         .live-status-badge { display: inline-block; padding: 4px 12px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 16px; background: rgba(104, 163, 123, 0.1); color: var(--success-green); letter-spacing: 1px; }
@@ -190,7 +192,6 @@
         .action-button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
         .btn-action-panel { border: none; padding: 15px; border-radius: 35px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; text-align: center; }
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); letter-spacing: 1px; text-transform: uppercase; }
-        .btn-panel-dark:hover { background-color: var(--success-green); }
     </style>
 </head>
 <body>
@@ -240,15 +241,14 @@
             <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.15rem;">Set Search Anchor Position</span>
             <span class="explain-tip">Search by name, use live mobile GPS, or tap directly on the map.</span>
             
-            <!-- STANDALONE INTERACTION HUD BLOCK -->
             <div class="map-search-bar-hud">
-                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Type City, Town, or Street...">
+                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Type City, Town, or Landmark...">
                 <button type="button" class="map-hud-btn" onclick="executeTextGeocodeSearch()">Search</button>
-                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()" title="Use Live GPS Location">📍</button>
+                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()">📍</button>
             </div>
 
             <div id="map"></div>
-            <div class="telemetry-strip" id="telemetryData">📍 Map Standby. Define your target region to spin up the local indexer.</div>
+            <div class="telemetry-strip" id="telemetryData">🗺️ Map Ready. Use search bar or drop a pin to begin tracking.</div>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
@@ -290,7 +290,7 @@
         <!-- DEEP INTERACTION LINKING BRIDGE PANEL -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
-            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live options complete with ratings, reviews, menus, and operating hours:</span>
+            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live options complete with ratings, reviews, and operating hours:</span>
             
             <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Real-Time Options 🗺️</a>
             
@@ -351,6 +351,7 @@
     let droppedPinMarker = null;
     let userPinnedCoordinates = null; 
     let activeSubregionalLocalityName = ""; 
+    let leafletGeocoderInstance = null;
 
     function showPage(pageId) {
         const currentActive = document.querySelector('.page-view.active');
@@ -364,7 +365,10 @@
                 setTimeout(() => {
                     targetPage.style.opacity = '1';
                     targetPage.style.transform = 'translateY(0)';
-                    if (pageId === 'enginePage') initiateSpatialMap();
+                    
+                    if (pageId === 'enginePage') {
+                        initiateSpatialMap();
+                    }
                 }, 50);
             }, 500);
         }
@@ -389,13 +393,23 @@
             datePickerElement.min = tomorrow.toISOString().split('T')[0];
         }
 
-        if (mapEngine !== null) return;
+        if (mapEngine !== null) {
+            // CRITICAL FIX: Forces Leaflet map viewport calculation engine to refresh completely
+            // when container transitions out of hidden 'display: none' wrapper state.
+            mapEngine.invalidateSize();
+            return;
+        }
 
-        // Centered around Stuttgart region by default
-        mapEngine = L.map('map').setView([48.7771, 9.1795], 11); 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapEngine);
+        // Initialize focused on Stuttgart Metro default core layout
+        mapEngine = L.map('map', { zoomControl: true }).setView([48.7771, 9.1795], 11); 
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19
+        }).addTo(mapEngine);
 
-        // Bind enter key inside the search entry bar for flawless desktop execution
+        // Initialize dedicated Geocoder Instance interface layer
+        leafletGeocoderInstance = L.Control.Geocoder.nominatim();
+
+        // Listen for input keyboard enter event transitions
         document.getElementById('mapTextInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') { 
                 e.preventDefault();
@@ -406,9 +420,11 @@
         mapEngine.on('click', (e) => {
             updateAnchorPinPosition(e.latlng.lat, e.latlng.lng);
         });
+
+        // Ensure map calculations are precise immediately on first viewport render load
+        setTimeout(() => { mapEngine.invalidateSize(); }, 200);
     }
 
-    // Shared execution pipeline for positioning pins accurately and pulling localized metadata
     function updateAnchorPinPosition(lat, lng, zoomTo = false) {
         userPinnedCoordinates = { lat: lat, lon: lng };
 
@@ -425,54 +441,49 @@
         document.getElementById('bridgePanel').style.display = 'none';
         document.getElementById('revealZone').style.display = 'none';
 
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.address) {
-                    activeSubregionalLocalityName = data.address.suburb || data.address.city_district || data.address.village || data.address.town || data.address.city || "";
-                    let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                    document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}`;
-                }
-            }).catch(() => {
+        // High reliability reverse location metadata lookups
+        leafletGeocoderInstance.reverse({lat: lat, lng: lng}, mapEngine.options.crs.scale(mapEngine.getZoom()), (results) => {
+            if (results && results.length > 0) {
+                const res = results[0];
+                const addr = res.properties.address;
+                activeSubregionalLocalityName = addr.suburb || addr.city_district || addr.village || addr.town || addr.city || "";
+                let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                document.getElementById('telemetryData').innerHTML = `📍 <b>Location Anchor Set:</b> ${displayLocationString}`;
+            } else {
                 activeSubregionalLocalityName = "";
-                document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-            });
+                document.getElementById('telemetryData').innerHTML = `📍 <b>Location Anchor Set:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            }
+        });
     }
 
-    // TEXT SEARCH ENGINE PIPELINE
+    // UPGRADED HIGH-RELIABILITY TEXT SEARCH ROUTINE
     function executeTextGeocodeSearch() {
         const textQuery = document.getElementById('mapTextInput').value.trim();
-        if (!textQuery) { alert("Please type a location name to search first!"); return; }
+        if (!textQuery) { alert("Please enter a location context to search first!"); return; }
 
-        document.getElementById('telemetryData').innerHTML = `⏳ <i>Searching for matching region...</i>`;
+        document.getElementById('telemetryData').innerHTML = `⏳ <i>Searching index archives for: "${textQuery}"...</i>`;
 
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(textQuery)}&limit=1`)
-            .then(res => res.json())
-            .then(results => {
-                if (results && results.length > 0) {
-                    const targetLocation = results[0];
-                    const lat = parseFloat(targetLocation.lat);
-                    const lon = parseFloat(targetLocation.lon);
-                    updateAnchorPinPosition(lat, lon, true);
-                } else {
-                    document.getElementById('telemetryData').innerHTML = `❌ <b>Search failed:</b> Region not found.`;
-                    alert("Location not found. Please clarify your text input (e.g., add a city name like 'Sindelfingen').");
-                }
-            })
-            .catch(() => {
-                document.getElementById('telemetryData').innerHTML = `❌ <b>Network error</b> during geocoding.`;
-                alert("Error connecting to search network. Please try again.");
-            });
+        leafletGeocoderInstance.geocode(textQuery, (results) => {
+            if (results && results.length > 0) {
+                const bestMatch = results[0];
+                const lat = bestMatch.center.lat;
+                const lon = bestMatch.center.lng;
+                updateAnchorPinPosition(lat, lon, true);
+            } else {
+                document.getElementById('telemetryData').innerHTML = `❌ <b>Search Index Missed:</b> Query location not found.`;
+                alert("We couldn't resolve that specific text address. Try including a city name (e.g., 'Stuttgart West' or 'Esslingen').");
+            }
+        });
     }
 
-    // MOBILE LIVE GPS LOCATION AGENT PIPELINE (iOS & Android Compatible)
+    // UPGRADED HARDENED GPS SATELLITE MOBILE GEOLOCATION INTERACTION PIPELINE
     function triggerDeviceLiveLocation() {
         if (!navigator.geolocation) {
-            alert("Geolocation is not supported by your mobile browser framework.");
+            alert("This device browser setup does not expose geolocation services infrastructure.");
             return;
         }
 
-        document.getElementById('telemetryData').innerHTML = `⏳ <i>Requesting live device satellite link...</i>`;
+        document.getElementById('telemetryData').innerHTML = `⏳ <i>Connecting with hardware GPS array...</i>`;
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -481,20 +492,20 @@
                 updateAnchorPinPosition(lat, lon, true);
             },
             (error) => {
-                let errorMessage = "Unable to fetch live position.";
+                let errorMessage = "Unable to fetch live position parameters.";
                 if (error.code === error.PERMISSION_DENIED) {
-                    errorMessage = "Location permission denied. Please verify your mobile device browser permissions.";
+                    errorMessage = "Location tracing permission blocked by privacy sandbox. Please allow access inside your address bar or device system settings.";
                 }
-                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Access Error:</b> Position Denied`;
+                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Array Connection Failure:</b> Access Blocked`;
                 alert(errorMessage);
             },
-            { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
     }
 
     function launchLiveDiscoveryBridge() {
-        if (!userPinnedCoordinates) { alert("Please drop a marker pin on the map, use GPS, or search a location first! 🗺️"); return; }
-        if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) { alert("Please input booking timeline elements first! 📅"); return; }
+        if (!userPinnedCoordinates) { alert("Please use the map search, GPS link, or tap to place a tracking pin first! 🗺️"); return; }
+        if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) { alert("Please designate processing schedule milestones first! 📅"); return; }
 
         document.getElementById('revealZone').style.display = 'none';
 
@@ -521,7 +532,7 @@
 
     function compileFinalPassportTicket() {
         const venueSelectionString = document.getElementById('chosenVenueName').value.trim();
-        if (!venueSelectionString) { alert("Please input your chosen venue name to build the ticket! 🌿"); return; }
+        if (!venueSelectionString) { alert("Please define target spot node string parameters! 🌿"); return; }
 
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
@@ -533,7 +544,7 @@
 
         document.getElementById('displayTitle').innerText = venueSelectionString;
         document.getElementById('metaVibe').innerText = readableMood;
-        document.getElementById('metaArea').innerText = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : "CUSTOM CHOSEN REGION";
+        document.getElementById('metaArea').innerText = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : "CUSTOM TARGET COORDINATES";
         document.getElementById('metaTime').innerText = `${dateInput} @ ${timeInput}`;
         document.getElementById('metaDuration').innerText = duration;
         document.getElementById('metaCoords').innerText = `${latString}°N, ${lonString}°E`;
@@ -553,7 +564,7 @@
     }
 
     function executeSurpriseMeRoulette() {
-        if (!userPinnedCoordinates) { alert("Please pin a location on the map first to anchor the surprise! 🗺️"); return; }
+        if (!userPinnedCoordinates) { alert("Please pinpoint a geographic focus anchor position first! 🗺️"); return; }
         
         const moodInputs = document.querySelectorAll('input[name="mood"]');
         moodInputs[Math.floor(Math.random() * moodInputs.length)].checked = true;
