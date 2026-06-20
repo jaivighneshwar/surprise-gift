@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Experience Roulette | Professional On-Demand Discovery ✨</title>
+    <title>Experience Roulette | Hybrid Spatial Engine ✨</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,7 +88,7 @@
         }
         .explain-tip { font-size: 0.72rem; color: var(--text-light); display: block; text-align: left; margin-top: -6px; margin-bottom: 10px; font-style: italic; }
 
-        /* INTERACTIVE TOKEN SYSTEM */
+        /* ENGINE TOKEN DECORATION */
         .token-container {
             position: relative; width: 100%; max-width: 220px; height: 140px; margin: 15px auto 20px auto;
             cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -116,31 +116,57 @@
 
         .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 25px; min-height: 20px; }
         .engine-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
+
+        /* MODE CONTROL SEGMENTATION BAR */
+        .strategy-switch-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: rgba(197, 168, 128, 0.1); padding: 5px; border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(197,168,128,0.15); }
+        .strategy-btn { background: transparent; border: none; padding: 12px 6px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--text-light); cursor: pointer; border-radius: 12px; transition: var(--transition-smooth); }
+        .strategy-btn.active { background: var(--text-dark); color: #ffffff; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+
+        .spatial-block { display: none; }
+        .spatial-block.active { display: block; }
         
-        /* HIGH-RESOLUTION GLOBE MATRIX FRAMEWORK */
-        .globe-hardware-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 15px; margin-bottom: 20px; text-align: center; position: relative; }
-        .globe-canvas-frame { width: 240px; height: 240px; margin: 0 auto; position: relative; cursor: grab; display: flex; align-items: center; justify-content: center; }
+        /* STRATEGY A: GLOBE STYLE SHEETS */
+        .globe-hardware-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 15px; text-align: center; position: relative; }
+        .globe-canvas-frame { width: 220px; height: 220px; margin: 0 auto; position: relative; cursor: grab; display: flex; align-items: center; justify-content: center; }
         .globe-canvas-frame:active { cursor: grabbing; }
         #globeCanvas { width: 100%; height: 100%; background: transparent; display: block; border-radius: 50%; }
         
-        .dart-target-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 1px dashed var(--accent-red); border-radius: 50%; pointer-events: none; opacity: 0.4; display: flex; align-items: center; justify-content: center; }
-        .dart-target-overlay::before { content: ''; position: absolute; width: 100%; height: 1px; background: var(--accent-red); }
-        .dart-target-overlay::after { content: ''; position: absolute; width: 1px; height: 100%; background: var(--accent-red); }
+        .dart-target-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 1px dashed var(--accent-red); border-radius: 50%; pointer-events: none; opacity: 0.4; }
+        .dart-target-overlay::before { content: ''; position: absolute; width: 100%; height: 1px; top: 50%; left: 0; background: var(--accent-red); }
+        .dart-target-overlay::after { content: ''; position: absolute; width: 1px; height: 100%; left: 50%; top: 0; background: var(--accent-red); }
         
         .dart-sprite-node { position: absolute; width: 44px; height: 44px; font-size: 2.5rem; line-height: 1; transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1); opacity: 0; pointer-events: none; z-index: 10; top: -100px; left: 50%; transform: translateX(-50%) scale(2); }
         .dart-sprite-node.thrown { opacity: 1; top: calc(50% - 34px); transform: translateX(-50%) scale(1) rotate(-15deg); filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15)); }
+        .btn-dart-launch { background: var(--accent-red); color: #fff; border: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: var(--transition-smooth); text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; box-shadow: 0 4px 12px rgba(211,97,97,0.25); }
 
-        .btn-dart-launch { background: var(--accent-red); color: #fff; border: none; padding: 12px 24px; border-radius: 25px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: var(--transition-smooth); text-transform: uppercase; letter-spacing: 1px; margin-top: 12px; box-shadow: 0 4px 12px rgba(211,97,97,0.25); }
-        .btn-dart-launch:hover { opacity: 0.9; }
+        /* STRATEGY B: PRECISION ENTRY PANEL */
+        .precision-panel-card { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 20px; text-align: left; }
+        .input-row-geo { display: flex; gap: 8px; margin-bottom: 15px; }
+        .btn-gps-hook { background: #f0f4f1; border: 1px solid rgba(104,163,123,0.3); color: var(--success-green); padding: 0 14px; border-radius: 14px; font-size: 1.2rem; cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; }
+        .btn-gps-hook:hover { background: rgba(104,163,123,0.1); }
+        
+        .toggle-criterion-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+        .criterion-tab { padding: 10px 4px; text-align: center; border-radius: 12px; border: 1px solid rgba(197,168,128,0.25); background: var(--bg-beige); font-size: 0.72rem; font-weight: 500; color: var(--text-light); cursor: pointer; transition: var(--transition-smooth); }
+        input[type="radio"]:checked + .criterion-tab { border-color: var(--primary-gold); background: #fbf9f4; color: var(--text-dark); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
 
-        .telemetry-strip { margin-top: 12px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; text-align: left; }
+        .sub-setting-drawer { display: none; margin-top: 15px; padding-top: 12px; border-top: 1px dashed rgba(197,168,128,0.15); }
+        .sub-setting-drawer.active { display: block; }
 
-        /* SELECTION MIXIN LAYOUT PANELS */
+        /* CARD CONFIGURATION COMPONENTS */
+        .hardware-config-card { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 16px; margin-bottom: 15px; text-align: left; margin-top: 15px; }
+        .card-metric-header { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; align-items: center; }
+        .input-inline-wrap { display: flex; align-items: center; gap: 8px; }
+        .inline-num-input { width: 90px; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; outline: none; text-align: right; color: var(--text-dark); }
+        .currency-indicator { font-weight: 600; color: var(--primary-gold); font-size: 0.9rem; }
+        
+        .transit-segmented-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+        .transit-tile { padding: 10px; text-align: center; border-radius: 10px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(197,168,128,0.2); background: var(--bg-beige); cursor: pointer; transition: var(--transition-smooth); color: var(--text-light); }
+        input[type="radio"]:checked + .transit-tile { background: var(--text-dark); color: #fff; border-color: var(--text-dark); font-weight: 600; }
+
         .selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 20px; }
         @media (min-width: 360px) { .selection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
         .duration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 25px; }
         
-        input[type="radio"] { display: none; }
         .tile {
             background: var(--paper-white); border: 1px solid rgba(197, 168, 128, 0.22); padding: 12px 4px; border-radius: 14px; cursor: pointer; transition: var(--transition-smooth);
             font-size: 0.72rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 62px;
@@ -149,21 +175,8 @@
             border-color: var(--primary-gold); background-color: #f7f3eb; color: var(--text-dark); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold);
         }
 
-        /* CARD CONFIGURATION COMPONENTS (BUDGET & RADIUS HOOKS) */
-        .hardware-config-card { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 16px; margin-bottom: 15px; text-align: left; }
-        .card-metric-header { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; align-items: center; }
-        .input-inline-wrap { display: flex; align-items: center; gap: 8px; }
-        .inline-num-input { width: 90px; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; outline: none; text-align: right; color: var(--text-dark); }
-        .inline-num-input:focus { border-color: var(--primary-gold); }
-        .currency-indicator { font-weight: 600; color: var(--primary-gold); font-size: 0.9rem; }
-        
-        .transit-segmented-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
-        .transit-tile { padding: 10px; text-align: center; border-radius: 10px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(197,168,128,0.2); background: var(--bg-beige); cursor: pointer; transition: var(--transition-smooth); color: var(--text-light); }
-        input[type="radio"]:checked + .transit-tile { background: var(--text-dark); color: #fff; border-color: var(--text-dark); font-weight: 600; }
-
         .datetime-picker-wrap { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; text-align: left; }
         @media (min-width: 360px) { .datetime-picker-wrap { grid-template-columns: 1fr 1fr; gap: 12px; } }
-
         .input-block { display: flex; flex-direction: column; }
         .custom-input { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid rgba(197, 168, 128, 0.22); background-color: var(--paper-white); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; outline: none; color: var(--text-dark); }
 
@@ -220,20 +233,81 @@
 
     <div id="enginePage" class="page-view">
         <h1>Experience Roulette</h1>
-        <p class="tagline" style="margin-bottom: 20px;">Vector Vector Cartographic Spatial Generator</p>
+        <p class="tagline" style="margin-bottom: 15px;">Hybrid Cross-Platform Spatial System</p>
 
-        <div class="globe-hardware-wrapper">
-            <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.15rem;">Spin & Target Location Anchor</span>
-            <span class="explain-tip">Drag to manually rotate or launch an automated spatial trajectory strike.</span>
-            
-            <div class="globe-canvas-frame" id="globeTouchSurface">
-                <canvas id="globeCanvas"></canvas>
-                <div class="dart-target-overlay"></div>
-                <div class="dart-sprite-node" id="dartNode">🎯</div>
+        <div class="strategy-switch-bar">
+            <button type="button" class="strategy-btn active" id="btnStratA" onclick="toggleSpatialStrategy('A')">🌐 Global Roulette</button>
+            <button type="button" class="strategy-btn" id="btnStratB" onclick="toggleSpatialStrategy('B')">📍 Targeted Point</button>
+        </div>
+
+        <div id="spatialBlockA" class="spatial-block active">
+            <div class="globe-hardware-wrapper">
+                <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.1rem;">3D Vector Globe Router</span>
+                <span class="explain-tip">Spin or execute a blind trajectory crosshair strike.</span>
+                
+                <div class="globe-canvas-frame" id="globeTouchSurface">
+                    <canvas id="globeCanvas"></canvas>
+                    <div class="dart-target-overlay"></div>
+                    <div class="dart-sprite-node" id="dartNode">🎯</div>
+                </div>
+
+                <button type="button" class="btn-dart-launch" onclick="executeDartTrajectoryStrike()">Throw Dart 🎯</button>
+                <div class="telemetry-strip" id="telemetryData">🎰 Matrix loaded. Ready for target trajectory entry.</div>
             </div>
+        </div>
 
-            <button type="button" class="btn-dart-launch" onclick="executeDartTrajectoryStrike()">Throw Dart 🎯</button>
-            <div class="telemetry-strip" id="telemetryData">🎰 Globe Matrix Active. Spin or throw to establish coordinates.</div>
+        <div id="spatialBlockB" class="spatial-block">
+            <div class="precision-panel-card">
+                <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.1rem;">Establish Starting Focus Anchor</span>
+                <span class="explain-tip">Enter an address context line or request real-time localized GPS positioning.</span>
+                
+                <div class="input-row-geo">
+                    <input type="text" id="manualTextLocation" class="custom-input" placeholder="e.g., Stuttgart Center, Germany" oninput="invalidateOutputDisplays()">
+                    <button type="button" class="btn-gps-hook" onclick="triggerHardwareGpsAcquisition()">📍</button>
+                </div>
+
+                <span class="group-label" style="font-size:0.95rem; margin-top:10px;">Proximity Clipping Rule</span>
+                <div class="toggle-criterion-row">
+                    <label>
+                        <input type="radio" name="clippingRule" value="distance" checked onclick="toggleProximitySubDrawers('distance')">
+                        <div class="criterion-tab">📏 Radius (KM)</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="clippingRule" value="transit" onclick="toggleProximitySubDrawers('transit')">
+                        <div class="criterion-tab">⏱️ Commute Drive</div>
+                    </label>
+                </div>
+
+                <div id="drawerDistance" class="sub-setting-drawer active">
+                    <div class="card-metric-header" style="margin-bottom:0;">
+                        <span style="font-size:0.78rem; color:var(--text-light);">Maximum Perimeter Scope</span>
+                        <div class="input-inline-wrap">
+                            <input type="number" id="searchRadiusKm" class="inline-num-input" value="15" min="1" max="150" oninput="invalidateOutputDisplays()">
+                            <span class="currency-indicator" style="font-size:0.75rem;">KM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="drawerTransit" class="sub-setting-drawer">
+                    <div class="card-metric-header" style="margin-bottom:8px;">
+                        <span style="font-size:0.78rem; color:var(--text-light);">Maximum Journey Duration</span>
+                        <div class="input-inline-wrap">
+                            <input type="number" id="commuteDurationMins" class="inline-num-input" value="30" min="5" max="180" oninput="invalidateOutputDisplays()">
+                            <span class="currency-indicator" style="font-size:0.75rem;">MINS</span>
+                        </div>
+                    </div>
+                    <div class="transit-segmented-bar">
+                        <label>
+                            <input type="radio" name="transitMode" value="driving" checked onclick="invalidateOutputDisplays()">
+                            <div class="transit-tile">🚗 Car Routing</div>
+                        </label>
+                        <label>
+                            <input type="radio" name="transitMode" value="transit" onclick="invalidateOutputDisplays()">
+                            <div class="transit-tile">🚊 Public Rail</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="hardware-config-card">
@@ -241,74 +315,45 @@
                 <span>Strict Budget Target Limit</span>
                 <div class="input-inline-wrap">
                     <span class="currency-indicator">€</span>
-                    <input type="number" id="budgetLimitEuro" class="inline-num-input" value="75" min="5" max="1000">
+                    <input type="number" id="budgetLimitEuro" class="inline-num-input" value="60" min="5" max="1000" oninput="invalidateOutputDisplays()">
                 </div>
             </div>
-            <span class="explain-tip" style="margin-top:0; margin-bottom:0;">Forced restriction profile matching maximum price cap variables.</span>
-        </div>
-
-        <div class="hardware-config-card">
-            <div class="card-metric-header">
-                <span>Maximum Spatial Radius</span>
-                <div class="input-inline-wrap">
-                    <input type="number" id="searchRadiusKm" class="inline-num-input" value="15" min="1" max="150">
-                    <span class="currency-indicator" style="font-size:0.75rem;">KM</span>
-                </div>
-            </div>
-            
-            <div class="card-metric-header" style="margin-top:14px; margin-bottom:2px;">
-                <span>Commute Transit Budget Duration</span>
-                <div class="input-inline-wrap">
-                    <input type="number" id="commuteDurationMins" class="inline-num-input" value="30" min="5" max="180">
-                    <span class="currency-indicator" style="font-size:0.75rem;">MINS</span>
-                </div>
-            </div>
-            
-            <div class="transit-segmented-bar">
-                <label>
-                    <input type="radio" name="transitMode" value="driving" checked>
-                    <div class="transit-tile">🚗 Car Travel</div>
-                </label>
-                <label>
-                    <input type="radio" name="transitMode" value="transit">
-                    <div class="transit-tile">🚊 Public Rail</div>
-                </label>
-            </div>
+            <span class="explain-tip" style="margin-top:0; margin-bottom:0;">Forced pricing limit verification matching framework strings.</span>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="shopping boutique design market store retail district top reviews"><div class="tile">🛍️ Shopping</div></label>
-            <label><input type="radio" name="mood" value="spa wellness massage treatment sanctuary premium reviews"><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="scenic nature landscape views public parks scenic overlooks top reviews" checked><div class="tile">🌲 Escape</div></label>
-            <label><input type="radio" name="mood" value="boat rental stand up paddling outdoor adventure hiking trails center top reviews"><div class="tile">🧗‍♀️ Action</div></label>
-            <label><input type="radio" name="mood" value="escape rooms arcade games board game cafe dynamic virtual reality top reviews"><div class="tile">🧩 Games</div></label>
-            <label><input type="radio" name="mood" value="movie theaters cinema showing films original version OV premium reviews"><div class="tile">🍿 Movies</div></label>
-            <label><input type="radio" name="mood" value="live events concerts festivals theater performances comedy clubs top reviews"><div class="tile">🎫 Events</div></label>
-            <label><input type="radio" name="mood" value="authentic Indian restaurant fine dining premium tandoori curry top reviews"><div class="tile">🍛 Indian</div></label>
-            <label><input type="radio" name="mood" value="fine dining top culinary Michelin culinary arts food places top reviews"><div class="tile">🥂 Fine Eat</div></label>
-            <label><input type="radio" name="mood" value="museum architecture historical cultural heritage architecture top reviews"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="cozy hidden speakeasy lounge secret bar premium custom cocktail spaces"><div class="tile">🕯️ Cozy</div></label>
-            <label><input type="radio" name="mood" value="premium lounge bar night clubs live music premium nightlife top reviews"><div class="tile">🍸 After Dark</div></label>
-            <label><input type="radio" name="mood" value="artisan roastery coffee shops premium cozy bakery roasters top reviews"><div class="tile">☕ Cafes</div></label>
+            <label><input type="radio" name="mood" value="shopping boutique design market store retail district top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🛍️ Shopping</div></label>
+            <label><input type="radio" name="mood" value="spa wellness massage treatment sanctuary premium reviews" onclick="invalidateOutputDisplays()"><div class="tile">🧖‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="scenic nature landscape views public parks scenic overlooks top reviews" checked onclick="invalidateOutputDisplays()"><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="boat rental stand up paddling outdoor adventure hiking trails center top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="escape rooms arcade games board game cafe dynamic virtual reality top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🧩 Games</div></label>
+            <label><input type="radio" name="mood" value="movie theaters cinema showing films original version OV premium reviews" onclick="invalidateOutputDisplays()"><div class="tile">🍿 Movies</div></label>
+            <label><input type="radio" name="mood" value="live events concerts festivals theater performances comedy clubs top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🎫 Events</div></label>
+            <label><input type="radio" name="mood" value="authentic Indian restaurant fine dining premium tandoori curry top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🍛 Indian</div></label>
+            <label><input type="radio" name="mood" value="fine dining top culinary Michelin culinary arts food places top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="museum architecture historical cultural heritage architecture top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="cozy hidden speakeasy lounge secret bar premium custom cocktail spaces" onclick="invalidateOutputDisplays()"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="premium lounge bar night clubs live music premium nightlife top reviews" onclick="invalidateOutputDisplays()"><div class="tile">🍸 After Dark</div></label>
+            <label><input type="radio" name="mood" value="artisan roastery coffee shops premium cozy bakery roasters top reviews" onclick="invalidateOutputDisplays()"><div class="tile">☕ Cafes</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
             <div class="input-block">
                 <span class="group-label">Select Target Date</span>
-                <input type="date" class="custom-input" id="targetDate" required>
+                <input type="date" class="custom-input" id="targetDate" required oninput="invalidateOutputDisplays()">
             </div>
             <div class="input-block">
                 <span class="group-label">Strict Target Time</span>
-                <input type="time" class="custom-input" id="targetTime" required>
+                <input type="time" class="custom-input" id="targetTime" required oninput="invalidateOutputDisplays()">
             </div>
         </div>
 
         <span class="group-label">Curation Horizon Duration</span>
         <div class="duration-grid">
-            <label><input type="radio" name="duration" value="1-3 Hours"><div class="tile">⏱️ 1-3 H</div></label>
-            <label><input type="radio" name="duration" value="Half Day"><div class="tile">🌗 Half</div></label>
-            <label><input type="radio" name="duration" value="Full Day" checked><div class="tile">☀️ Full</div></label>
+            <label><input type="radio" name="duration" value="1-3 Hours" onclick="invalidateOutputDisplays()"><div class="tile">⏱️ 1-3 H</div></label>
+            <label><input type="radio" name="duration" value="Half Day" onclick="invalidateOutputDisplays()"><div class="tile">🌗 Half</div></label>
+            <label><input type="radio" name="duration" value="Full Day" checked onclick="invalidateOutputDisplays()"><div class="tile">☀️ Full</div></label>
         </div>
 
         <div class="control-row-buttons">
@@ -318,14 +363,14 @@
 
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: Open Live Real-Time Match Map</span>
-            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse verified entries fitting your explicit cost boundary, geographic radius, and operational schedules:</span>
+            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse verified entries fitting your explicit cost boundary, geographic parameters, and operating schedules:</span>
             
             <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Active Choices 🗺️</a>
             
             <div class="lock-input-zone">
                 <span class="group-label" style="margin-top:0; color:#ffffff;">✍️ Step 2: Finalize Selection</span>
                 <span class="explain-tip" style="color: #bcaea3;">Type your winning experience location node choice to finalize the passport ticket profile:</span>
-                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Paramount Premium Lounge" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
+                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Paramount Luxury Lounge" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
                 
                 <button class="btn-action-panel btn-panel-dark" onclick="compileFinalPassportTicket()">Generate Pass & QR Code 🎟></button>
             </div>
@@ -340,11 +385,11 @@
                 
                 <table class="poi-metadata-table">
                     <tr>
-                        <td class="label-col">Vibe & Limit</td>
+                        <td class="label-col">Vibe & Bound</td>
                         <td id="metaVibe"></td>
                     </tr>
                     <tr>
-                        <td class="label-col">Target Area</td>
+                        <td class="label-col">Target Focus</td>
                         <td id="metaArea"></td>
                     </tr>
                     <tr>
@@ -352,7 +397,7 @@
                         <td id="metaTime"></td>
                     </tr>
                     <tr>
-                        <td class="label-col">Transit Radius</td>
+                        <td class="label-col">Routing Rule</td>
                         <td id="metaDuration"></td>
                     </tr>
                     <tr>
@@ -374,52 +419,51 @@
 </div>
 
 <script>
-    // CORE GLOBAL GLOBE ENGINE PROPERTIES
+    // ACTIVE SPATIAL ROUTER TRACKER BRANCH ('A' = Globe Roulette, 'B' = Targeted Point)
+    let activeSpatialStrategyBranch = 'A';
+
+    // CORE GLOBE CANVAS CONFIGURATIONS
     let canvasElement = null;
     let canvasContext = null;
     let globeRadiusPixelSize = 100;
     
-    let lambdaAngle = 0.8; 
-    let phiAngle = 0.4;
+    let lambdaAngle = 1.2; 
+    let phiAngle = 0.35;
     
     let isTouchActive = false;
     let lastPositionX = 0;
     let lastPositionY = 0;
-    let spinVelocityX = 0.004;
+    let spinVelocityX = 0.003;
     let spinVelocityY = 0.001;
     let animationTimerReference = null;
-    let activeDartHitLocation = null;
+    
+    // Core Location Memory Structures
+    let activeGlobeDartAnchorNode = null;
+    let activeGpsHardwareCachedNode = null;
 
-    // High Fidelity Vector Geographic Landmass Geometry Cluster points
+    // Cartographic Landmass Geometry Strings
     const granularWorldPolygons = [
-        // North America Matrix Bounds
         [[-168,65],[-150,70],[-100,75],[-60,82],[-60,60],[-45,50],[-64,45],[-80,25],[-99,15],[-105,20],[-115,32],[-125,49],[-140,60],[-168,65]],
-        // Central America & South America Array Strings
         [[-99,15],[-80,9],[-72,11],[-52,-5],[-38,-6],[-60,-34],[-72,-54],[-76,-42],[-72,-15],[-80,0],[-99,15]],
-        // Eurasia Massive Geo Blocks
         [[-10,36],[30,31],[33,35],[40,40],[60,60],[100,75],[-10,80],[-10,70],[-5,50],[-10,36]],
         [[30,31],[60,15],[75,25],[90,20],[105,20],[130,40],[140,50],[130,70],[80,70],[30,31]],
-        // Africa Continents Contours
         [[-17,32],[30,31],[51,11],[40,-20],[22,-34],[17,-33],[6,4],[-17,32]],
-        // Australian Regional Blocks
         [[113,-25],[114,-35],[151,-34],[145,-12],[113,-25]],
-        // United Kingdom & Japan Micro Structures
-        [[-8,50],[-2,58],[2,50],[-8,50]],
-        [[130,32],[140,38],[142,43],[130,32]]
+        [[-8,50],[-2,58],[2,50],[-8,50]],[[130,32],[140,38],[142,43],[130,32]]
     ];
 
-    // Primary Core Regional Node Anchors fallbacks
+    // Core Reference Regional Target Array Fallbacks
     const standardGeoCitiesCluster = [
-        { name: "New York", lat: 40.7128, lon: -74.0060 },
-        { name: "London", lat: 51.5074, lon: -0.1278 },
-        { name: "Paris", lat: 48.8566, lon: 2.3522 },
-        { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
-        { name: "Berlin", lat: 52.5200, lon: 13.4050 },
+        { name: "New York Midtown", lat: 40.7580, lon: -73.9855 },
+        { name: "London West End", lat: 51.5113, lon: -0.1285 },
+        { name: "Paris Central", lat: 48.8566, lon: 2.3522 },
+        { name: "Tokyo Shibuya", lat: 35.6580, lon: 139.7016 },
+        { name: "Berlin Mitte", lat: 52.5200, lon: 13.4050 },
         { name: "Stuttgart Region", lat: 48.7758, lon: 9.1829 },
-        { name: "Sydney", lat: -33.8688, lon: 151.2093 },
-        { name: "Rome", lat: 41.9028, lon: 12.4964 },
-        { name: "Dubai", lat: 25.2048, lon: 55.2708 },
-        { name: "Singapore", lat: 1.3521, lon: 103.8198 }
+        { name: "Sydney Central", lat: -33.8688, lon: 151.2093 },
+        { name: "Rome Historic Center", lat: 41.9028, lon: 12.4964 },
+        { name: "Dubai Downtown", lat: 25.2048, lon: 55.2708 },
+        { name: "Singapore Marina", lat: 1.3521, lon: 103.8198 }
     ];
 
     function showPage(pageId) {
@@ -443,12 +487,35 @@
     function handleTokenActivation(element) {
         if (!element.classList.contains('activated')) {
             element.classList.add('activated');
-            document.getElementById('tokenStatusText').innerHTML = "🎯 <i>System localized. Ready to play.</i>";
+            document.getElementById('tokenStatusText').innerHTML = "🎯 <i>System localized. Spatial modules ready.</i>";
         }
     }
 
     function navigateToEngineTab() { showPage('enginePage'); }
 
+    function toggleSpatialStrategy(modeStr) {
+        activeSpatialStrategyBranch = modeStr;
+        document.getElementById('btnStratA').classList.toggle('active', modeStr === 'A');
+        document.getElementById('btnStratB').classList.toggle('active', modeStr === 'B');
+        
+        document.getElementById('spatialBlockA').classList.toggle('active', modeStr === 'A');
+        document.getElementById('spatialBlockB').classList.toggle('active', modeStr === 'B');
+        
+        invalidateOutputDisplays();
+    }
+
+    function toggleProximitySubDrawers(ruleType) {
+        document.getElementById('drawerDistance').classList.toggle('active', ruleType === 'distance');
+        document.getElementById('drawerTransit').classList.toggle('active', ruleType === 'transit');
+        invalidateOutputDisplays();
+    }
+
+    function invalidateOutputDisplays() {
+        document.getElementById('bridgePanel').style.display = 'none';
+        document.getElementById('revealZone').style.display = 'none';
+    }
+
+    // INITIALIZE GRAPHICS HARDWARE
     function initializeGlobeHardwareCanvas() {
         const datePickerElement = document.getElementById('targetDate');
         if (datePickerElement && !datePickerElement.value) {
@@ -459,23 +526,21 @@
         }
         const timePickerElement = document.getElementById('targetTime');
         if (timePickerElement && !timePickerElement.value) {
-            timePickerElement.value = "19:00";
+            timePickerElement.value = "20:00";
         }
 
         canvasElement = document.getElementById('globeCanvas');
         if (!canvasElement) return;
         
         canvasContext = canvasElement.getContext('2d');
-        
         const scaleFactor = window.devicePixelRatio || 1;
-        canvasElement.width = 240 * scaleFactor;
-        canvasElement.height = 240 * scaleFactor;
+        canvasElement.width = 220 * scaleFactor;
+        canvasElement.height = 220 * scaleFactor;
         canvasContext.scale(scaleFactor, scaleFactor);
         
-        globeRadiusPixelSize = 108;
+        globeRadiusPixelSize = 98;
 
         const inputSurface = document.getElementById('globeTouchSurface');
-        
         inputSurface.addEventListener('mousedown', startInteractionTracking);
         window.addEventListener('mousemove', continuousInteractionMove);
         window.addEventListener('mouseup', concludeInteractionTracking);
@@ -484,38 +549,30 @@
         window.addEventListener('touchmove', (e) => continuousInteractionMove(e.touches[0]), { passive: false });
         window.addEventListener('touchend', concludeInteractionTracking, { passive: true });
 
-        if (!animationTimerReference) {
-            executeGlobeRenderCycle();
-        }
-        
+        if (!animationTimerReference) { executeGlobeRenderCycle(); }
         resolveAnchorLocationMatrix(phiAngle, lambdaAngle);
     }
 
     function startInteractionTracking(e) {
+        if (activeSpatialStrategyBranch !== 'A') return;
         isTouchActive = true;
         document.getElementById('dartNode').classList.remove('thrown');
-        lastPositionX = e.clientX;
-        lastPositionY = e.clientY;
-        spinVelocityX = 0;
-        spinVelocityY = 0;
+        lastPositionX = e.clientX; lastPositionY = e.clientY;
+        spinVelocityX = 0; spinVelocityY = 0;
     }
 
     function continuousInteractionMove(e) {
-        if (!isTouchActive) return;
-        
+        if (!isTouchActive || activeSpatialStrategyBranch !== 'A') return;
         const deltaX = e.clientX - lastPositionX;
         const deltaY = e.clientY - lastPositionY;
         
         lambdaAngle += deltaX * 0.007;
         phiAngle -= deltaY * 0.007;
-
         phiAngle = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, phiAngle));
 
         spinVelocityX = deltaX * 0.005;
         spinVelocityY = -deltaY * 0.005;
-
-        lastPositionX = e.clientX;
-        lastPositionY = e.clientY;
+        lastPositionX = e.clientX; lastPositionY = e.clientY;
     }
 
     function concludeInteractionTracking() {
@@ -529,23 +586,19 @@
         dart.classList.remove('thrown');
         
         spinVelocityX = (Math.random() * 0.4) + 0.35;
-        spinVelocityY = (Math.random() * 0.08) - 0.04;
+        spinVelocityY = (Math.random() * 0.06) - 0.03;
         
         setTimeout(() => {
             const clampStopTimer = setInterval(() => {
-                spinVelocityX *= 0.86;
-                spinVelocityY *= 0.86;
-                
+                spinVelocityX *= 0.86; spinVelocityY *= 0.86;
                 if (Math.abs(spinVelocityX) < 0.001) {
                     clearInterval(clampStopTimer);
-                    spinVelocityX = 0;
-                    spinVelocityY = 0;
-                    
+                    spinVelocityX = 0; spinVelocityY = 0;
                     dart.classList.add('thrown');
                     resolveAnchorLocationMatrix(phiAngle, lambdaAngle, true);
                 }
             }, 50);
-        }, 1100);
+        }, 1000);
     }
 
     function resolveAnchorLocationMatrix(phi, lambda, wasHit = false) {
@@ -563,49 +616,34 @@
             }
         });
 
-        activeDartHitLocation = matchedNode;
+        activeGlobeDartAnchorNode = matchedNode;
 
         const telemetryField = document.getElementById('telemetryData');
         if (wasHit) {
-            telemetryField.innerHTML = `🎯 <b>Trajectory Lock Confirmed!</b><br>Geographic Center: ${matchedNode.lat.toFixed(4)}°N, ${matchedNode.lon.toFixed(4)}°E<br>Target Axis Anchor: <b>${matchedNode.name}</b>`;
+            telemetryField.innerHTML = `🎯 <b>Trajectory Lock Anchor Confirmed!</b><br>Coordinates: ${matchedNode.lat.toFixed(4)}°N, ${matchedNode.lon.toFixed(4)}°E<br>Target Axis Zone: <b>${matchedNode.name}</b>`;
         } else {
-            telemetryField.innerHTML = `🌍 <b>Target Axis Anchor:</b> Area close to <b>${matchedNode.name}</b>. Throw dart to establish lock.`;
+            telemetryField.innerHTML = `🌍 <b>Globe Matrix Active:</b> targeting area near <b>${matchedNode.name}</b>. Throw dart to lock.`;
         }
-        
-        document.getElementById('bridgePanel').style.display = 'none';
-        document.getElementById('revealZone').style.display = 'none';
+        invalidateOutputDisplays();
     }
 
     function executeGlobeRenderCycle() {
         if (!canvasContext) return;
-        
         if (!isTouchActive) {
-            lambdaAngle += spinVelocityX;
-            phiAngle += spinVelocityY;
+            lambdaAngle += spinVelocityX; phiAngle += spinVelocityY;
             phiAngle = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, phiAngle));
-            
-            spinVelocityX *= 0.98;
-            spinVelocityY *= 0.98;
+            spinVelocityX *= 0.98; spinVelocityY *= 0.98;
         }
 
-        canvasContext.clearRect(0, 0, 240, 240);
-        
-        const centerPositionX = 120;
-        const centerPositionY = 120;
+        canvasContext.clearRect(0, 0, 220, 220);
+        const centerPositionX = 110; const centerPositionY = 110;
 
-        // Draw Deep Ocean Backdrop Sphere
         canvasContext.beginPath();
         canvasContext.arc(centerPositionX, centerPositionY, globeRadiusPixelSize, 0, 2 * Math.PI);
-        canvasContext.fillStyle = '#ebf3f7'; 
-        canvasContext.fill();
-        canvasContext.lineWidth = 2;
-        canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.4)';
-        canvasContext.stroke();
+        canvasContext.fillStyle = '#ebf3f7'; canvasContext.fill();
+        canvasContext.lineWidth = 1.5; canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.35)'; canvasContext.stroke();
 
-        // Draw Geographic Graticule Coordinate Rings
-        canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.12)';
-        canvasContext.lineWidth = 1;
-        
+        canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.1)'; canvasContext.lineWidth = 1;
         for (let i = -60; i <= 60; i += 30) {
             canvasContext.beginPath();
             for (let j = -180; j <= 180; j += 15) {
@@ -618,80 +656,117 @@
             canvasContext.stroke();
         }
 
-        // Render detailed geographic map elements onto texture surface canvas
-        canvasContext.fillStyle = '#dcd3c5'; 
-        canvasContext.strokeStyle = '#cda984';
-        canvasContext.lineWidth = 0.5;
-
+        canvasContext.fillStyle = '#dcd3c5'; canvasContext.strokeStyle = '#cda984'; canvasContext.lineWidth = 0.5;
         granularWorldPolygons.forEach(polygon => {
-            canvasContext.beginPath();
-            let pointRendered = false;
-            
+            canvasContext.beginPath(); let pointRendered = false;
             polygon.forEach(coord => {
                 let xy = projectOrthographicCoordinates(coord[1], coord[0], phiAngle, lambdaAngle, globeRadiusPixelSize);
                 if (xy) {
                     if (!pointRendered) {
                         canvasContext.moveTo(centerPositionX + xy.x, centerPositionY + xy.y);
                         pointRendered = true;
-                    } else {
-                        canvasContext.lineTo(centerPositionX + xy.x, centerPositionY + xy.y);
-                    }
+                    } else { canvasContext.lineTo(centerPositionX + xy.x, centerPositionY + xy.y); }
                 }
             });
-            if (pointRendered) {
-                canvasContext.fill();
-                canvasContext.stroke();
-            }
+            if (pointRendered) { canvasContext.fill(); canvasContext.stroke(); }
         });
 
         animationTimerReference = requestAnimationFrame(executeGlobeRenderCycle);
     }
 
     function projectOrthographicCoordinates(lat, lon, phi0, lambda0, radius) {
-        let latRad = lat * (Math.PI / 180);
-        let lonRad = lon * (Math.PI / 180);
-        
+        let latRad = lat * (Math.PI / 180); let lonRad = lon * (Math.PI / 180);
         let cosAzimuth = Math.sin(phi0) * Math.sin(latRad) + Math.cos(phi0) * Math.cos(latRad) * Math.cos(lonRad - lambda0);
-        
         if (cosAzimuth < 0) return null;
-        
         let x = radius * Math.cos(latRad) * Math.sin(lonRad - lambda0);
         let y = radius * (Math.cos(phi0) * Math.sin(latRad) - Math.sin(phi0) * Math.cos(latRad) * Math.cos(lonRad - lambda0));
-        
         return { x: x, y: -y };
     }
 
+    // STRATEGY LAYER B HARDWARE PIN ACQUISITION
+    function triggerHardwareGpsAcquisition() {
+        if (navigator.geolocation) {
+            document.getElementById('manualTextLocation').value = "Locating hardware array parameters...";
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    activeGpsHardwareCachedNode = { lat: pos.coords.latitude, lon: pos.coords.longitude, name: "Live GPS Position" };
+                    document.getElementById('manualTextLocation').value = `${pos.coords.latitude.toFixed(4)}°N, ${pos.coords.longitude.toFixed(4)}°E (Verified GPS Location)`;
+                    invalidateOutputDisplays();
+                },
+                () => {
+                    alert("GPS spatial isolation failed. Defaulting to system context entry string lookup.");
+                    document.getElementById('manualTextLocation').value = "Stuttgart, Germany";
+                    activeGpsHardwareCachedNode = null;
+                },
+                { enableHighAccuracy: true, timeout: 6000 }
+            );
+        } else {
+            alert("Sandbox hardware geolocation array absent. Type search area manually.");
+        }
+    }
+
+    // SYNTHESIZE DEEP QUERY INTERACTION BRIDGES
     function launchLiveDiscoveryBridge() {
-        if (!activeDartHitLocation) { alert("Please establish a target lock anchor on the globe first! 🎯"); return; }
-        
         const dateString = document.getElementById('targetDate').value;
         const timeString = document.getElementById('targetTime').value;
         const euroLimit = document.getElementById('budgetLimitEuro').value;
-        const radiusKm = document.getElementById('searchRadiusKm').value;
-        const transitMins = document.getElementById('commuteDurationMins').value;
-        const transitMode = document.querySelector('input[name="transitMode"]:checked').value;
+        const moodQuery = document.querySelector('input[name="mood"]:checked').value;
 
         if (!dateString || !timeString) { alert("Please establish validation timing metrics parameters! 📅"); return; }
+        invalidateOutputDisplays();
 
-        document.getElementById('revealZone').style.display = 'none';
-
-        const moodQuery = document.querySelector('input[name="mood"]:checked').value;
         const parsedDay = new Date(dateString);
         const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const explicitDayName = dayNames[parsedDay.getDay()];
 
-        // Calculations to map radius configurations directly to bounding box variables for Google Maps context queries
-        const latitudeSpanArc = radiusKm / 111.32; 
-        const longitudeSpanArc = radiusKm / (40075 * Math.cos(activeDartHitLocation.lat * Math.PI / 180) / 360);
+        let completeSearchSyntax = "";
+        let mapsUrlCoordinateArguments = "";
 
-        // Synthesize strict multi-point structural search query parameters
-        let completeSearchSyntax = `${moodQuery} cheap or affordable under ${euroLimit} EUR maximum price budget limit within ${radiusKm} km radius area in ${activeDartHitLocation.name} operating schedule open on ${explicitDayName} at ${timeString} travel time within ${transitMins} minutes via ${transitMode}`;
+        // CORE STRATEGY SELECTION DISPATCH LOGIC MAPPING
+        if (activeSpatialStrategyBranch === 'A') {
+            // STRATEGY A BRANCH ROUTING MECHANISM
+            if (!activeGlobeDartAnchorNode) { alert("Please position the matrix globe or throw a trajectory dart! 🎯"); return; }
+            
+            const radiusKmFallback = 20;
+            const latSpan = radiusKmFallback / 111.32;
+            const lonSpan = radiusKmFallback / (40075 * Math.cos(activeGlobeDartAnchorNode.lat * Math.PI / 180) / 360);
 
-        // Construct standard localized parameter strings mapping constraints into native platform layouts
-        const finalMapsQueryUrl = `https://www.google.com/maps/search/${encodeURIComponent(completeSearchSyntax)}&sll=${activeDartHitLocation.lat},${activeDartHitLocation.lon}&sspn=${latitudeSpanArc.toFixed(4)},${longitudeSpanArc.toFixed(4)}&radius=${radiusKm * 1000}`;
+            completeSearchSyntax = `${moodQuery} under ${euroLimit} EUR maximum cost budget in ${activeGlobeDartAnchorNode.name} open on ${explicitDayName} hours schedule operational at ${timeString}`;
+            mapsUrlCoordinateArguments = `&sll=${activeGlobeDartAnchorNode.lat},${activeGlobeDartAnchorNode.lon}&sspn=${latSpan.toFixed(4)},${lonSpan.toFixed(4)}&radius=${radiusKmFallback * 1000}`;
+        
+        } else {
+            // STRATEGY B BRANCH ROUTING MECHANISM
+            const textStringInput = document.getElementById('manualTextLocation').value.trim();
+            if (!textStringInput) { alert("Please supply a text location anchor or track via GPS button! 📍"); return; }
+
+            const metricChoiceRule = document.querySelector('input[name="clippingRule"]:checked').value;
+            
+            if (metricChoiceRule === 'distance') {
+                const radiusKm = document.getElementById('searchRadiusKm').value;
+                completeSearchSyntax = `${moodQuery} cheap or affordable under ${euroLimit} EUR max price within ${radiusKm} km radius from ${textStringInput} open on ${explicitDayName} schedule operating at ${timeString}`;
+                
+                if (activeGpsHardwareCachedNode) {
+                    const latSpan = radiusKm / 111.32;
+                    const lonSpan = radiusKm / (40075 * Math.cos(activeGpsHardwareCachedNode.lat * Math.PI / 180) / 360);
+                    mapsUrlCoordinateArguments = `&sll=${activeGpsHardwareCachedNode.lat},${activeGpsHardwareCachedNode.lon}&sspn=${latSpan.toFixed(4)},${lonSpan.toFixed(4)}&radius=${radiusKm * 1000}`;
+                }
+            } else {
+                const transitMins = document.getElementById('commuteDurationMins').value;
+                const transitMode = document.querySelector('input[name="transitMode"]:checked').value;
+                
+                // Formulate query string parsing instructions for Google's mapping routing parser engine
+                completeSearchSyntax = `${moodQuery} cost within ${euroLimit} EUR max budget open on ${explicitDayName} at ${timeString} travel duration within ${transitMins} minutes travel commute mode ${transitMode} from ${textStringInput}`;
+                
+                if (activeGpsHardwareCachedNode) {
+                    mapsUrlCoordinateArguments = `&sll=${activeGpsHardwareCachedNode.lat},${activeGpsHardwareCachedNode.lon}`;
+                }
+            }
+        }
+
+        const finalUnifiedMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(completeSearchSyntax)}${mapsUrlCoordinateArguments}`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
-        bridgeLink.href = finalMapsQueryUrl;
+        bridgeLink.href = finalUnifiedMapsDeepUrl;
 
         const panel = document.getElementById('bridgePanel');
         panel.style.display = 'block';
@@ -700,28 +775,55 @@
 
     function compileFinalPassportTicket() {
         const venueSelectionString = document.getElementById('chosenVenueName').value.trim();
-        if (!venueSelectionString) { alert("Please log your final destination target point selection! 🎟️"); return; }
+        if (!venueSelectionString) { alert("Please log your final destination selection node! 🎟️"); return; }
 
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
         const euroLimit = document.getElementById('budgetLimitEuro').value;
-        const radiusKm = document.getElementById('searchRadiusKm').value;
-        const transitMins = document.getElementById('commuteDurationMins').value;
-        const transitMode = document.querySelector('input[name="transitMode"]:checked').parentElement.innerText.trim().substring(2);
         const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
+
+        let anchorAreaDisplayString = "";
+        let coordinateDisplayString = "";
+        let routingRuleDisplayString = "";
+
+        if (activeSpatialStrategyBranch === 'A') {
+            anchorAreaDisplayString = activeGlobeDartAnchorNode.name.toUpperCase();
+            coordinateDisplayString = `${activeGlobeDartAnchorNode.lat.toFixed(4)}°N, ${activeGlobeDartAnchorNode.lon.toFixed(4)}°E`;
+            routingRuleDisplayString = `${duration} (Globe Target Mode)`;
+        } else {
+            const explicitText = document.getElementById('manualTextLocation').value;
+            anchorAreaDisplayString = explicitText.length > 22 ? "PRECISION LOCAL BOUNDS" : explicitText.toUpperCase();
+            
+            if (activeGpsHardwareCachedNode) {
+                coordinateDisplayString = `${activeGpsHardwareCachedNode.lat.toFixed(4)}°N, ${activeGpsHardwareCachedNode.lon.toFixed(4)}°E`;
+            } else {
+                coordinateDisplayString = "GEOSTRING RESOLVED POINT";
+            }
+
+            const metricChoiceRule = document.querySelector('input[name="clippingRule"]:checked').value;
+            if (metricChoiceRule === 'distance') {
+                routingRuleDisplayString = `< ${document.getElementById('searchRadiusKm').value} KM Radius Scope`;
+            } else {
+                const transitMode = document.querySelector('input[name="transitMode"]:checked').parentElement.innerText.trim().substring(2);
+                routingRuleDisplayString = `< ${document.getElementById('commuteDurationMins').value}m via ${transitMode}`;
+            }
+        }
 
         document.getElementById('displayTitle').innerText = venueSelectionString;
         document.getElementById('metaVibe').innerText = `${readableMood} | Max €${euroLimit}`;
-        document.getElementById('metaArea').innerText = activeDartHitLocation.name.toUpperCase();
+        document.getElementById('metaArea').innerText = anchorAreaDisplayString;
         document.getElementById('metaTime').innerText = `${dateInput} @ ${timeInput}`;
-        document.getElementById('metaDuration').innerText = `< ${radiusKm} KM (${transitMins}m via ${transitMode})`;
-        document.getElementById('metaCoords').innerText = `${activeDartHitLocation.lat.toFixed(4)}°N, ${activeDartHitLocation.lon.toFixed(4)}°E`;
+        document.getElementById('metaDuration').innerText = routingRuleDisplayString;
+        document.getElementById('metaCoords').innerText = coordinateDisplayString;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
         document.getElementById('displayRefToken').innerText = `ROULETTE REFMETA: RLT-${token}`;
 
-        const targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(venueSelectionString + " " + activeDartHitLocation.name)}`;
+        let contextualDeepQueryString = venueSelectionString;
+        if (activeSpatialStrategyBranch === 'A') { contextualDeepQueryString += " " + activeGlobeDartAnchorNode.name; }
+
+        const targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(contextualDeepQueryString)}`;
 
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
@@ -733,68 +835,69 @@
     }
 
     function executeSurpriseMeRoulette() {
-        // Randomize Euro cost inputs
-        document.getElementById('budgetLimitEuro').value = String(Math.floor(Math.random() * 120) + 30);
-        document.getElementById('searchRadiusKm').value = String(Math.floor(Math.random() * 35) + 5);
-        document.getElementById('commuteDurationMins').value = String(Math.floor(Math.random() * 45) + 15);
-
-        // Randomize transit types
-        const transitOptions = document.querySelectorAll('input[name="transitMode"]');
-        transitOptions[Math.floor(Math.random() * transitOptions.length)].checked = true;
-
-        // Randomize categories
+        document.getElementById('budgetLimitEuro').value = String(Math.floor(Math.random() * 110) + 40);
+        
         const moodInputs = document.querySelectorAll('input[name="mood"]');
         moodInputs[Math.floor(Math.random() * moodInputs.length)].checked = true;
 
-        // Randomize timeline scopes
         const durationInputs = document.querySelectorAll('input[name="duration"]');
         durationInputs[Math.floor(Math.random() * durationInputs.length)].checked = true;
 
-        // Induce massive rotation trajectory adjustments
-        lambdaAngle = Math.random() * Math.PI * 2;
-        phiAngle = (Math.random() * Math.PI * 0.5) - 0.25;
-
-        executeDartTrajectoryStrike();
+        // Randomize between spatial branches
+        if (Math.random() > 0.5) {
+            toggleSpatialStrategy('A');
+            lambdaAngle = Math.random() * Math.PI * 2;
+            phiAngle = (Math.random() * Math.PI * 0.5) - 0.25;
+            executeDartTrajectoryStrike();
+        } else {
+            toggleSpatialStrategy('B');
+            const sampleCities = ["Berlin, Germany", "Paris Central, France", "London Historic, UK", "Milan Center, Italy"];
+            document.getElementById('manualTextLocation').value = sampleCities[Math.floor(Math.random() * sampleCities.length)];
+            activeGpsHardwareCachedNode = null;
+            
+            if (Math.random() > 0.5) {
+                toggleProximitySubDrawers('distance');
+                document.getElementById('searchRadiusKm').value = String(Math.floor(Math.random() * 25) + 5);
+            } else {
+                toggleProximitySubDrawers('transit');
+                document.getElementById('commuteDurationMins').value = String(Math.floor(Math.random() * 40) + 15);
+                const transitOptions = document.querySelectorAll('input[name="transitMode"]');
+                transitOptions[Math.floor(Math.random() * transitOptions.length)].checked = true;
+            }
+            launchLiveDiscoveryBridge();
+        }
     }
 
     function executeGroupDirectDispatch() {
         const targetNode = document.getElementById('ticketCaptureArea');
         const venueTitle = document.getElementById('displayTitle').innerText;
-        const duration = document.querySelector('input[name="duration"]:checked').value;
         const euroLimit = document.getElementById('budgetLimitEuro').value;
-        const radiusKm = document.getElementById('searchRadiusKm').value;
         
-        const targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(venueTitle + " " + activeDartHitLocation.name)}`;
+        let targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(venueTitle)}`;
+        if (activeSpatialStrategyBranch === 'A') { targetMapsDeepUrl += "%20" + encodeURIComponent(activeGlobeDartAnchorNode.name); }
         
-        const textPayload = `🎰 Experience Roulette Target Passport Unlocked! ✨\n\n🎯 WINNING SELECTION:\n👉 *${venueTitle}*\n📍 REGIONAL CORE: ${activeDartHitLocation.name}\n\n💶 MAX PRICE TARGET: €${euroLimit} EUR\n🗺️ RADIUS CAP: Within ${radiusKm} KM\n\n🛣️ LIVE INTERACTIVE DIRECTION LINK:\n${targetMapsDeepUrl}\n\n📅 SCHEDULE MATCH: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFRAME HORIZON: ${duration}`;
-        
+        const textPayload = `🎰 Experience Roulette Target Passport Confirmed! ✨\n\n🎯 WINNING SELECTION:\n👉 *${venueTitle}*\n\n💶 MAX PRICE BOUND: €${euroLimit} EUR\n🕒 SYSTEM VALIDATION LOG:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n\n🛣️ NATIVE DIRECTIVE ROUTING LINK:\n${targetMapsDeepUrl}`;
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
         function performClipboardCopy(textToCopy) {
-            if (navigator.clipboard && window.isSecureContext) {
-                return navigator.clipboard.writeText(textToCopy);
-            } else {
-                const temporaryTextArea = document.createElement("textarea");
-                temporaryTextArea.value = textToCopy;
+            if (navigator.clipboard && window.isSecureContext) { return navigator.clipboard.writeText(textToCopy); }
+            else {
+                const temporaryTextArea = document.createElement("textarea"); temporaryTextArea.value = textToCopy;
                 temporaryTextArea.style.position = "fixed"; temporaryTextArea.style.opacity = "0";
-                document.body.appendChild(temporaryTextArea);
-                temporaryTextArea.focus(); temporaryTextArea.select();
-                const successful = document.execCommand("copy");
-                document.body.removeChild(temporaryTextArea);
+                document.body.appendChild(temporaryTextArea); temporaryTextArea.focus(); temporaryTextArea.select();
+                const successful = document.execCommand("copy"); document.body.removeChild(temporaryTextArea);
                 return successful ? Promise.resolve() : Promise.reject();
             }
         }
 
         performClipboardCopy(textPayload).then(() => {
-            alert("Adventure passport constraints synced to clipboard securely! Compiling ticket pass image...");
+            alert("Adventure parameters copied to device clipboard securely! Rendering snapshot...");
         }).finally(() => {
             html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
                 const imageBlob = canvas.toDataURL("image/png");
                 const structuralDownloader = document.createElement('a');
                 structuralDownloader.download = `Roulette-Pass-${venueTitle.replace(/\s+/g, '-')}.png`;
-                structuralDownloader.href = imageBlob;
-                structuralDownloader.click();
-                
+                structuralDownloader.href = imageBlob; structuralDownloader.click();
                 window.open(unifiedGroupInviteLink, '_blank');
             });
         });
