@@ -318,12 +318,12 @@
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="chill spaces" checked><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="outdoor adventures"><div class="tile">🧗‍♀️ Action</div></label>
-            <label><input type="radio" name="mood" value="fine dining hidden gems"><div class="tile">🥂 Fine Eat</div></label>
-            <label><input type="radio" name="mood" value="cultural heritage sites"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="scenic nature escapes"><div class="tile">🌲 Escape</div></label>
-            <label><input type="radio" name="mood" value="cozy romantic spots"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="chill places hidden gems" checked><div class="tile">🧖‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="outdoor adventures activities"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="fine dining top restaurants spots"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="cultural heritage unique sites"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="scenic nature landscape views"><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="cozy romantic boutique locations"><div class="tile">🕯️ Cozy</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
@@ -459,9 +459,8 @@
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
 
-        // Completely Dynamic Generation - No Fixed Databases
-        const locationTitle = activeSubregionalLocalityName ? `${activeSubregionalLocalityName} Secret Discovery` : `Coordinate Target Curation`;
         const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
+        const dynamicLocationDescriptor = activeSubregionalLocalityName ? `the ${activeSubregionalLocalityName} zone` : `your selected coordinates`;
 
         const generatedDesc = `Custom localized search matrix constructed perfectly for a [${duration}] immersion profile on ${dateInput}. Curation vectors will generate live options around your selected map region starting exactly at ${timeInput}. Mapped parameters: [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
@@ -480,9 +479,9 @@
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // DYNAMIC AUGMENTED RADAR: Restricts search parameter directly to the pinned target area and category, ignoring Stuttgart entirely
+        // CLEAN SPATIAL SEARCH MATRIX: Stripped of geographic generalizations
         const geoQueryFilter = activeSubregionalLocalityName ? `"${activeSubregionalLocalityName}"` : `${userPinnedCoordinates.lat.toFixed(4)} ${userPinnedCoordinates.lon.toFixed(4)}`;
-        const strictQueryString = `best local ${moodQuery} top rated things to do in ${geoQueryFilter}`;
+        const strictQueryString = `best ${moodQuery} in ${geoQueryFilter}`;
         
         const searchTerms = encodeURIComponent(strictQueryString);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
@@ -499,30 +498,47 @@
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const locationMessageFragment = activeSubregionalLocalityName ? `Around ${activeSubregionalLocalityName}` : `Coordinates`;
         
+        // Corrected URL structure to eliminate runtime string breaks
         const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (http://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
         
-        navigator.clipboard.writeText(textPayload).then(() => {
-            console.log("Text cached successfully to clipboard.");
-        }).catch(err => {
-            const temporaryTextArea = document.createElement("textarea");
-            temporaryTextArea.value = textPayload;
-            document.body.appendChild(temporaryTextArea);
-            temporaryTextArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(temporaryTextArea);
-        });
-
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
-        html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
-            const imageBlob = canvas.toDataURL("image/png");
-            const structuralDownloader = document.createElement('a');
-            const fileLocationSlug = activeSubregionalLocalityName ? activeSubregionalLocalityName.replace(/\s+/g, '-') : 'coordinates';
-            structuralDownloader.download = `Secret-Garden-Passport-${fileLocationSlug}.png`;
-            structuralDownloader.href = imageBlob;
-            structuralDownloader.click();
-            
-            window.open(unifiedGroupInviteLink, '_blank');
+        // Robust clipboard handling block designed for internal mobile webviews
+        function performClipboardCopy(textToCopy) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                const temporaryTextArea = document.createElement("textarea");
+                temporaryTextArea.value = textToCopy;
+                temporaryTextArea.style.position = "fixed"; 
+                temporaryTextArea.style.opacity = "0";
+                document.body.appendChild(temporaryTextArea);
+                temporaryTextArea.focus();
+                temporaryTextArea.select();
+                const successful = document.execCommand("copy");
+                document.body.removeChild(temporaryTextArea);
+                return successful ? Promise.resolve() : Promise.reject();
+            }
+        }
+
+        // Fire clipboard capture instantly, then run canvas asset generation safely
+        performClipboardCopy(textPayload).then(() => {
+            console.log("Payload copied securely to target system clipboards.");
+        }).catch((err) => {
+            console.error("Manual clipboard execution error encountered: ", err);
+        }).finally(() => {
+            html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
+                const imageBlob = canvas.toDataURL("image/png");
+                const structuralDownloader = document.createElement('a');
+                const fileLocationSlug = activeSubregionalLocalityName ? activeSubregionalLocalityName.replace(/\s+/g, '-') : 'coordinates';
+                
+                structuralDownloader.download = `Secret-Garden-Passport-${fileLocationSlug}.png`;
+                structuralDownloader.href = imageBlob;
+                structuralDownloader.click();
+                
+                // Open the WhatsApp connection layer cleanly
+                window.open(unifiedGroupInviteLink, '_blank');
+            });
         });
     }
 </script>
