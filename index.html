@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -127,8 +127,16 @@
         .gold-ribbon-line-h { width: 100%; height: 6px; background: var(--primary-gold); position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
         .launcher-action-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; }
 
-        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 10px; margin-bottom: 20px; text-align: left; }
-        #map { width: 100%; height: 200px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
+        /* ADVANCED SPATIAL WRAPPER WITH COMPACT HUD SEARCH OPTIONS */
+        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 10px; margin-bottom: 20px; text-align: left; position: relative; }
+        
+        .map-search-bar-hud { display: flex; gap: 6px; margin-bottom: 8px; position: relative; z-index: 10; }
+        .map-search-input { flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.3); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; outline: none; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .map-hud-btn { background: var(--text-dark); color: #fff; border: none; padding: 0 14px; border-radius: 12px; font-size: 0.85rem; cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; }
+        .map-hud-btn.gps-btn { background: var(--primary-gold); }
+        .map-hud-btn:hover { opacity: 0.9; }
+
+        #map { width: 100%; height: 210px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
         
         .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; }
 
@@ -156,14 +164,14 @@
         .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; flex: 2; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); }
         .btn-surprise { background-color: var(--action-purple); color: var(--paper-white); border: none; flex: 1; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth); }
 
-        /* RELIABLE EXPERT SELECTION PANEL */
+        /* BRIDGING INTERACTION LAYER */
         .bridge-discovery-panel { display: none; background: var(--dark-panel); border-radius: 24px; padding: 22px 16px; margin-top: 20px; text-align: left; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #3d3532; }
         .explore-intent-btn { display: flex; align-items: center; justify-content: center; background: var(--primary-gold); color: #ffffff; padding: 14px; border-radius: 30px; font-weight: 600; font-size: 0.82rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; width: 100%; text-align: center; box-shadow: 0 4px 12px rgba(197,168,128,0.25); transition: var(--transition-smooth); margin-bottom: 18px; }
         .explore-intent-btn:hover { background: var(--dark-gold); }
 
         .lock-input-zone { border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 16px; }
 
-        /* REVEAL ZONE: IMMACULATE PASSPORT TICKET */
+        /* PASSPORT GENERATION OUTPUT SCREEN */
         .reveal-zone { margin-top: 25px; display: none; }
         #ticketCaptureArea { padding: 25px 20px; background: #ffffff; border-radius: 20px; border: 1px dashed var(--primary-gold); text-align: center; box-shadow: 0 10px 30px rgba(197, 168, 128, 0.08); position: relative; }
         .live-status-badge { display: inline-block; padding: 4px 12px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 16px; background: rgba(104, 163, 123, 0.1); color: var(--success-green); letter-spacing: 1px; }
@@ -186,7 +194,6 @@
 
 <div class="app-container">
 
-    <!-- LANDING VIEW PAGE -->
     <div id="birthdayPage" class="page-view active">
         <div class="birthday-header-zone">
             <div class="curation-tag">Bespoke Curation</div>
@@ -220,16 +227,22 @@
         </div>
     </div>
 
-    <!-- ENGINE GENERATOR VIEW PAGE -->
     <div id="enginePage" class="page-view">
         <h1>The Secret Garden</h1>
         <p class="tagline" style="margin-bottom: 25px;">Live Interactive Spatial Generator</p>
 
         <div class="spatial-map-wrapper">
-            <span class="group-label" style="margin-bottom:2px; font-size: 1.15rem;">Drop a Pin to Targeted Coordinates</span>
-            <span class="explain-tip">Pick your anchor point to index regional live listings.</span>
+            <span class="group-label" style="margin-bottom:2px; font-size: 1.15rem;">Set Search Anchor Position</span>
+            <span class="explain-tip">Search by text, use live device GPS, or tap directly on the map surface.</span>
+            
+            <div class="map-search-bar-hud">
+                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Enter City, Town, or Street...">
+                <button type="button" class="map-hud-btn" onclick="executeTextGeocodeSearch()">Search</button>
+                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()" title="Use Live Location">📍</button>
+            </div>
+
             <div id="map"></div>
-            <div class="telemetry-strip" id="telemetryData">📍 Map Offline. Click coordinates to initialize live location pipeline data.</div>
+            <div class="telemetry-strip" id="telemetryData">📍 Map Standby. Define your target region to spin up the local indexer.</div>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
@@ -268,7 +281,6 @@
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
-        <!-- NEW DEEP INTERACTION LINKING BRIDGE -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
             <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live options complete with ratings, reviews, menus, and operating hours:</span>
@@ -284,7 +296,6 @@
             </div>
         </div>
 
-        <!-- PASSPORT REVEAL TICKET AREA (CLEANED METADATA) -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <div class="live-status-badge">🛰️ Passport Confirmed</div>
@@ -372,36 +383,102 @@
 
         if (mapEngine !== null) return;
 
+        // Centered around Stuttgart region by default
         mapEngine = L.map('map').setView([48.7771, 9.1795], 11); 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapEngine);
 
+        // Bind enter key on the text query bar for high usability
+        document.getElementById('mapTextInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { executeTextGeocodeSearch(); }
+        });
+
         mapEngine.on('click', (e) => {
-            const { lat, lng } = e.latlng;
-            userPinnedCoordinates = { lat: lat, lon: lng };
-
-            if (droppedPinMarker) { droppedPinMarker.setLatLng(e.latlng); } 
-            else { droppedPinMarker = L.marker(e.latlng, { draggable: false }).addTo(mapEngine); }
-
-            document.getElementById('bridgePanel').style.display = 'none';
-            document.getElementById('revealZone').style.display = 'none';
-
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.address) {
-                        activeSubregionalLocalityName = data.address.suburb || data.address.city_district || data.address.village || data.address.town || data.address.city || "";
-                        let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}`;
-                    }
-                }).catch(() => {
-                    activeSubregionalLocalityName = "";
-                    document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                });
+            updateAnchorPinPosition(e.latlng.lat, e.latlng.lng);
         });
     }
 
+    // Shared execution pipeline for positioning pins accurately and pulling localized metadata
+    function updateAnchorPinPosition(lat, lng, zoomTo = false) {
+        userPinnedCoordinates = { lat: lat, lon: lng };
+
+        if (droppedPinMarker) { 
+            droppedPinMarker.setLatLng([lat, lng]); 
+        } else { 
+            droppedPinMarker = L.marker([lat, lng]).addTo(mapEngine); 
+        }
+
+        if (zoomTo) {
+            mapEngine.setView([lat, lng], 14);
+        }
+
+        document.getElementById('bridgePanel').style.display = 'none';
+        document.getElementById('revealZone').style.display = 'none';
+
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.address) {
+                    activeSubregionalLocalityName = data.address.suburb || data.address.city_district || data.address.village || data.address.town || data.address.city || "";
+                    let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                    document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}`;
+                }
+            }).catch(() => {
+                activeSubregionalLocalityName = "";
+                document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            });
+    }
+
+    // TEXT SEARCH ENGINE PIPELINE
+    function executeTextGeocodeSearch() {
+        const textQuery = document.getElementById('mapTextInput').value.trim();
+        if (!textQuery) { alert("Please type a location name to search first!"); return; }
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(textQuery)}&limit=1`)
+            .then(res => res.json())
+            .then(results => {
+                if (results && results.length > 0) {
+                    const targetLocation = results[0];
+                    const lat = parseFloat(targetLocation.lat);
+                    const lon = parseFloat(targetLocation.lon);
+                    updateAnchorPinPosition(lat, lon, true);
+                } else {
+                    alert("Location not found. Please try adding a city name (e.g. 'Sindelfingen') to refine the query.");
+                }
+            })
+            .catch(() => {
+                alert("Error connecting to search network. Please try again.");
+            });
+    }
+
+    // MOBILE LIVE GPS LOCATION AGENT PIPELINE (iOS & Android Compatible)
+    function triggerDeviceLiveLocation() {
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your mobile browser framework.");
+            return;
+        }
+
+        document.getElementById('telemetryData').innerHTML = `⏳ <i>Requesting live device satellite link...</i>`;
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                updateAnchorPinPosition(lat, lon, true);
+            },
+            (error) => {
+                let errorMessage = "Unable to fetch live position.";
+                if (error.code === error.PERMISSION_DENIED) {
+                    errorMessage = "Location permission denied. Please allow location access in your device settings.";
+                }
+                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Access Error:</b> Permission Denied`;
+                alert(errorMessage);
+            },
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+        );
+    }
+
     function launchLiveDiscoveryBridge() {
-        if (!userPinnedCoordinates) { alert("Please drop a marker pin on the map first! 🗺️"); return; }
+        if (!userPinnedCoordinates) { alert("Please drop a marker pin on the map, use GPS, or search a location first! 🗺️"); return; }
         if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) { alert("Please input booking timeline elements first! 📅"); return; }
 
         document.getElementById('revealZone').style.display = 'none';
@@ -417,7 +494,6 @@
             searchTerms += ` near ${latString},${lonString}`;
         }
 
-        // Cross-platform standard fallback web link that works seamlessly across Android, iOS and Desktop
         const universalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerms)}`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
@@ -450,7 +526,6 @@
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
         document.getElementById('displayRefToken').innerText = `PASSPORT REFMETA: HBD-ANA-${token}`;
 
-        // Cross-platform verified search deep link setup for QR code
         const secureMapTargetUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueSelectionString + " " + (activeSubregionalLocalityName || ""))}`;
 
         const qrContainer = document.getElementById("qrcode");
@@ -485,9 +560,8 @@
         const targetNode = document.getElementById('ticketCaptureArea');
         const venueTitle = document.getElementById('displayTitle').innerText;
         const duration = document.querySelector('input[name="duration"]:checked').value;
-        const cleanArea = activeSubregionalLocalityName || "Stuttgart Region";
+        const cleanArea = activeSubregionalLocalityName || "Selected Region";
         
-        // Formulated to parse perfectly as clickable text maps parameters inside WhatsApp native threads on both iOS/Android
         const absoluteMapsIntentUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueTitle + " " + cleanArea)}`;
         
         const textPayload = `✨ Unlocked Secret Garden Destination Ticket ✨\n\n🌿 SELECTION:\n👉 *${venueTitle}*\n\n📍 DIRECTIONS (LIVE LINK):\n${absoluteMapsIntentUrl}\n\n📅 DATE & TIME:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMFIELD PROFILE:\n${duration}`;
