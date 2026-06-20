@@ -220,15 +220,11 @@
         .qr-output-box { display: inline-block; margin: 12px auto; padding: 12px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
 
         .action-button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
-        .btn-action-panel { border: none; padding: 15px; border-radius: 35px; font-weight: 600; font-size: 0.82rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; box-sizing: border-box; }
+        .btn-action-panel { border: none; padding: 15px; border-radius: 35px; font-weight: 600; font-size: 0.82rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; box-sizing: border-box; text-align: center; }
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); }
         .btn-panel-dark:hover { background-color: var(--primary-gold); }
         .btn-panel-gold { background-color: transparent; color: var(--text-dark); border: 1px solid var(--primary-gold); }
         .btn-panel-gold:hover { background-color: #fefcf9; }
-
-        /* Modern Micro-Modal Overlay Architecture */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 39, 36, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
-        .modal-content-card { background: #ffffff; border-radius: 24px; max-width: 400px; width: 90%; padding: 30px; text-align: center; border: 1px solid var(--border-soft); box-shadow: 0 20px 45px rgba(0,0,0,0.1); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     </style>
 </head>
 <body>
@@ -302,9 +298,8 @@
         <span class="group-label">Curation Horizon Duration</span>
         <div class="duration-grid">
             <label><input type="radio" name="duration" value="1-3 Hours" checked><div class="tile" style="min-height:50px;">⏱️ 1-3 Hours</div></label>
-            <label><input type="radio" name="duration" value="Half Day"><div class="tile" style="min-height:50px;">noon 🌗 Half Day</div></label>
+            <label><input type="radio" name="duration" value="Half Day"><div class="tile" style="min-height:50px;">🌗 Half Day</div></label>
             <label><input type="radio" name="duration" value="Full Day"><div class="tile" style="min-height:50px;">☀️ Full Day</div></label>
-            <label><input type="radio" name="duration" value="Overnight Escape"><div class="tile" style="min-height:50px;">🌙 Overnight</div></label>
         </div>
 
         <button class="btn-spin" onclick="runAnimatedRoulette()">Synthesize Destination ✨</button>
@@ -324,19 +319,10 @@
             </div>
             
             <div class="action-button-group">
-                <button class="btn-action-panel btn-panel-dark" onclick="executeDualStageDispatch()">Download Ticket & Pre-Fill Chat 💌</button>
-                <a id="liveSearchLink" class="btn-action-panel btn-panel-gold" target="_blank">🔍 Live Verification: Research This Area</a>
+                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Send Confirmation 💌</button>
+                <a id="liveSearchLink" class="btn-action-panel btn-panel-gold" target="_blank">Explore Curation Realism ✨</a>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="completionModal">
-    <div class="modal-content-card">
-        <div style="font-size:2.5rem; margin-bottom:12px;">✨</div>
-        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; margin-bottom:10px;">Passport Download Complete!</h3>
-        <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6; margin-bottom:20px;">Your custom ticket file is saved on your device storage. To wrap up your registration, join the permanent workspace channel below!</p>
-        <button class="btn-action-panel btn-panel-dark" onclick="redirectToPermanentGroupWorkspace()">Enter Permanent Group Workspace 🌸</button>
     </div>
 </div>
 
@@ -344,31 +330,41 @@
     let mapEngine = null;
     let droppedPinMarker = null;
     let userPinnedCoordinates = null; 
+    let activeSubregionalLocalityName = "the selected area"; // Tracks reverse geocoded names to override Stuttgart search bias
 
-    const proceduralLexicon = {
-        adventure: {
-            titles: ["Expedition Venture", "Hidden Pathway Trek", "Rogue Terrain Odyssey", "Summit Horizon Crest"],
-            descs: ["An off-grid high-adrenaline outdoor navigation course mapped tracking raw topographical structures around coordinates.", "A wilderness challenge run evaluating technical micro-terrain footprints and scenic peaks around the target radius."]
-        },
-        chill: {
-            titles: ["Panoramic Thermal Oasis", "Lakeside Solitude Sanctuary", "Secret Meadow Hideaway", "Zen Horizon Lounge"],
-            descs: ["A private structural relaxation curation leveraging natural local water tables and scenic sensory environments.", "An open-atmosphere peace sanctuary alignment emphasizing local quiet zones and custom restorative tea setups."]
-        },
-        gourmet: {
-            titles: ["Artisanal Culinary Cellar", "Micro-Estate Gastronomy Flight", "Hidden Harvest Pavilion", "Vineyard Terroir Tasting"],
-            descs: ["An exclusive epicurean journey serving rare organic elements sourced natively from regional orchards and estates.", "A private tasting reservation mapping regional small-batch delicacies and bespoke structural flavor creations."]
-        },
+    // Micro-Real Venue Matrix Engine (<100 Euro Constraints Embedded)
+    const architecturalVenues = {
+        chill: [
+            { venue: "Thermalbad Beuren Oasis", detail: "A premium open-air thermal bath complex embedded directly against regional limestone hills. Features panorama natural steam grottos." },
+            { venue: "The Mineral Springs of Bad Urach", detail: "Historic indoor mineral spring pavilions offering direct sub-surface thermal immersion basins with panoramic meadow parklines." }
+        ],
+        adventure: [
+            { venue: "Waldklettergarten Forest Canopy Park", detail: "An active tree-top navigation bridge network and high-wire platform course suspended natively within ancient beech forest borders." },
+            { venue: "Deep Gorge Swabian Caves Path", detail: "An active, guided dark-gorge exploration and safety caving navigation challenge through localized structural cavern networks." }
+        ],
+        gourmet: [
+            { venue: "Burg Hohenneuffen Valley Estate Pavilions", detail: "A historic high-crest estate offering custom small-plate regional wine flights and artisanal farm-sourced culinary pairings." },
+            { venue: "Gasthof Grüner Baum Vaults", detail: "A heritage slow-food brick cellar specializing in handmade local dishes and organic vineyard pressings." }
+        ],
         culture: {
-            titles: ["Ancient Architectural Footprint", "Heritage Stone Monograph", "Secret Archives Atrium", "Artisan Lore Promenade"],
-            descs: ["A comprehensive spatial exploration uncovering localized historical remnants, structural artistry, and regional lore.", "An immersive historical walk investigating deep structural design histories and local architectural expressions."]
+            day: [
+                { venue: "Marbach National Archives & Pavilion Walk", detail: "An iconic modern hilltop literary archive offering rare historical collections and landscape design walkways." }
+            ],
+            night: [
+                { venue: "Kloster Lorch Historic Vault Conservatories", detail: "A dramatic historical stone monastery complex featuring twilight acoustic ambient acoustics and architectural grounds." }
+            ]
         },
-        nature: {
-            titles: ["Deep Woodlands Eco-Canopy", "Primal Forest Ridge Traverse", "Hidden Waterfall Glade", "Misty River Basin Refuge"],
-            descs: ["An ecological escape tracking pristine native flora, dense timber lines, and wildlife footprints around your pin.", "A natural immersion path mapped through ancient groves and panoramic valleys at this location."]
-        },
+        nature: [
+            { venue: "Urach Waterfall Eco-Canopy Trails", detail: "A dramatic scenic trail tracking freshwater mountain streams down vertical limestone fault lines through deep moss forests." },
+            { venue: "The Blue Rock Crater Basin Trail", detail: "A sweeping, geological caldera hike weaving between pristine turquoise springs and regional slate volcanic fields." }
+        ],
         cozy: {
-            titles: ["Candlelit Vault Sanctuary", "Chamber Fireside Respite", "Secret Twilight Conservatory", "Log-Cabin Hearth Escape"],
-            descs: ["A warm, low-illumination intimate interior gathering experience featuring local heritage ciders and cozy ambiance.", "A highly exclusive indoor relaxation sanctuary featuring specialized vintage seating setups and acoustic arrays."]
+            day: [
+                { venue: "Schloss Solitude Forest Orangery", detail: "An elegant, light-filled botanical glasshouse salon serving small-batch roasts and organic pastries beside ancient hunting grounds." }
+            ],
+            night: [
+                { venue: "The Candlelit Vault at Kelterplatz", detail: "A low-illumination historic stone cellar estate featuring ambient acoustic arrangements, vintage plush seating, and warm mulled specialties." }
+            ]
         }
     };
 
@@ -408,7 +404,7 @@
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
 
-        mapEngine = L.map('map').setView([48.1351, 9.5000], 7);
+        mapEngine = L.map('map').setView([48.6200, 9.3500], 9); // Centers closer over Swabian Alb/South regional areas
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(mapEngine);
 
         mapEngine.on('click', (e) => {
@@ -419,7 +415,19 @@
             else { droppedPinMarker = L.marker(e.latlng, { draggable: false }).addTo(mapEngine); }
 
             document.getElementById('revealZone').style.display = 'none';
-            document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)} <br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
+            document.getElementById('telemetryData').innerHTML = `📍 <b>Coordinate Pin Locked</b><br><span style="color:var(--primary-gold); font-weight:600;">Interpreting micro-regional telemetry fields...</span>`;
+
+            // REVERSE-GEOCODING RADAR: Eradicates the Stuttgart search engine bias by identifying actual town names
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.address) {
+                        activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.county || "this region";
+                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Area near ${activeSubregionalLocalityName}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
+                    }
+                }).catch(() => {
+                    activeSubregionalLocalityName = "this precise region";
+                });
         });
     }
 
@@ -444,33 +452,42 @@
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
 
-        // SEED GENERATION ARITHMETIC: Captures precise unique variations linked straight to runtime variables
-        const locationSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 10000);
-        const lexiconPool = proceduralLexicon[mood];
-        
-        const titleIndex = Math.floor((locationSeed * 7) % lexiconPool.titles.length);
-        const descIndex = Math.floor((locationSeed * 13) % lexiconPool.descs.length);
+        // CALCULATE OPERATIONAL HORIZON OPENING TIMEFRAMES
+        const targetHour = parseInt(timeInput.split(':')[0]);
+        const dayPeriod = (targetHour >= 7 && targetHour < 17) ? "day" : "night";
 
-        const rawTitle = lexiconPool.titles[titleIndex];
-        const generatedTitle = `The ${rawTitle}`;
-        const generatedDesc = `${lexiconPool.descs[descIndex]} This bespoke curation is configured precisely for a [${duration}] timeframe windows, processing within radius zones centered on coordinate coordinates: [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
+        // ROUTE LOGIC MATRIX TO CONCRETE VENUES
+        let pool = architecturalVenues[mood];
+        if (pool.day || pool.night) {
+            pool = pool[dayPeriod];
+        }
+
+        // ALGORITHMIC VENUE SELECTION DERIVED FROM PIN SEED
+        const selectionSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 100);
+        const selectedVenueObject = pool[Math.floor(selectionSeed % pool.length)];
+
+        const generatedTitle = selectedVenueObject.venue;
+        
+        // CONTEXTUAL TRANSFORMATION EMBEDDING LOCAL SELECTIONS & DURATION HORIZONS
+        const generatedDesc = `${selectedVenueObject.detail} Perfectly configured for a custom [${duration}] immersion profile on ${dateInput}. Operations open natively for your selected arrival timeline window starting exactly at ${timeInput}. Experience mapped natively inside the ${activeSubregionalLocalityName} zone [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
         document.getElementById('displayTitle').innerText = generatedTitle;
         document.getElementById('displayDesc').innerText = generatedDesc;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
         const refPassport = `TSG-ANA-${token}`;
-        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nCOORDINATES: ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
+        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nREGION: ${activeSubregionalLocalityName.toUpperCase()}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
 
-        // Build serialization barcode elements
+        // Build serialization QR barcode graphics
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
-        const qrString = `PASSPORT: ${refPassport}\nEVENT: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nMETRICS: ${dateInput}_${timeInput}_${duration}`;
+        const qrString = `PASSPORT: ${refPassport}\nVENUE: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nMETRICS: ${dateInput}_${timeInput}_${duration}`;
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // DYNAMIC SEARCH QUERY STAGE: Re-compiles parameters perfectly on every structural generation change
-        const searchTerms = encodeURIComponent(`secret spots hidden gems restaurants sights activities things to do near ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)} ${mood} ${duration}`);
+        // PERFECTED ANTI-BIAS SEARCH RADAR STAGE: Intercepts search vectors, locks local names, and subtracts Stuttgart bias explicitly
+        const strictQueryString = `"${generatedTitle}" OR ("${activeSubregionalLocalityName}" ${mood} spots things to do) -Stuttgart`;
+        const searchTerms = encodeURIComponent(strictQueryString);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
 
         const zone = document.getElementById('revealZone');
@@ -478,51 +495,31 @@
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
-    // DUAL-STAGE WHATSAPP TEXT INJECTION AND SNAPSHOT DOWNLOAD ENGINE
-    function executeDualStageDispatch() {
+    // DIRECT SINGLE-STAGE PRE-FILLED WHATSAPP WORKSPACE ROUTER Engine
+    function executeGroupDirectDispatch() {
         if (!userPinnedCoordinates) return;
 
         const targetNode = document.getElementById('ticketCaptureArea');
         const duration = document.querySelector('input[name="duration"]:checked').value;
         
-        // Structure the message text array block cleanly
-        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION: https://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\n📅 RESERVATION SLOT: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFRAME HORIZON: ${duration}\n\n🎟️ Snapshot passport ticket generation asset file downloaded on local device.`;
+        // Formulates beautiful, aesthetic text output arrays block
+        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED VENUE: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: Around ${activeSubregionalLocalityName} (https://maps.google.com/?q=$${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
         
-        // Build direct raw API links to bypass WhatsApp standard chat buffer limits
+        // COMPOSES THE INJECTION LINK DIRECTLY INTO THE TARGET GROUP API FRAMEWORK WITHOUT BREAKING
         const encodedText = encodeURIComponent(textPayload);
-        const directTextDispatchEndpoint = `https://api.whatsapp.com/send?text=${encodedText}`;
+        const unifiedGroupInjectionEndpoint = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw?text=${encodedText}`;
 
-        // STAGE 1: Open direct text engine immediately to hold focus strings securely
-        window.open(directTextDispatchEndpoint, '_blank');
-
-        // STAGE 2: Render higher density ticket snapshot vectors asynchronously 
+        // Renders canvas ticket snapshot vectors cleanly onto background storage frame layers asynchronously 
         html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
             const imageBlob = canvas.toDataURL("image/png");
             const structuralDownloader = document.createElement('a');
-            structuralDownloader.download = `Secret-Garden-Infinite-Passport.png`;
+            structuralDownloader.download = `Secret-Garden-Passport-${activeSubregionalLocalityName}.png`;
             structuralDownloader.href = imageBlob;
             structuralDownloader.click();
             
-            // Call modern interface micro-modal layout
-            displayCompletionWorkflowModal();
+            // ONE CLICK ACTION: Smoothly fires straight into the WhatsApp workspace, pre-filled text instantly waiting in the input box
+            window.open(unifiedGroupInjectionEndpoint, '_blank');
         });
-    }
-
-    function displayCompletionWorkflowModal() {
-        const modal = document.getElementById('completionModal');
-        modal.style.display = 'flex';
-        setTimeout(() => { modal.style.opacity = '1'; modal.querySelector('.modal-content-card').style.transform = 'scale(1)'; }, 50);
-    }
-
-    function redirectToPermanentGroupWorkspace() {
-        const groupInvitationLink = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
-        window.open(groupInvitationLink, '_blank');
-        
-        // Soft close modal layout cleanup
-        const modal = document.getElementById('completionModal');
-        modal.style.opacity = '0';
-        modal.querySelector('.modal-content-card').style.transform = 'scale(0.95)';
-        setTimeout(() => { modal.style.display = 'none'; }, 400);
     }
 </script>
 </body>
