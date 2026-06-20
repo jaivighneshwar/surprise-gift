@@ -2,22 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience Roulette | Live On-Demand Discovery ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Experience Roulette | Gamified On-Demand Exploration Engine ✨</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Leaflet Core CSS & JS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-
-    <!-- Leaflet Geocoding Plugin for Robust Text Search -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
-
-    <!-- QR & Canvas Utils -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -34,9 +25,10 @@
             --success-green: #68a37b;
             --action-purple: #897993;
             --dark-panel: #201c1a;
+            --accent-red: #d36161;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -50,6 +42,7 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
+            overflow-x: hidden;
         }
 
         .app-container {
@@ -83,7 +76,6 @@
             content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
             border: 1px solid var(--border-soft); border-radius: 22px; pointer-events: none;
         }
-        @media (min-width: 400px) { .page-view::before { top: 14px; left: 14px; right: 14px; bottom: 14px; border-radius: 20px; } }
 
         .app-header-zone { margin-bottom: 25px; }
         .curation-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 12px; }
@@ -96,7 +88,7 @@
         }
         .explain-tip { font-size: 0.72rem; color: var(--text-light); display: block; text-align: left; margin-top: -6px; margin-bottom: 10px; font-style: italic; }
 
-        /* ROULETTE TOKEN INTERACTIVE ELEMENT */
+        /* TOKEN INTERACTIVE ELEMENTS */
         .token-container {
             position: relative; width: 100%; max-width: 220px; height: 140px; margin: 15px auto 20px auto;
             cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -123,30 +115,28 @@
         .activated .glowing-pulse { display: none; }
 
         .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 25px; min-height: 20px; }
-        .gift-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
-        .gift-capsule { position: relative; width: 75px; height: 75px; cursor: pointer; transition: var(--transition-smooth); animation: calmFloating 4s infinite ease-in-out; display: flex; justify-content: center; align-items: center; margin-bottom: 12px; }
-        @keyframes calmFloating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .minimal-gift-box { width: 54px; height: 50px; background: #ffffff; border: 1.5px solid var(--text-dark); position: relative; border-radius: 6px; box-shadow: 0 10px 25px rgba(44, 39, 36, 0.05); }
-        .minimal-gift-lid { width: 60px; height: 12px; background: #ffffff; border: 1.5px solid var(--text-dark); position: absolute; top: -9px; left: -4.5px; border-radius: 3px; }
-        .gold-ribbon-line-v { width: 6px; height: 100%; background: var(--primary-gold); position: absolute; left: 50%; transform: translateX(-50%); top: 0; }
-        .gold-ribbon-line-h { width: 100%; height: 6px; background: var(--primary-gold); position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
-        .launcher-action-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; }
-
-        /* ROBUST SPATIAL CONTROL CONTAINER */
-        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 12px; margin-bottom: 20px; text-align: left; }
+        .engine-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
         
-        .map-search-bar-hud { display: flex; gap: 8px; margin-bottom: 12px; width: 100%; }
-        .map-search-input { flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; outline: none; color: var(--text-dark); background-color: var(--bg-beige); }
-        .map-search-input:focus { border-color: var(--primary-gold); box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.15); }
+        /* GAMIFIED SPACE: VIRTUAL GLOBE DARTBOARD */
+        .globe-hardware-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 15px; margin-bottom: 20px; text-align: center; position: relative; }
+        .globe-canvas-frame { width: 240px; height: 240px; margin: 0 auto; position: relative; cursor: grab; display: flex; align-items: center; justify-content: center; }
+        .globe-canvas-frame:active { cursor: grabbing; }
+        #globeCanvas { width: 100%; height: 100%; background: transparent; display: block; border-radius: 50%; }
         
-        .map-hud-btn { background: var(--text-dark); color: #fff; border: none; padding: 0 16px; border-radius: 12px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: var(--transition-smooth); text-transform: uppercase; letter-spacing: 0.5px; }
-        .map-hud-btn.gps-btn { background: var(--primary-gold); font-size: 1.1rem; padding: 0 12px; display: flex; align-items: center; justify-content: center; }
-        .map-hud-btn:hover { opacity: 0.9; }
-
-        #map { width: 100%; height: 230px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.05); z-index: 1; }
+        /* Dart Reticle UI overlay overlay */
+        .dart-target-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 1px dashed var(--accent-red); border-radius: 50%; pointer-events: none; opacity: 0.4; display: flex; align-items: center; justify-content: center; }
+        .dart-target-overlay::before { content: ''; position: absolute; width: 100%; height: 1px; background: var(--accent-red); }
+        .dart-target-overlay::after { content: ''; position: absolute; width: 1px; height: 100%; background: var(--accent-red); }
         
-        .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; }
+        .dart-sprite-node { position: absolute; width: 44px; height: 44px; font-size: 2.5rem; line-height: 1; transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1); opacity: 0; pointer-events: none; z-index: 10; top: -100px; left: 50%; transform: translateX(-50%) scale(2); }
+        .dart-sprite-node.thrown { opacity: 1; top: calc(50% - 34px); transform: translateX(-50%) scale(1) rotate(-15deg); filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15)); }
 
+        .btn-dart-launch { background: var(--accent-red); color: #fff; border: none; padding: 12px 24px; border-radius: 25px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: var(--transition-smooth); text-transform: uppercase; letter-spacing: 1px; margin-top: 12px; box-shadow: 0 4px 12px rgba(211,97,97,0.25); }
+        .btn-dart-launch:hover { opacity: 0.9; }
+
+        .telemetry-strip { margin-top: 12px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; text-align: left; }
+
+        /* FORM FIELD LAYOUT PATTERNS */
         .selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 20px; }
         @media (min-width: 360px) { .selection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
         
@@ -160,6 +150,14 @@
         input[type="radio"]:checked + .tile {
             border-color: var(--primary-gold); background-color: #f7f3eb; color: var(--text-dark); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold);
         }
+
+        /* BUDGET HARDWARE FILTER SLIDER */
+        .budget-control-card { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 16px; margin-bottom: 20px; text-align: left; }
+        .budget-metric-row { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; }
+        .budget-slider { width: 100%; -webkit-appearance: none; height: 5px; border-radius: 3px; background: #ebdcc8; outline: none; margin: 10px 0; }
+        .budget-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--text-dark); border: 2px solid var(--primary-gold); cursor: pointer; transition: 0.15s ease-in-out; }
+        .budget-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+        .budget-indicators { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .datetime-picker-wrap { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; text-align: left; }
         @media (min-width: 360px) { .datetime-picker-wrap { grid-template-columns: 1fr 1fr; gap: 12px; } }
@@ -197,7 +195,6 @@
 
 <div class="app-container">
 
-    <!-- LANDING VIEW PAGE -->
     <div id="welcomePage" class="page-view active">
         <div class="app-header-zone">
             <div class="curation-tag">On-Demand Exploration</div>
@@ -208,67 +205,73 @@
         <div class="token-container" onclick="handleTokenActivation(this)">
             <div class="glowing-pulse"></div>
             <div class="roulette-token">
-                <div class="token-inner">✨</div>
+                <div class="token-inner">🎰</div>
             </div>
         </div>
 
         <p class="status-feedback-text" id="tokenStatusText">🎯 Tap the engine token to initialize system matching.</p>
 
-        <div class="gift-launcher-zone">
-            <div class="gift-capsule" onclick="navigateToEngineTab()">
-                <div class="minimal-gift-box">
-                    <div class="gold-ribbon-line-v"></div>
-                    <div class="gold-ribbon-line-h"></div>
-                    <div class="minimal-gift-lid"></div>
-                </div>
-            </div>
-            <div class="launcher-action-label">Open Discovery Engine 🗺️</div>
+        <div class="engine-launcher-zone">
+            <button class="btn-spin" style="width: 100%; max-width: 280px;" onclick="navigateToEngineTab()">Launch Engine 🎲</button>
         </div>
     </div>
 
-    <!-- ENGINE GENERATOR VIEW PAGE -->
     <div id="enginePage" class="page-view">
         <h1>Experience Roulette</h1>
-        <p class="tagline" style="margin-bottom: 25px;">Live Interactive Spatial Generator</p>
+        <p class="tagline" style="margin-bottom: 20px;">Gamified On-Demand Discovery</p>
 
-        <div class="spatial-map-wrapper">
-            <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.15rem;">Set Search Anchor Position</span>
-            <span class="explain-tip">Search by name, use live mobile GPS, or tap directly on the map.</span>
+        <div class="globe-hardware-wrapper">
+            <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.15rem;">Spin & Target Location Anchor</span>
+            <span class="explain-tip">Drag to manually position the globe matrix or launch a blind random trajectory strike.</span>
             
-            <div class="map-search-bar-hud">
-                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Type City, Town, or Landmark...">
-                <button type="button" class="map-hud-btn" onclick="executeTextGeocodeSearch()">Search</button>
-                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()">📍</button>
+            <div class="globe-canvas-frame" id="globeTouchSurface">
+                <canvas id="globeCanvas"></canvas>
+                <div class="dart-target-overlay"></div>
+                <div class="dart-sprite-node" id="dartNode">🎯</div>
             </div>
 
-            <div id="map"></div>
-            <div class="telemetry-strip" id="telemetryData">🗺️ Map Ready. Use search bar or drop a pin to begin tracking.</div>
+            <button type="button" class="btn-dart-launch" onclick="executeDartTrajectoryStrike()">Throw Dart 🎯</button>
+            <div class="telemetry-strip" id="telemetryData">🎰 Globe Matrix Active. Spin or throw to establish coordinates.</div>
+        </div>
+
+        <div class="budget-control-card">
+            <div class="budget-metric-row">
+                <span>Strict Budget Envelope</span>
+                <span id="budgetCurrentLabel" style="color: var(--dark-gold);">Standard ($$)</span>
+            </div>
+            <input type="range" min="1" max="4" value="2" class="budget-slider" id="budgetRangeSlider" oninput="handleBudgetSliderSync(this.value)">
+            <div class="budget-indicators">
+                <span>Value</span>
+                <span>Standard</span>
+                <span>Premium</span>
+                <span>Exclusive</span>
+            </div>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="best highly rated shopping boutique design market retail district store top reviews"><div class="tile">🛍️ Shopping</div></label>
-            <label><input type="radio" name="mood" value="best highly rated spa hidden wellness gems top reviews"><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="best highly rated scenic nature landscape views public parks top reviews" checked><div class="tile">🌲 Escape</div></label>
-            <label><input type="radio" name="mood" value="best highly rated boat rental stand up paddling sup outdoor swimming pools hiking trails badminton court sports center top reviews"><div class="tile">🧗‍♀️ Action</div></label>
-            <label><input type="radio" name="mood" value="best highly rated escape rooms arcade games board game cafe adventure centers virtual reality top reviews"><div class="tile">🧩 Games</div></label>
-            <label><input type="radio" name="mood" value="best highly rated movie theaters cinema showing films premium IMAX original version OV top reviews"><div class="tile">🍿 Movies</div></label>
-            <label><input type="radio" name="mood" value="best highly rated live events concerts festivals theater performances upcoming shows comedy clubs top reviews"><div class="tile">🎫 Events</div></label>
-            <label><input type="radio" name="mood" value="best highly rated authentic Indian restaurant fine dining tandoori curry top reviews"><div class="tile">🍛 Indian</div></label>
-            <label><input type="radio" name="mood" value="best highly rated fine dining top culinary food places top reviews"><div class="tile">🥂 Fine Eat</div></label>
-            <label><input type="radio" name="mood" value="best highly rated museum architecture cultural heritage sites top reviews"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="best highly rated cozy hidden date cocktail spaces top reviews"><div class="tile">🕯️ Cozy</div></label>
-            <label><input type="radio" name="mood" value="best highly rated speakeasy lounge live music premium nightlife top reviews"><div class="tile">🍸 After Dark</div></label>
-            <label><input type="radio" name="mood" value="best highly rated coffee shops artisan roastery bakery top reviews"><div class="tile">☕ Cafes</div></label>
+            <label><input type="radio" name="mood" value="shopping boutique design market store premium luxury retail district top reviews"><div class="tile">🛍️ Shopping</div></label>
+            <label><input type="radio" name="mood" value="spa hidden wellness massage treatment sanctuary premium reviews"><div class="tile">🧖‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="scenic nature landscape views public parks scenic overlooks top reviews" checked><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="boat rental stand up paddling sup outdoor adventure hiking trails center top reviews"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="escape rooms arcade games board game cafe dynamic virtual reality top reviews"><div class="tile">🧩 Games</div></label>
+            <label><input type="radio" name="mood" value="movie theaters cinema showing films original version OV premium reviews"><div class="tile">🍿 Movies</div></label>
+            <label><input type="radio" name="mood" value="live events concerts festivals theater performances comedy clubs top reviews"><div class="tile">🎫 Events</div></label>
+            <label><input type="radio" name="mood" value="authentic Indian restaurant fine dining premium tandoori curry top reviews"><div class="tile">🍛 Indian</div></label>
+            <label><input type="radio" name="mood" value="fine dining top culinary Michelin culinary arts food places top reviews"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="museum architecture historical cultural heritage architecture top reviews"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="cozy hidden speakeasy lounge secret bar premium custom cocktail spaces"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="premium lounge bar night clubs live music premium nightlife top reviews"><div class="tile">🍸 After Dark</div></label>
+            <label><input type="radio" name="mood" value="artisan roastery coffee shops premium cozy bakery roasters top reviews"><div class="tile">☕ Cafes</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
             <div class="input-block">
-                <span class="group-label">Select Date</span>
+                <span class="group-label">Select Target Date</span>
                 <input type="date" class="custom-input" id="targetDate" required>
             </div>
             <div class="input-block">
-                <span class="group-label">Preferred Time</span>
+                <span class="group-label">Strict Target Time</span>
                 <input type="time" class="custom-input" id="targetTime" required>
             </div>
         </div>
@@ -285,33 +288,31 @@
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
-        <!-- DEEP INTERACTION LINKING BRIDGE PANEL -->
         <div class="bridge-discovery-panel" id="bridgePanel">
-            <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
-            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live choices complete with premium ratings, high reviews, and operating profiles:</span>
+            <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: Open Live Validated Options</span>
+            <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse verified venue options matched to your budget envelope and strictly operating during your window:</span>
             
-            <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Real-Time Options 🗺️</a>
+            <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Active Choices 🗺️</a>
             
             <div class="lock-input-zone">
                 <span class="group-label" style="margin-top:0; color:#ffffff;">✍️ Step 2: Finalize Selection</span>
-                <span class="explain-tip" style="color: #bcaea3;">Type your favorite choice from the live verified map listings to lock in the experience package:</span>
-                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Local Design District Store" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
+                <span class="explain-tip" style="color: #bcaea3;">Type your winning experience location node choice to finalize the passport ticket profile:</span>
+                <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Paramount Luxury Lounge" style="border: 1px solid var(--primary-gold); margin-bottom:15px; background: #2c2724; color: #fff;">
                 
                 <button class="btn-action-panel btn-panel-dark" onclick="compileFinalPassportTicket()">Generate Pass & QR Code 🎟></button>
             </div>
         </div>
 
-        <!-- PASSPORT REVEAL TICKET AREA -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <div class="live-status-badge">🛰️ Passport Confirmed</div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--primary-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">Experience Roulette Destination Pass</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--primary-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">Experience Roulette Passport Pass</div>
                 
                 <h3 class="reveal-title" id="displayTitle"></h3>
                 
                 <table class="poi-metadata-table">
                     <tr>
-                        <td class="label-col">Vibe Category</td>
+                        <td class="label-col">Vibe & Cost</td>
                         <td id="metaVibe"></td>
                     </tr>
                     <tr>
@@ -337,7 +338,7 @@
             </div>
             
             <div class="action-button-group">
-                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Plan to WhatsApp 💌</button>
+                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Live Plan to WhatsApp 💌</button>
             </div>
         </div>
 
@@ -345,11 +346,46 @@
 </div>
 
 <script>
-    let mapEngine = null;
-    let droppedPinMarker = null;
-    let userPinnedCoordinates = null; 
-    let activeSubregionalLocalityName = ""; 
-    let leafletGeocoderInstance = null;
+    // GLOBE GRAPHICS AND RENDERING PARAMETERS
+    let canvasElement = null;
+    let canvasContext = null;
+    let globeRadiusPixelSize = 100;
+    
+    // Rotation Matrix angles (radians)
+    let lambdaAngle = 0.5; 
+    let phiAngle = 0.3;
+    
+    // Touch Interaction Telemetry
+    let isTouchActive = false;
+    let lastPositionX = 0;
+    let lastPositionY = 0;
+    let spinVelocityX = 0.005;
+    let spinVelocityY = 0.002;
+    let animationTimerReference = null;
+    let activeDartHitLocation = null;
+
+    // Strict Budget Variables
+    let selectedBudgetStringKeyword = "standard tier pricing";
+    let budgetDisplayMapping = {
+        "1": { label: "Value (Cheap / Budget)", query: "affordable cheap budget friendly value" },
+        "2": { label: "Standard ($$)", query: "standard tier pricing moderate cost" },
+        "3": { label: "Premium ($$$)", query: "premium high quality boutique upscale" },
+        "4": { label: "Exclusive ($$$$)", query: "luxury fine dining premium exclusive VIP elite highly rated" }
+    };
+
+    // Major Global Cities Matrix fallback targets to guarantee search query success
+    const standardGeoCitiesCluster = [
+        { name: "New York Midtown", lat: 40.7580, lon: -73.9855 },
+        { name: "London West End", lat: 51.5113, lon: -0.1285 },
+        { name: "Paris Central", lat: 48.8566, lon: 2.3522 },
+        { name: "Tokyo Shibuya", lat: 35.6580, lon: 139.7016 },
+        { name: "Berlin Mitte", lat: 52.5200, lon: 13.4050 },
+        { name: "Stuttgart Downtown", lat: 48.7758, lon: 9.1829 },
+        { name: "Sydney Central", lat: -33.8688, lon: 151.2093 },
+        { name: "Rome Center", lat: 41.9028, lon: 12.4964 },
+        { name: "Dubai Downtown", lat: 25.2048, lon: 55.2708 },
+        { name: "Singapore Marina", lat: 1.3521, lon: 103.8198 }
+    ];
 
     function showPage(pageId) {
         const currentActive = document.querySelector('.page-view.active');
@@ -363,10 +399,7 @@
                 setTimeout(() => {
                     targetPage.style.opacity = '1';
                     targetPage.style.transform = 'translateY(0)';
-                    
-                    if (pageId === 'enginePage') {
-                        initiateSpatialMap();
-                    }
+                    if (pageId === 'enginePage') { initializeGlobeHardwareCanvas(); }
                 }, 50);
             }, 500);
         }
@@ -375,141 +408,269 @@
     function handleTokenActivation(element) {
         if (!element.classList.contains('activated')) {
             element.classList.add('activated');
-            const statusTxt = document.getElementById('tokenStatusText');
-            statusTxt.style.color = "var(--success-green)";
-            statusTxt.innerHTML = "🎯 <i>Roulette engine initialized. Tap the capsule below to step inside...</i>";
+            document.getElementById('tokenStatusText').innerHTML = "🎯 <i>System localized. Ready to play.</i>";
         }
     }
 
     function navigateToEngineTab() { showPage('enginePage'); }
 
-    function initiateSpatialMap() {
+    function handleBudgetSliderSync(value) {
+        const dataObj = budgetDisplayMapping[value];
+        document.getElementById('budgetCurrentLabel').innerText = dataObj.label;
+        selectedBudgetStringKeyword = dataObj.query;
+    }
+
+    // INITIALIZE PROCEDURAL CANVAS ENGINE
+    function initializeGlobeHardwareCanvas() {
+        // Set standard default tomorrow baseline dates
         const datePickerElement = document.getElementById('targetDate');
-        if (datePickerElement) {
+        if (datePickerElement && !datePickerElement.value) {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             datePickerElement.min = tomorrow.toISOString().split('T')[0];
+            datePickerElement.value = tomorrow.toISOString().split('T')[0];
+        }
+        const timePickerElement = document.getElementById('targetTime');
+        if (timePickerElement && !timePickerElement.value) {
+            timePickerElement.value = "19:30";
         }
 
-        if (mapEngine !== null) {
-            mapEngine.invalidateSize();
-            return;
+        canvasElement = document.getElementById('globeCanvas');
+        if (!canvasElement) return;
+        
+        canvasContext = canvasElement.getContext('2d');
+        
+        // Handle High-DPI screens natively without blur
+        const scaleFactor = window.devicePixelRatio || 1;
+        canvasElement.width = 240 * scaleFactor;
+        canvasElement.height = 240 * scaleFactor;
+        canvasContext.scale(scaleFactor, scaleFactor);
+        
+        globeRadiusPixelSize = 110;
+
+        // Hook Input Listeners
+        const inputSurface = document.getElementById('globeTouchSurface');
+        
+        inputSurface.addEventListener('mousedown', startInteractionTracking);
+        window.addEventListener('mousemove', continuousInteractionMove);
+        window.addEventListener('mouseup', concludeInteractionTracking);
+
+        inputSurface.addEventListener('touchstart', (e) => startInteractionTracking(e.touches[0]), { passive: true });
+        window.addEventListener('touchmove', (e) => continuousInteractionMove(e.touches[0]), { passive: false });
+        window.addEventListener('touchend', concludeInteractionTracking, { passive: true });
+
+        if (!animationTimerReference) {
+            executeGlobeRenderCycle();
         }
+        
+        // Map baseline starting position trigger
+        resolveAnchorLocationMatrix(phiAngle, lambdaAngle);
+    }
 
-        mapEngine = L.map('map', { zoomControl: true }).setView([48.7771, 9.1795], 11); 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            maxZoom: 19
-        }).addTo(mapEngine);
+    function startInteractionTracking(e) {
+        isTouchActive = true;
+        document.getElementById('dartNode').classList.remove('thrown');
+        lastPositionX = e.clientX;
+        lastPositionY = e.clientY;
+        spinVelocityX = 0;
+        spinVelocityY = 0;
+    }
 
-        leafletGeocoderInstance = L.Control.Geocoder.nominatim();
+    function continuousInteractionMove(e) {
+        if (!isTouchActive) return;
+        
+        const deltaX = e.clientX - lastPositionX;
+        const deltaY = e.clientY - lastPositionY;
+        
+        lambdaAngle += deltaX * 0.007;
+        phiAngle -= deltaY * 0.007;
 
-        document.getElementById('mapTextInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { 
-                e.preventDefault();
-                executeTextGeocodeSearch(); 
+        // Clip polar rotation boundary matrix safely to avoid inversions
+        phiAngle = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, phiAngle));
+
+        spinVelocityX = deltaX * 0.005;
+        spinVelocityY = -deltaY * 0.005;
+
+        lastPositionX = e.clientX;
+        lastPositionY = e.clientY;
+    }
+
+    function concludeInteractionTracking() {
+        if (!isTouchActive) return;
+        isTouchActive = false;
+        resolveAnchorLocationMatrix(phiAngle, lambdaAngle);
+    }
+
+    function executeDartTrajectoryStrike() {
+        const dart = document.getElementById('dartNode');
+        dart.classList.remove('thrown');
+        
+        // Induce massive velocity simulation
+        spinVelocityX = (Math.random() * 0.4) + 0.3;
+        spinVelocityY = (Math.random() * 0.1) - 0.05;
+        
+        setTimeout(() => {
+            // Apply soft drag vector slowing to dynamic stop
+            const clampStopTimer = setInterval(() => {
+                spinVelocityX *= 0.85;
+                spinVelocityY *= 0.85;
+                
+                if (Math.abs(spinVelocityX) < 0.001) {
+                    clearInterval(clampStopTimer);
+                    spinVelocityX = 0;
+                    spinVelocityY = 0;
+                    
+                    // Trigger spatial UI drop sequence
+                    dart.classList.add('thrown');
+                    resolveAnchorLocationMatrix(phiAngle, lambdaAngle, true);
+                }
+            }, 50);
+        }, 1200);
+    }
+
+    function resolveAnchorLocationMatrix(phi, lambda, wasHit = false) {
+        // Convert orthographic projection coordinates back to standard Latitude and Longitude variables safely
+        let calculatedLat = phi * (180 / Math.PI);
+        let calculatedLon = ((lambda + Math.PI) % (2 * Math.PI) - Math.PI) * (180 / Math.PI);
+
+        // Find nearest city node inside array configuration to build target anchor point parameters
+        let bestDistanceWeight = Infinity;
+        let matchedNode = standardGeoCitiesCluster[0];
+
+        standardGeoCitiesCluster.forEach(city => {
+            let distanceSquare = Math.pow(city.lat - calculatedLat, 2) + Math.pow(city.lon - calculatedLon, 2);
+            if (distanceSquare < bestDistanceWeight) {
+                bestDistanceWeight = distanceSquare;
+                matchedNode = city;
             }
         });
 
-        mapEngine.on('click', (e) => {
-            updateAnchorPinPosition(e.latlng.lat, e.latlng.lng);
-        });
+        activeDartHitLocation = matchedNode;
 
-        setTimeout(() => { mapEngine.invalidateSize(); }, 200);
-    }
-
-    function updateAnchorPinPosition(lat, lng, zoomTo = false) {
-        userPinnedCoordinates = { lat: lat, lon: lng };
-
-        if (droppedPinMarker) { 
-            droppedPinMarker.setLatLng([lat, lng]); 
-        } else { 
-            droppedPinMarker = L.marker([lat, lng]).addTo(mapEngine); 
+        const telemetryField = document.getElementById('telemetryData');
+        if (wasHit) {
+            telemetryField.innerHTML = `🎯 <b>Trajectory Target Hit!</b><br>Coordinates Locked: ${matchedNode.lat.toFixed(4)}°N, ${matchedNode.lon.toFixed(4)}°E<br>Target Zone: Area near <b>${matchedNode.name}</b>`;
+        } else {
+            telemetryField.innerHTML = `🌍 <b>Globe Anchored:</b> tracking close to <b>${matchedNode.name}</b>. Press 'Throw Dart' to lock entry.`;
         }
-
-        if (zoomTo) {
-            mapEngine.setView([lat, lng], 14);
-        }
-
+        
         document.getElementById('bridgePanel').style.display = 'none';
         document.getElementById('revealZone').style.display = 'none';
-
-        leafletGeocoderInstance.reverse({lat: lat, lng: lng}, mapEngine.options.crs.scale(mapEngine.getZoom()), (results) => {
-            if (results && results.length > 0) {
-                const res = results[0];
-                const addr = res.properties.address;
-                activeSubregionalLocalityName = addr.suburb || addr.city_district || addr.village || addr.town || addr.city || "";
-                let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                document.getElementById('telemetryData').innerHTML = `📍 <b>Location Anchor Set:</b> ${displayLocationString}`;
-            } else {
-                activeSubregionalLocalityName = "";
-                document.getElementById('telemetryData').innerHTML = `📍 <b>Location Anchor Set:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-            }
-        });
     }
 
-    function executeTextGeocodeSearch() {
-        const textQuery = document.getElementById('mapTextInput').value.trim();
-        if (!textQuery) { alert("Please enter a location context to search first!"); return; }
+    // SIMULATED LANDMASS VECTORS TO KEEP FILE STANDALONE WITHOUT LOADING HEAVY EXT-JSONS
+    const rawLandmassMatrix = [
+        [[-10, 35], [30, 30], [35, 60], [-10, 60], [-10, 35]], // Europe Block approximation
+        [[-100, 20], [-60, 50], [-120, 60], [-120, 20], [-100, 20]], // North America approximation
+        [[100, 10], [140, 40], [100, 60], [60, 4], [100, 10]], // Asia Area
+        [[10, 5], [40, -10], [20, -30], [10, 5]] // Africa Region segment
+    ];
 
-        document.getElementById('telemetryData').innerHTML = `⏳ <i>Searching index archives for: "${textQuery}"...</i>`;
-
-        leafletGeocoderInstance.geocode(textQuery, (results) => {
-            if (results && results.length > 0) {
-                const bestMatch = results[0];
-                const lat = bestMatch.center.lat;
-                const lon = bestMatch.center.lng;
-                updateAnchorPinPosition(lat, lon, true);
-            } else {
-                document.getElementById('telemetryData').innerHTML = `❌ <b>Search Index Missed:</b> Query location not found.`;
-                alert("We couldn't resolve that specific text address. Try including a city name (e.g., 'Stuttgart West').");
-            }
-        });
-    }
-
-    function triggerDeviceLiveLocation() {
-        if (!navigator.geolocation) {
-            alert("This device browser setup does not expose geolocation services infrastructure.");
-            return;
+    function executeGlobeRenderCycle() {
+        if (!canvasContext) return;
+        
+        // Continuous rotation inertia physics when user releases tracking
+        if (!isTouchActive) {
+            lambdaAngle += spinVelocityX;
+            phiAngle += spinVelocityY;
+            phiAngle = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, phiAngle));
+            
+            // Minimal frictional decay
+            spinVelocityX *= 0.98;
+            spinVelocityY *= 0.98;
         }
 
-        document.getElementById('telemetryData').innerHTML = `⏳ <i>Connecting with hardware GPS array...</i>`;
+        canvasContext.clearRect(0, 0, 240, 240);
+        
+        const centerPositionX = 120;
+        const centerPositionY = 120;
 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                updateAnchorPinPosition(lat, lon, true);
-            },
-            (error) => {
-                let errorMessage = "Unable to fetch live position parameters.";
-                if (error.code === error.PERMISSION_DENIED) {
-                    errorMessage = "Location tracing permission blocked by privacy sandbox. Please allow access inside your address bar or device system settings.";
+        // Draw Ocean Sphere background
+        canvasContext.beginPath();
+        canvasContext.arc(centerPositionX, centerPositionY, globeRadiusPixelSize, 0, 2 * Math.PI);
+        canvasContext.fillStyle = '#f3ede2';
+        canvasContext.fill();
+        canvasContext.lineWidth = 1.5;
+        canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.4)';
+        canvasContext.stroke();
+
+        // Render Latitudinal & Longitudinal gridlines (Graticules)
+        canvasContext.strokeStyle = 'rgba(197, 168, 128, 0.15)';
+        canvasContext.lineWidth = 1;
+        
+        for (let i = -90; i <= 90; i += 30) {
+            // Draw Latitude rings
+            canvasContext.beginPath();
+            for (let j = -180; j <= 180; j += 10) {
+                let xy = projectOrthographicCoordinates(i, j, phiAngle, lambdaAngle, globeRadiusPixelSize);
+                if (xy) {
+                    if (j === -180) canvasContext.moveTo(centerPositionX + xy.x, centerPositionY + xy.y);
+                    else canvasContext.lineTo(centerPositionX + xy.x, centerPositionY + xy.y);
                 }
-                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Array Connection Failure:</b> Access Blocked`;
-                alert(errorMessage);
-            },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
+            }
+            canvasContext.stroke();
+        }
+
+        // Render Landmass structures loop
+        canvasContext.fillStyle = 'rgba(197, 168, 128, 0.55)';
+        rawLandmassMatrix.forEach(polygon => {
+            canvasContext.beginPath();
+            let pointRendered = false;
+            
+            polygon.forEach(coord => {
+                let xy = projectOrthographicCoordinates(coord[1], coord[0], phiAngle, lambdaAngle, globeRadiusPixelSize);
+                if (xy) {
+                    if (!pointRendered) {
+                        canvasContext.moveTo(centerPositionX + xy.x, centerPositionY + xy.y);
+                        pointRendered = true;
+                    } else {
+                        canvasContext.lineTo(centerPositionX + xy.x, centerPositionY + xy.y);
+                    }
+                }
+            });
+            if (pointRendered) canvasContext.fill();
+        });
+
+        // Loop animation pipeline frame
+        animationTimerReference = requestAnimationFrame(executeGlobeRenderCycle);
+    }
+
+    function projectOrthographicCoordinates(lat, lon, phi0, lambda0, radius) {
+        // Safe conversion mappings from global angles to absolute orthographic projections
+        let latRad = lat * (Math.PI / 180);
+        let lonRad = lon * (Math.PI / 180);
+        
+        let cosAzimuth = Math.sin(phi0) * Math.sin(latRad) + Math.cos(phi0) * Math.cos(latRad) * Math.cos(lonRad - lambda0);
+        
+        // If the coordinate point is on the back face horizon sphere, cull it out
+        if (cosAzimuth < 0) return null;
+        
+        let x = radius * Math.cos(latRad) * Math.sin(lonRad - lambda0);
+        let y = radius * (Math.cos(phi0) * Math.sin(latRad) - Math.sin(phi0) * Math.cos(latRad) * Math.cos(lonRad - lambda0));
+        
+        return { x: x, y: -y };
     }
 
     function launchLiveDiscoveryBridge() {
-        if (!userPinnedCoordinates) { alert("Please use the map search, GPS link, or tap to place a tracking pin first! 🗺️"); return; }
-        if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) { alert("Please designate processing schedule milestones first! 📅"); return; }
+        if (!activeDartHitLocation) { alert("Please target a location on the globe or throw a dart first! 🎯"); return; }
+        
+        const dateString = document.getElementById('targetDate').value;
+        const timeString = document.getElementById('targetTime').value;
+        if (!dateString || !timeString) { alert("Please establish verification timing vectors! 📅"); return; }
 
         document.getElementById('revealZone').style.display = 'none';
 
         const moodQuery = document.querySelector('input[name="mood"]:checked').value;
-        const latString = userPinnedCoordinates.lat.toFixed(5);
-        const lonString = userPinnedCoordinates.lon.toFixed(5);
+        
+        // Extract exact day name context to inject string parameter validation
+        const parsedDay = new Date(dateString);
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const explicitDayName = dayNames[parsedDay.getDay()];
 
-        let searchTerms = `${moodQuery}`;
-        if (activeSubregionalLocalityName) {
-            searchTerms += ` in ${activeSubregionalLocalityName}`;
-        } else {
-            searchTerms += ` near ${latString},${lonString}`;
-        }
+        // Synthesize multi-tier operational search query architecture strings
+        let completeSearchSyntax = `${moodQuery} ${selectedBudgetStringKeyword} in ${activeDartHitLocation.name} open hours operational rules schedule open on ${explicitDayName} at ${timeString}`;
 
-        const universalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerms)}&openeverything=1`;
+        const universalMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(completeSearchSyntax)}`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
         bridgeLink.href = universalMapsUrl;
@@ -521,31 +682,28 @@
 
     function compileFinalPassportTicket() {
         const venueSelectionString = document.getElementById('chosenVenueName').value.trim();
-        if (!venueSelectionString) { alert("Please define target spot node string parameters! 🌿"); return; }
+        if (!venueSelectionString) { alert("Please log your winning destination selection node parameter! 🎟️"); return; }
 
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
         const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
 
-        const latString = userPinnedCoordinates.lat.toFixed(4);
-        const lonString = userPinnedCoordinates.lon.toFixed(4);
-
         document.getElementById('displayTitle').innerText = venueSelectionString;
-        document.getElementById('metaVibe').innerText = readableMood;
-        document.getElementById('metaArea').innerText = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : "CUSTOM TARGET COORDINATES";
+        document.getElementById('metaVibe').innerText = `${readableMood} (Cost Cap Active)`;
+        document.getElementById('metaArea').innerText = activeDartHitLocation.name.toUpperCase();
         document.getElementById('metaTime').innerText = `${dateInput} @ ${timeInput}`;
         document.getElementById('metaDuration').innerText = duration;
-        document.getElementById('metaCoords').innerText = `${latString}°N, ${lonString}°E`;
+        document.getElementById('metaCoords').innerText = `${activeDartHitLocation.lat.toFixed(4)}°N, ${activeDartHitLocation.lon.toFixed(4)}°E`;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
         document.getElementById('displayRefToken').innerText = `ROULETTE REFMETA: RLT-${token}`;
 
-        const secureMapTargetUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueSelectionString + " " + (activeSubregionalLocalityName || ""))}`;
+        const targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(venueSelectionString + " " + activeDartHitLocation.name)}`;
 
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: secureMapTargetUrl, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+        new QRCode(qrContainer, { text: targetMapsDeepUrl, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
         const zone = document.getElementById('revealZone');
         zone.style.display = 'block';
@@ -553,33 +711,35 @@
     }
 
     function executeSurpriseMeRoulette() {
-        if (!userPinnedCoordinates) { alert("Please pinpoint a geographic focus anchor position first! 🗺️"); return; }
-        
+        // Randomize the budget thumb position matrix
+        const slider = document.getElementById('budgetRangeSlider');
+        const randomBudgetVal = String(Math.floor(Math.random() * 4) + 1);
+        slider.value = randomBudgetVal;
+        handleBudgetSliderSync(randomBudgetVal);
+
+        // Randomize categories
         const moodInputs = document.querySelectorAll('input[name="mood"]');
         moodInputs[Math.floor(Math.random() * moodInputs.length)].checked = true;
 
+        // Randomize duration
         const durationInputs = document.querySelectorAll('input[name="duration"]');
         durationInputs[Math.floor(Math.random() * durationInputs.length)].checked = true;
 
-        const prospectiveDate = new Date();
-        prospectiveDate.setDate(prospectiveDate.getDate() + Math.floor(Math.random() * 5) + 1);
-        document.getElementById('targetDate').value = prospectiveDate.toISOString().split('T')[0];
-        document.getElementById('targetTime').value = `${String(Math.floor(Math.random() * 6) + 12).padStart(2, '0')}:00`;
+        // Randomize global trajectory parameters
+        lambdaAngle = Math.random() * Math.PI * 2;
+        phiAngle = (Math.random() * Math.PI * 0.6) - 0.3;
 
-        launchLiveDiscoveryBridge();
+        executeDartTrajectoryStrike();
     }
 
     function executeGroupDirectDispatch() {
-        if (!userPinnedCoordinates) return;
-
         const targetNode = document.getElementById('ticketCaptureArea');
         const venueTitle = document.getElementById('displayTitle').innerText;
         const duration = document.querySelector('input[name="duration"]:checked').value;
-        const cleanArea = activeSubregionalLocalityName || "Selected Region";
         
-        const absoluteMapsIntentUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueTitle + " " + cleanArea)}`;
+        const targetMapsDeepUrl = `https://www.google.com/maps/search/${encodeURIComponent(venueTitle + " " + activeDartHitLocation.name)}`;
         
-        const textPayload = `✨ Unlocked Experience Roulette Destination Pass ✨\n\n🌿 SELECTION:\n👉 *${venueTitle}*\n\n📍 DIRECTIONS (LIVE LINK):\n${absoluteMapsIntentUrl}\n\n📅 DATE & TIME:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMFIELD PROFILE:\n${duration}`;
+        const textPayload = `🎰 Experience Roulette Target Passport Unlocked! ✨\n\n🎯 WINNING SELECTION:\n👉 *${venueTitle}*\n📍 LOCALITY SEGMENT: ${activeDartHitLocation.name}\n\n🗺️ LIVE TRACKING LINK:\n${targetMapsDeepUrl}\n\n📅 VALIDATED TIME PROFILE:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFRAME BUDGET:\n${duration}`;
         
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
@@ -599,7 +759,7 @@
         }
 
         performClipboardCopy(textPayload).then(() => {
-            alert("Adventure details copied securely! Generating ticket image and launching chat...");
+            alert("Adventure passport metrics synced to clipboard securely! Compiling ticket pass image...");
         }).finally(() => {
             html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
                 const imageBlob = canvas.toDataURL("image/png");
