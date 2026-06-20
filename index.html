@@ -127,16 +127,19 @@
         .gold-ribbon-line-h { width: 100%; height: 6px; background: var(--primary-gold); position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
         .launcher-action-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; }
 
-        /* ADVANCED SPATIAL WRAPPER WITH COMPACT HUD SEARCH OPTIONS */
-        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 10px; margin-bottom: 20px; text-align: left; position: relative; }
+        /* ROBUST SPATIAL CONTROL CONTAINER */
+        .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 12px; margin-bottom: 20px; text-align: left; }
         
-        .map-search-bar-hud { display: flex; gap: 6px; margin-bottom: 8px; position: relative; z-index: 10; }
-        .map-search-input { flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.3); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; outline: none; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .map-hud-btn { background: var(--text-dark); color: #fff; border: none; padding: 0 14px; border-radius: 12px; font-size: 0.85rem; cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; }
-        .map-hud-btn.gps-btn { background: var(--primary-gold); }
+        /* STANDALONE INTERACTION HUD BLOCK */
+        .map-search-bar-hud { display: flex; gap: 8px; margin-bottom: 12px; width: 100%; }
+        .map-search-input { flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; outline: none; color: var(--text-dark); background-color: var(--bg-beige); }
+        .map-search-input:focus { border-color: var(--primary-gold); box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.15); }
+        
+        .map-hud-btn { background: var(--text-dark); color: #fff; border: none; padding: 0 16px; border-radius: 12px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: var(--transition-smooth); text-transform: uppercase; letter-spacing: 0.5px; }
+        .map-hud-btn.gps-btn { background: var(--primary-gold); font-size: 1.1rem; padding: 0 12px; display: flex; align-items: center; justify-content: center; }
         .map-hud-btn:hover { opacity: 0.9; }
 
-        #map { width: 100%; height: 210px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
+        #map { width: 100%; height: 210px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.05); z-index: 1; }
         
         .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; }
 
@@ -194,6 +197,7 @@
 
 <div class="app-container">
 
+    <!-- LANDING VIEW PAGE -->
     <div id="birthdayPage" class="page-view active">
         <div class="birthday-header-zone">
             <div class="curation-tag">Bespoke Curation</div>
@@ -227,18 +231,20 @@
         </div>
     </div>
 
+    <!-- ENGINE GENERATOR VIEW PAGE -->
     <div id="enginePage" class="page-view">
         <h1>The Secret Garden</h1>
         <p class="tagline" style="margin-bottom: 25px;">Live Interactive Spatial Generator</p>
 
         <div class="spatial-map-wrapper">
-            <span class="group-label" style="margin-bottom:2px; font-size: 1.15rem;">Set Search Anchor Position</span>
-            <span class="explain-tip">Search by text, use live device GPS, or tap directly on the map surface.</span>
+            <span class="group-label" style="margin-top:0; margin-bottom:2px; font-size: 1.15rem;">Set Search Anchor Position</span>
+            <span class="explain-tip">Search by name, use live mobile GPS, or tap directly on the map.</span>
             
+            <!-- STANDALONE INTERACTION HUD BLOCK -->
             <div class="map-search-bar-hud">
-                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Enter City, Town, or Street...">
+                <input type="text" id="mapTextInput" class="map-search-input" placeholder="Type City, Town, or Street...">
                 <button type="button" class="map-hud-btn" onclick="executeTextGeocodeSearch()">Search</button>
-                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()" title="Use Live Location">📍</button>
+                <button type="button" class="map-hud-btn gps-btn" onclick="triggerDeviceLiveLocation()" title="Use Live GPS Location">📍</button>
             </div>
 
             <div id="map"></div>
@@ -281,6 +287,7 @@
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
+        <!-- DEEP INTERACTION LINKING BRIDGE PANEL -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#ffffff;">🔍 Step 1: View Options via Google Maps</span>
             <span class="explain-tip" style="color: #bcaea3; margin-bottom: 12px;">Browse 100% verified live options complete with ratings, reviews, menus, and operating hours:</span>
@@ -296,6 +303,7 @@
             </div>
         </div>
 
+        <!-- PASSPORT REVEAL TICKET AREA -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <div class="live-status-badge">🛰️ Passport Confirmed</div>
@@ -387,9 +395,12 @@
         mapEngine = L.map('map').setView([48.7771, 9.1795], 11); 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapEngine);
 
-        // Bind enter key on the text query bar for high usability
+        // Bind enter key inside the search entry bar for flawless desktop execution
         document.getElementById('mapTextInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { executeTextGeocodeSearch(); }
+            if (e.key === 'Enter') { 
+                e.preventDefault();
+                executeTextGeocodeSearch(); 
+            }
         });
 
         mapEngine.on('click', (e) => {
@@ -433,6 +444,8 @@
         const textQuery = document.getElementById('mapTextInput').value.trim();
         if (!textQuery) { alert("Please type a location name to search first!"); return; }
 
+        document.getElementById('telemetryData').innerHTML = `⏳ <i>Searching for matching region...</i>`;
+
         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(textQuery)}&limit=1`)
             .then(res => res.json())
             .then(results => {
@@ -442,10 +455,12 @@
                     const lon = parseFloat(targetLocation.lon);
                     updateAnchorPinPosition(lat, lon, true);
                 } else {
-                    alert("Location not found. Please try adding a city name (e.g. 'Sindelfingen') to refine the query.");
+                    document.getElementById('telemetryData').innerHTML = `❌ <b>Search failed:</b> Region not found.`;
+                    alert("Location not found. Please clarify your text input (e.g., add a city name like 'Sindelfingen').");
                 }
             })
             .catch(() => {
+                document.getElementById('telemetryData').innerHTML = `❌ <b>Network error</b> during geocoding.`;
                 alert("Error connecting to search network. Please try again.");
             });
     }
@@ -468,9 +483,9 @@
             (error) => {
                 let errorMessage = "Unable to fetch live position.";
                 if (error.code === error.PERMISSION_DENIED) {
-                    errorMessage = "Location permission denied. Please allow location access in your device settings.";
+                    errorMessage = "Location permission denied. Please verify your mobile device browser permissions.";
                 }
-                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Access Error:</b> Permission Denied`;
+                document.getElementById('telemetryData').innerHTML = `❌ <b>GPS Access Error:</b> Position Denied`;
                 alert(errorMessage);
             },
             { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
@@ -538,7 +553,7 @@
     }
 
     function executeSurpriseMeRoulette() {
-        if (!userPinnedCoordinates) { alert("Please drop a pin on the map first! 🗺️"); return; }
+        if (!userPinnedCoordinates) { alert("Please pin a location on the map first to anchor the surprise! 🗺️"); return; }
         
         const moodInputs = document.querySelectorAll('input[name="mood"]');
         moodInputs[Math.floor(Math.random() * moodInputs.length)].checked = true;
