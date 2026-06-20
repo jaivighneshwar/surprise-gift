@@ -70,9 +70,7 @@
         }
 
         @media (min-width: 400px) {
-            .page-view {
-                padding: 40px 30px;
-            }
+            .page-view { padding: 40px 30px; }
         }
 
         .page-view.active {
@@ -91,26 +89,17 @@
         }
 
         @media (min-width: 400px) {
-            .page-view::before {
-                top: 14px; left: 14px; right: 14px; bottom: 14px;
-                border-radius: 20px;
-            }
+            .page-view::before { top: 14px; left: 14px; right: 14px; bottom: 14px; border-radius: 20px; }
         }
 
-        /* Typography Styles */
         .birthday-header-zone { margin-bottom: 25px; }
         .curation-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 12px; }
         .birthday-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
         
-        @media (min-width: 400px) {
-            .birthday-title { font-size: 2.8rem; }
-        }
+        @media (min-width: 400px) { .birthday-title { font-size: 2.8rem; } }
         
         .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); line-height: 1.5; }
-
-        @media (min-width: 400px) {
-            .tagline { font-size: 1.15rem; }
-        }
+        @media (min-width: 400px) { .tagline { font-size: 1.15rem; } }
         
         .group-label {
             font-family: 'Cormorant Garamond', serif;
@@ -123,7 +112,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* Minimal Layered Cake CSS Curation */
         .cake-container {
             position: relative;
             width: 100%;
@@ -136,10 +124,7 @@
             justify-content: flex-end;
             align-items: center;
         }
-
-        @media (min-width: 400px) {
-            .cake-container { height: 160px; margin: 20px auto 25px auto; }
-        }
+        @media (min-width: 400px) { .cake-container { height: 160px; margin: 20px auto 25px auto; } }
 
         .cake-tier {
             width: 150px;
@@ -150,10 +135,7 @@
             position: relative;
             box-shadow: 0 6px 15px rgba(197, 168, 128, 0.08);
         }
-
-        @media (min-width: 400px) {
-            .cake-tier { height: 65px; }
-        }
+        @media (min-width: 400px) { .cake-tier { height: 65px; } }
 
         .cake-frosting-trim {
             width: 100%;
@@ -174,10 +156,7 @@
             border-radius: 3px 3px 0 0;
             z-index: 5;
         }
-
-        @media (min-width: 400px) {
-            .slender-candle { height: 45px; }
-        }
+        @media (min-width: 400px) { .slender-candle { height: 45px; } }
 
         .minimal-wick { width: 1px; height: 6px; background: #5c534c; position: absolute; top: -6px; left: 2px; }
         .organic-flame {
@@ -211,12 +190,8 @@
         }
 
         .status-feedback-text { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.3px; margin-bottom: 25px; min-height: 20px; transition: var(--transition-smooth); }
+        @media (min-width: 400px) { .status-feedback-text { margin-bottom: 35px; } }
 
-        @media (min-width: 400px) {
-            .status-feedback-text { margin-bottom: 35px; }
-        }
-
-        /* Premium Gift Launcher Module */
         .gift-launcher-zone { border-top: 1px dashed var(--border-soft); padding-top: 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
         .gift-capsule { position: relative; width: 75px; height: 75px; cursor: pointer; transition: var(--transition-smooth); animation: calmFloating 4s infinite ease-in-out; display: flex; justify-content: center; align-items: center; margin-bottom: 12px; }
         .gift-capsule:hover { transform: scale(1.06) rotate(2deg); }
@@ -226,51 +201,29 @@
         .gold-ribbon-line-v { width: 6px; height: 100%; background: var(--primary-gold); position: absolute; left: 50%; transform: translateX(-50%); top: 0; }
         .gold-ribbon-line-h { width: 100%; height: 6px; background: var(--primary-gold); position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
         .launcher-action-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s ease; }
+        @media (min-width: 400px) { .launcher-action-label { font-size: 0.85rem; } }
 
-        @media (min-width: 400px) {
-            .launcher-action-label { font-size: 0.85rem; }
-        }
-
-        /* Map & Selection Framework Layouts */
         .spatial-map-wrapper { background: #ffffff; border: 1px solid var(--border-soft); border-radius: 20px; padding: 10px; margin-bottom: 20px; text-align: left; }
-        
-        @media (min-width: 400px) {
-            .spatial-map-wrapper { padding: 12px; }
-        }
+        @media (min-width: 400px) { .spatial-map-wrapper { padding: 12px; } }
 
         #map { width: 100%; height: 200px; border-radius: 14px; background: #f4ede2; border: 1px solid rgba(0,0,0,0.03); z-index: 1; }
-        
-        @media (min-width: 400px) {
-            #map { height: 240px; }
-        }
+        @media (min-width: 400px) { #map { height: 240px; } }
 
         .telemetry-strip { margin-top: 10px; font-size: 0.72rem; color: var(--text-light); font-family: monospace; background: #faf8f5; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--primary-gold); line-height: 1.45; word-break: break-word; }
-        
-        @media (min-width: 400px) {
-            .telemetry-strip { font-size: 0.76rem; padding: 10px 14px; }
-        }
+        @media (min-width: 400px) { .telemetry-strip { font-size: 0.76rem; padding: 10px 14px; } }
 
         .selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 20px; }
-        
-        @media (min-width: 360px) {
-            .selection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        }
+        @media (min-width: 360px) { .selection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
         
         .duration-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 25px; }
-        
-        @media (min-width: 360px) {
-            .duration-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        }
+        @media (min-width: 360px) { .duration-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
         
         input[type="radio"] { display: none; }
         .tile {
             background: var(--paper-white); border: 1px solid rgba(197, 168, 128, 0.22); padding: 12px 4px; border-radius: 14px; cursor: pointer; transition: var(--transition-smooth);
             font-size: 0.72rem; font-weight: 400; color: var(--text-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60px;
         }
-
-        @media (min-width: 400px) {
-            .tile { font-size: 0.76rem; padding: 14px 6px; min-height: 68px; }
-        }
+        @media (min-width: 400px) { .tile { font-size: 0.76rem; padding: 14px 6px; min-height: 68px; } }
 
         .tile:hover { border-color: var(--primary-gold); background-color: #fdfcf9; }
         input[type="radio"]:checked + .tile {
@@ -278,24 +231,14 @@
         }
 
         .datetime-picker-wrap { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; text-align: left; }
-        
-        @media (min-width: 360px) {
-            .datetime-picker-wrap { grid-template-columns: 1fr 1fr; gap: 12px; }
-        }
+        @media (min-width: 360px) { .datetime-picker-wrap { grid-template-columns: 1fr 1fr; gap: 12px; } }
 
         .input-block { display: flex; flex-direction: column; }
         .custom-input { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid rgba(197, 168, 128, 0.22); background-color: var(--paper-white); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; outline: none; color: var(--text-dark); -webkit-appearance: none; }
-
-        @media (min-width: 400px) {
-            .custom-input { padding: 14px; font-size: 0.85rem; }
-        }
+        @media (min-width: 400px) { .custom-input { padding: 14px; font-size: 0.85rem; } }
 
         .btn-spin { background-color: var(--text-dark); color: var(--paper-white); border: none; width: 100%; padding: 16px; border-radius: 35px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12); transition: var(--transition-smooth); font-size: 0.8rem; }
-        
-        @media (min-width: 400px) {
-            .btn-spin { font-size: 0.85rem; }
-        }
-        
+        @media (min-width: 400px) { .btn-spin { font-size: 0.85rem; } }
         .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
 
         .animation-container { display: none; margin-top: 25px; justify-content: center; align-items: center; height: 80px; }
@@ -304,37 +247,21 @@
 
         .live-status-badge { display: inline-block; padding: 5px 12px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 14px; background: rgba(104, 163, 123, 0.1); color: var(--success-green); letter-spacing: 0.5px; }
         .reveal-zone { margin-top: 25px; padding: 18px; border-radius: 20px; background: #ffffff; border: 1px dashed var(--primary-gold); display: none; }
-        
-        @media (min-width: 400px) {
-            .reveal-zone { margin-top: 30px; padding: 24px; }
-        }
+        @media (min-width: 400px) { .reveal-zone { margin-top: 30px; padding: 24px; } }
 
-        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
-        
-        @media (min-width: 400px) {
-            .reveal-title { font-size: 1.6rem; }
-        }
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); text-transform: capitalize; }
+        @media (min-width: 400px) { .reveal-title { font-size: 1.6rem; } }
 
         .reveal-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; text-align: left; }
-        
-        @media (min-width: 400px) {
-            .reveal-desc { font-size: 0.86rem; line-height: 1.65; }
-        }
+        @media (min-width: 400px) { .reveal-desc { font-size: 0.86rem; line-height: 1.65; } }
 
         .qr-output-box { display: inline-block; margin: 10px auto; padding: 10px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
         .qr-output-box canvas, .qr-output-box img { max-width: 110px; height: auto !important; }
-
-        @media (min-width: 400px) {
-            .qr-output-box { padding: 12px; margin: 12px auto; }
-            .qr-output-box canvas, .qr-output-box img { max-width: 130px; }
-        }
+        @media (min-width: 400px) { .qr-output-box { padding: 12px; margin: 12px auto; } .qr-output-box canvas, .qr-output-box img { max-width: 130px; } }
 
         .action-button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
         .btn-action-panel { border: none; padding: 14px; border-radius: 35px; font-weight: 600; font-size: 0.78rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; box-sizing: border-box; text-align: center; }
-        
-        @media (min-width: 400px) {
-            .btn-action-panel { padding: 15px; font-size: 0.82rem; }
-        }
+        @media (min-width: 400px) { .btn-action-panel { padding: 15px; font-size: 0.82rem; } }
 
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); }
         .btn-panel-dark:hover { background-color: var(--primary-gold); }
@@ -391,12 +318,12 @@
 
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
-            <label><input type="radio" name="mood" value="chill" checked><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="adventure"><div class="tile">🧗‍♀️ Action</div></label>
-            <label><input type="radio" name="mood" value="gourmet"><div class="tile">🥂 Fine Eat</div></label>
-            <label><input type="radio" name="mood" value="culture"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="nature"><div class="tile">🌲 Escape</div></label>
-            <label><input type="radio" name="mood" value="cozy"><div class="tile">🕯️ Cozy</div></label>
+            <label><input type="radio" name="mood" value="chill spaces" checked><div class="tile">🧖‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="outdoor adventures"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="fine dining hidden gems"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="cultural heritage sites"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="scenic nature escapes"><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="cozy romantic spots"><div class="tile">🕯️ Cozy</div></label>
         </div>
 
         <div class="datetime-picker-wrap">
@@ -446,42 +373,6 @@
     let droppedPinMarker = null;
     let userPinnedCoordinates = null; 
     let activeSubregionalLocalityName = ""; 
-
-    // Micro-Real Venue Matrix Engine (<100 Euro Constraints Embedded)
-    const architecturalVenues = {
-        chill: [
-            { venue: "Thermalbad Beuren Oasis", detail: "A premium open-air thermal bath complex embedded directly against regional limestone hills. Features panorama natural steam grottos." },
-            { venue: "The Mineral Springs of Bad Urach", detail: "Historic indoor mineral spring pavilions offering direct sub-surface thermal immersion basins with panoramic meadow parklines." }
-        ],
-        adventure: [
-            { venue: "Waldklettergarten Forest Canopy Park", detail: "An active tree-top navigation bridge network and high-wire platform course suspended natively within ancient beech forest borders." },
-            { venue: "Deep Gorge Swabian Caves Path", detail: "An active, guided dark-gorge exploration and safety caving navigation challenge through localized structural cavern networks." }
-        ],
-        gourmet: [
-            { venue: "Burg Hohenneuffen Valley Estate Pavilions", detail: "A historic high-crest estate offering custom small-plate regional wine flights and artisanal farm-sourced culinary pairings." },
-            { venue: "Gasthof Grüner Baum Vaults", detail: "A heritage slow-food brick cellar specializing in handmade local dishes and organic vineyard pressings." }
-        ],
-        culture: {
-            day: [
-                { venue: "Marbach National Archives & Pavilion Walk", detail: "An iconic modern hilltop literary archive offering rare historical collections and landscape design walkways." }
-            ],
-            night: [
-                { venue: "Kloster Lorch Historic Vault Conservatories", detail: "A dramatic historical stone monastery complex featuring twilight acoustic ambient acoustics and architectural grounds." }
-            ]
-        },
-        nature: [
-            { venue: "Urach Waterfall Eco-Canopy Trails", detail: "A dramatic scenic trail tracking freshwater mountain streams down vertical limestone fault lines through deep moss forests." },
-            { venue: "The Blue Rock Crater Basin Trail", detail: "A sweeping, geological caldera hike weaving between pristine turquoise springs and regional slate volcanic fields." }
-        ],
-        cozy: {
-            day: [
-                { venue: "Schloss Solitude Forest Orangery", detail: "An elegant, light-filled botanical glasshouse salon serving small-batch roasts and organic pastries beside ancient hunting grounds." }
-            ],
-            night: [
-                { venue: "The Candlelit Vault at Kelterplatz", detail: "A low-illumination historic stone cellar estate featuring ambient acoustic arrangements, vintage plush seating, and warm mulled specialties." }
-            ]
-        }
-    };
 
     function showPage(pageId) {
         const currentActive = document.querySelector('.page-view.active');
@@ -537,9 +428,7 @@
                 .then(data => {
                     if (data.address) {
                         activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.city_district || data.address.city || data.address.county || "";
-                        
                         let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                        
                         document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
                     }
                 }).catch(() => {
@@ -565,28 +454,18 @@
     function generateInfiniteSpatialExperience() {
         if (!userPinnedCoordinates) return;
 
-        const mood = document.querySelector('input[name="mood"]:checked').value;
+        const moodQuery = document.querySelector('input[name="mood"]:checked').value;
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
 
-        const targetHour = parseInt(timeInput.split(':')[0]);
-        const dayPeriod = (targetHour >= 7 && targetHour < 17) ? "day" : "night";
+        // Completely Dynamic Generation - No Fixed Databases
+        const locationTitle = activeSubregionalLocalityName ? `${activeSubregionalLocalityName} Secret Discovery` : `Coordinate Target Curation`;
+        const readableMood = document.querySelector('input[name="mood"]:checked').parentElement.innerText.trim().substring(3);
 
-        let pool = architecturalVenues[mood];
-        if (pool.day || pool.night) {
-            pool = pool[dayPeriod];
-        }
+        const generatedDesc = `Custom localized search matrix constructed perfectly for a [${duration}] immersion profile on ${dateInput}. Curation vectors will generate live options around your selected map region starting exactly at ${timeInput}. Mapped parameters: [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
-        const selectionSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 100);
-        const selectedVenueObject = pool[Math.floor(selectionSeed % pool.length)];
-
-        const generatedTitle = selectedVenueObject.venue;
-        const dynamicLocationDescriptor = activeSubregionalLocalityName ? `the ${activeSubregionalLocalityName} region` : `your selected coordinates`;
-        
-        const generatedDesc = `${selectedVenueObject.detail} Perfectly configured for a custom [${duration}] immersion profile on ${dateInput}. Operations open natively for your selected arrival timeline window starting exactly at ${timeInput}. Experience mapped natively inside ${dynamicLocationDescriptor} [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
-
-        document.getElementById('displayTitle').innerText = generatedTitle;
+        document.getElementById('displayTitle').innerText = `${readableMood} Exploration`;
         document.getElementById('displayDesc').innerText = generatedDesc;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
@@ -597,13 +476,13 @@
 
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
-        const qrString = `PASSPORT: ${refPassport}\nVENUE: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nMETRICS: ${dateInput}_${timeInput}_${duration}`;
+        const qrString = `PASSPORT: ${refPassport}\nMOOD: ${readableMood}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nMETRICS: ${dateInput}_${timeInput}`;
         
         new QRCode(qrContainer, { text: qrString, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
-        // VERIFIED SEARCH RADAR ENGINE FIXED: Uses dynamic localized variables directly instead of fallback statements to guarantee accuracy 
+        // DYNAMIC AUGMENTED RADAR: Restricts search parameter directly to the pinned target area and category, ignoring Stuttgart entirely
         const geoQueryFilter = activeSubregionalLocalityName ? `"${activeSubregionalLocalityName}"` : `${userPinnedCoordinates.lat.toFixed(4)} ${userPinnedCoordinates.lon.toFixed(4)}`;
-        const strictQueryString = `"${generatedTitle}" OR (${geoQueryFilter} ${mood} hidden gems things to do) -Stuttgart`;
+        const strictQueryString = `best local ${moodQuery} top rated things to do in ${geoQueryFilter} Germany -Stuttgart`;
         
         const searchTerms = encodeURIComponent(strictQueryString);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
@@ -620,10 +499,10 @@
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const locationMessageFragment = activeSubregionalLocalityName ? `Around ${activeSubregionalLocalityName}` : `Coordinates`;
         
-        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED VENUE: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (https://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
+        const textPayload = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 TARGETED CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION LOG: ${locationMessageFragment} (http://maps.google.com/?q=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)})\n📅 RESERVATION TIMELINE: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON: ${duration}\n\n🎟️ Digital passport generation snapshot active. Ready for synchronization.`;
         
         navigator.clipboard.writeText(textPayload).then(() => {
-            console.log("Aesthetic text confirmation cached successfully to clipboard.");
+            console.log("Text cached successfully to clipboard.");
         }).catch(err => {
             const temporaryTextArea = document.createElement("textarea");
             temporaryTextArea.value = textPayload;
