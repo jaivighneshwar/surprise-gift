@@ -7,26 +7,27 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Leaflet Engine Interactive Map Stylesheet & Script Asset Frameworks -->
+    <!-- Leaflet Engine Interactive Map Frameworks -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
-    <!-- Barcode Serialization & Image Snapshot Renderers -->
+    <!-- Barcode Serialization & Image Snapshot Tools -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
-            --bg-beige: #f7f4ef;
+            --bg-beige: #fdfbf7;
             --paper-white: #ffffff;
             --primary-gold: #c5a880;
-            --text-dark: #3a3530;
-            --text-light: #7c756e;
-            --border-soft: rgba(197, 168, 128, 0.25);
-            --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            --success-green: #5cb377;
+            --dark-gold: #a68a62;
+            --text-dark: #2c2724;
+            --text-light: #8a8076;
+            --border-soft: rgba(197, 168, 128, 0.22);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --success-green: #68a37b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,37 +36,37 @@
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-beige);
             background-image: 
-                radial-gradient(circle at 80% 20%, #f1ece2 0%, transparent 40%),
-                radial-gradient(circle at 20% 80%, #ebe4d8 0%, transparent 50%);
+                radial-gradient(circle at 80% 10%, #f6f0e5 0%, transparent 50%),
+                radial-gradient(circle at 20% 90%, #f0e7d8 0%, transparent 60%);
             color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 15px;
+            padding: 25px 15px;
             overflow-x: hidden;
         }
 
-        /* Multi-Page Tab Layout System Controls */
         .app-container {
             width: 100%;
-            max-width: 520px;
+            max-width: 480px;
             position: relative;
         }
 
         .page-view {
             display: none;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 35px 25px;
-            box-shadow: 0 15px 35px rgba(58, 53, 48, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(44, 39, 36, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             position: relative;
             text-align: center;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             transition: var(--transition-smooth);
         }
 
@@ -78,58 +79,60 @@
         .page-view::before {
             content: '';
             position: absolute;
-            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            top: 14px; left: 14px; right: 14px; bottom: 14px;
             border: 1px solid var(--border-soft);
-            border-radius: 16px;
+            border-radius: 20px;
             pointer-events: none;
         }
 
         /* Typography */
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.3rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            color: var(--text-dark);
-            margin-bottom: 4px;
+        .birthday-header-zone {
+            margin-bottom: 30px;
+        }
+
+        .curation-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 12px;
         }
 
         .birthday-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.8rem;
             font-weight: 400;
-            font-style: italic;
             color: var(--text-dark);
-            letter-spacing: 1px;
-            line-height: 1.2;
-            margin-bottom: 10px;
+            line-height: 1.15;
+            margin-bottom: 12px;
         }
 
         .tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.1rem;
-            color: var(--primary-gold);
-            margin-bottom: 25px;
+            font-size: 1.15rem;
+            color: var(--text-light);
+            line-height: 1.5;
         }
 
         .group-label {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-dark);
             display: block;
             text-align: left;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
         }
 
-        /* Interactive Aesthetic Cake & Candle CSS Illustration */
+        /* Elevated Minimalist Cake Illustration */
         .cake-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 30px auto;
+            width: 220px;
+            height: 160px;
+            margin: 20px auto 25px auto;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -137,131 +140,167 @@
             align-items: center;
         }
 
-        .cake-body {
-            width: 140px;
-            height: 70px;
-            background: #f4eade;
-            border-radius: 10px 10px 4px 4px;
-            border: 1px solid rgba(197, 168, 128, 0.3);
+        .cake-tier {
+            width: 150px;
+            height: 65px;
+            background: #fdfaf5;
+            border-radius: 12px 12px 6px 6px;
+            border: 1px solid rgba(197, 168, 128, 0.35);
             position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 6px 15px rgba(197, 168, 128, 0.08);
         }
 
-        .cake-frosting {
+        .cake-frosting-trim {
             width: 100%;
-            height: 20px;
-            background: #ebdcc5;
-            border-radius: 10px 10px 0 0;
+            height: 16px;
+            background: #f3ede2;
+            border-radius: 11px 11px 0 0;
+            border-bottom: 1px dashed rgba(197, 168, 128, 0.4);
             position: absolute;
             top: 0;
         }
 
-        .candle {
-            width: 8px;
-            height: 40px;
+        .gold-band {
+            width: 100%;
+            height: 3px;
             background: var(--primary-gold);
-            position: relative;
-            margin-bottom: -2px;
-            border-radius: 2px 2px 0 0;
-            z-index: 2;
+            position: absolute;
+            bottom: 12px;
+            opacity: 0.7;
         }
 
-        .wick {
-            width: 2px;
+        .slender-candle {
+            width: 5px;
+            height: 45px;
+            background: linear-gradient(to right, var(--primary-gold), var(--dark-gold));
+            position: relative;
+            margin-bottom: -1px;
+            border-radius: 3px 3px 0 0;
+            z-index: 5;
+        }
+
+        .minimal-wick {
+            width: 1px;
             height: 6px;
-            background: #4a443f;
+            background: #5c534c;
             position: absolute;
             top: -6px;
-            left: 3px;
+            left: 2px;
         }
 
-        .flame {
-            width: 12px;
-            height: 24px;
-            background: #ff9d42;
-            border-radius: 50% 50% 20% 20%;
+        .organic-flame {
+            width: 10px;
+            height: 22px;
+            background: #ffa14a;
+            border-radius: 50% 50% 25% 25%;
             position: absolute;
-            top: -32px;
-            left: -2px;
-            background-image: linear-gradient(to bottom, #ffea75, #ff9d42);
-            box-shadow: 0 0 10px rgba(255,157,66,0.5);
-            animation: flicker 0.6s infinite alternate ease-in-out;
-            transition: opacity 0.3s ease;
+            top: -28px;
+            left: -2.5px;
+            background-image: linear-gradient(to bottom, #fff3a1, #ffa14a);
+            box-shadow: 0 0 15px rgba(255,161,74,0.6);
+            animation: softFlicker 0.8s infinite alternate ease-in-out;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease;
         }
 
-        @keyframes flicker {
-            0% { transform: scale(1) rotate(-1deg); }
-            100% { transform: scale(1.08) rotate(1.5deg); box-shadow: 0 0 14px rgba(255,157,66,0.7); }
+        @keyframes softFlicker {
+            0% { transform: scale(1) rotate(-0.5deg); opacity: 0.95; }
+            100% { transform: scale(1.06) rotate(1deg); box-shadow: 0 0 20px rgba(255,161,74,0.75); opacity: 1; }
         }
 
-        /* Animated Blowout Smoke Component Architecture */
-        .smoke-trail {
+        /* Abstract Micro-Smoke Vector Pathing */
+        .smoke-particle {
             position: absolute;
-            top: -40px;
-            left: 4px;
-            width: 2px;
-            height: 2px;
-            background: rgba(150, 140, 130, 0.4);
+            top: -35px;
+            left: 1px;
+            width: 3px;
+            height: 3px;
+            background: rgba(170, 160, 150, 0.5);
             border-radius: 50%;
             opacity: 0;
             pointer-events: none;
         }
 
-        .extinguished .flame {
+        .extinguished .organic-flame {
             opacity: 0 !important;
-            animation: none !important;
+            transform: scale(0.5) translateY(5px);
+            pointer-events: none;
         }
 
-        .extinguished .smoke-trail {
-            animation: riseSmoke 2.2s ease-out forwards;
+        .extinguished .smoke-particle {
+            animation: liftSmokeTrail 2.5s cubic-bezier(0.06, 0.7, 0.2, 1) forwards;
         }
 
-        @keyframes riseSmoke {
+        @keyframes liftSmokeTrail {
             0% { opacity: 0; transform: translateY(0) scale(1); filter: blur(0px); }
-            10% { opacity: 0.6; transform: translateY(-5px) translateX(-2px) scale(3); filter: blur(1px); }
-            50% { transform: translateY(-30px) translateX(8px) scale(8); opacity: 0.3; filter: blur(3px); }
-            100% { transform: translateY(-65px) translateX(-4px) scale(14); opacity: 0; filter: blur(5px); }
+            15% { opacity: 0.6; transform: translateY(-8px) translateX(-3px) scale(2.5); filter: blur(0.5px); }
+            60% { transform: translateY(-40px) translateX(12px) scale(7); opacity: 0.25; filter: blur(2px); }
+            100% { transform: translateY(-75px) translateX(4px) scale(12); opacity: 0; filter: blur(4px); }
         }
 
-        /* Elegant Pulsing Present Box Container */
-        .gift-container {
-            margin: 35px auto 10px auto;
-            display: inline-block;
+        .status-feedback-text {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            letter-spacing: 0.3px;
+            margin-bottom: 35px;
+            min-height: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        /* Premium Aesthetic Gift Launcher Module */
+        .gift-launcher-zone {
+            border-top: 1px dashed var(--border-soft);
+            padding-top: 30px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gift-capsule {
+            position: relative;
+            width: 75px;
+            height: 75px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            animation: floatGift 3s infinite ease-in-out;
+            animation: calmFloating 4s infinite ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
-        .gift-container:hover {
-            transform: scale(1.08);
+        .gift-capsule:hover {
+            transform: scale(1.06) rotate(2deg);
         }
 
-        @keyframes floatGift {
+        @keyframes calmFloating {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
 
-        .gift-box {
-            width: 65px;
-            height: 60px;
-            background: var(--text-dark);
+        .minimal-gift-box {
+            width: 54px;
+            height: 50px;
+            background: #ffffff;
+            border: 1.5px solid var(--text-dark);
             position: relative;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(58, 53, 48, 0.12);
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(44, 39, 36, 0.05);
         }
 
-        .gift-lid {
-            width: 71px;
-            height: 14px;
-            background: #4a443f;
+        .minimal-gift-lid {
+            width: 60px;
+            height: 12px;
+            background: #ffffff;
+            border: 1.5px solid var(--text-dark);
             position: absolute;
-            top: -10px;
-            left: -3px;
-            border-radius: 4px;
+            top: -9px;
+            left: -4.5px;
+            border-radius: 3px;
         }
 
-        .gift-ribbon-v {
-            width: 10px;
+        .gold-ribbon-line-v {
+            width: 6px;
             height: 100%;
             background: var(--primary-gold);
             position: absolute;
@@ -270,9 +309,9 @@
             top: 0;
         }
 
-        .gift-ribbon-h {
+        .gold-ribbon-line-h {
             width: 100%;
-            height: 10px;
+            height: 6px;
             background: var(--primary-gold);
             position: absolute;
             top: 50%;
@@ -280,18 +319,23 @@
             left: 0;
         }
 
-        .hint-text {
-            font-size: 0.78rem;
-            color: var(--text-light);
-            margin-top: 10px;
-            letter-spacing: 0.5px;
+        .launcher-action-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .gift-capsule:hover + .launcher-action-label {
+            color: var(--dark-gold);
         }
 
-        /* Spatial Map Engine Panels */
+        /* Spatial Map Generator Tab Styling */
         .spatial-map-wrapper {
             background: #ffffff;
             border: 1px solid var(--border-soft);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 12px;
             margin-bottom: 20px;
             text-align: left;
@@ -300,21 +344,22 @@
         #map {
             width: 100%;
             height: 240px;
-            border-radius: 12px;
-            background: #e0e0e0;
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 14px;
+            background: #f4ede2;
+            border: 1px solid rgba(0,0,0,0.03);
             z-index: 1;
         }
 
         .telemetry-strip {
             margin-top: 10px;
-            font-size: 0.75rem;
+            font-size: 0.76rem;
             color: var(--text-light);
             font-family: monospace;
-            background: #fafaf7;
-            padding: 8px 12px;
-            border-radius: 8px;
+            background: #faf8f5;
+            padding: 10px 14px;
+            border-radius: 10px;
             border-left: 3px solid var(--primary-gold);
+            line-height: 1.4;
         }
 
         .selection-grid {
@@ -328,24 +373,24 @@
 
         .tile {
             background: var(--paper-white);
-            border: 1px solid rgba(197, 168, 128, 0.2);
-            padding: 12px 6px;
-            border-radius: 12px;
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            padding: 14px 6px;
+            border-radius: 14px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            font-size: 0.75rem;
+            font-size: 0.76rem;
             font-weight: 400;
             color: var(--text-light);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 64px;
+            min-height: 68px;
         }
-        .tile:hover { border-color: var(--primary-gold); background-color: #faf9f6; }
+        .tile:hover { border-color: var(--primary-gold); background-color: #fdfcf9; }
         input[type="radio"]:checked + .tile {
             border-color: var(--primary-gold);
-            background-color: #f6f2ea;
+            background-color: #f7f3eb;
             color: var(--text-dark);
             font-weight: 600;
             box-shadow: inset 0 0 0 1px var(--primary-gold);
@@ -361,13 +406,14 @@
         .input-block { display: flex; flex-direction: column; }
         .custom-input {
             width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(197, 168, 128, 0.2);
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(197, 168, 128, 0.22);
             background-color: var(--paper-white);
             font-family: 'Montserrat', sans-serif;
             font-size: 0.85rem;
             outline: none;
+            color: var(--text-dark);
         }
 
         .btn-spin {
@@ -375,16 +421,16 @@
             color: var(--paper-white);
             border: none;
             width: 100%;
-            padding: 15px;
-            border-radius: 30px;
+            padding: 16px;
+            border-radius: 35px;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(58, 53, 48, 0.15);
+            box-shadow: 0 5px 20px rgba(44, 39, 36, 0.12);
             transition: var(--transition-smooth);
         }
-        .btn-spin:hover { background-color: var(--primary-gold); }
+        .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
 
         .animation-container {
             display: none;
@@ -393,55 +439,56 @@
             align-items: center;
             height: 80px;
         }
-        .spinning-dice { font-size: 3rem; animation: tumble 0.6s infinite linear; }
+        .spinning-dice { font-size: 2.8rem; animation: tumble 0.7s infinite linear; }
         @keyframes tumble { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .live-status-badge {
             display: inline-block;
-            padding: 4px 10px;
-            font-size: 0.7rem;
+            padding: 5px 12px;
+            font-size: 0.68rem;
             font-weight: 600;
             text-transform: uppercase;
             border-radius: 12px;
-            margin-bottom: 12px;
-            background: rgba(92, 179, 119, 0.1); 
+            margin-bottom: 14px;
+            background: rgba(104, 163, 123, 0.1); 
             color: var(--success-green);
+            letter-spacing: 0.5px;
         }
 
         .reveal-zone {
             margin-top: 30px;
-            padding: 20px;
-            border-radius: 16px;
+            padding: 24px;
+            border-radius: 20px;
             background: #ffffff;
             border: 1px dashed var(--primary-gold);
             display: none;
         }
 
-        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
-        .reveal-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
+        .reveal-desc { font-size: 0.86rem; color: var(--text-light); line-height: 1.65; margin-bottom: 15px; }
         
         .qr-output-box {
             display: inline-block;
-            margin: 10px auto;
-            padding: 10px;
+            margin: 12px auto;
+            padding: 12px;
             background: #ffffff;
             border: 1px solid rgba(197, 168, 128, 0.25);
-            border-radius: 12px;
+            border-radius: 14px;
         }
 
         .action-button-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 18px;
         }
 
         .btn-action-panel {
             border: none;
-            padding: 14px;
-            border-radius: 30px;
+            padding: 15px;
+            border-radius: 35px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             cursor: pointer;
             width: 100%;
             transition: var(--transition-smooth);
@@ -453,56 +500,59 @@
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); }
         .btn-panel-dark:hover { background-color: var(--primary-gold); }
         .btn-panel-gold { background-color: transparent; color: var(--text-dark); border: 1px solid var(--primary-gold); }
-        .btn-panel-gold:hover { background-color: #fdfaf4; }
+        .btn-panel-gold:hover { background-color: #fefcf9; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
 
-    <!-- PAGE 1: AESTHETIC BIRTHDAY CELEBRATION GATE -->
+    <!-- PAGE 1: AESTHETIC BIRTHDAY GATEWAY -->
     <div id="birthdayPage" class="page-view active">
-        <div style="margin-top: 15px;">
-            <div style="font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 10px;">A Dedicated Curation</div>
+        <div class="birthday-header-zone">
+            <div class="curation-tag">Bespoke Curation</div>
             <h1 class="birthday-title">Happy Birthday<br>Anaaaaaaaa</h1>
-            <p class="tagline" style="margin-bottom: 10px;">Make a secret wish and blow out the candle light</p>
+            <p class="tagline">Make a silent wish and blow out the candlelight.</p>
         </div>
 
-        <!-- Interactive Illustrative Component Layer -->
-        <div class="cake-container" onclick="extinguishCandle(this)">
-            <div class="candle">
-                <div class="wick"></div>
-                <div class="flame"></div>
-                <div class="smoke-trail"></div>
+        <!-- Interactive Minimal Layered Porcelain Cake -->
+        <div class="cake-container" onclick="handleCandleBlowout(this)">
+            <div class="slender-candle">
+                <div class="minimal-wick"></div>
+                <div class="organic-flame"></div>
+                <div class="smoke-particle"></div>
             </div>
-            <div class="cake-body">
-                <div class="cake-frosting"></div>
+            <div class="cake-tier">
+                <div class="cake-frosting-trim"></div>
+                <div class="gold-band"></div>
             </div>
         </div>
 
-        <p class="hint-text" id="candleStatusText" style="font-style: italic; min-height: 18px;">✨ Tap the candle flame directly to blow it out.</p>
+        <p class="status-feedback-text" id="candleStatusText">✨ Tap the flame gently to blow it out.</p>
 
-        <!-- Navigation Gift Box Module Base Trigger -->
-        <div class="gift-container" onclick="navigateToEngineTab()">
-            <div class="gift-box">
-                <div class="gift-ribbon-v"></div>
-                <div class="gift-ribbon-h"></div>
-                <div class="gift-lid"></div>
+        <!-- Premium Gift Entry Launcher Point -->
+        <div class="gift-launcher-zone">
+            <div class="gift-capsule" onclick="navigateToEngineTab()">
+                <div class="minimal-gift-box">
+                    <div class="gold-ribbon-line-v"></div>
+                    <div class="gold-ribbon-line-h"></div>
+                    <div class="minimal-gift-lid"></div>
+                </div>
             </div>
-            <p class="hint-text" style="font-weight: 600; color: var(--text-dark);">Open Your Birthday Gift Box 🎁</p>
+            <div class="launcher-action-label">Unwrap Your Gift Capsule 🎁</div>
         </div>
     </div>
 
     <!-- PAGE 2: PROCEDURAL EXPERIENTIAL SURPRISE ENGINE -->
     <div id="enginePage" class="page-view">
         <h1>The Secret Garden</h1>
-        <p class="tagline">Infinite Procedural Spatial Generator</p>
+        <p class="tagline" style="margin-bottom: 25px;">Infinite Procedural Spatial Generator</p>
 
-        <!-- Map Module Interface Canvas Box -->
+        <!-- Interactive Map Wrapper Box Configuration -->
         <div class="spatial-map-wrapper">
-            <span class="group-label" style="margin-bottom:6px;">Drop a Pin Anywhere to Generate a Real Experience</span>
+            <span class="group-label" style="margin-bottom:6px; font-size: 1.15rem;">Drop a Pin to Targeted Coordinates</span>
             <div id="map"></div>
-            <div class="telemetry-strip" id="telemetryData">📍 Map System Standby. Click anywhere to establish custom target coordinates.</div>
+            <div class="telemetry-strip" id="telemetryData">📍 Map System Online. Click anywhere to capture custom spatial target coordinates.</div>
         </div>
 
         <span class="group-label">Choose Your Vibe</span>
@@ -559,9 +609,8 @@
 <script>
     let mapEngine = null;
     let droppedPinMarker = null;
-    let userPinnedCoordinates = null;
+    let userPinnedCoordinates = null; // HOLDS ACTIVE SELECTION CRITERIA ONLY
 
-    // Deep Procedural Component Library to generate contextually logical variations matching target pin layouts
     const proceduralLexicon = {
         adventure: {
             titles: ["Expedition Venture", "Hidden Pathway Trek", "Rogue Terrain Odyssey", "Summit Horizon Crest"],
@@ -589,17 +638,16 @@
         }
     };
 
-    // Transition between Pages/Tabs
+    // Tab Interface Swapping Framework 
     function showPage(pageId) {
         const currentActive = document.querySelector('.page-view.active');
         if (currentActive) {
             currentActive.style.opacity = '0';
-            currentActive.style.transform = 'translateY(20px)';
+            currentActive.style.transform = 'translateY(15px)';
             setTimeout(() => {
                 currentActive.classList.remove('active');
                 const targetPage = document.getElementById(pageId);
                 targetPage.classList.add('active');
-                // Allow CSS display block cycle to catch up before animation fade in
                 setTimeout(() => {
                     targetPage.style.opacity = '1';
                     targetPage.style.transform = 'translateY(0)';
@@ -607,41 +655,45 @@
                         initiateSpatialMap();
                     }
                 }, 50);
-            }, 400);
+            }, 500);
         }
     }
 
-    // Extinguish Candle Action
-    function extinguishCandle(element) {
+    // Candle Tap Action Process
+    function handleCandleBlowout(element) {
         if (!element.classList.contains('extinguished')) {
             element.classList.add('extinguished');
-            document.getElementById('candleStatusText').innerHTML = "💨 <i>Wish registered beautifully...</i>";
+            const statusTxt = document.getElementById('candleStatusText');
+            statusTxt.style.color = "var(--primary-gold)";
+            statusTxt.innerHTML = "💨 <i>Your secret wish has been registered beautifully...</i>";
         }
     }
 
-    // Trigger Gift box tab navigation
     function navigateToEngineTab() {
         showPage('enginePage');
     }
 
-    // Initialize Map Viewport Engine lazily upon page initialization request
+    // Initialize Map Viewport Engine
     function initiateSpatialMap() {
-        if (mapEngine !== null) return; // Prevent double instantiation patterns
+        if (mapEngine !== null) return; 
 
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
 
-        // Central focus point tracking over South Germany / Border regions
+        // Focus mapped coordinates over South Central Germany
         mapEngine = L.map('map').setView([48.1351, 9.5000], 7);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap'
         }).addTo(mapEngine);
 
+        // MAP CLICK EVENT HANDLER: Captures consecutive modifications and resets dynamic parameters instantly
         mapEngine.on('click', (e) => {
             const { lat, lng } = e.latlng;
-            userPinnedCoordinates = { lat, lon: lng };
+            
+            // DYNAMIC UPDATE TRIGGER: Explicitly binds the coordinates to the active global tracking variables
+            userPinnedCoordinates = { lat: lat, lon: lng };
 
             if (droppedPinMarker) {
                 droppedPinMarker.setLatLng(e.latlng);
@@ -649,17 +701,20 @@
                 droppedPinMarker = L.marker(e.latlng, { draggable: false }).addTo(mapEngine);
             }
 
-            document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)} <br><span style="color:var(--primary-gold)">Infinite generation grid successfully targeted.</span>`;
+            // Immediately clear historical outputs to force user configuration clarity
+            document.getElementById('revealZone').style.display = 'none';
+
+            document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)} <br><span style="color:var(--primary-gold); font-weight:600;">Procedural synthesis engine target updated.</span>`;
         });
     }
 
     function runAnimatedRoulette() {
         if (!userPinnedCoordinates) {
-            alert("Please drop a marker pin on the map viewport configuration first! 🗺️");
+            alert("Please tap or select an exact point location on the map viewport canvas configuration first! 🗺️");
             return;
         }
         if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) {
-            alert("Please specify target booking timeframes in configuration slots! 🌸");
+            alert("Please select your calendar metrics and target hours first! 🌸");
             return;
         }
         document.getElementById('revealZone').style.display = 'none';
@@ -672,11 +727,14 @@
     }
 
     function generateInfiniteSpatialExperience() {
+        // SAFETY RE-VERIFICATION: Locks engine computation variables straight from the active live selection state
+        if (!userPinnedCoordinates) return;
+
         const mood = document.querySelector('input[name="mood"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
 
-        // SEED GENERATION ARITHMETIC: Pseudo-random variations linked directly to unique coordinate pairs
+        // SEED GENERATION ARITHMETIC: Creates unique algorithmic patterns derived straight from live map lat/long markers
         const locationSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 10000);
         const lexiconPool = proceduralLexicon[mood];
         
@@ -694,7 +752,7 @@
         const refPassport = `TSG-ANA-${token}`;
         document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nCOORDINATES: ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)}\nSLOT ASSIGNMENT: ${dateInput} @ ${timeInput}`;
 
-        // Build serialization QR barcode graphics
+        // Build serialization QR barcode graphics matching runtime coordinate states
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
         const qrString = `PASSPORT: ${refPassport}\nEVENT: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nDATETIME: ${dateInput}_${timeInput}`;
@@ -703,12 +761,12 @@
             text: qrString,
             width: 130,
             height: 130,
-            colorDark : "#3a3530",
+            colorDark : "#2c2724",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });
 
-        // LIVE EXTERNAL RESEARCH HYPERLINK: Builds context queries directly around the user's manual map location pin
+        // RE-COMPUTE DYNAMIC LIVE GOOGLE SEARCH TERMS MATCHING NEW COORDINATES
         const searchTerms = encodeURIComponent(`secret spots hidden gems restaurants hikes attractions things to do near ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)} ${mood}`);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
 
@@ -717,17 +775,16 @@
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
-    // SYNCHRONIZED POPUP DISPATCH MECHANISM: Instantly fires the window setup link to bypass security filters on click #1
     function dispatchToAdminAndGroup() {
         if (!userPinnedCoordinates) return;
 
         const targetNode = document.getElementById('ticketCaptureArea');
         const groupInvitationLink = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
 
+        // Pulls verified dynamic data straight from active text parameters 
         const trackingMetaText = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION: https://www.google.com/maps/search/?api=1&query=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\n📅 RESERVATION SLOT: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
         navigator.clipboard.writeText(trackingMetaText).catch(() => console.log("Clipboard fallback registered."));
 
-        // Direct tab generation upfront locks synchronization perfectly across browsers
         const chatWindowReference = window.open(groupInvitationLink, '_blank');
 
         html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
@@ -738,9 +795,9 @@
             structuralDownloader.click();
             
             if (!chatWindowReference || chatWindowReference.closed || typeof chatWindowReference.closed == 'undefined') {
-                alert("🎟 Honor Ticket Downloaded!\n\nYour browser configuration filtered the direct popup action. Please rerun the button or use your group workspace portal manually to attach files! 🌸");
+                alert("🎟️ Honor Ticket Downloaded!\n\nYour browser configuration filtered the direct popup action. Please rerun the button or use your group workspace portal manually to attach files! 🌸");
             } else {
-                alert("🎟 Passport Built Successfully & Saved!\n\nBooking data copied to device clipboard. The WhatsApp group layout is active—simply paste the clipboard text strings and attach your generated snapshot ticket! 🌸");
+                alert("🎟️ Passport Built Successfully & Saved!\n\nBooking data copied to device clipboard. The WhatsApp group layout is active—simply paste the clipboard text strings and attach your generated snapshot ticket! 🌸");
             }
         });
     }
