@@ -9,10 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Third Party Toolkits -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Leaflet Engine for 2D Interactive Map Canvas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
@@ -159,24 +157,20 @@
 
 <div class="app-container">
 
-    <!-- PAGE 1: WELCOME SCREEN -->
     <div id="welcomePage" class="page-view active">
         <h1 style="font-family:'Cormorant Garamond'; font-size:2.5rem; margin-bottom:20px;">Experience Roulette</h1>
         <p class="tagline" style="margin-bottom:40px;">Set parameters, trust destiny, explore hidden facets of your city.</p>
         <button class="btn-spin" style="width: 80%;" onclick="showPage('enginePage')">Enter Entry Portal 🎲</button>
     </div>
 
-    <!-- PAGE 2: MAIN ENGINE VIEWPORT -->
     <div id="enginePage" class="page-view">
         <p class="tagline" style="margin-bottom: 15px;">Configuration Panel</p>
 
-        <!-- CORE SWITCH MODULE -->
         <div class="strategy-switch-bar">
             <button type="button" class="strategy-btn active" id="btnStratA" onclick="toggleSpatialStrategy('A')">🌐 3D Globe Board</button>
             <button type="button" class="strategy-btn" id="btnStratB" onclick="toggleSpatialStrategy('B')">🗺️ 2D Precision Map</button>
         </div>
 
-        <!-- TARGET SELECTION MODULE A: GLOBE VECTOR CANVAS -->
         <div id="spatialBlockA" class="spatial-block active">
             <div class="globe-hardware-wrapper">
                 <span class="group-label" style="margin-top:0; font-size: 1.1rem;">3D Vector Crosshair</span>
@@ -192,7 +186,6 @@
             </div>
         </div>
 
-        <!-- TARGET SELECTION MODULE B: 2D TEXT INPUT & LIVE MAP CANVAS -->
         <div id="spatialBlockB" class="spatial-block">
             <div class="precision-panel-card">
                 <span class="group-label" style="margin-top:0; font-size: 1.1rem;">Address Text / Live Pin Input</span>
@@ -203,7 +196,6 @@
                     <button type="button" class="btn-gps-hook" onclick="triggerHardwareGpsAcquisition()">📍</button>
                 </div>
 
-                <!-- PHYSICAL LIVE VISUAL 2D INTERACTIVE DISPLAY -->
                 <div id="map2d" class="map-2d-viewport-container"></div>
 
                 <span class="group-label" style="font-size:0.95rem; margin-top:5px;">Proximity Restriction Bounds</span>
@@ -250,7 +242,6 @@
             </div>
         </div>
 
-        <!-- BUDGET CONTROL METRIC CARD -->
         <div class="hardware-config-card">
             <div class="card-metric-header">
                 <span>Maximum Value Cap Threshold</span>
@@ -261,18 +252,19 @@
             </div>
         </div>
 
-        <!-- INTENSITY ARCHETYPE SELECTION GRID -->
         <span class="group-label">Experience Vibe & Sub-class Selection</span>
         <div class="selection-grid">
             <label><input type="radio" name="mood" value="scenic nature landscape views public parks" checked onclick="invalidateOutputDisplays()"><div class="tile">🌲 Nature Escape</div></label>
             <label><input type="radio" name="mood" value="authentic restaurant fine dining top culinary places" onclick="invalidateOutputDisplays()"><div class="tile">🍛 Fine Food</div></label>
             <label><input type="radio" name="mood" value="artisan roastery coffee shops premium bakery" onclick="invalidateOutputDisplays()"><div class="tile">☕ Cafe & Tea</div></label>
-            <label><input type="radio" name="mood" value="museum architecture historical cultural heritage" onclick="invalidateOutputDisplays()"><div class="tile">🎻 Culture Run</div></label>
+            <label><input type="radio" name="mood" value="museum architecture historical cultural heritage art gallery" onclick="invalidateOutputDisplays()"><div class="tile">🎻 Culture Run</div></label>
             <label><input type="radio" name="mood" value="cozy hidden speakeasy lounge secret bar cocktail" onclick="invalidateOutputDisplays()"><div class="tile">🍹 Lounge Bar</div></label>
-            <label><input type="radio" name="mood" value="escape rooms arcade games dynamic vr playground" onclick="invalidateOutputDisplays()"><div class="tile">🧩 Arcade Core</div></label>
+            <label><input type="radio" name="mood" value="escape rooms arcade games dynamic vr playground amusement" onclick="invalidateOutputDisplays()"><div class="tile">🧩 Arcade Core</div></label>
+            <label><input type="radio" name="mood" value="adrenaline extreme sports karting climbing laser tag action" onclick="invalidateOutputDisplays()"><div class="tile">⚡ Adrenaline</div></label>
+            <label><input type="radio" name="mood" value="creative workshop pottery painting art class cooking studio" onclick="invalidateOutputDisplays()"><div class="tile">🎨 Creative</div></label>
+            <label><input type="radio" name="mood" value="wellness spa massage thermal bath relaxation sauna sauna center" onclick="invalidateOutputDisplays()"><div class="tile">💆 Wellness</div></label>
         </div>
 
-        <!-- TIMEFRAME SCHEDULING WRAPPERS -->
         <div class="datetime-picker-wrap">
             <div>
                 <span class="group-label" style="font-size:0.85rem;">Date Picker</span>
@@ -284,13 +276,11 @@
             </div>
         </div>
 
-        <!-- CORE CONTROL DECISION TRAY -->
         <div class="control-row-buttons">
             <button class="btn-spin" onclick="launchLiveDiscoveryBridge()">Synthesize Live ✨</button>
             <button class="btn-surprise" onclick="executeSurpriseMeRoulette()">Surprise 🎲</button>
         </div>
 
-        <!-- DISCOVERY BRIDGE DISPATCH LINK CARD -->
         <div class="bridge-discovery-panel" id="bridgePanel">
             <span class="group-label" style="margin-top:0; color:#fff;">Step 1: Inspect Target Options Radar</span>
             <a id="bridgeExternalSearchLink" class="explore-intent-btn" target="_blank">Explore Alternatives 🗺️</a>
@@ -300,7 +290,6 @@
             <button class="btn-spin" style="width:100%; padding:12px;" onclick="compileFinalPassportTicket()">Compile Passport 🎟️</button>
         </div>
 
-        <!-- TICKET REVEAL BLOCK SYSTEM -->
         <div class="reveal-zone" id="revealZone">
             <div id="ticketCaptureArea">
                 <h3 style="font-family:'Cormorant Garamond'; font-size:1.8rem; margin-bottom:15px;" id="displayTitle">Exquisite Venue Destination</h3>
@@ -539,19 +528,17 @@
             }).catch(() => {});
     }
 
-    // --- INTEGRATED BRIDGING AND ENGINE RADAR EXECUTION ---
+    // --- DEBUGGED & CORRECTED GOOGLE MAPS INTENT API REDIRECT ---
     function launchLiveDiscoveryBridge() {
         const euroLimit = document.getElementById('budgetLimitEuro').value;
         const moodQuery = document.querySelector('input[name="mood"]:checked').value;
         const timeVal = document.getElementById('targetTime').value;
 
         let querySyntax = "";
-        let boundsArgs = "";
 
         if (activeSpatialStrategyBranch === 'A') {
             if (!activeGlobeDartAnchorNode) { alert("Please target the 3D globe coordinates first!"); return; }
             querySyntax = `${moodQuery} under ${euroLimit} EUR near ${activeGlobeDartAnchorNode.name} at ${timeVal}`;
-            boundsArgs = `&sll=${activeGlobeDartAnchorNode.lat},${activeGlobeDartAnchorNode.lon}&radius=20000`;
         } else {
             const locText = document.getElementById('manualTextLocation').value || "Current Spot Location Area";
             const rule = document.querySelector('input[name="clippingRule"]:checked').value;
@@ -564,10 +551,10 @@
                 const method = document.querySelector('input[name="transitMode"]:checked').value;
                 querySyntax = `${moodQuery} max price ${euroLimit} EUR within ${duration} min travel via ${method} from ${locText}`;
             }
-            boundsArgs = `&sll=${active2dMapLatLonAnchor.lat},${active2dMapLatLonAnchor.lon}`;
         }
 
-        document.getElementById('bridgeExternalSearchLink').href = `https://www.google.com/maps/search/${encodeURIComponent(querySyntax)}${boundsArgs}`;
+        // CORRECTED PATHWAY: Universal parameters mapped directly to search endpoint safely
+        document.getElementById('bridgeExternalSearchLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(querySyntax)}`;
         document.getElementById('bridgePanel').style.display = 'block';
     }
 
@@ -587,7 +574,7 @@
         }
 
         document.getElementById('qrcode').innerHTML = "";
-        new QRCode(document.getElementById('qrcode'), { text: `https://www.google.com/maps/search/${encodeURIComponent(title)}`, width: 110, height: 110 });
+        new QRCode(document.getElementById('qrcode'), { text: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(title)}`, width: 110, height: 110 });
         document.getElementById('revealZone').style.display = 'block';
     }
 
