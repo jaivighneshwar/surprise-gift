@@ -482,7 +482,7 @@
 
         // DYNAMIC AUGMENTED RADAR: Restricts search parameter directly to the pinned target area and category, ignoring Stuttgart entirely
         const geoQueryFilter = activeSubregionalLocalityName ? `"${activeSubregionalLocalityName}"` : `${userPinnedCoordinates.lat.toFixed(4)} ${userPinnedCoordinates.lon.toFixed(4)}`;
-        const strictQueryString = `best local ${moodQuery} top rated things to do in ${geoQueryFilter} Germany -Stuttgart`;
+        const strictQueryString = `best local ${moodQuery} top rated things to do in ${geoQueryFilter}`;
         
         const searchTerms = encodeURIComponent(strictQueryString);
         document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
