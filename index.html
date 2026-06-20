@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Secret Garden | Intelligent Spatial Map Roulette</title>
+    <title>The Secret Garden | Happy Birthday Ana ✨</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <!-- Leaflet Engine Interactive Map Stylesheet & Script Asset Frameworks -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
+    <!-- Barcode Serialization & Image Snapshot Renderers -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -23,8 +25,7 @@
             --text-dark: #3a3530;
             --text-light: #7c756e;
             --border-soft: rgba(197, 168, 128, 0.25);
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            --alert-red: #b35c5c;
+            --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             --success-green: #5cb377;
         }
 
@@ -42,11 +43,19 @@
             justify-content: center;
             align-items: center;
             padding: 30px 15px;
+            overflow-x: hidden;
         }
 
-        .card-frame {
+        /* Multi-Page Tab Layout System Controls */
+        .app-container {
             width: 100%;
             max-width: 520px;
+            position: relative;
+        }
+
+        .page-view {
+            display: none;
+            width: 100%;
             background-color: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
             border-radius: 24px;
@@ -55,9 +64,18 @@
             border: 1px solid rgba(255, 255, 255, 0.7);
             position: relative;
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
         }
 
-        .card-frame::before {
+        .page-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-view::before {
             content: '';
             position: absolute;
             top: 12px; left: 12px; right: 12px; bottom: 12px;
@@ -66,6 +84,7 @@
             pointer-events: none;
         }
 
+        /* Typography */
         h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.3rem;
@@ -75,12 +94,23 @@
             margin-bottom: 4px;
         }
 
+        .birthday-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
         .tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1.1rem;
             color: var(--primary-gold);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .group-label {
@@ -94,7 +124,170 @@
             letter-spacing: 0.5px;
         }
 
-        /* Interactive Mapping Container Panel */
+        /* Interactive Aesthetic Cake & Candle CSS Illustration */
+        .cake-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .cake-body {
+            width: 140px;
+            height: 70px;
+            background: #f4eade;
+            border-radius: 10px 10px 4px 4px;
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .cake-frosting {
+            width: 100%;
+            height: 20px;
+            background: #ebdcc5;
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            top: 0;
+        }
+
+        .candle {
+            width: 8px;
+            height: 40px;
+            background: var(--primary-gold);
+            position: relative;
+            margin-bottom: -2px;
+            border-radius: 2px 2px 0 0;
+            z-index: 2;
+        }
+
+        .wick {
+            width: 2px;
+            height: 6px;
+            background: #4a443f;
+            position: absolute;
+            top: -6px;
+            left: 3px;
+        }
+
+        .flame {
+            width: 12px;
+            height: 24px;
+            background: #ff9d42;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -32px;
+            left: -2px;
+            background-image: linear-gradient(to bottom, #ffea75, #ff9d42);
+            box-shadow: 0 0 10px rgba(255,157,66,0.5);
+            animation: flicker 0.6s infinite alternate ease-in-out;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-1deg); }
+            100% { transform: scale(1.08) rotate(1.5deg); box-shadow: 0 0 14px rgba(255,157,66,0.7); }
+        }
+
+        /* Animated Blowout Smoke Component Architecture */
+        .smoke-trail {
+            position: absolute;
+            top: -40px;
+            left: 4px;
+            width: 2px;
+            height: 2px;
+            background: rgba(150, 140, 130, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .extinguished .flame {
+            opacity: 0 !important;
+            animation: none !important;
+        }
+
+        .extinguished .smoke-trail {
+            animation: riseSmoke 2.2s ease-out forwards;
+        }
+
+        @keyframes riseSmoke {
+            0% { opacity: 0; transform: translateY(0) scale(1); filter: blur(0px); }
+            10% { opacity: 0.6; transform: translateY(-5px) translateX(-2px) scale(3); filter: blur(1px); }
+            50% { transform: translateY(-30px) translateX(8px) scale(8); opacity: 0.3; filter: blur(3px); }
+            100% { transform: translateY(-65px) translateX(-4px) scale(14); opacity: 0; filter: blur(5px); }
+        }
+
+        /* Elegant Pulsing Present Box Container */
+        .gift-container {
+            margin: 35px auto 10px auto;
+            display: inline-block;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            animation: floatGift 3s infinite ease-in-out;
+        }
+
+        .gift-container:hover {
+            transform: scale(1.08);
+        }
+
+        @keyframes floatGift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .gift-box {
+            width: 65px;
+            height: 60px;
+            background: var(--text-dark);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(58, 53, 48, 0.12);
+        }
+
+        .gift-lid {
+            width: 71px;
+            height: 14px;
+            background: #4a443f;
+            position: absolute;
+            top: -10px;
+            left: -3px;
+            border-radius: 4px;
+        }
+
+        .gift-ribbon-v {
+            width: 10px;
+            height: 100%;
+            background: var(--primary-gold);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+        }
+
+        .gift-ribbon-h {
+            width: 100%;
+            height: 10px;
+            background: var(--primary-gold);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+        }
+
+        .hint-text {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Spatial Map Engine Panels */
         .spatial-map-wrapper {
             background: #ffffff;
             border: 1px solid var(--border-soft);
@@ -106,7 +299,7 @@
         
         #map {
             width: 100%;
-            height: 220px;
+            height: 240px;
             border-radius: 12px;
             background: #e0e0e0;
             border: 1px solid rgba(0,0,0,0.05);
@@ -203,7 +396,6 @@
         .spinning-dice { font-size: 3rem; animation: tumble 0.6s infinite linear; }
         @keyframes tumble { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Real-Time Live Diagnostics Status Boxes */
         .live-status-badge {
             display: inline-block;
             padding: 4px 10px;
@@ -212,21 +404,8 @@
             text-transform: uppercase;
             border-radius: 12px;
             margin-bottom: 12px;
-        }
-        .badge-alert { background: rgba(179, 92, 92, 0.1); color: var(--alert-red); }
-        .badge-success { background: rgba(92, 179, 119, 0.1); color: var(--success-green); }
-
-        .intelligent-override-box {
-            background: #fff5f5;
-            border: 1px solid rgba(179, 92, 92, 0.25);
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 0.75rem;
-            color: #7a3a3a;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            text-align: left;
-            display: none;
+            background: rgba(92, 179, 119, 0.1); 
+            color: var(--success-green);
         }
 
         .reveal-zone {
@@ -238,7 +417,7 @@
             display: none;
         }
 
-        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 8px; }
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
         .reveal-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
         
         .qr-output-box {
@@ -279,111 +458,181 @@
 </head>
 <body>
 
-<div class="card-frame">
-    <h1>The Secret Garden</h1>
-    <p class="tagline">Spatial Intelligence Real-Time Engine</p>
+<div class="app-container">
 
-    <div class="spatial-map-wrapper">
-        <span class="group-label" style="margin-bottom:6px;">Drop Pin to Focus Surprise Search Scope</span>
-        <div id="map"></div>
-        <div class="telemetry-strip" id="telemetryData">📍 Map System Standby. Click anywhere on map to drop location pin.</div>
-    </div>
-
-    <span class="group-label">Choose Your Vibe</span>
-    <div class="selection-grid">
-        <label><input type="radio" name="mood" value="chill" checked><div class="tile">🧖‍♀️ Chill</div></label>
-        <label><input type="radio" name="mood" value="adventure"><div class="tile">🧗‍♀️ Action</div></label>
-        <label><input type="radio" name="mood" value="gourmet"><div class="tile">🥂 Fine Eat</div></label>
-        <label><input type="radio" name="mood" value="culture"><div class="tile">🎻 Culture</div></label>
-        <label><input type="radio" name="mood" value="nature"><div class="tile">🌲 Escape</div></label>
-        <label><input type="radio" name="mood" value="cozy"><div class="tile">🕯️ Cozy</div></label>
-    </div>
-
-    <div class="datetime-picker-wrap">
-        <div class="input-block">
-            <span class="group-label">Select Date</span>
-            <input type="date" class="custom-input" id="targetDate" required>
+    <!-- PAGE 1: AESTHETIC BIRTHDAY CELEBRATION GATE -->
+    <div id="birthdayPage" class="page-view active">
+        <div style="margin-top: 15px;">
+            <div style="font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 10px;">A Dedicated Curation</div>
+            <h1 class="birthday-title">Happy Birthday<br>Anaaaaaaaa</h1>
+            <p class="tagline" style="margin-bottom: 10px;">Make a secret wish and blow out the candle light</p>
         </div>
-        <div class="input-block">
-            <span class="group-label">Preferred Time</span>
-            <input type="time" class="custom-input" id="targetTime" required>
-        </div>
-    </div>
 
-    <button class="btn-spin" onclick="runAnimatedRoulette()">Process Spatial Request ✨</button>
-
-    <div class="animation-container" id="diceStage">
-        <div class="spinning-dice">🎲</div>
-    </div>
-
-    <div class="reveal-zone" id="revealZone">
-        <div id="ticketCaptureArea" style="padding:10px; background:#ffffff; border-radius:8px;">
-            <div id="statusBadge" class="live-status-badge"></div>
-            <div id="overrideBox" class="intelligent-override-box"></div>
-
-            <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Verification</div>
-            <div class="reveal-title" id="displayTitle"></div>
-            <p class="reveal-desc" id="displayDesc"></p>
-            
-            <div class="qr-output-box">
-                <div id="qrcode"></div>
+        <!-- Interactive Illustrative Component Layer -->
+        <div class="cake-container" onclick="extinguishCandle(this)">
+            <div class="candle">
+                <div class="wick"></div>
+                <div class="flame"></div>
+                <div class="smoke-trail"></div>
             </div>
-            <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.4;" id="displayMeta"></div>
+            <div class="cake-body">
+                <div class="cake-frosting"></div>
+            </div>
         </div>
-        
-        <div class="action-button-group">
-            <button class="btn-action-panel btn-panel-dark" onclick="dispatchToAdminAndGroup()">Download Ticket &amp; Launch Chat 💌</button>
-            <a id="liveSearchLink" class="btn-action-panel btn-panel-gold" target="_blank">🌐 Live Verification: Research This Area</a>
+
+        <p class="hint-text" id="candleStatusText" style="font-style: italic; min-height: 18px;">✨ Tap the candle flame directly to blow it out.</p>
+
+        <!-- Navigation Gift Box Module Base Trigger -->
+        <div class="gift-container" onclick="navigateToEngineTab()">
+            <div class="gift-box">
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-lid"></div>
+            </div>
+            <p class="hint-text" style="font-weight: 600; color: var(--text-dark);">Open Your Birthday Gift Box 🎁</p>
         </div>
     </div>
+
+    <!-- PAGE 2: PROCEDURAL EXPERIENTIAL SURPRISE ENGINE -->
+    <div id="enginePage" class="page-view">
+        <h1>The Secret Garden</h1>
+        <p class="tagline">Infinite Procedural Spatial Generator</p>
+
+        <!-- Map Module Interface Canvas Box -->
+        <div class="spatial-map-wrapper">
+            <span class="group-label" style="margin-bottom:6px;">Drop a Pin Anywhere to Generate a Real Experience</span>
+            <div id="map"></div>
+            <div class="telemetry-strip" id="telemetryData">📍 Map System Standby. Click anywhere to establish custom target coordinates.</div>
+        </div>
+
+        <span class="group-label">Choose Your Vibe</span>
+        <div class="selection-grid">
+            <label><input type="radio" name="mood" value="chill" checked><div class="tile">🧖‍♀️ Chill</div></label>
+            <label><input type="radio" name="mood" value="adventure"><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="gourmet"><div class="tile">🥂 Fine Eat</div></label>
+            <label><input type="radio" name="mood" value="culture"><div class="tile">🎻 Culture</div></label>
+            <label><input type="radio" name="mood" value="nature"><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="cozy"><div class="tile">🕯️ Cozy</div></label>
+        </div>
+
+        <div class="datetime-picker-wrap">
+            <div class="input-block">
+                <span class="group-label">Select Date</span>
+                <input type="date" class="custom-input" id="targetDate" required>
+            </div>
+            <div class="input-block">
+                <span class="group-label">Preferred Time</span>
+                <input type="time" class="custom-input" id="targetTime" required>
+            </div>
+        </div>
+
+        <button class="btn-spin" onclick="runAnimatedRoulette()">Synthesize Destination ✨</button>
+
+        <div class="animation-container" id="diceStage">
+            <div class="spinning-dice">🎲</div>
+        </div>
+
+        <!-- Generated Passport Layout Area Content Output -->
+        <div class="reveal-zone" id="revealZone">
+            <div id="ticketCaptureArea" style="padding:10px; background:#ffffff; border-radius:8px;">
+                <div class="live-status-badge">🛰️ Location Synthesized Natively</div>
+
+                <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Live Passport</div>
+                <div class="reveal-title" id="displayTitle"></div>
+                <p class="reveal-desc" id="displayDesc"></p>
+                
+                <div class="qr-output-box">
+                    <div id="qrcode"></div>
+                </div>
+                <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.4;" id="displayMeta"></div>
+            </div>
+            
+            <div class="action-button-group">
+                <button class="btn-action-panel btn-panel-dark" onclick="dispatchToAdminAndGroup()">Download Ticket &amp; Launch Chat 💌</button>
+                <a id="liveSearchLink" class="btn-action-panel btn-panel-gold" target="_blank">🔍 Live Verification: Research This Area</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
     let mapEngine = null;
     let droppedPinMarker = null;
     let userPinnedCoordinates = null;
-    let selectedActiveRecord = null;
 
-    // Fixed geospatial anchors representing central coordinate nodes for distance matrices
-    const database = [
-        { title: "Europa-Park Expedition", desc: "Full-day premium entry passes to Germany's legendary premier theme resort layout in Rust.", lat: 48.2662, lon: 7.7220, hours: { open: 9, close: 18 }, seasonalShutdown: [11, 12, 1, 2], mood: "adventure" },
-        { title: "Partnach Gorge Deep-Valley Pass", desc: "Navigate deep alpine rock water chasms and waterfalls in Garmisch-Partenkirchen.", lat: 47.4697, lon: 11.1172, hours: { open: 8, close: 18 }, seasonalShutdown: [], mood: "adventure" },
-        { title: "Munich Eisbachwave River Surf Break", desc: "Wetsuit rentals and pro coaching on the rapid standing river wave in Munich's English Garden.", lat: 48.1431, lon: 11.5876, hours: { open: 6, close: 22 }, seasonalShutdown: [], mood: "adventure" },
-        { title: "Rhine Falls Center-Rock Ferry Run", desc: "Exhilarating boat journey directly to the central rock of Europe's largest waterfall near the Swiss border.", lat: 47.6779, lon: 8.6148, hours: { open: 9, close: 17 }, seasonalShutdown: [12, 1], mood: "adventure" },
-        { title: "MineralThermen Bad Cannstatt Deep-Soak", desc: "Therapeutic mineral pools, hot sauna tracking, and late-night wellness packages in Stuttgart.", lat: 48.8058, lon: 9.2157, hours: { open: 9, close: 23 }, seasonalShutdown: [], mood: "chill" },
-        { title: "Bodensee Luxury Panorama Lakefront Baths", desc: "Premium panoramic lakeside open-air thermal oasis paths along the shores of Lake Constance.", lat: 47.7834, lon: 9.1764, hours: { open: 10, close: 22 }, seasonalShutdown: [], mood: "chill" },
-        { title: "Stuttgart Vineyards Deluxe Hillside Picnic", desc: "Curated Swabian wine and delicacies hamper served on the scenic grape terraces of Uhlbach.", lat: 48.7770, lon: 9.2778, hours: { open: 11, close: 20 }, seasonalShutdown: [11, 12, 1, 2, 3], mood: "chill" },
-        { title: "Stuttgart Markthalle Epicurean Food Tour", desc: "Gourmet tasting itinerary spanning dynamic artisan food stalls in the historic Art Nouveau hall.", lat: 48.7753, lon: 9.1787, hours: { open: 8, close: 20 }, seasonalShutdown: [], mood: "gourmet" },
-        { title: "Strasbourg Petite France Architecture Bistro Tour", desc: "Cross the French border for wood-fired Flammekueche and crisp white wines along historic canals.", lat: 48.5810, lon: 7.7423, hours: { open: 11, close: 23 }, seasonalShutdown: [], mood: "gourmet" },
-        { title: "Neuschwanstein Fairytale Mountain Castle Pass", desc: "Historic exploration of King Ludwig II's iconic architectural masterpiece in southwest Bavaria.", lat: 47.5576, lon: 10.7498, hours: { open: 9, close: 16 }, seasonalShutdown: [], mood: "culture" },
-        { title: "Rothenburg ob der Tauber Lantern Walk", desc: "Walk medieval stone battlements by night alongside a costumed medieval Night Watchman guide.", lat: 49.3773, lon: 10.1789, hours: { open: 20, close: 22 }, seasonalShutdown: [], mood: "culture" },
-        { title: "Burg Hohenzollern Imperial Cloud Fortress", desc: "Explore the striking mountain stronghold summit overlooking the vast Swabian Alb horizons.", lat: 48.3222, lon: 8.9674, hours: { open: 10, close: 17 }, seasonalShutdown: [], mood: "culture" }
-    ];
-
-    const fallbackVirtualVault = {
-        adventure: { title: "Custom Regional Trailblazer Trek", desc: "An outdoor multi-point adventure path computed via live telemetry coordinates to fit your vibe." },
-        chill: { title: "Secret Local Thermal Suite Retreat", desc: "A cozy indoor boutique mineral bath layout selected to dodge standard outdoor closures." },
-        gourmet: { title: "Artisanal Regional Vault Tasting", desc: "A private estate dining option celebrating localized ingredients around your pinned location." },
-        culture: { title: "Bespoke Independent Art Haven", desc: "A curated cultural gallery excursion bypassing seasonal castle shutdowns." }
+    // Deep Procedural Component Library to generate contextually logical variations matching target pin layouts
+    const proceduralLexicon = {
+        adventure: {
+            titles: ["Expedition Venture", "Hidden Pathway Trek", "Rogue Terrain Odyssey", "Summit Horizon Crest"],
+            descs: ["An off-grid high-adrenaline outdoor navigation course mapped tracking raw topographical structures around coordinates.", "A wilderness challenge run evaluating technical micro-terrain footprints and scenic peaks around the target radius."]
+        },
+        chill: {
+            titles: ["Panoramic Thermal Oasis", "Lakeside Solitude Sanctuary", "Secret Meadow Hideaway", "Zen Horizon Lounge"],
+            descs: ["A private structural relaxation curation leveraging natural local water tables and scenic sensory environments.", "An open-atmosphere peace sanctuary alignment emphasizing local quiet zones and custom restorative tea setups."]
+        },
+        gourmet: {
+            titles: ["Artisanal Culinary Cellar", "Micro-Estate Gastronomy Flight", "Hidden Harvest Pavilion", "Vineyard Terroir Tasting"],
+            descs: ["An exclusive epicurean journey serving rare organic elements sourced natively from regional orchards and estates.", "A private tasting reservation mapping regional small-batch delicacies and bespoke structural flavor creations."]
+        },
+        culture: {
+            titles: ["Ancient Architectural Footprint", "Heritage Stone Monograph", "Secret Archives Atrium", "Artisan Lore Promenade"],
+            descs: ["A comprehensive spatial exploration uncovering localized historical remnants, structural artistry, and regional lore.", "An immersive historical walk investigating deep structural design histories and local architectural expressions."]
+        },
+        nature: {
+            titles: ["Deep Woodlands Eco-Canopy", "Primal Forest Ridge Traverse", "Hidden Waterfall Glade", "Misty River Basin Refuge"],
+            descs: ["An ecological escape tracking pristine native flora, dense timber lines, and wildlife footprints around your pin.", "A natural immersion path mapped through ancient groves and panoramic valleys at this location."]
+        },
+        cozy: {
+            titles: ["Candlelit Vault Sanctuary", "Chamber Fireside Respite", "Secret Twilight Conservatory", "Log-Cabin Hearth Escape"],
+            descs: ["A warm, low-illumination intimate interior gathering experience featuring local heritage ciders and cozy ambiance.", "A highly exclusive indoor relaxation sanctuary featuring specialized vintage seating setups and acoustic arrays."]
+        }
     };
 
-    // Haversine Spherical Mathematical Metric: Exact distance calculations between coordinates
-    function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Earth's radius in kilometers
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
-        return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    // Transition between Pages/Tabs
+    function showPage(pageId) {
+        const currentActive = document.querySelector('.page-view.active');
+        if (currentActive) {
+            currentActive.style.opacity = '0';
+            currentActive.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                currentActive.classList.remove('active');
+                const targetPage = document.getElementById(pageId);
+                targetPage.classList.add('active');
+                // Allow CSS display block cycle to catch up before animation fade in
+                setTimeout(() => {
+                    targetPage.style.opacity = '1';
+                    targetPage.style.transform = 'translateY(0)';
+                    if (pageId === 'enginePage') {
+                        initiateSpatialMap();
+                    }
+                }, 50);
+            }, 400);
+        }
     }
 
-    // Initialize Interactive Map Engine
-    window.addEventListener('DOMContentLoaded', () => {
+    // Extinguish Candle Action
+    function extinguishCandle(element) {
+        if (!element.classList.contains('extinguished')) {
+            element.classList.add('extinguished');
+            document.getElementById('candleStatusText').innerHTML = "💨 <i>Wish registered beautifully...</i>";
+        }
+    }
+
+    // Trigger Gift box tab navigation
+    function navigateToEngineTab() {
+        showPage('enginePage');
+    }
+
+    // Initialize Map Viewport Engine lazily upon page initialization request
+    function initiateSpatialMap() {
+        if (mapEngine !== null) return; // Prevent double instantiation patterns
+
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
 
-        // Focus map layout on South Germany / Border regions center
+        // Central focus point tracking over South Germany / Border regions
         mapEngine = L.map('map').setView([48.1351, 9.5000], 7);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -400,9 +649,9 @@
                 droppedPinMarker = L.marker(e.latlng, { draggable: false }).addTo(mapEngine);
             }
 
-            document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)} <br><span style="color:var(--primary-gold)">Spatial focus matrix successfully targeted.</span>`;
+            document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)} <br><span style="color:var(--primary-gold)">Infinite generation grid successfully targeted.</span>`;
         });
-    });
+    }
 
     function runAnimatedRoulette() {
         if (!userPinnedCoordinates) {
@@ -410,7 +659,7 @@
             return;
         }
         if (!document.getElementById('targetDate').value || !document.getElementById('targetTime').value) {
-            alert("Please identify appointment dates and hours inside calendar elements! 🌸");
+            alert("Please specify target booking timeframes in configuration slots! 🌸");
             return;
         }
         document.getElementById('revealZone').style.display = 'none';
@@ -418,74 +667,37 @@
 
         setTimeout(() => {
             document.getElementById('diceStage').style.display = 'none';
-            evaluateAndDisplaySurprise();
+            generateInfiniteSpatialExperience();
         }, 1500); 
     }
 
-    function evaluateAndDisplaySurprise() {
+    function generateInfiniteSpatialExperience() {
         const mood = document.querySelector('input[name="mood"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
         const timeInput = document.getElementById('targetTime').value;
-        const chosenDate = new Date(dateInput);
-        const chosenHour = parseInt(timeInput.split(':')[0], 10);
-        const chosenMonth = chosenDate.getMonth() + 1;
 
-        // GEOSPATIAL CORRELATION SEARCH: Sort database by closest absolute distance to map pin
-        let scoredItems = database.map(item => {
-            let dist = calculateHaversineDistance(userPinnedCoordinates.lat, userPinnedCoordinates.lon, item.lat, item.lon);
-            return { ...item, calculatedDistance: dist };
-        });
+        // SEED GENERATION ARITHMETIC: Pseudo-random variations linked directly to unique coordinate pairs
+        const locationSeed = Math.abs(Math.sin(userPinnedCoordinates.lat) * Math.cos(userPinnedCoordinates.lon) * 10000);
+        const lexiconPool = proceduralLexicon[mood];
+        
+        const titleIndex = Math.floor((locationSeed * 7) % lexiconPool.titles.length);
+        const descIndex = Math.floor((locationSeed * 13) % lexiconPool.descs.length);
 
-        // Filter for matching vibe, sorted ascending by distance
-        let localizedCandidates = scoredItems
-            .filter(e => e.mood === mood)
-            .sort((a, b) => a.calculatedDistance - b.calculatedDistance);
+        const rawTitle = lexiconPool.titles[titleIndex];
+        const generatedTitle = `The ${rawTitle}`;
+        const generatedDesc = `${lexiconPool.descs[descIndex]} Generated live for map location radius centered on coordinate fields: [${userPinnedCoordinates.lat.toFixed(4)}°N, ${userPinnedCoordinates.lon.toFixed(4)}°E].`;
 
-        // Pick the closest matched event option
-        selectedActiveRecord = localizedCandidates[0] || database.filter(e => e.mood === mood)[0];
-
-        let finalTitle = selectedActiveRecord.title;
-        let finalDesc = selectedActiveRecord.desc;
-        let isOverridden = false;
-
-        const badge = document.getElementById('statusBadge');
-        const overrideBox = document.getElementById('overrideBox');
-        overrideBox.style.display = 'none';
-
-        // INTELLIGENT SCHEDULING COMPLIANCE CHECK
-        const seasonalConflict = selectedActiveRecord.seasonalShutdown.includes(chosenMonth);
-        const hoursConflict = (chosenHour < selectedActiveRecord.hours.open || chosenHour >= selectedActiveRecord.hours.close);
-
-        if (seasonalConflict || hoursConflict) {
-            isOverridden = true;
-            let ruleTriggerText = seasonalConflict ? "seasonal off-peak facility shutdown patterns" : "late hour timing curfews";
-            
-            const backstop = fallbackVirtualVault[mood] || { title: "Bespoke Discovery Variant", desc: "Custom itinerary tailored to avoid scheduling conflicts." };
-            finalTitle = backstop.title;
-            finalDesc = `${backstop.desc} (Proximity: ~${selectedActiveRecord.calculatedDistance.toFixed(1)}km from pinned area)`;
-
-            badge.className = "live-status-badge badge-alert";
-            badge.innerText = "⚠️ Schedule Conflict Deflected";
-            overrideBox.innerHTML = `🤖 <b>Intelligence Shield Activated:</b> Destination <i>${selectedActiveRecord.title}</i> is closed due to ${ruleTriggerText}. Re-routing to a verified local alternative.`;
-            overrideBox.style.display = 'block';
-        } else {
-            badge.className = "live-status-badge badge-success";
-            badge.innerText = "🟢 Real-Time Operating Status Confirmed Open";
-            finalDesc = `${finalDesc} (Located approx. ${selectedActiveRecord.calculatedDistance.toFixed(1)}km from your pinned pin coordinates)`;
-        }
-
-        // Write outputs
-        document.getElementById('displayTitle').innerText = finalTitle;
-        document.getElementById('displayDesc').innerText = finalDesc;
+        document.getElementById('displayTitle').innerText = generatedTitle;
+        document.getElementById('displayDesc').innerText = generatedDesc;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
-        const refPassport = `TSG-${token}`;
-        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nPINNED SPOT: Lat ${userPinnedCoordinates.lat.toFixed(4)}, Lon ${userPinnedCoordinates.lon.toFixed(4)}\nSCHEDULED: ${dateInput} @ ${timeInput}`;
+        const refPassport = `TSG-ANA-${token}`;
+        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nCOORDINATES: ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)}\nSLOT ASSIGNMENT: ${dateInput} @ ${timeInput}`;
 
-        // QR Code Generation
+        // Build serialization QR barcode graphics
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
-        const qrString = `PASSPORT: ${refPassport}\nEVENT: ${finalTitle}\nLATLON: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nSLOT: ${dateInput}_${timeInput}`;
+        const qrString = `PASSPORT: ${refPassport}\nEVENT: ${generatedTitle}\nGEO: ${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\nDATETIME: ${dateInput}_${timeInput}`;
         
         new QRCode(qrContainer, {
             text: qrString,
@@ -496,41 +708,39 @@
             correctLevel : QRCode.CorrectLevel.H
         });
 
-        // DYNAMIC WEB SEARCH LINK GENERATION
-        const webSearchQuery = encodeURIComponent(`best local secret spots hidden gems things to do near ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)} ${mood}`);
-        document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${webSearchQuery}`;
+        // LIVE EXTERNAL RESEARCH HYPERLINK: Builds context queries directly around the user's manual map location pin
+        const searchTerms = encodeURIComponent(`secret spots hidden gems restaurants hikes attractions things to do near ${userPinnedCoordinates.lat.toFixed(4)}, ${userPinnedCoordinates.lon.toFixed(4)} ${mood}`);
+        document.getElementById('liveSearchLink').href = `https://www.google.com/search?q=${searchTerms}`;
 
         const zone = document.getElementById('revealZone');
         zone.style.display = 'block';
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
-    // FIXED SYNCHRONIZATION DISPATCH: Prevents browser safety controls from swallowing WhatsApp popups
+    // SYNCHRONIZED POPUP DISPATCH MECHANISM: Instantly fires the window setup link to bypass security filters on click #1
     function dispatchToAdminAndGroup() {
-        if (!selectedActiveRecord) return;
+        if (!userPinnedCoordinates) return;
 
         const targetNode = document.getElementById('ticketCaptureArea');
         const groupInvitationLink = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
 
-        // Pre-verify clipboard content before triggering the html2canvas promise chain
-        const trackingMetaText = `✨ Unlocked Secret Garden Passport ✨\n\n🌿 EXPERIENCE: ${document.getElementById('displayTitle').innerText}\n📅 SLOT ASSIGNMENT: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
-        navigator.clipboard.writeText(trackingMetaText).catch(() => console.log("Silent clipboard bypass."));
+        const trackingMetaText = `✨ Unlocked Infinite Garden Spatial Passport ✨\n\n🌿 CURATION: ${document.getElementById('displayTitle').innerText}\n📍 POSITION: https://www.google.com/maps/search/?api=1&query=${userPinnedCoordinates.lat.toFixed(4)},${userPinnedCoordinates.lon.toFixed(4)}\n📅 RESERVATION SLOT: ${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
+        navigator.clipboard.writeText(trackingMetaText).catch(() => console.log("Clipboard fallback registered."));
 
-        // Direct, uninhibited browser tab initiation before canvas rendering chains capture system resources
+        // Direct tab generation upfront locks synchronization perfectly across browsers
         const chatWindowReference = window.open(groupInvitationLink, '_blank');
 
         html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
             const imageBlob = canvas.toDataURL("image/png");
             const structuralDownloader = document.createElement('a');
-            structuralDownloader.download = `Secret-Garden-Passport-Ticket.png`;
+            structuralDownloader.download = `Secret-Garden-Infinite-Passport.png`;
             structuralDownloader.href = imageBlob;
             structuralDownloader.click();
             
-            // Fallback notification fallback window alert focus check
             if (!chatWindowReference || chatWindowReference.closed || typeof chatWindowReference.closed == 'undefined') {
-                alert("🎟️ Ticket Downloaded!\n\nYour browser blocked the automatic popup link. Please click the button again or use your invitation link directly to drop the image in! 🌸");
+                alert("🎟 Honor Ticket Downloaded!\n\nYour browser configuration filtered the direct popup action. Please rerun the button or use your group workspace portal manually to attach files! 🌸");
             } else {
-                alert("🎟️ Passport Generated Successfully & Downloaded!\n\nBooking text copied to clipboard. The WhatsApp group is open—simply paste the text and attach the downloaded image file! 🌸");
+                alert("🎟 Passport Built Successfully & Saved!\n\nBooking data copied to device clipboard. The WhatsApp group layout is active—simply paste the clipboard text strings and attach your generated snapshot ticket! 🌸");
             }
         });
     }
