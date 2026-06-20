@@ -84,7 +84,6 @@
         .birthday-header-zone { margin-bottom: 25px; }
         .curation-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 12px; }
         .birthday-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text-dark); line-height: 1.15; margin-bottom: 12px; }
-        @media (min-width: 400px) { .birthday-title { font-size: 2.8rem; } }
         
         .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); line-height: 1.5; }
 
@@ -171,21 +170,22 @@
         .btn-spin:hover { background-color: var(--primary-gold); transform: translateY(-1px); }
 
         .bridge-discovery-panel { display: none; background: #ffffff; border: 1px solid var(--primary-gold); border-radius: 20px; padding: 20px; margin-top: 20px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
-        .live-link-pill { display: inline-flex; align-items: center; justify-content: center; background: #f4ede2; color: var(--text-dark); padding: 12px 18px; border-radius: 30px; font-weight: 600; font-size: 0.82rem; text-decoration: none; margin-bottom: 15px; border: 1px solid rgba(197, 168, 128, 0.4); width: 100%; text-align: center; }
-        .live-link-pill:hover { background: var(--primary-gold); color: #white; }
+        .live-link-pill { display: inline-flex; align-items: center; justify-content: center; background: #2c2724; color: #ffffff; padding: 14px 18px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-bottom: 20px; width: 100%; text-align: center; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(44,39,36,0.15); transition: var(--transition-smooth); }
+        .live-link-pill:hover { background: var(--primary-gold); }
         
-        .live-status-badge { display: inline-block; padding: 5px 12px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 14px; background: rgba(109, 139, 166, 0.1); color: var(--alert-blue); letter-spacing: 0.5px; }
+        .live-status-badge { display: inline-block; padding: 5px 12px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; border-radius: 12px; margin-bottom: 14px; background: rgba(104, 163, 123, 0.1); color: var(--success-green); letter-spacing: 0.5px; }
         .reveal-zone { margin-top: 25px; padding: 18px; border-radius: 20px; background: #ffffff; border: 1px dashed var(--primary-gold); display: none; }
 
-        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
-        .reveal-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; text-align: left; }
-        .why-this-box { font-size: 0.78rem; background: #fdfcf9; border-left: 2px solid var(--primary-gold); padding: 10px 12px; margin-bottom: 15px; text-align: left; line-height: 1.5; color: #4a423d; }
+        .reveal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 15px; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; }
+        .poi-metadata-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; text-align: left; font-size: 0.8rem; color: var(--text-dark); }
+        .poi-metadata-table td { padding: 8px 4px; border-bottom: 1px solid rgba(197, 168, 128, 0.15); }
+        .poi-metadata-table td.label-col { font-weight: 600; color: var(--text-light); width: 35%; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; }
 
         .qr-output-box { display: inline-block; margin: 10px auto; padding: 10px; background: #ffffff; border: 1px solid rgba(197, 168, 128, 0.25); border-radius: 14px; }
-        .qr-output-box canvas, .qr-output-box img { max-width: 120px; height: auto !important; }
+        .qr-output-box canvas, .qr-output-box img { max-width: 130px; height: auto !important; }
 
         .action-button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
-        .btn-action-panel { border: none; padding: 14px; border-radius: 35px; font-weight: 600; font-size: 0.82rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-action-panel { border: none; padding: 15px; border-radius: 35px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; transition: var(--transition-smooth); font-family: 'Montserrat', sans-serif; text-decoration: none; display: inline-block; text-align: center; }
         .btn-panel-dark { background-color: var(--text-dark); color: var(--paper-white); }
         .btn-panel-dark:hover { background-color: var(--success-green); }
     </style>
@@ -241,10 +241,10 @@
         <span class="group-label">Choose Your Vibe</span>
         <div class="selection-grid">
             <label><input type="radio" name="mood" value="spa hidden wellness gems"><div class="tile">🧖‍♀️ Chill</div></label>
-            <label><input type="radio" name="mood" value="outdoor adventures recreational fun" checked><div class="tile">🧗‍♀️ Action</div></label>
+            <label><input type="radio" name="mood" value="scenic nature landscape views public parks" checked><div class="tile">🌲 Escape</div></label>
+            <label><input type="radio" name="mood" value="outdoor adventures recreational fun"><div class="tile">🧗‍♀️ Action</div></label>
             <label><input type="radio" name="mood" value="fine dining top culinary food places"><div class="tile">🥂 Fine Eat</div></label>
             <label><input type="radio" name="mood" value="museum architecture cultural heritage sites"><div class="tile">🎻 Culture</div></label>
-            <label><input type="radio" name="mood" value="scenic nature landscape viewpoints scenic overlooks"><div class="tile">🌲 Escape</div></label>
             <label><input type="radio" name="mood" value="cozy hidden date cocktail spaces"><div class="tile">🕯️ Cozy</div></label>
             <label><input type="radio" name="mood" value="luxury massage premium resort health spa"><div class="tile">💆‍♀️ Wellness</div></label>
             <label><input type="radio" name="mood" value="speakeasy lounge live music premium nightlife"><div class="tile">🍸 After Dark</div></label>
@@ -264,9 +264,9 @@
 
         <span class="group-label">Curation Horizon Duration</span>
         <div class="duration-grid">
-            <label><input type="radio" name="duration" value="1-3 Hours" checked><div class="tile">⏱️ 1-3 H</div></label>
+            <label><input type="radio" name="duration" value="1-3 Hours"><div class="tile">⏱️ 1-3 H</div></label>
             <label><input type="radio" name="duration" value="Half Day"><div class="tile">🌗 Half</div></label>
-            <label><input type="radio" name="duration" value="Full Day"><div class="tile">☀️ Full</div></label>
+            <label><input type="radio" name="duration" value="Full Day" checked><div class="tile">☀️ Full</div></label>
         </div>
 
         <div class="control-row-buttons">
@@ -275,31 +275,54 @@
         </div>
 
         <div class="bridge-discovery-panel" id="bridgePanel">
-            <span class="group-label" style="margin-top:0; color:var(--text-dark);">🔎 Step 1: Browse Real-Time Listings</span>
-            <span class="explain-tip" style="margin-bottom:12px;">We've optimized parameters to scan your area. Click below to inspect options running live near your pin:</span>
+            <span class="group-label" style="margin-top:0; color:var(--text-dark);">🔎 Step 1: Browse Live Options</span>
+            <span class="explain-tip" style="margin-bottom:15px;">Click the button below to display all live location possibilities matching your criteria on Google Maps:</span>
             
-            <a id="bridgeExternalSearchLink" class="live-link-pill" target="_blank">View Live Proximity Listings 🔗</a>
+            <a id="bridgeExternalSearchLink" class="live-link-pill" target="_blank">Explore Options on Google Maps 🔗</a>
             
-            <span class="group-label" style="margin-top:10px;">✍️ Step 2: Lock-In Selection Choice</span>
-            <span class="explain-tip">Type or copy the name of your chosen venue below to compile the digital passport ticket:</span>
-            <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., The Hideaway Café Bar" style="border: 1px solid var(--primary-gold); margin-bottom:15px;">
+            <span class="group-label" style="margin-top:10px;">✍️ Step 2: Input Your Final Choice</span>
+            <span class="explain-tip">From the live options found, type or paste your favorite place name below to lock in the passport:</span>
+            <input type="text" class="custom-input" id="chosenVenueName" placeholder="e.g., Höhenpark Killesberg" style="border: 1px solid var(--primary-gold); margin-bottom:15px;">
             
-            <button class="btn-action-panel btn-panel-dark" onclick="compileFinalPassportTicket()">Lock Destination & Issue QR 🎟️</button>
+            <button class="btn-action-panel btn-panel-dark" onclick="compileFinalPassportTicket()">Lock Selection & Build Ticket 🎟️</button>
         </div>
 
         <div class="reveal-zone" id="revealZone">
-            <div id="ticketCaptureArea" style="padding:15px; background:#ffffff; border-radius:12px;">
-                <div class="live-status-badge">🛰️ Real-Time Verified Coordinates</div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Verified Passport</div>
+            <div id="ticketCaptureArea" style="padding:20px; background:#ffffff; border-radius:14px; border: 1px solid rgba(197, 168, 128, 0.25);">
+                <div class="live-status-badge">🛰️ Passport Confirmed</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--primary-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;">Secret Garden Destination Pass</div>
+                
                 <h3 class="reveal-title" id="displayTitle"></h3>
-                <p class="reveal-desc" id="displayDesc"></p>
-                <div class="why-this-box" id="displayWhyText"></div>
+                
+                <table class="poi-metadata-table">
+                    <tr>
+                        <td class="label-col">Vibe Category</td>
+                        <td id="metaVibe"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Target Area</td>
+                        <td id="metaArea"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Date & Time</td>
+                        <td id="metaTime"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Duration</td>
+                        <td id="metaDuration"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Coordinates</td>
+                        <td id="metaCoords"></td>
+                    </tr>
+                </table>
+
                 <div class="qr-output-box"><div id="qrcode"></div></div>
-                <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px; line-height:1.45; text-align: left; word-break: break-all;" id="displayMeta"></div>
+                <div style="font-size: 0.65rem; font-weight: 500; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-top:8px;" id="displayRefToken"></div>
             </div>
             
             <div class="action-button-group">
-                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Live Curation to WhatsApp 💌</button>
+                <button class="btn-action-panel btn-panel-dark" onclick="executeGroupDirectDispatch()">Share Live Ticket to WhatsApp 💌</button>
             </div>
         </div>
 
@@ -312,18 +335,6 @@
     let userPinnedCoordinates = null; 
     let activeSubregionalLocalityName = ""; 
     let parentDistrictOrCounty = "";
-
-    const whyCurationManifest = {
-        "Chill": "Prioritizes deep nervous-system resetting, calming sonic environments, and intentional environmental decompression away from heavy crowds.",
-        "Action": "Injects novel physical excitement and direct physical memory creation into your custom birthday matrix timeline layout.",
-        "Fine Eat": "Explores complex and celebrated flavor profiles designed intentionally to set a celebratory gastro-anchor for the special day.",
-        "Culture": "Engages deep storytelling, historical curiosities, and creative artistic execution to enrich thought pathways.",
-        "Escape": "Re-establishes a clean relationship with silent horizons, fresh air canopies, and unhurried natural environments.",
-        "Cozy": "Emphasizes microscale architectures, warm low-key ambient lumens, soft textures, and comfortable acoustic spaces perfect for intimate connection.",
-        "Wellness": "Prioritizes immediate physiological alignment, metabolic relaxation, and clearing away environmental stressors systematically.",
-        "After Dark": "Brings forward masterful mixology curation, magnetic sub-surface grooves, and distinct night aesthetics.",
-        "Hidden Cafes": "Designed to discover exquisite specialty bean profiles and secluded seating elements ideal for uninterrupted focus or deep talks."
-    };
 
     function showPage(pageId) {
         const currentActive = document.querySelector('.page-view.active');
@@ -364,8 +375,7 @@
 
         if (mapEngine !== null) return;
 
-        // Default layout viewing anchors over beautiful map grids
-        mapEngine = L.map('map').setView([48.6200, 9.3500], 9); 
+        mapEngine = L.map('map').setView([48.7771, 9.1795], 11); // Set directly in Stuttgart/Stuttgart-Mitte view natively
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(mapEngine);
 
         mapEngine.on('click', (e) => {
@@ -383,10 +393,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.address) {
-                        activeSubregionalLocalityName = data.address.village || data.address.town || data.address.suburb || data.address.city || "";
+                        activeSubregionalLocalityName = data.address.suburb || data.address.city_district || data.address.village || data.address.town || data.address.city || "";
                         parentDistrictOrCounty = data.address.county || data.address.state || "";
                         let displayLocationString = activeSubregionalLocalityName ? `Area near ${activeSubregionalLocalityName}` : `Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural telemetry target linked successfully.</span>`;
+                        document.getElementById('telemetryData').innerHTML = `📍 <b>Pin Fixed:</b> ${displayLocationString}<br><span style="color:var(--primary-gold); font-weight:600;">Procedural telemetry target linked.</span>`;
                     }
                 }).catch(() => {
                     activeSubregionalLocalityName = ""; parentDistrictOrCounty = "";
@@ -405,20 +415,15 @@
         const latString = userPinnedCoordinates.lat.toFixed(5);
         const lonString = userPinnedCoordinates.lon.toFixed(5);
 
-        // SYSTEMATIC CASCADING SEARCH FILTER STRATEGY
-        // In order to always prevent zero-result failures, if the dropped location context has thin geographic data,
-        // it automatically drops structural boundaries and moves to absolute physical coordinate search ranges.
         let structuredMapSearchTarget = "";
         if (activeSubregionalLocalityName) {
-            structuredMapSearchTarget = `${moodQuery} close to "${activeSubregionalLocalityName}"`;
-        } else if (parentDistrictOrCounty) {
-            structuredMapSearchTarget = `${moodQuery} inside ${parentDistrictOrCounty}`;
+            structuredMapSearchTarget = `best ${moodQuery} in ${activeSubregionalLocalityName}`;
         } else {
-            structuredMapSearchTarget = `${moodQuery} near ${latString},${lonString}`;
+            structuredMapSearchTarget = `best ${moodQuery} near ${latString},${lonString}`;
         }
 
-        // Direct search execution compilation safely directed straight to live Google Maps search endpoints
-        const liveMapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(structuredMapSearchTarget)}`;
+        // Direct web intent routing straight to Google Search map nodes dynamically
+        const liveMapsSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(structuredMapSearchTarget)}`;
         
         const bridgeLink = document.getElementById('bridgeExternalSearchLink');
         bridgeLink.href = liveMapsSearchUrl;
@@ -430,7 +435,7 @@
 
     function compileFinalPassportTicket() {
         const venueSelectionString = document.getElementById('chosenVenueName').value.trim();
-        if (!venueSelectionString) { alert("Please type or paste your chosen real-time location destination choice first! ☕🥂"); return; }
+        if (!venueSelectionString) { alert("Please copy and input your favorite chosen POI name from the live results! 🌿"); return; }
 
         const duration = document.querySelector('input[name="duration"]:checked').value;
         const dateInput = document.getElementById('targetDate').value;
@@ -440,23 +445,23 @@
         const latString = userPinnedCoordinates.lat.toFixed(4);
         const lonString = userPinnedCoordinates.lon.toFixed(4);
 
-        // Compile clean presentation content blocks inside passport elements
+        // Inject cleanly into key data points, removing all paragraph filler blocks
         document.getElementById('displayTitle').innerText = venueSelectionString;
-        document.getElementById('displayDesc').innerText = `Live choice destination mapped perfectly under the [${readableMood}] curation profile logic. Coordinates safely anchored at [${latString}°N, ${lonString}°E] with an optimized timefield window allocated for [${duration}].`;
-        document.getElementById('displayWhyText').innerHTML = `<b>Why this fits Ana's mood:</b> ${whyCurationManifest[readableMood] || "Hand-selected experience configured to provide structural novelty outside of routine weekend schedules."}`;
+        document.getElementById('metaVibe').innerText = readableMood;
+        document.getElementById('metaArea').innerText = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : "CUSTOM TARGET NODE";
+        document.getElementById('metaTime').innerText = `${dateInput} @ ${timeInput}`;
+        document.getElementById('metaDuration').innerText = duration;
+        document.getElementById('metaCoords').innerText = `${latString}°N, ${lonString}°E`;
 
         const token = Math.random().toString(36).substring(2, 7).toUpperCase();
-        const refPassport = `PASSPORT-${token}`;
-        const metaLocationString = activeSubregionalLocalityName ? activeSubregionalLocalityName.toUpperCase() : `${latString}°N, ${lonString}°E`;
-        
-        document.getElementById('displayMeta').innerText = `PASSPORT REFMETA: ${refPassport}\nTARGET: ${venueSelectionString.toUpperCase()}\nREGION: ${metaLocationString}\nSLOT HORIZON: ${dateInput} @ ${timeInput} (${duration})`;
+        document.getElementById('displayRefToken').innerText = `TICKET REF NUMBER: HBD-ANA-${token}`;
 
-        // Compile permanent link parameters pointing directly to our selected choice destination targets
+        // Build precise target Google Maps location query string
         const finalNavigationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueSelectionString + " " + (activeSubregionalLocalityName || ""))}`;
 
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: finalNavigationUrl, width: 120, height: 120, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+        new QRCode(qrContainer, { text: finalNavigationUrl, width: 130, height: 130, colorDark : "#2c2724", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
 
         const zone = document.getElementById('revealZone');
         zone.style.display = 'block';
@@ -473,10 +478,9 @@
         durationInputs[Math.floor(Math.random() * durationInputs.length)].checked = true;
 
         const prospectiveDate = new Date();
-        prospectiveDate.setDate(prospectiveDate.getDate() + Math.floor(Math.random() * 10) + 1);
+        prospectiveDate.setDate(prospectiveDate.getDate() + Math.floor(Math.random() * 5) + 1);
         document.getElementById('targetDate').value = prospectiveDate.toISOString().split('T')[0];
-
-        document.getElementById('targetTime').value = `${String(Math.floor(Math.random() * 12) + 10).padStart(2, '0')}:00`;
+        document.getElementById('targetTime').value = `${String(Math.floor(Math.random() * 6) + 12).padStart(2, '0')}:00`;
 
         launchLiveDiscoveryBridge();
     }
@@ -487,10 +491,9 @@
         const targetNode = document.getElementById('ticketCaptureArea');
         const venueTitle = document.getElementById('displayTitle').innerText;
         const duration = document.querySelector('input[name="duration"]:checked').value;
+        const finalNavigationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueTitle + " " + (activeSubregionalLocalityName || ""))}`;
         
-        const destinationMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueTitle + " " + (activeSubregionalLocalityName || ""))}`;
-        
-        const textPayload = `✨ Unlocked Infinite Garden Live Passport ✨\n\n🌿 CONFIRMED SELECTION:\n👉 *${venueTitle}*\n\n📍 GOOGLE MAPS NAVIGATION:\n${destinationMapsUrl}\n\n📅 RESERVATION TIMELINE:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD HORIZON:\n${duration}\n\n🎟️ Digital passport generation snapshot attached. Tap navigation link to route instantly!`;
+        const textPayload = `✨ Unlocked Secret Garden Destination Ticket ✨\n\n🌿 POI SELECTION:\n👉 *${venueTitle}*\n\n📍 DIRECTIONS (GOOGLE MAPS):\n${finalNavigationUrl}\n\n📅 DATE & TIME:\n${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}\n⏳ TIMEFIELD PROFILE:\n${duration}\n\n🎟️ Ticket pass copy set. Saving structural screenshot passport...`;
         
         const unifiedGroupInviteLink = `https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw`;
 
@@ -509,18 +512,16 @@
             }
         }
 
-        // Secure copy text variables then execute screenshot file downloads seamlessly
         performClipboardCopy(textPayload).then(() => {
-            alert("Ticket route details copied to clipboard! Opening WhatsApp Group... 💌");
+            alert("Poi routing specifics saved cleanly to device clipboards! Downloading pass...");
         }).finally(() => {
             html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
                 const imageBlob = canvas.toDataURL("image/png");
                 const structuralDownloader = document.createElement('a');
-                structuralDownloader.download = `Secret-Garden-Passport-${venueTitle.replace(/\s+/g, '-')}.png`;
+                structuralDownloader.download = `Garden-Passport-${venueTitle.replace(/\s+/g, '-')}.png`;
                 structuralDownloader.href = imageBlob;
                 structuralDownloader.click();
                 
-                // Open community link directly on device interfaces
                 window.open(unifiedGroupInviteLink, '_blank');
             });
         });
