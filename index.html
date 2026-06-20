@@ -7,9 +7,10 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -196,17 +197,14 @@
             margin-top: 35px;
             padding: 25px;
             border-radius: 16px;
-            background: rgba(247, 244, 239, 0.6);
+            background: #ffffff;
             border: 1px dashed var(--primary-gold);
             display: none;
+            text-align: center;
         }
         .reveal-zone.active {
             display: block;
             animation: envelopeReveal 0.6s ease-out forwards;
-        }
-        @keyframes envelopeReveal {
-            0% { opacity: 0; transform: scale(0.96); }
-            100% { opacity: 1; transform: scale(1); }
         }
 
         .reveal-title {
@@ -220,18 +218,18 @@
         
         .qr-output-box {
             display: inline-block;
-            margin: 20px auto;
+            margin: 15px auto;
             padding: 12px;
             background: #ffffff;
+            border: 1px solid rgba(197, 168, 128, 0.3);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .btn-whatsapp {
-            background-color: transparent;
-            color: var(--text-dark);
-            border: 1px solid var(--text-dark);
-            padding: 12px 24px;
+            background-color: var(--text-dark);
+            color: var(--paper-white);
+            border: none;
+            padding: 14px 24px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 0.8rem;
@@ -241,7 +239,7 @@
             margin-top: 15px;
             width: 100%;
         }
-        .btn-whatsapp:hover { background-color: var(--text-dark); color: var(--paper-white); }
+        .btn-whatsapp:hover { background-color: var(--primary-gold); }
     </style>
 </head>
 <body>
@@ -263,11 +261,11 @@
     <span class="group-label">Choose Your Vibe</span>
     <div class="selection-grid">
         <label><input type="radio" name="mood" value="chill" checked><div class="tile"><span class="emoji">🧖‍♀️</span><span>Pure Chill</span></div></label>
-        <label><input type="radio" name="mood" value="adventure"><div class="tile"><span class="emoji">🧗‍♀️</span><span>Adventure</span></div></label>
-        <label><input type="radio" name="mood" value="gourmet"><div class="tile"><span class="emoji">🥂</span><span>Gourmet</span></div></label>
-        <label><input type="radio" name="mood" value="culture"><div class="tile"><span class="emoji">🎻</span><span>Art &amp; Culture</span></div></label>
-        <label><input type="radio" name="mood" value="nature"><div class="tile"><span class="emoji">🌲</span><span>Forest Escape</span></div></label>
-        <label><input type="radio" name="mood" value="cozy"><div class="tile"><span class="emoji">🕯️</span><span>Cozy Magic</span></div></label>
+        <label><input type="radio" name="adventure"><div class="tile"><span class="emoji">🧗‍♀️</span><span>Adventure</span></div></label>
+        <label><input type="radio" name="gourmet"><div class="tile"><span class="emoji">🥂</span><span>Gourmet</span></div></label>
+        <label><input type="radio" name="culture"><div class="tile"><span class="emoji">🎻</span><span>Art &amp; Culture</span></div></label>
+        <label><input type="radio" name="nature"><div class="tile"><span class="emoji">🌲</span><span>Forest Escape</span></div></label>
+        <label><input type="radio" name="cozy"><div class="tile"><span class="emoji">🕯️</span><span>Cozy Magic</span></div></label>
     </div>
 
     <span class="group-label">The Current Atmosphere</span>
@@ -302,58 +300,75 @@
     </div>
 
     <div class="reveal-zone" id="revealZone">
-        <div class="reveal-title" id="displayTitle"></div>
-        <p class="reveal-desc" id="displayDesc"></p>
-        
-        <div class="qr-output-box">
-            <div id="qrcode"></div>
+        <div id="ticketCaptureArea" style="padding:10px; background:#ffffff; border-radius:8px;">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--primary-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Secret Garden Passport</div>
+            <div class="reveal-title" id="displayTitle"></div>
+            <p class="reveal-desc" id="displayDesc"></p>
+            
+            <div class="qr-output-box">
+                <div id="qrcode"></div>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top:5px;" id="displayMeta"></div>
         </div>
-
-        <div style="font-size: 0.75rem; font-weight: 600; color: var(--primary-gold); text-transform: uppercase; letter-spacing: 0.5px; margin-top:10px;" id="displayMeta"></div>
         
-        <button class="btn-whatsapp" onclick="dispatchToAdmin()">Confirm &amp; Share to Group 💌</button>
+        <button class="btn-whatsapp" onclick="dispatchToAdminAndGroup()">Download Ticket &amp; Open Group Chat 💌</button>
     </div>
 </div>
 
 <script>
-    let invisibleBudget = 100;
     let selectedActiveRecord = null;
 
-    // Fixed, comprehensive catalog matrix containing all localized configurations
     const database = [
-        { title: "Europa-Park Premium Expedition", desc: "Full-day entry passes to Germany's legendary premier theme resort layout in Rust.", cost: 100, mood: "adventure", weather: "sunny", duration: "long" },
-        { title: "Freizeitpark Rutesheim Action Getaway", desc: "Forest climbing courses, outdoor mini-golf, and a traditional warm alpine lodge lunch.", cost: 40, mood: "adventure", weather: "sunny", duration: "medium" },
-        { title: "Munich Eisbachwave Surfing Experience", desc: "A trip to Bavaria's famous rapid river wave with professional gear rentals and hot cocoa.", cost: 40, mood: "adventure", weather: "sunny", duration: "short" },
-        { title: "Waldklettergarten Zuffenhausen Ropes", desc: "High canopy ropes adventure course tracking through Stuttgart's deep local woodlands.", cost: 20, mood: "adventure", weather: "sunny", duration: "short" },
-        { title: "Stuttgart West Bouldering Challenge", desc: "Private indoor training day passes scaling paths inside the modern urban Vels Arena.", cost: 20, mood: "adventure", weather: "rainy", duration: "short" },
-        { title: "Bad Wildbad Suspension Bridge Trek", desc: "Cross the magnificent architectural footbridge hanging high over the misty Black Forest trees.", cost: 40, mood: "adventure", weather: "frosty", duration: "medium" },
-        { title: "MineralThermen Bad Cannstatt Soak", desc: "Unwind with deep therapeutic mineral pool thermal sessions inside Stuttgart.", cost: 20, mood: "chill", weather: "rainy", duration: "short" },
-        { title: "Bodensee (Lake Constance) Luxury Spa Day", desc: "Premium panoramic lakeside thermal sauna oasis access down in Baden-Württemberg.", cost: 40, mood: "chill", weather: "frosty", duration: "medium" },
-        { title: "Killesberg Steam Train & Artisan Gelato", desc: "A relaxed sunny ride on the valley model railway matched with fresh local waffle cones.", cost: 20, mood: "chill", weather: "sunny", duration: "short" },
-        { title: "Stuttgart Vineyards Deluxe Wine Picnic", desc: "Curated Swabian delicacies basket waiting on a scenic vineyard hillside view in Uhlbach.", cost: 20, mood: "chill", weather: "sunny", duration: "medium" },
-        { title: "Stuttgart Markthalle Epicurean Food Tour", desc: "Gourmet sampling journey checking out dynamic artisanal standouts in the historic hall.", cost: 20, mood: "gourmet", weather: "rainy", duration: "short" },
-        { title: "Rooftop Afternoon High Tea at Graf Zeppelin", desc: "Luxury porcelain tea sets and warm house-baked scones watching the rains clear downtown.", cost: 20, mood: "gourmet", weather: "rainy", duration: "medium" },
-        { title: "Munich Dallmayr Coffee House Discovery", desc: "A prestigious culinary espresso and luxury breakfast reservation out in Bavaria.", cost: 40, mood: "gourmet", weather: "sunny", duration: "short" },
-        { title: "Traditional Swabian Besenwirtschaft Dinner", desc: "Hearty handmade Maultaschen and local vintage reserve wines at a winemaker's family barn.", cost: 40, mood: "gourmet", weather: "sunny", duration: "medium" },
-        { title: "Ritter Sport Lab Crafting Workshop", desc: "Head out to Waldenbuch, Baden-Württemberg to build your own customized chocolate flavors.", cost: 20, mood: "gourmet", weather: "frosty", duration: "short" },
-        { title: "Ludwigsburg Baroque Palace Audio Tour", desc: "Explore the striking imperial rooms of Germany's massive pristine residential castle layout.", cost: 20, mood: "culture", weather: "sunny", duration: "medium" },
-        { title: "Neuschwanstein Fairytale Castle Expedition", desc: "A historic day trip tracking through Bavaria's iconic mountain palace footprint.", cost: 100, mood: "culture", weather: "sunny", duration: "long" },
-        { title: "Stuttgart Staatsgalerie Art & Micro-Roastery", desc: "View legendary canvas collections followed by specialty espresso flights in Stuttgart West.", cost: 20, mood: "culture", weather: "rainy", duration: "short" },
-        { title: "Burg Hohenzollern Cloud Fortress Tour", desc: "Historic mountaintop stronghold walk overlooking the sweeping Swabian Alb horizons.", cost: 40, mood: "culture", weather: "frosty", duration: "medium" },
-        { title: "Black Forest Wilderness Lake Cabin Stay", desc: "Overnight deep-woods mountain retreat in the Schwarzwald with fireplace log systems.", cost: 100, mood: "nature", weather: "sunny", duration: "long" },
-        { title: "Bärensee Lake & Woods Morning Walk", desc: "A crisp morning hike concluding with warm pretzels at the historic Bärenschlössle hunting lodge.", cost: 20, mood: "nature", weather: "sunny", duration: "short" },
-        { title: "Schönbuch Protected Woodland Deer Trek", desc: "Forest tracking through natural game reserves packed with premium tracking snack rations.", cost: 20, mood: "nature", weather: "sunny", duration: "medium" },
-        { title: "Stuttgart Fernsehturm Skyline Sunset Toast", desc: "Take in 360-degree views from the top platform toasted with fine local sparkling wine.", cost: 40, mood: "cozy", weather: "sunny", duration: "short" },
-        { title: "Delphi Art-House Candlelit Cinema Pass", desc: "Plush velvet theater layouts, independent cinema viewings, and champagne toast buckets.", cost: 20, mood: "cozy", weather: "rainy", duration: "short" }
-    ];
+        // --- ADVENTURE ---
+        { title: "Europa-Park Premium Expedition", desc: "Full-day entry passes to Germany's legendary premier theme resort layout in Rust (Baden-Württemberg).", mood: "adventure", weather: "sunny", duration: "long" },
+        { title: "Freizeitpark Rutesheim Action Getaway", desc: "Forest climbing courses, outdoor mini-golf, and a traditional warm alpine lodge lunch near Stuttgart.", mood: "adventure", weather: "sunny", duration: "medium" },
+        { title: "Munich Eisbachwave Surfing Experience", desc: "A trip to Bavaria's famous rapid river wave with professional gear rentals and hot cocoa.", mood: "adventure", weather: "sunny", duration: "short" },
+        { title: "Waldklettergarten Zuffenhausen Ropes", desc: "High canopy ropes adventure course tracking through Stuttgart's deep local woodlands.", mood: "adventure", weather: "sunny", duration: "short" },
+        { title: "Stuttgart West Bouldering Challenge", desc: "Private indoor training day passes scaling paths inside the modern urban Vels Arena.", mood: "adventure", weather: "rainy", duration: "short" },
+        { title: "Partnach Gorge Deep-Rock Alpine Trek", desc: "Navigate a stunning, narrow mountain gorge in Garmisch-Partenkirchen, Bavaria, with raging waters or frozen winter ice walls.", mood: "adventure", weather: "rainy", duration: "medium" },
+        { title: "Rhine Falls Center-Rock Boat Expedition", desc: "Stand next to Europe's most powerful waterfall on the Swiss border, taking a thrilling boat ride directly to the central rock.", mood: "adventure", weather: "sunny", duration: "medium" },
+        { title: "Highline179 Suspension Bridge Trek", desc: "Walk across one of the world's longest footbridges suspended 114m over the valleys of Reutte, Austria.", mood: "adventure", weather: "frosty", duration: "short" },
 
-    const backupPool = [
-        { title: "Bespoke Mystery Garden Rendezvous", desc: "A personalized surprise itinerary mapped live by your admin to fit your selections perfectly around Stuttgart West.", cost: 20 },
-        { title: "The Grand Southern Germany Surprise Tour", desc: "An all-inclusive mystery day package exploring tucked-away spaces in Baden-Württemberg or Bavaria.", cost: 40 }
+        // --- PURE CHILL ---
+        { title: "MineralThermen Bad Cannstatt Soak", desc: "Unwind with deep therapeutic mineral pool thermal sessions inside Stuttgart.", mood: "chill", weather: "rainy", duration: "short" },
+        { title: "Bodensee Luxury Spa Day", desc: "Premium panoramic lakeside thermal sauna oasis access down in Überlingen, Baden-Württemberg.", mood: "chill", weather: "frosty", duration: "medium" },
+        { title: "Killesberg Steam Train & Artisan Gelato", desc: "A relaxed sunny ride on the valley model railway matched with fresh local waffle cones.", mood: "chill", weather: "sunny", duration: "short" },
+        { title: "Stuttgart Vineyards Deluxe Wine Picnic", desc: "Curated Swabian delicacies basket waiting on a scenic vineyard hillside view in Uhlbach.", mood: "chill", weather: "sunny", duration: "medium" },
+        { title: "Bregenzerwald Alpine Wellness Retreat", desc: "Cross the Austrian border into Vorarlberg for a pristine natural relaxation loop surrounded by high mountain design.", mood: "chill", weather: "frosty", duration: "long" },
+        { title: "Lake Königssee Silent Boat Cruise", desc: "Ride a historic electric boat across the emerald-green, fjord-like waters beneath Bavaria's giant mountains.", mood: "chill", weather: "sunny", duration: "long" },
+
+        // --- GOURMET ---
+        { title: "Stuttgart Markthalle Epicurean Food Tour", desc: "Gourmet sampling journey checking out dynamic artisanal standouts in the historic hall.", mood: "gourmet", weather: "rainy", duration: "short" },
+        { title: "Rooftop Afternoon High Tea at Graf Zeppelin", desc: "Luxury porcelain tea sets and warm house-baked scones watching the rains clear downtown.", mood: "gourmet", weather: "rainy", duration: "medium" },
+        { title: "Munich Dallmayr Coffee House Discovery", desc: "A prestigious culinary espresso and luxury breakfast reservation out in Bavaria.", mood: "gourmet", weather: "sunny", duration: "short" },
+        { title: "Traditional Swabian Besenwirtschaft Dinner", desc: "Hearty handmade Maultaschen and local vintage reserve wines at a winemaker's family barn.", mood: "gourmet", weather: "sunny", duration: "medium" },
+        { title: "Ritter Sport Lab Crafting Workshop", desc: "Head out to Waldenbuch, Baden-Württemberg to build your own customized chocolate flavors.", mood: "gourmet", weather: "frosty", duration: "short" },
+        { title: "Alsace Wine Route Tasting Expedition", desc: "Cross into France to navigate fairytale timbered wine villages like Riquewihr for grand crus and Flammekueche.", mood: "gourmet", weather: "sunny", duration: "long" },
+
+        // --- ART & CULTURE ---
+        { title: "Ludwigsburg Baroque Palace Audio Tour", desc: "Explore the striking imperial rooms of Germany's massive pristine residential castle layout.", mood: "culture", weather: "sunny", duration: "medium" },
+        { title: "Neuschwanstein Fairytale Castle Expedition", desc: "A historic day trip tracking through Bavaria's iconic mountain palace footprint.", mood: "culture", weather: "sunny", duration: "long" },
+        { title: "Stuttgart Staatsgalerie Art & Micro-Roastery", desc: "View legendary canvas collections followed by specialty espresso flights in Stuttgart West.", mood: "culture", weather: "rainy", duration: "short" },
+        { title: "Burg Hohenzollern Cloud Fortress Tour", desc: "Historic mountaintop stronghold walk overlooking the sweeping Swabian Alb horizons.", mood: "culture", weather: "frosty", duration: "medium" },
+        { title: "Sigmaringen Castle Castle-Rock Tour", desc: "Tour the massive Hohenzollern palace perched dramatically directly over the winding Danube River.", mood: "culture", weather: "rainy", duration: "medium" },
+        { title: "Rothenburg ob der Tauber Lantern Walk", desc: "Walk the medieval ramparts of Bavaria's ultimate fairytale town alongside a costumed Night Watchman.", mood: "culture", weather: "frosty", duration: "long" },
+        { title: "Strasbourg Petite France Architecture Loop", desc: "Cross the French border to explore 16th-century tanning houses along winding canals.", mood: "culture", weather: "sunny", duration: "long" },
+        { title: "Stein am Rhein Medieval Fresco Walk", desc: "Discover a Swiss border town famous for its historic buildings covered in detailed, colorful painted murals.", mood: "culture", weather: "sunny", duration: "medium" },
+
+        // --- FOREST ESCAPE ---
+        { title: "Black Forest Wilderness Lake Cabin Stay", desc: "Overnight deep-woods mountain retreat in the Schwarzwald with fireplace log systems.", mood: "nature", weather: "sunny", duration: "long" },
+        { title: "Bärensee Lake & Woods Morning Walk", desc: "A crisp morning hike concluding with warm pretzels at the historic Bärenschlössle hunting lodge.", mood: "nature", weather: "sunny", duration: "short" },
+        { title: "Schönbuch Protected Woodland Deer Trek", desc: "Forest tracking through natural game reserves packed with premium tracking snack rations.", mood: "nature", weather: "sunny", duration: "medium" },
+        { title: "Triberg Cascade & Giant Cuckoo Hikes", desc: "Hike along Germany's highest waterfalls deep inside the Black Forest canopy.", mood: "nature", weather: "rainy", duration: "medium" },
+
+        // --- COZY MAGIC ---
+        { title: "Stuttgart Fernsehturm Skyline Sunset Toast", desc: "Take in 360-degree views from the top platform toasted with fine local sparkling wine.", mood: "cozy", weather: "sunny", duration: "short" },
+        { title: "Delphi Art-House Candlelit Cinema Pass", desc: "Plush velvet theater layouts, independent cinema viewings, and champagne toast buckets.", mood: "cozy", weather: "rainy", duration: "short" },
+        { title: "Eagle’s Nest Panoramic Mountain Summit", desc: "Ascend the high alpine historic outpost in Berchtesgaden, Bavaria, for vertical mountain wall views.", mood: "cozy", weather: "sunny", duration: "long" },
+        { title: "Bad Wildbad Suspension Bridge Fog Walk", desc: "Cross the magnificent architectural footbridge hanging high over the misty Black Forest trees.", mood: "cozy", weather: "frosty", duration: "medium" }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-        // Enforce tomorrow baseline limits on date picker inputs
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').min = tomorrow.toISOString().split('T')[0];
@@ -364,8 +379,6 @@
             alert("Please pick your date and preferred time options first! 🌸");
             return;
         }
-
-        // Visual layout clean slate reset
         document.getElementById('revealZone').style.display = 'none';
         document.getElementById('diceStage').style.display = 'flex';
 
@@ -380,35 +393,22 @@
         const weather = document.querySelector('input[name="weather"]:checked').value;
         const duration = document.querySelector('input[name="duration"]:checked').value;
 
-        // FIXED FILTER LOGIC: Matches parameters cleanly
-        let finalSelections = database.filter(e => 
-            e.mood === mood && e.weather === weather && e.duration === duration
-        );
-
-        // Fallback level 1: Match by mood category directly if niche weather matches are thin
-        if (finalSelections.length === 0) {
-            finalSelections = database.filter(e => e.mood === mood);
-        }
-
-        // Fallback level 2: Use general mystery pool if completely empty
-        if (finalSelections.length === 0) {
-            finalSelections = backupPool;
-        }
+        let finalSelections = database.filter(e => e.mood === mood && e.weather === weather && e.duration === duration);
+        if (finalSelections.length === 0) finalSelections = database.filter(e => e.mood === mood);
 
         selectedActiveRecord = finalSelections[Math.floor(Math.random() * finalSelections.length)];
 
         const randomRefToken = Math.random().toString(36).substring(2, 7).toUpperCase();
-        const passportCode = `TSG-${randomRefToken}-${selectedActiveRecord.cost}`;
+        const passportCode = `TSG-${randomRefToken}`;
         const dateString = document.getElementById('targetDate').value;
         const timeString = document.getElementById('targetTime').value;
 
         document.getElementById('displayTitle').innerText = selectedActiveRecord.title;
         document.getElementById('displayDesc').innerText = selectedActiveRecord.desc;
         
-        let allocationDisplay = duration === 'short' ? '1–3 Hours' : duration === 'medium' ? 'Half/Full Day Journey' : '1–2 Day Weekend Event';
-        document.getElementById('displayMeta').innerText = `🔑 Code: ${passportCode} | Duration: ${allocationDisplay}`;
+        let allocationDisplay = duration === 'short' ? '1–3 Hours' : duration === 'medium' ? 'Half/Full Day' : '1–2 Days';
+        document.getElementById('displayMeta').innerText = `CODE: ${passportCode} | TIMEFRAME: ${allocationDisplay}\nSCHEDULED: ${dateString} @ ${timeString}`;
 
-        // Fresh QR code rendering call loop
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = ""; 
         
@@ -416,8 +416,8 @@
         
         new QRCode(qrContainer, {
             text: qrContentText,
-            width: 140,
-            height: 140,
+            width: 130,
+            height: 130,
             colorDark : "#3a3530",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
@@ -429,16 +429,26 @@
         window.scrollTo({ top: zone.offsetTop + 100, behavior: 'smooth' });
     }
 
-    function dispatchToAdmin() {
+    function dispatchToAdminAndGroup() {
         if (!selectedActiveRecord) return;
 
-        const dateString = document.getElementById('targetDate').value;
-        const timeString = document.getElementById('targetTime').value;
-        const groupLink = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
+        const targetNode = document.getElementById('ticketCaptureArea');
+        const groupInvitationLink = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
 
-        const messageText = `✨ *The Secret Garden Passport Locked* ✨%0A%0AA surprise itinerary choice has been calculated successfully!%0A%0A🌿 *EVENT:* ${selectedActiveRecord.title}%0A📅 *DATE:* ${dateString}%0A⏰ *TIME:* ${timeString}%0A%0A💬 *Group Workspace Portal:* ${groupLink}%0A%0A_Admin, please check the platform UI to verify the ticket barcode!_`;
-        
-        window.open(`https://wa.me/?text=${messageText}`, '_blank');
+        html2canvas(targetNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
+            const imageBlob = canvas.toDataURL("image/png");
+            const structuralDownloader = document.createElement('a');
+            structuralDownloader.download = `Secret-Garden-Ticket-${selectedActiveRecord.title.replace(/\s+/g, '-')}.png`;
+            structuralDownloader.href = imageBlob;
+            structuralDownloader.click();
+            
+            const trackingMetaText = `✨ Unlocked Secret Garden Passport ✨\n\n🌿 EVENT: ${selectedActiveRecord.title}\n📅 DATE: ${document.getElementById('targetDate').value}\n⏰ TIME: ${document.getElementById('targetTime').value}`;
+            navigator.clipboard.writeText(trackingMetaText).catch(err => console.log("Clipboard fallback captured."));
+
+            alert("🎟️ Ticket Image Saved & Booking Text Copied!\n\nYour WhatsApp Group chat will now open. Simply attach the downloaded image and hit send! 🌸");
+
+            window.open(groupInvitationLink, '_blank');
+        });
     }
 </script>
 </body>
