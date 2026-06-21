@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Experience Roulette | Visual Discovery Engine</title>
+    <title>Experience Roulette | Dual-Scenario Precision Engine</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,6 @@
             --ui-border: rgba(197, 168, 128, 0.32);
             --speed-fast: 0.2s;
             --accent-purple: #786982;
-            --instagram-pink: #e1306c;
             --whatsapp-green: #25d366;
             --dark-panel: #1a1716;
         }
@@ -44,6 +43,14 @@
         .group-label { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--ink-main); display: block; margin: 22px 0 6px 0; }
         .group-caption { font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px; margin-top: -4px; }
 
+        /* SCENARIO INTERACTIVE TABS */
+        .scenario-tab-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: rgba(197, 168, 128, 0.08); padding: 4px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--ui-border); }
+        .scenario-tab { background: none; border: none; padding: 10px 4px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--ink-muted); cursor: pointer; transition: all var(--speed-fast); text-transform: uppercase; letter-spacing: 0.5px; }
+        .scenario-tab.active { background: var(--surface-card); color: var(--ink-main); box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        
+        .scenario-view-pane { display: none; }
+        .scenario-view-pane.active { display: block; }
+
         /* GRID COMPONENTS & TACTILE INTERFACES */
         .selection-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
         .category-enclosure { background: rgba(197, 168, 128, 0.04); padding: 14px 12px; border-radius: 16px; border: 1px solid var(--ui-border); margin-bottom: 14px; }
@@ -55,10 +62,6 @@
         }
         .tactile-btn:active { transform: scale(0.97); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #f6f2ea; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
-        
-        /* SPECIAL INSTAGRAM VIBE STYLING */
-        .tactile-btn.insta-vibe.active { border-color: var(--instagram-pink); background-color: #fdf2f5; color: #b01e4e; box-shadow: inset 0 0 0 1px var(--instagram-pink); }
-        .category-enclosure.insta-wrapper { background: rgba(225, 48, 108, 0.03); border: 1px dashed rgba(225, 48, 108, 0.25); }
 
         /* DYNAMIC CUISINE MULTI-CHIPS SUB PANELS */
         .cuisine-sub-deck { display: none; background: #faf9f5; border-radius: 12px; border: 1px dashed var(--primary-gold); padding: 10px; margin-top: 8px; animation: fadeInSub 0.25s ease-out forwards; }
@@ -117,7 +120,7 @@
         
         <div class="header-block">
             <h1>Experience Roulette</h1>
-            <p class="tagline">Production Real-Time Spatial Engine</p>
+            <p class="tagline">Production Dual-Scenario Spatial Engine</p>
         </div>
 
         <div class="map-wrapper-shield">
@@ -131,23 +134,49 @@
             <div id="map"></div>
             <div class="telemetry-banner" id="telemetryData">🗺️ Select geographical location to construct search parameters.</div>
             
-            <div class="manual-param-deck" style="margin-top:12px;">
-                <div class="manual-row-entry">
-                    <label class="field-unit-descriptor" for="distanceInput">Strict Boundary:</label>
-                    <input type="text" pattern="[0-9]*" id="distanceInput" class="numeric-field" value="5" oninput="handleManualMetricsUpdate()">
-                    <span class="field-unit-descriptor">KM Search Radius</span>
+            <div style="margin-top:14px;">
+                <div class="scenario-tab-bar">
+                    <button type="button" id="tab_scen_radius" class="scenario-tab active" onclick="switchRoutingScenario('radius')">Scenario 1: Radius</button>
+                    <button type="button" id="tab_scen_transit" class="scenario-tab" onclick="switchRoutingScenario('transit')">Scenario 2: Transit</button>
+                </div>
+
+                <div id="pane_scen_radius" class="scenario-view-pane active">
+                    <div class="manual-param-deck">
+                        <div class="manual-row-entry">
+                            <label class="field-unit-descriptor" for="distanceInput">Strict Boundary:</label>
+                            <input type="text" pattern="[0-9]*" id="distanceInput" class="numeric-field" value="5" oninput="handleManualMetricsUpdate()">
+                            <span class="field-unit-descriptor">KM Search Radius</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pane_scen_transit" class="scenario-view-pane">
+                    <div class="manual-param-deck" style="display:flex; flex-direction:column; gap:8px;">
+                        <div class="manual-row-entry" style="justify-content: space-between;">
+                            <span class="field-unit-descriptor" style="font-weight:600;">Max Commute:</span>
+                            <div style="display:flex; align-items:center; gap:4px;">
+                                <input type="text" pattern="[0-9]*" id="durationMinutesInput" class="numeric-field" value="20" style="width:65px;">
+                                <span class="field-unit-descriptor">Mins</span>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:4px;">
+                            <button type="button" id="mode_drive" class="tactile-btn active" style="min-height:40px; padding:6px 2px;" onclick="setTransitMode('mode_drive', 'driving')">🚗 Drive</button>
+                            <button type="button" id="mode_transit" class="tactile-btn" style="min-height:40px; padding:6px 2px;" onclick="setTransitMode('mode_transit', 'transit')">🚊 Transit</button>
+                            <button type="button" id="mode_walk" class="tactile-btn" style="min-height:40px; padding:6px 2px;" onclick="setTransitMode('mode_walk', 'walking')">🚶‍♂️ Walk</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <span class="group-label">Target Discovery Classification</span>
 
-        <div class="category-enclosure insta-wrapper">
-            <span class="enclosure-title" style="color: var(--instagram-pink);">✨ Aesthetic Media & Vantage Points</span>
+        <div class="category-enclosure">
+            <span class="enclosure-title">✨ Aesthetic Media & Vantage Points</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_insta_spots" class="tactile-btn insta-vibe active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark|monument', 'point_of_interest')">📸 Picture Perfect Spots</button>
-                <button type="button" id="vibe_architecture" class="tactile-btn insta-vibe" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Visual Architecture</button>
-                <button type="button" id="vibe_street_art" class="tactile-btn insta-vibe" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|graffiti+wall|sculpture', 'art_gallery')">🎨 Murals & Street Art</button>
+                <button type="button" id="vibe_insta_spots" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark|monument', 'point_of_interest')">📸 Picture Perfect Spots</button>
+                <button type="button" id="vibe_architecture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Visual Architecture</button>
+                <button type="button" id="vibe_street_art" class="tactile-btn" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|graffiti+wall|sculpture', 'art_gallery')">🎨 Murals & Street Art</button>
             </div>
         </div>
         
@@ -255,6 +284,7 @@
                 
                 <table class="passport-table">
                     <tr><td class="label-lead">Vibe Target Vector</td><td id="dataVibe"></td></tr>
+                    <tr><td class="label-lead">Constraint Model</td><td id="dataConstraintMode"></td></tr>
                     <tr><td class="label-lead">Financial Boundary</td><td id="dataFinance"></td></tr>
                     <tr><td class="label-lead">Launch Allocation</td><td id="dataTime"></td></tr>
                     <tr><td class="label-lead">Temporal Frame</td><td id="dataHorizon"></td></tr>
@@ -282,6 +312,8 @@
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
+    let currentScenario = 'radius'; // 'radius' | 'transit'
+    let selectedTransitMode = 'driving'; // 'driving' | 'transit' | 'walking'
     let focusedCoordinates = null;
     let computedIntents = { google: '', apple: '' };
 
@@ -298,6 +330,30 @@
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
         mapEngineInstance.on('click', (e) => trackAnchorShift(e.latlng.lat, e.latlng.lng));
         trackAnchorShift(48.7771, 9.1795);
+    }
+
+    function switchRoutingScenario(scenarioType) {
+        currentScenario = scenarioType;
+        document.querySelectorAll('.scenario-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.scenario-view-pane').forEach(p => p.classList.remove('active'));
+
+        if(scenarioType === 'radius') {
+            document.getElementById('tab_scen_radius').classList.add('active');
+            document.getElementById('pane_scen_radius').classList.add('active');
+            refreshSpatialCanvasVector();
+        } else {
+            document.getElementById('tab_scen_transit').classList.add('active');
+            document.getElementById('pane_scen_transit').classList.add('active');
+            if (spatialRadiusCircle && mapEngineInstance) mapEngineInstance.removeLayer(spatialRadiusCircle);
+        }
+    }
+
+    function setTransitMode(id, modeValue) {
+        document.getElementById('mode_drive').classList.remove('active');
+        document.getElementById('mode_transit').classList.remove('active');
+        document.getElementById('mode_walk').classList.remove('active');
+        document.getElementById(id).classList.add('active');
+        selectedTransitMode = modeValue;
     }
 
     function setDiscoveryVibe(id, terms, googleType) {
@@ -332,11 +388,11 @@
     }
 
     function handleManualMetricsUpdate() {
-        refreshSpatialCanvasVector();
+        if(currentScenario === 'radius') refreshSpatialCanvasVector();
     }
 
     function refreshSpatialCanvasVector() {
-        if (!mapEngineInstance || !focusedCoordinates) return;
+        if (!mapEngineInstance || !focusedCoordinates || currentScenario !== 'radius') return;
         if (spatialRadiusCircle) mapEngineInstance.removeLayer(spatialRadiusCircle);
 
         const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
@@ -352,7 +408,7 @@
         if (mapMarkerNode) mapMarkerNode.setLatLng([lat, lng]);
         else mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
         
-        refreshSpatialCanvasVector();
+        if(currentScenario === 'radius') refreshSpatialCanvasVector();
         document.getElementById('telemetryData').innerHTML = `📍 <b>Anchor:</b> ${lat.toFixed(5)}°N, ${lng.toFixed(5)}°E`;
     }
 
@@ -378,34 +434,56 @@
         }, null, { enableHighAccuracy: true });
     }
 
-    // ADVANCED COORDINATE MATCHING AND STRICT RADIUS LOCK ENGINE
+    // MULTI-SCENARIO CORE COMPUTATION EXECUTION MATRIX
     function compileSpatialDiscoveryEngine() {
         if (!focusedCoordinates) { alert("Please establish center tracking vectors via map pin placement."); return; }
         
         const lat = focusedCoordinates.lat;
         const lon = focusedCoordinates.lon;
-        const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
         const priceTier = document.getElementById('googlePriceFilter').value;
-        
         const dateString = document.getElementById('targetDate').value;
         const timeString = document.getElementById('targetTime').value;
 
-        // Calculate precise coordinate bounding box offsets to prevent geographic leakage
-        const latOffset = radiusKm / 111.32;
-        const lonOffset = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
-        
-        const minLat = (lat - latOffset).toFixed(6);
-        const maxLat = (lat + latOffset).toFixed(6);
-        const minLon = (lon - lonOffset).toFixed(6);
-        const maxLon = (lon + lonOffset).toFixed(6);
-
         let activeTargetQueryToken = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        
-        // Build location bias configurations matching search patterns on modern visual indexing algorithms
-        let googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${activeTargetQueryToken}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}`;
-        googleApiQuery += `&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
+        let googleApiQuery = '';
+        let appleApiQuery = '';
 
-        const appleApiQuery = `maps://?q=${activeTargetQueryToken}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&spn=${latOffset.toFixed(4)},${lonOffset.toFixed(4)}`;
+        if (currentScenario === 'radius') {
+            // Scenario 1 Architecture: Strict Bounds Box Mapping Calculations
+            const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
+            const latOffset = radiusKm / 111.32;
+            const lonOffset = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+            
+            const minLat = (lat - latOffset).toFixed(6);
+            const maxLat = (lat + latOffset).toFixed(6);
+            const minLon = (lon - lonOffset).toFixed(6);
+            const maxLon = (lon + lonOffset).toFixed(6);
+
+            googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${activeTargetQueryToken}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
+            appleApiQuery = `maps://?q=${activeTargetQueryToken}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&spn=${latOffset.toFixed(4)},${lonOffset.toFixed(4)}`;
+        
+        } else {
+            // Scenario 2 Architecture: Transit Speed Velocity Horizon Mapping Models
+            const travelMins = parseInt(document.getElementById('durationMinutesInput').value) || 20;
+            
+            // Derive geographic bounding constraints based on modal speeds to ensure strict adherence
+            let speedKmh = 50; // Driving default estimate
+            if (selectedTransitMode === 'walking') speedKmh = 4.5;
+            if (selectedTransitMode === 'transit') speedKmh = 22;
+
+            const approximateRadiusKm = (speedKmh * (travelMins / 60));
+            const latOffset = approximateRadiusKm / 111.32;
+            const lonOffset = approximateRadiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+
+            const minLat = (lat - latOffset).toFixed(6);
+            const maxLat = (lat + latOffset).toFixed(6);
+            const minLon = (lon - lonOffset).toFixed(6);
+            const maxLon = (lon + lonOffset).toFixed(6);
+
+            // Inject strict dynamic travel mode instructions into device APIs
+            googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${activeTargetQueryToken}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}&travelmode=${selectedTransitMode}`;
+            appleApiQuery = `maps://?q=${activeTargetQueryToken}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&saddr=${lat.toFixed(6)},${lon.toFixed(6)}&dirflg=${selectedTransitMode === 'driving' ? 'd' : selectedTransitMode === 'walking' ? 'w' : 'r'}`;
+        }
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
@@ -436,6 +514,13 @@
         document.getElementById('dataHorizon').innerText = selectedHorizonLabel;
         document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(5)}°N, ${focusedCoordinates.lon.toFixed(5)}°E`;
 
+        // Log configuration criteria rules inside metadata tracking values
+        if(currentScenario === 'radius') {
+            document.getElementById('dataConstraintMode').innerText = `Radius (${document.getElementById('distanceInput').value} KM)`;
+        } else {
+            document.getElementById('dataConstraintMode').innerText = `Transit (${document.getElementById('durationMinutesInput').value} Mins via ${selectedTransitMode})`;
+        }
+
         const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}&query_place_id=${selectedGoogleCategory}`;
         const qrContainer = document.getElementById("qrcode"); qrContainer.innerHTML = "";
         new QRCode(qrContainer, { text: deepMapUrl, width: 110, height: 110, colorDark : "#1a1716", colorLight : "#ffffff" });
@@ -451,15 +536,25 @@
         document.getElementById(outcome).click();
         
         document.getElementById('googlePriceFilter').value = Math.floor(Math.random() * 3) + 1;
-        document.getElementById('distanceInput').value = Math.floor(Math.random() * 6) + 2;
+        
+        if (Math.random() > 0.5) {
+            switchRoutingScenario('radius');
+            document.getElementById('distanceInput').value = Math.floor(Math.random() * 6) + 2;
+        } else {
+            switchRoutingScenario('transit');
+            document.getElementById('durationMinutesInput').value = Math.floor(Math.random() * 25) + 10;
+            const modes = ['mode_drive', 'mode_transit', 'mode_walk'];
+            const targetedMode = modes[Math.floor(Math.random() * 3)];
+            document.getElementById(targetedMode).click();
+        }
         
         compileSpatialDiscoveryEngine();
     }
 
-    // INSTANT CLIPBOARD REDIRECT INTERFACE
     function copyPassportAndLaunchGroup() {
         const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
         const vibe = document.getElementById('dataVibe').innerText;
+        const constraint = document.getElementById('dataConstraintMode').innerText;
         const finance = document.getElementById('dataFinance').innerText;
         const launchTime = document.getElementById('dataTime').innerText;
         const duration = document.getElementById('dataHorizon').innerText;
@@ -471,6 +566,7 @@
 `🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
 `📍 *Destination:* ${venue}\n` +
 `✨ *Vibe Category:* ${vibe}\n` +
+`🛡️ *Routing Parameter:* ${constraint}\n` +
 `💰 *Pricing Range:* ${finance}\n` +
 `⏱ *Time Allocation:* ${duration}\n` +
 `📅 *Event Schedule:* ${launchTime}\n` +
@@ -482,7 +578,6 @@
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
 
-            // Instant fallback bounce directly to specified destination chat room link layout
             setTimeout(() => {
                 const targetWhatsAppGroupChatUrl = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
                 const bridgeLinkAnchorNode = document.createElement('a');
