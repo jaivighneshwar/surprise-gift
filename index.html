@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Experience Roulette | Precision Production Engine</title>
+    <title>Experience Roulette | Native Sharing Engine</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -27,6 +26,7 @@
             --ui-border: rgba(197, 168, 128, 0.32);
             --speed-fast: 0.2s;
             --accent-purple: #786982;
+            --whatsapp-green: #25d366;
             --dark-panel: #1a1716;
         }
 
@@ -108,6 +108,9 @@
 
         .qr-render-frame { display: inline-block; margin: 8px auto; padding: 8px; background: #ffffff; border: 1px solid var(--ui-border); border-radius: 12px; }
         .export-trigger-btn { border: none; padding: 15px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--ink-main); color: white; }
+        
+        /* HASSLE-FREE DIRECT WHATSAPP SHARING NODE STYLE */
+        .whatsapp-trigger-btn { border: none; padding: 15px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--whatsapp-green); color: white; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.25); }
     </style>
 </head>
 <body>
@@ -231,254 +234,4 @@
 
         <div class="selection-tile-grid">
             <button type="button" id="time_short" class="tactile-btn" onclick="setTemporalHorizon('time_short', '1-3 Hours Allocation')">⏱️ 1-3 H</button>
-            <button type="button" id="time_half" class="tactile-btn" onclick="setTemporalHorizon('time_half', 'Half Day Outing')">🌗 Half Day</button>
-            <button type="button" id="time_full" class="tactile-btn active" onclick="setTemporalHorizon('time_full', 'Full Day Journey')">☀️ Full Day</button>
-        </div>
-
-        <div class="control-console-deck">
-            <button type="button" class="btn-run-synthesize" onclick="compileSpatialDiscoveryEngine()">Synthesize Base Parameters ✨</button>
-            <button type="button" class="btn-run-surprise" onclick="triggerSurpriseMatrix()">Surprise 🎲</button>
-        </div>
-
-        <div class="bridge-routing-panel" id="bridgePanel">
-            <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">🔍 Step 1: Browse Verified Matches</span>
-            <p style="font-size:0.75rem; color:#bcaea3; margin-bottom:14px; line-height:1.45;">Exact geographical spatial queries bound together. Click below to inspect verified listings directly on your mobile device mapping ecosystem:</p>
-            
-            <a id="externalMapLinkNode" class="external-intent-link" target="_blank">Open Navigation Filters 🗺️</a>
-            
-            <div style="border-top: 1px dashed rgba(255,255,255,0.15); padding-top:16px; margin-top:6px;">
-                <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">✍️ Step 2: Finalize Destination Passport</span>
-                <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Enter venue name from verified listings..." style="border: 1px solid var(--primary-gold); margin-bottom:14px; background: #241f1e; color: #fff;">
-                <button type="button" class="export-trigger-btn" style="background-color: var(--primary-gold);" onclick="generateFinalPassportPass()">Lock & Output Pass 🎟️</button>
-            </div>
-        </div>
-
-        <div class="output-passport-reveal" id="revealZone">
-            <div class="passport-print-card" id="printAreaNode">
-                <div style="font-size:0.7rem; font-weight:600; color:var(--dark-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">System Output Sheet</div>
-                <h3 id="passportTargetTitle" class="passport-title-col"></h3>
-                
-                <table class="passport-table">
-                    <tr><td class="label-lead">Vibe Target Vector</td><td id="dataVibe"></td></tr>
-                    <tr><td class="label-lead">Financial Boundary</td><td id="dataFinance"></td></tr>
-                    <tr><td class="label-lead">Launch Allocation</td><td id="dataTime"></td></tr>
-                    <tr><td class="label-lead">Temporal Frame</td><td id="dataHorizon"></td></tr>
-                    <tr><td class="label-lead">Exact Anchor Position</td><td id="dataCoords"></td></tr>
-                </table>
-                <div class="qr-render-frame"><div id="qrcode"></div></div>
-            </div>
-            <div style="margin-top: 14px;">
-                <button type="button" class="export-trigger-btn" onclick="dispatchNativeExportBlueprint()">Save & Export Mobile Passport 📱</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<script>
-    let mapEngineInstance = null, mapMarkerNode = null, spatialRadiusCircle = null;
-    let globalConstraintModel = 'distance'; 
-    let selectedVibeSearchQuery = 'scenic dynamic lookouts public natural parks viewpoints';
-    let activeCuisineQuerySegment = '';
-    let selectedHorizonLabel = 'Full Day Journey';
-    let selectedTransitProfile = 'driving';
-    let focusedCoordinates = null;
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('targetDate').value = tomorrow.toISOString().split('T')[0];
-        document.getElementById('targetTime').value = "18:00";
-        initializeBaseMap();
-    });
-
-    function initializeBaseMap() {
-        if (mapEngineInstance !== null) return;
-        
-        mapEngineInstance = L.map('map', { zoomControl: true, attributionControl: false }).setView([48.7771, 9.1795], 11);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
-        
-        mapEngineInstance.on('click', (e) => trackAnchorShift(e.latlng.lat, e.latlng.lng));
-        trackAnchorShift(48.7771, 9.1795);
-    }
-
-    function setDiscoveryVibe(id, terms) {
-        document.querySelectorAll('.category-enclosure .tactile-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        selectedVibeSearchQuery = terms;
-
-        // Toggle sub-cuisine expansion panels cleanly
-        const deck = document.getElementById('cuisineDeck');
-        if (id === 'vibe_fine_dine' || id === 'vibe_casual_dine') {
-            deck.style.display = 'block';
-        } else {
-            deck.style.display = 'none';
-            activeCuisineQuerySegment = '';
-            document.querySelectorAll('.cuisine-chip').forEach(ch => ch.classList.remove('active'));
-            document.getElementById('cuisine_any').classList.add('active');
-        }
-    }
-
-    function setCuisineProfile(id, terms) {
-        document.querySelectorAll('.cuisine-chip').forEach(ch => ch.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        activeCuisineQuerySegment = terms;
-    }
-
-    function setTemporalHorizon(id, label) {
-        document.getElementById('time_short').classList.remove('active');
-        document.getElementById('time_half').classList.remove('active');
-        document.getElementById('time_full').classList.remove('active');
-        document.getElementById(id).classList.add('active');
-        selectedHorizonLabel = label;
-    }
-
-    function setTransitProfile(profile) {
-        document.getElementById('transit_driving').classList.remove('active');
-        document.getElementById('transit_transit').classList.remove('active');
-        document.getElementById('transit_' + profile).classList.add('active');
-        selectedTransitProfile = profile;
-    }
-
-    function setConstraintParadigm(paradigm) {
-        globalConstraintModel = paradigm;
-        document.getElementById('modeBtnDistance').classList.toggle('active', paradigm === 'distance');
-        document.getElementById('modeBtnDuration').classList.toggle('active', paradigm === 'duration');
-        document.getElementById('panelDistance').classList.toggle('active', paradigm === 'distance');
-        document.getElementById('panelDuration').classList.toggle('active', paradigm === 'duration');
-        refreshSpatialCanvasVector();
-    }
-
-    function handleManualMetricsUpdate() {
-        refreshSpatialCanvasVector();
-    }
-
-    function refreshSpatialCanvasVector() {
-        if (!mapEngineInstance || !focusedCoordinates) return;
-        if (spatialRadiusCircle) mapEngineInstance.removeLayer(spatialRadiusCircle);
-
-        if (globalConstraintModel === 'distance') {
-            const rawInputKm = parseFloat(document.getElementById('distanceInput').value) || 15;
-            const absoluteMeters = rawInputKm * 1000;
-            
-            spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-                color: 'var(--primary-gold)', fillColor: 'var(--primary-gold)', fillOpacity: 0.14, weight: 1.8, dashArray: '4, 4'
-            }).addTo(mapEngineInstance);
-            
-            mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [8, 8] });
-        } else {
-            // Isometric mapping fallback structures
-            spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-                color: 'var(--accent-purple)', fillColor: 'var(--accent-purple)', fillOpacity: 0.04, weight: 1.2, dashArray: '2, 6'
-            }).addTo(mapEngineInstance);
-            mapEngineInstance.setView([focusedCoordinates.lat, focusedCoordinates.lon], 11);
-        }
-    }
-
-    function trackAnchorShift(lat, lng) {
-        focusedCoordinates = { lat: lat, lon: lng };
-        if (mapMarkerNode) mapMarkerNode.setLatLng([lat, lng]);
-        else mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
-        
-        refreshSpatialCanvasVector();
-        document.getElementById('telemetryData').innerHTML = `📍 <b>Anchor:</b> ${lat.toFixed(5)}°N, ${lng.toFixed(5)}°E`;
-    }
-
-    function executeTextGeocodeSearch() {
-        const query = document.getElementById('mapTextInput').value.trim();
-        if (!query) return;
-        
-        const locator = L.Control.Geocoder.nominatim();
-        locator.geocode(query, (output) => {
-            if (output && output.length > 0) {
-                const target = output[0].center;
-                trackAnchorShift(target.lat, target.lng);
-                mapEngineInstance.setView([target.lat, target.lng], 12);
-            } else {
-                alert("Geocoding API interface returned empty validation records.");
-            }
-        });
-    }
-
-    function triggerDeviceLiveLocation() {
-        if (!navigator.geolocation) return;
-        navigator.geolocation.getCurrentPosition((pos) => {
-            trackAnchorShift(pos.coords.latitude, pos.coords.longitude);
-            mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 13);
-        }, () => alert("Device positioning standard rejected tracking configuration bounds."), { enableHighAccuracy: true });
-    }
-
-    function compileSpatialDiscoveryEngine() {
-        if (!focusedCoordinates) return;
-        
-        const lat = focusedCoordinates.lat.toFixed(5);
-        const lon = focusedCoordinates.lon.toFixed(5);
-        const budgetCap = parseFloat(document.getElementById('budgetInput').value) || 50;
-        
-        // Dynamic search string assembly parsing custom parameters explicitly
-        let dynamicSearchToken = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let deepLinkTargetUrl = "";
-
-        if (globalConstraintModel === 'distance') {
-            const exactRadiusKm = parseFloat(document.getElementById('distanceInput').value) || 15;
-            deepLinkTargetUrl = `https://www.google.com/maps/search/${encodeURIComponent(dynamicSearchToken)}+price+limit+under+${budgetCap}+EUR+within+${exactRadiusKm}km+of+${lat},${lon}`;
-        } else {
-            const targetHours = parseInt(document.getElementById('durationHoursInput').value) || 0;
-            const targetMints = parseInt(document.getElementById('durationMinsInput').value) || 45;
-            const aggregatedMinutes = (targetHours * 60) + targetMints;
-            
-            deepLinkTargetUrl = `https://www.google.com/maps/search/${encodeURIComponent(dynamicSearchToken)}+price+limit+under+${budgetCap}+EUR+within+${aggregatedMinutes}+minutes+travel+near+${lat},${lon}`;
-        }
-
-        document.getElementById('externalMapLinkNode').href = deepLinkTargetUrl;
-        document.getElementById('bridgePanel').style.display = 'block';
-        document.getElementById('bridgePanel').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function generateFinalPassportPass() {
-        const venueString = document.getElementById('selectedFinalVenue').value.trim();
-        if (!venueString) { alert("Please supply target string to lock mapping layers."); return; }
-
-        const maximumBudgetLimitValue = parseFloat(document.getElementById('budgetInput').value) || 0;
-
-        document.getElementById('passportTargetTitle').innerText = venueString;
-        document.getElementById('dataVibe').innerText = document.querySelector('.category-enclosure .tactile-btn.active').innerText;
-        document.getElementById('dataFinance').innerText = `Max €${maximumBudgetLimitValue} Checked Allocation`;
-        document.getElementById('dataTime').innerText = `${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
-        document.getElementById('dataHorizon').innerText = selectedHorizonLabel;
-        document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(5)}°N, ${focusedCoordinates.lon.toFixed(5)}°E`;
-
-        const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
-        const qrContainer = document.getElementById("qrcode"); qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: deepMapUrl, width: 110, height: 110, colorDark : "#1a1716", colorLight : "#ffffff" });
-
-        document.getElementById('revealZone').style.display = 'block';
-        document.getElementById('revealZone').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function triggerSurpriseMatrix() {
-        if (!focusedCoordinates) return;
-        const vectors = ['vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_games', 'vibe_shows', 'vibe_movies'];
-        const outcome = vectors[Math.floor(Math.random() * vectors.length)];
-        document.getElementById(outcome).click();
-        
-        // Randomize manual inputs to provide varied results
-        document.getElementById('budgetInput').value = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('distanceInput').value = Math.floor(Math.random() * 25) + 5;
-        
-        compileSpatialDiscoveryEngine();
-    }
-
-    function dispatchNativeExportBlueprint() {
-        const structuralNode = document.getElementById('printAreaNode');
-        const uniqueLabel = document.getElementById('passportTargetTitle').innerText || "Roulette-Blueprint";
-        
-        html2canvas(structuralNode, { backgroundColor: "#ffffff", scale: 2 }).then(canvas => {
-            const dynamicUrlDataPayload = canvas.toDataURL("image/png");
-            const fileTrigger = document.createElement('a');
-            fileTrigger.download = `${uniqueLabel.replace(/\s+/g, '-')}-Pass.png`;
-            fileTrigger.href = dynamicUrlDataPayload; fileTrigger.click();
-        });
-    }
-</script>
-</body>
-</html>
+            <button type="button" id="time_half" class="tactile-btn" onclick="setTe
