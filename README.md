@@ -1,37 +1,70 @@
 # 🎰 Experience Roulette
-**Experience Roulette** is a premium, live, on-demand discovery web application designed to break the routine and replace decision fatigue with pure serendipity. By combining interactive spatial tracking, real-time map matching, and a sleek, intuitive interface, it transforms finding your next activity into a thrilling, high-end experience.
-## ✨ Features
- * **Interactive Spatial Engine:** Set your search anchor via an integrated map. Use a robust text search, place a custom pin manually, or grab your live coordinates directly via device hardware GPS.
- * **Vibe-Driven Curation:** Skip the rigid categories. Choose from 13 distinct curated mood tiles (ranging from **🍿 Movies** and **🧗‍♀️ Action** to **🌿 Escape** and **🍸 After Dark**).
- * **Live Google Maps Deep-Linking:** The "Synthesize Live" engine pairs your active subregional locality data with advanced search strings, instantly bridging you out to verified, high-rating local destinations.
- * **Digital Passport & QR Code Generation:** Lock in your favorite spot and compile a gorgeous, downloadable experience passport complete with an on-the-fly generated vector QR code routing to the location.
- * **Surprise Me Engine:** Feeling entirely indecisive? Tap **Surprise 🎲** to randomise your timeline, budget duration, and category target automatically.
- * **Instant Dispatch:** Seamlessly download a high-fidelity image payload of your ticket pass while auto-copying your invite payload parameters directly to your clipboard for instant sharing.
-## 🚀 Tech Stack
-This application is built entirely as a dependency-contained, lightweight, vanilla front-end system:
- * **Styling & UI:** Pure CSS3 featuring dynamic backdrop blurs, fluid micro-interactions, hardware-accelerated animations, and responsive layouts tailored heavily for mobile devices.
- * **Typography:** Google Fonts integration (*Montserrat* & *Cormorant Garamond*).
- * **Mapping Interface:** Leaflet.js tied to lightweight, clean, vector-style tiles provided by **CartoDB Voyager**.
- * **Geocoding & Reverse Geocoding:** Leaflet Control Geocoder running over the **Nominatim** indexing engine for robust landmark and suburb text resolutions.
- * **QR Encoding:** QRCode.js for lightweight client-side SVG/Canvas generation.
- * **Canvas Snapshot Rendering:** html2canvas.js for secure image compilation.
-## 📦 Installation & Deployment
-Because the application is fully self-contained within a single web architecture file, it requires **zero compilation** or server environments to operate.
- 1. **Clone or Copy:** Save the codebase as an index.html file on your filesystem.
- 2. **Open:** Double-click the file to launch it directly in any modern mobile or desktop browser (Safari, Chrome, Edge, Firefox).
- 3. **Deploy (Optional):** Drop the single file directly onto free static hosting platforms like GitHub Pages, Vercel, or Netlify for instant global access.
-## 🔧 How It Works
-```
-[ 🪙 Tap Engine Token ] ➔ [ 📍 Set Location / GPS Anchor ] ➔ [ 🎭 Choose Vibe Tile ]
-                                                                        |
-[ 🎟️ Get QR Pass & Image ] 🗂️ [ ✍️ Enter Your Pick ] 💎 [ 🔍 View Live Map Options ]
+**Experience Roulette** is an ultra-precise, high-density spatial discovery web application designed for discerning explorers. By stripping away text clutter and unifying geographical telemetry, real-time map tracking, transit metrics, and vibe categories into a single, seamless user interface, it replaces decision fatigue with pure, calculated serendipity.
 
-```
- 1. **Initialize:** Tap the shimmering engine token on the landing card to start the tracking array.
- 2. **Anchor:** Pick your focus area on the map.
- 3. **Curate:** Tap your target date, timing parameters, duration budget, and mood.
- 4. **Synthesize:** Click **Synthesize Live ✨**. The engine builds a custom query link that opens verified, real-time Google Maps options matching your exact position and vibe.
- 5. **Passport Lock:** Pick your favorite venue from the live listings, type its name into the final field, and hit generate. Your exclusive digital pass and custom destination QR code will render instantly.
+---
+
+## 🛠️ Advanced Precision Features
+
+* **Geographic Control & Constraints Deck:** All parameters (map telemetry, dual-routing scenarios, price tiers, and time picking inputs) are unified into a space-saving, dense control panel directly below the map canvas for a clean, linear user flow.
+* **Dual Routing Constraint Engines:** 
+  * **Scenario 1 (Radius):** Enforces a strict physical distance boundary around your coordinates.
+  * **Scenario 2 (Transit):** Translates travel time directly into spatial bounds using hardcoded urban velocity constants for **🚗 Driving**, **🚊 Public Transit**, or **🚶‍♂️ Walking**.
+* **High-Density Vibe Classification:** Ditch generic categories. Select from beautifully organized, sleek mood tiles spanning aesthetic media vantage points, wilderness exploration, gastronomy hubs, leisure wellness, and culture matrices.
+* **Gastronomy Profile Deck:** Activating dining options reveals a sub-deck to instantly tailor results by specific cuisines (Indian, Italian, Asian, French, Regional).
+* **Multi-Platform Map Deep-Linking:** The synthesis engine pairs active coordinates, dates, times, and maximum budget tiers directly with advanced search arrays, instantly bridging to **Google Maps** or **Apple Maps**.
+* **Digital Passport & Group Dispatch:** Lock your chosen venue to generate an elite, custom destination passport complete with a live-rendered vector QR code. Copy the styled manifest text instantly to your clipboard and forward it straight to a dedicated WhatsApp group.
+* **Surprise Me Engine 🎲:** Feeling entirely indecisive? Tap **Surprise** to instantly randomize your spatial constraints, transit modes, budget tier, and category selections.
+
+---
+
+## 🚀 Tech Stack
+
+This application is built entirely as a dependency-contained, lightweight, vanilla front-end system:
+* **Styling & UI:** Pure CSS3 featuring high-density grid layouts, fluid micro-interactions, hardware-accelerated transitions, and responsive scaling tailored for mobile viewports (`viewport-fit=cover`).
+* **Typography:** Google Fonts integration (*Montserrat* & *Cormorant Garamond*).
+* **Mapping Interface:** Leaflet.js paired with lightweight, clean, vector-style tile coordinates provided by **CartoDB Voyager**.
+* **Geocoding Engine:** Leaflet Control Geocoder running over the **Nominatim** indexing engine for fast landmark and suburb text resolutions.
+* **QR Encoding:** Client-side vector generation powered by `QRCode.js`.
+
+---
+
+## 📦 Installation & Deployment
+
+Because the application is fully self-contained within a single web architecture file, it requires **zero compilation**, zero package managers, and zero server environments to operate.
+1. **Clone or Copy:** Save the codebase as an `index.html` file on your filesystem.
+2. **Launch:** Double-click the file to open it directly in any modern mobile or desktop browser (Safari, Chrome, Edge, Firefox).
+3. **Deploy:** Drop the single file onto free static hosting platforms like GitHub Pages, Vercel, or Netlify for instant access anywhere.
+
+---
+
+## 🔧 How It Works
+
+1. **Anchor:** Set your focus area using the map canvas, text entry search, or the integrated hardware GPS pin.
+2. **Constrain:** Choose your routing constraints (Strict Radius or Commute Threshold), set your date/time window, and pick a maximum financial tier.
+3. **Classify:** Tap your preferred Discovery Vibe profile to instantly focus target keywords.
+4. **Synthesize:** Click **Synthesize Parameters ✨** to generate strict platform deep-links for Google or Apple Maps.
+5. **Lock & Passport:** Browse verified live listings, enter your final choice into the text input, and generate your custom digital pass and destination QR code. 
+
+---
+
+## ⚙️ Configuration & Customization
+
+### Updating the WhatsApp Share Target
+To route the generated **Destination Passports** directly to your own group chat or event thread, update the integration URL inside the script block:
+1. Open `index.html` in your text editor.
+2. Locate the `copyPassportAndLaunchGroup()` function near the bottom of the file.
+3. Replace the sample `targetWhatsAppGroupChatUrl` string with your own **WhatsApp Group Invite Link**:
+```javascript
+   const targetWhatsAppGroupChatUrl = "[https://chat.whatsapp.com/YOUR_GROUP_INVITE_ID](https://chat.whatsapp.com/YOUR_GROUP_INVITE_ID)";
+
+### Adjusting Transit Velocities
+If your target area features faster highway networks or slower rural pathways, you can fine-tune the urban velocities used to compute transit matrices. Locate refreshSpatialCanvasVector() and compileSpatialDiscoveryEngine() to update these hardcoded km/h limits:
+Walking Speed: Defaulted to 4.5 km/h.
+Public Transit Speed: Defaulted to 22 km/h.
+Driving Speed: Defaulted to 40 km/h.
+
 ## 🔒 Privacy & Permissions
- * **Location Access:** Device location services are requested via standard browser standard sandboxes. If you decline access, the application functions perfectly by letting you type a town name or tap the map manually.
- * **Data Integrity:** This app runs **100% client-side**. No search parameters, location coordinates, or selection paths are ever transmitted to or stored on an external server database. Your choices remain strictly yours.
+
+**Location Access:** Device location services are requested via standard, sandboxed browser tools. If you decline access, the application functions perfectly by letting you search a city or interact with the map manually.
+
+**Data Integrity:** This app runs 100% client-side. No search parameters, location coordinates, or selection paths are ever transmitted to or stored on an external database. Your destination choices remain strictly yours.
