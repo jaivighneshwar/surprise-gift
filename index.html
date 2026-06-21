@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Experience Roulette | Enterprise Precision Engine</title>
+    <title>Experience Roulette | Visual Discovery Engine</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,7 @@
             --ui-border: rgba(197, 168, 128, 0.32);
             --speed-fast: 0.2s;
             --accent-purple: #786982;
+            --instagram-pink: #e1306c;
             --whatsapp-green: #25d366;
             --dark-panel: #1a1716;
         }
@@ -54,6 +55,10 @@
         }
         .tactile-btn:active { transform: scale(0.97); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #f6f2ea; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
+        
+        /* SPECIAL INSTAGRAM VIBE STYLING */
+        .tactile-btn.insta-vibe.active { border-color: var(--instagram-pink); background-color: #fdf2f5; color: #b01e4e; box-shadow: inset 0 0 0 1px var(--instagram-pink); }
+        .category-enclosure.insta-wrapper { background: rgba(225, 48, 108, 0.03); border: 1px dashed rgba(225, 48, 108, 0.25); }
 
         /* DYNAMIC CUISINE MULTI-CHIPS SUB PANELS */
         .cuisine-sub-deck { display: none; background: #faf9f5; border-radius: 12px; border: 1px dashed var(--primary-gold); padding: 10px; margin-top: 8px; animation: fadeInSub 0.25s ease-out forwards; }
@@ -136,12 +141,21 @@
         </div>
 
         <span class="group-label">Target Discovery Classification</span>
+
+        <div class="category-enclosure insta-wrapper">
+            <span class="enclosure-title" style="color: var(--instagram-pink);">✨ Aesthetic Media & Vantage Points</span>
+            <div class="selection-tile-grid">
+                <button type="button" id="vibe_insta_spots" class="tactile-btn insta-vibe active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark|monument', 'point_of_interest')">📸 Picture Perfect Spots</button>
+                <button type="button" id="vibe_architecture" class="tactile-btn insta-vibe" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Visual Architecture</button>
+                <button type="button" id="vibe_street_art" class="tactile-btn insta-vibe" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|graffiti+wall|sculpture', 'art_gallery')">🎨 Murals & Street Art</button>
+            </div>
+        </div>
         
         <div class="category-enclosure">
             <span class="enclosure-title">Nature & Wilderness Exploration</span>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr;">
                 <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking+trail|scenic+viewpoint', 'natural_feature')">🥾 Famous Hiking Trails</button>
-                <button type="button" id="vibe_escape" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Scenic Viewpoints & Parks</button>
+                <button type="button" id="vibe_escape" class="tactile-btn" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Scenic Viewpoints & Parks</button>
             </div>
         </div>
 
@@ -201,7 +215,7 @@
         </div>
 
         <span class="group-label">Temporal Window Setup</span>
-        <span class="group-caption">Target criteria balances filters directly for this window selection</span>
+        <span class="group-caption">Criteria balances validation vectors for this period layout</span>
         <div class="dual-date-row">
             <input type="date" class="raw-native-box" id="targetDate" required>
             <input type="time" class="raw-native-box" id="targetTime" required>
@@ -264,8 +278,8 @@
 
 <script>
     let mapEngineInstance = null, mapMarkerNode = null, spatialRadiusCircle = null;
-    let selectedVibeSearchQuery = 'park|nature+reserve';
-    let selectedGoogleCategory = 'park';
+    let selectedVibeSearchQuery = 'instagrammable+spot|scenic+viewpoint|landmark|monument';
+    let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
     let focusedCoordinates = null;
@@ -373,7 +387,6 @@
         const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
         const priceTier = document.getElementById('googlePriceFilter').value;
         
-        // Strictly inject explicit scheduling limits derived from user criteria parameters
         const dateString = document.getElementById('targetDate').value;
         const timeString = document.getElementById('targetTime').value;
 
@@ -388,7 +401,7 @@
 
         let activeTargetQueryToken = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
         
-        // Append deep time constraints to verify operational schedules on targeted windows
+        // Build location bias configurations matching search patterns on modern visual indexing algorithms
         let googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${activeTargetQueryToken}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}`;
         googleApiQuery += `&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
 
@@ -433,17 +446,17 @@
 
     function triggerSurpriseMatrix() {
         if (!focusedCoordinates) return;
-        const vectors = ['vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_games', 'vibe_shows', 'vibe_movies'];
+        const vectors = ['vibe_insta_spots', 'vibe_architecture', 'vibe_street_art', 'vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_games', 'vibe_shows', 'vibe_movies'];
         const outcome = vectors[Math.floor(Math.random() * vectors.length)];
         document.getElementById(outcome).click();
         
         document.getElementById('googlePriceFilter').value = Math.floor(Math.random() * 3) + 1;
-        document.getElementById('distanceInput').value = Math.floor(Math.random() * 8) + 3;
+        document.getElementById('distanceInput').value = Math.floor(Math.random() * 6) + 2;
         
         compileSpatialDiscoveryEngine();
     }
 
-    // RE-ENGINEERED INSTANT CLIPBOARD REDIRECT INTERFACE TO ELIMINATE STORAGE PROMPTS
+    // INSTANT CLIPBOARD REDIRECT INTERFACE
     function copyPassportAndLaunchGroup() {
         const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
         const vibe = document.getElementById('dataVibe').innerText;
@@ -455,11 +468,11 @@
         const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}&query_place_id=${selectedGoogleCategory}`;
 
         const structuredMarkdownText = 
-`🎟️ *EXPLORATION PASSPORT PASSED* 🎟️\n\n` +
+`🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
 `📍 *Destination:* ${venue}\n` +
 `✨ *Vibe Category:* ${vibe}\n` +
 `💰 *Pricing Range:* ${finance}\n` +
-`⏱️ *Time Allocation:* ${duration}\n` +
+`⏱ *Time Allocation:* ${duration}\n` +
 `📅 *Event Schedule:* ${launchTime}\n` +
 `🗺️ *Strict Anchor Position:* ${coords}\n\n` +
 `👉 *Open verified route navigation links:* ${deepMapLink}`;
