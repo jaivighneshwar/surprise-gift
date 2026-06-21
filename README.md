@@ -56,12 +56,17 @@ To route the generated **Destination Passports** directly to your own group chat
 3. Replace the sample `targetWhatsAppGroupChatUrl` string with your own **WhatsApp Group Invite Link**:
 ```javascript
    const targetWhatsAppGroupChatUrl = "[https://chat.whatsapp.com/YOUR_GROUP_INVITE_ID](https://chat.whatsapp.com/YOUR_GROUP_INVITE_ID)";
+'''
+
+---
 
 ### Adjusting Transit Velocities
 If your target area features faster highway networks or slower rural pathways, you can fine-tune the urban velocities used to compute transit matrices. Locate refreshSpatialCanvasVector() and compileSpatialDiscoveryEngine() to update these hardcoded km/h limits:
 Walking Speed: Defaulted to 4.5 km/h.
 Public Transit Speed: Defaulted to 22 km/h.
 Driving Speed: Defaulted to 40 km/h.
+
+---
 
 ## 🔒 Privacy & Permissions
 
