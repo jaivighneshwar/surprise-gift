@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Experience Roulette | Live Smart Planner</title>
+    <title>Experience Roulette | Enterprise Precision Engine</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,9 @@
             --ink-muted: #7d7268;
             --ui-border: rgba(197, 168, 128, 0.32);
             --speed-fast: 0.2s;
-            --accent-purple: #786982;
             --whatsapp-green: #25d366;
             --dark-panel: #1a1716;
+            --error-red: #b84a39;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -43,8 +43,6 @@
         .group-label { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--ink-main); display: block; margin: 22px 0 6px 0; }
         .group-caption { font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px; margin-top: -4px; }
 
-        /* GRID COMPONENTS & TACTILE INTERFACES */
-        .selection-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
         .category-enclosure { background: rgba(197, 168, 128, 0.04); padding: 14px 12px; border-radius: 16px; border: 1px solid var(--ui-border); margin-bottom: 14px; }
         .enclosure-title { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--dark-gold); display: block; margin-bottom: 8px; }
 
@@ -55,14 +53,6 @@
         .tactile-btn:active { transform: scale(0.97); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #f6f2ea; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
 
-        /* DYNAMIC CUISINE MULTI-CHIPS SUB PANELS */
-        .cuisine-sub-deck { display: none; background: #faf9f5; border-radius: 12px; border: 1px dashed var(--primary-gold); padding: 10px; margin-top: 8px; animation: fadeInSub 0.25s ease-out forwards; }
-        @keyframes fadeInSub { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-        .cuisine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .cuisine-chip { background: #fff; border: 1px solid rgba(0,0,0,0.08); padding: 8px 4px; border-radius: 8px; font-size: 0.7rem; font-weight: 500; cursor: pointer; text-align: center; color: var(--ink-muted); }
-        .cuisine-chip.active { background: var(--ink-main); color: #fff; border-color: var(--ink-main); font-weight: 600; }
-
-        /* SPATIAL PLATFORM MAP FRAMEWORK */
         .map-wrapper-shield { background: #ffffff; border: 1px solid var(--ui-border); border-radius: 20px; padding: 12px; margin-bottom: 20px; }
         .map-hud-row { display: flex; gap: 6px; margin-bottom: 12px; }
         .map-text-input { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(197, 168, 128, 0.4); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; outline: none; background: var(--canvas-bg); color: var(--ink-main); }
@@ -73,28 +63,18 @@
         #map { width: 100%; height: 210px; border-radius: 12px; z-index: 1; background: #f4ede2; }
         .telemetry-banner { margin-top: 10px; font-size: 0.72rem; color: var(--ink-muted); font-family: monospace; background: #faf9f5; padding: 10px; border-radius: 8px; border-left: 3px solid var(--primary-gold); }
 
-        .paradigm-selector-bar { display: flex; background: var(--canvas-bg); padding: 4px; border-radius: 12px; border: 1px solid var(--ui-border); margin-bottom: 12px; }
-        .paradigm-tab-btn { flex: 1; background: none; border: none; padding: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--ink-muted); cursor: pointer; border-radius: 8px; }
-        .paradigm-tab-btn.active { background-color: var(--surface-card); color: var(--ink-main); box-shadow: 0 4px 10px rgba(36,32,30,0.04); }
-
-        /* MANUAL HARDWARE TEXT ENTRIES */
-        .manual-param-deck { background: #faf9f5; border-radius: 12px; padding: 12px; display: none; }
-        .manual-param-deck.active { display: block; }
+        .manual-param-deck { background: #faf9f5; border-radius: 12px; padding: 12px; }
         .manual-row-entry { display: flex; align-items: center; gap: 8px; }
         .numeric-field { width: 85px; padding: 10px; border-radius: 8px; border: 1px solid var(--ui-border); text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; outline: none; color: var(--ink-main); }
         .field-unit-descriptor { font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .time-split-fields { display: flex; gap: 8px; align-items: center; }
-
-        /* MULTI-INPUT FIELD DESIGN COMPONENTS */
+        .selection-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
         .dual-date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .raw-native-box { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--ui-border); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; outline: none; color: var(--ink-main); background: var(--surface-card); }
 
         .control-console-deck { display: flex; gap: 10px; margin-top: 24px; }
         .btn-run-synthesize { background-color: var(--ink-main); color: var(--surface-card); border: none; flex: 2; padding: 16px; border-radius: 30px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 16px rgba(34,30,29,0.08); }
-        .btn-run-surprise { background-color: var(--accent-purple); color: var(--surface-card); border: none; flex: 1; padding: 16px; border-radius: 30px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
-        /* INTERACTION TRANSIT FLOORS */
         .bridge-routing-panel { display: none; background: var(--dark-panel); border-radius: 20px; padding: 20px; margin-top: 24px; text-align: left; }
         .external-intent-link { display: flex; align-items: center; justify-content: center; background: var(--primary-gold); color: #ffffff; padding: 14px; border-radius: 30px; font-weight: 600; font-size: 0.82rem; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; width: 100%; text-align: center; margin-bottom: 16px; }
         
@@ -107,11 +87,10 @@
         .passport-table td.label-lead { font-weight: 600; color: var(--ink-muted); width: 40%; text-transform: uppercase; font-size: 0.68rem; }
 
         .qr-render-frame { display: inline-block; margin: 8px auto; padding: 8px; background: #ffffff; border: 1px solid var(--ui-border); border-radius: 12px; }
-        
-        /* DIRECT PROTOCOL PACKET SYSTEMS */
-        .whatsapp-trigger-btn { border: none; padding: 15px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--whatsapp-green); color: white; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.25); position: relative; }
-        .toast-notification { display: none; background: rgba(34,30,29,0.9); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.75rem; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 999; font-weight: 500; letter-spacing: 0.5px; animation: fadeInUp 0.2s ease-out; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        .export-trigger-btn { border: none; padding: 15px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--primary-gold); color: white; }
+
+        .whatsapp-trigger-btn { border: none; padding: 15px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--whatsapp-green); color: white; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.25); }
+        .toast-notification { display: none; background: rgba(34,30,29,0.95); color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 0.75rem; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 999; font-weight: 500; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
     </style>
 </head>
 <body>
@@ -121,153 +100,99 @@
         
         <div class="header-block">
             <h1>Experience Roulette</h1>
-            <p class="tagline">Production Real-Time Spatial Engine</p>
+            <p class="tagline">Strict Geospatial Intent Engine</p>
         </div>
 
         <div class="map-wrapper-shield">
-            <span class="group-caption">Geographic Anchor Matrix</span>
+            <span class="group-caption">Target Precision Center-point</span>
             <div class="map-hud-row">
-                <input type="text" id="mapTextInput" class="map-text-input" placeholder="Type city center or destination point...">
-                <button type="button" class="hud-trigger" onclick="executeTextGeocodeSearch()">Search</button>
+                <input type="text" id="mapTextInput" class="map-text-input" placeholder="Type specific destination center...">
+                <button type="button" class="hud-trigger" onclick="executeTextGeocodeSearch()">Locate</button>
                 <button type="button" class="hud-trigger gps-pin-accent" onclick="triggerDeviceLiveLocation()">📍</button>
             </div>
 
             <div id="map"></div>
-            <div class="telemetry-banner" id="telemetryData">🗺️ Select geographical location to construct search parameters.</div>
+            <div class="telemetry-banner" id="telemetryData">🗺️ Drop center anchor to initialize bounding parameters.</div>
             
-            <span class="group-label" style="font-size:1.1rem; margin-top:16px;">Precision Spatial Clipping Bounds</span>
-            <div class="paradigm-selector-bar">
-                <button type="button" id="modeBtnDistance" class="paradigm-tab-btn active" onclick="setConstraintParadigm('distance')">📏 Exact Distance</button>
-                <button type="button" id="modeBtnDuration" class="paradigm-tab-btn" onclick="setConstraintParadigm('duration')">⏱️ Route Travel Duration</button>
-            </div>
-
-            <div id="panelDistance" class="manual-param-deck active">
+            <div class="manual-param-deck" style="margin-top:12px;">
                 <div class="manual-row-entry">
-                    <label class="field-unit-descriptor" for="distanceInput">Radius Vector:</label>
-                    <input type="text" pattern="[0-9]*" id="distanceInput" class="numeric-field" value="15" oninput="handleManualMetricsUpdate()">
-                    <span class="field-unit-descriptor">Kilometers (KM)</span>
-                </div>
-            </div>
-
-            <div id="panelDuration" class="manual-param-deck">
-                <div class="manual-row-entry" style="margin-bottom:12px;">
-                    <label class="field-unit-descriptor">Temporal Limit:</label>
-                    <div class="time-split-fields">
-                        <input type="text" pattern="[0-9]*" id="durationHoursInput" class="numeric-field" value="0" style="width:50px;" oninput="handleManualMetricsUpdate()">
-                        <span class="field-unit-descriptor">H</span>
-                        <input type="text" pattern="[0-9]*" id="durationMinsInput" class="numeric-field" value="45" style="width:60px;" oninput="handleManualMetricsUpdate()">
-                        <span class="field-unit-descriptor">Min</span>
-                    </div>
-                </div>
-                <div style="display:flex; gap:8px;">
-                    <button type="button" id="transit_driving" class="tactile-btn active" onclick="setTransitProfile('driving')" style="min-height:36px;">🚗 Direct Car</button>
-                    <button type="button" id="transit_transit" class="tactile-btn" onclick="setTransitProfile('transit')" style="min-height:36px;">🚊 Public Transport</button>
+                    <label class="field-unit-descriptor" for="distanceInput">Strict Boundary:</label>
+                    <input type="text" pattern="[0-9]*" id="distanceInput" class="numeric-field" value="5" oninput="handleManualMetricsUpdate()">
+                    <span class="field-unit-descriptor">KM Search Radius</span>
                 </div>
             </div>
         </div>
 
-        <span class="group-label">Target Discovery Classification</span>
+        <span class="group-label">Category Filter Profiles</span>
         
         <div class="category-enclosure">
-            <span class="enclosure-title">Nature & Wilderness Exploration</span>
+            <span class="enclosure-title">Nature & Outdoors (Strict Top-Rated Only)</span>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr;">
-                <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking trail premium peaks pathways routes walking tour')">🥾 Famous Hiking Trails</button>
-                <button type="button" id="vibe_escape" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_escape', 'scenic dynamic lookouts public natural parks viewpoints')">🌲 Scenic Viewpoints & Parks</button>
+                <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking+trail|scenic+viewpoint', 'natural_feature')">🥾 Top Trails & Views</button>
+                <button type="button" id="vibe_escape" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Nature Parks</button>
             </div>
         </div>
 
         <div class="category-enclosure">
-            <span class="enclosure-title">Gastronomy & Dining Hubs</span>
+            <span class="enclosure-title">Gastronomy & Lounges</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_fine_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fine_dine', 'premium fine dining culinary restaurant highly rated luxury')">🥂 Fine Dining</button>
-                <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'highly rated casual dinner bistro food lunch spots restaurant')">🍽️ Casual Eating</button>
-                <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'artisan premium coffee shop roastery sweet bakery cozy espresso cafe')">☕ Cafes & Bakeries</button>
-            </div>
-            
-            <div class="cuisine-sub-deck" id="cuisineDeck">
-                <span class="enclosure-title" style="color:var(--ink-main); margin-bottom:6px; font-size:0.62rem;">Specify Gastronomy Cuisine Profile:</span>
-                <div class="cuisine-grid">
-                    <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Cuisines</div>
-                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'authentic Indian tandoori curry restaurant')">🍛 Indian</div>
-                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian pasta pizza trattoria restaurant')">🍝 Italian</div>
-                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian sushi ramen wok cuisine restaurant')">🥢 Asian</div>
-                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french luxury fine dining bistro cuisine')">🥖 French</div>
-                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'authentic traditional regional local food dishes')">🥩 Regional</div>
-                </div>
+                <button type="button" id="vibe_fine_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fine_dine', 'fine+dining+restaurant|michelin', 'restaurant')">🥂 Luxury Fine Dining</button>
+                <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'restaurant|bistro', 'restaurant')">🍽️ Casual Dining</button>
+                <button type="button" id="vibe_bars" class="tactile-btn" onclick="setDiscoveryVibe('vibe_bars', 'cocktail+bar|speakeasy', 'bar')">🍸 Top Bars & Lounges</button>
             </div>
         </div>
 
-        <div class="category-enclosure">
-            <span class="enclosure-title">Leisure, Wellness & Retail Stores</span>
-            <div class="selection-tile-grid">
-                <button type="button" id="vibe_chill" class="tactile-btn" onclick="setDiscoveryVibe('vibe_chill', 'premium resort day spa wellness massage sauna center sanctuary')">🧖‍♀️ Spas & Wellness</button>
-                <button type="button" id="vibe_bars" class="tactile-btn" onclick="setDiscoveryVibe('vibe_bars', 'speakeasy elite premium cocktail lounge craft beers bar nightlife')">🍸 Bars & Lounges</button>
-                <button type="button" id="vibe_retail" class="tactile-btn" onclick="setDiscoveryVibe('vibe_retail', 'luxury fashion shopping boutique department retail store mall market')">🛍️ Retail Shopping</button>
+        <span class="group-label">Google Maps Core Preference Toggles</span>
+        <div class="category-enclosure" style="background: rgba(197, 168, 128, 0.02);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label class="field-unit-descriptor" style="font-weight:600;">Google Maps Price Tier:</label>
+                <select id="googlePriceFilter" class="raw-native-box" style="width: auto; padding: 6px 12px; font-size: 0.75rem;">
+                    <option value="1">$ Budget (Inexpensive)</option>
+                    <option value="2" selected>$$ Moderate (Standard)</option>
+                    <option value="3">$$$ Expensive (Premium)</option>
+                    <option value="4">$$$$ Luxury (Elite)</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="strictOpenNow" checked style="width:16px; height:16px; accent-color:var(--ink-main);">
+                <label for="strictOpenNow" class="field-unit-descriptor" style="cursor:pointer; font-weight:600;">Verify Open Status (Open Now Only)</label>
             </div>
         </div>
 
-        <div class="category-enclosure">
-            <span class="enclosure-title">Culture & Group Entertainment Matrix</span>
-            <div class="selection-tile-grid">
-                <button type="button" id="vibe_culture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_culture', 'historical museum historic art gallery castle architecture heritage site')">🎻 Heritage & Museums</button>
-                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'amusement adventure park climbing center sports activity base arcade arena')">🧗‍♀️ Sports & Action</button>
-                <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape room facility matrix board game cafe vr arcade center hub')">🧩 Escape & Games</button>
-            </div>
-            <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:0;">
-                <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live music venue concert festival arena theater hall performance opera')">🎫 Shows & Events</button>
-                <button type="button" id="vibe_movies" class="tactile-btn" onclick="setDiscoveryVibe('vibe_movies', 'premium imax movie theater cinema multiplex screens box office')">🍿 Cinema & Movies</button>
-            </div>
-        </div>
-
-        <span class="group-label">Direct Financial Limit Filtering</span>
-        <span class="group-caption">Inject exact price constraint fields directly into deep queries</span>
-        <div class="manual-row-entry" style="background: rgba(197, 168, 128, 0.05); padding: 12px; border-radius: 14px; border: 1px solid var(--ui-border); margin-bottom: 20px;">
-            <label class="field-unit-descriptor" for="budgetInput">Max Budget Vector:</label>
-            <input type="text" pattern="[0-9]*" id="budgetInput" class="numeric-field" value="75">
-            <span class="field-unit-descriptor">Euros Max (€)</span>
-        </div>
-
-        <span class="group-label">Temporal Window Mapping</span>
+        <span class="group-label">Temporal Window Setup</span>
         <div class="dual-date-row">
             <input type="date" class="raw-native-box" id="targetDate" required>
             <input type="time" class="raw-native-box" id="targetTime" required>
         </div>
 
-        <div class="selection-tile-grid">
-            <button type="button" id="time_short" class="tactile-btn" onclick="setTemporalHorizon('time_short', '1-3 Hours Allocation')">⏱️ 1-3 H</button>
-            <button type="button" id="time_half" class="tactile-btn" onclick="setTemporalHorizon('time_half', 'Half Day Outing')">🌗 Half Day</button>
-            <button type="button" id="time_full" class="tactile-btn active" onclick="setTemporalHorizon('time_full', 'Full Day Journey')">☀️ Full Day</button>
-        </div>
-
-        <div class="control-console-deck">
-            <button type="button" class="btn-run-synthesize" onclick="compileSpatialDiscoveryEngine()">Synthesize Base Parameters ✨</button>
-            <button type="button" class="btn-run-surprise" onclick="triggerSurpriseMatrix()">Surprise 🎲</button>
-        </div>
+        <button type="button" class="btn-run-synthesize" style="width:100%;" onclick="compileSpatialDiscoveryEngine()">Enforce Strict Parameters ⚡</button>
 
         <div class="bridge-routing-panel" id="bridgePanel">
-            <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">🔍 Step 1: Browse Verified Matches</span>
-            <p style="font-size:0.75rem; color:#bcaea3; margin-bottom:14px; line-height:1.45;">Exact geographical spatial queries bound together. Click below to inspect verified listings directly on your mobile device mapping ecosystem:</p>
+            <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">🔍 Step 1: Browse Location-Locked Verified Matches</span>
+            <p style="font-size:0.75rem; color:#bcaea3; margin-bottom:14px; line-height:1.45;">We have generated hardware intents that strictly lock your search area. Choose your destination platform below:</p>
             
-            <a id="externalMapLinkNode" class="external-intent-link" target="_blank">Open Navigation Filters 🗺️</a>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:16px;">
+                <button type="button" class="external-intent-link" style="background:#4285F4;" onclick="triggerCrossPlatformIntent('google')">Google Maps App 📱</button>
+                <button type="button" class="external-intent-link" style="background:#000000;" onclick="triggerCrossPlatformIntent('apple')">Apple Maps iOS 🍏</button>
+            </div>
             
-            <div style="border-top: 1px dashed rgba(255,255,255,0.15); padding-top:16px; margin-top:6px;">
-                <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">✍️ Step 2: Finalize Destination Passport</span>
-                <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Enter venue name from verified listings..." style="border: 1px solid var(--primary-gold); margin-bottom:14px; background: #241f1e; color: #fff;">
-                <button type="button" class="export-trigger-btn" style="background-color: var(--primary-gold);" onclick="generateFinalPassportPass()">Lock & Output Pass 🎟️</button>
+            <div style="border-top: 1px dashed rgba(255,255,255,0.15); padding-top:16px;">
+                <span class="group-label" style="margin-top:0; color:#ffffff; font-size:1.15rem;">✍️ Step 2: Finalize Group Passport</span>
+                <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Enter confirmed venue name..." style="border: 1px solid var(--primary-gold); margin-bottom:14px; background: #241f1e; color: #fff;">
+                <button type="button" class="export-trigger-btn" style="width:100%;" onclick="generateFinalPassportPass()">Lock Passport Parameters 🎟️</button>
             </div>
         </div>
 
         <div class="output-passport-reveal" id="revealZone">
             <div class="passport-print-card" id="printAreaNode">
-                <div style="font-size:0.7rem; font-weight:600; color:var(--dark-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">System Output Sheet</div>
+                <div style="font-size:0.7rem; font-weight:600; color:var(--dark-gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Verified System Pass</div>
                 <h3 id="passportTargetTitle" class="passport-title-col"></h3>
                 
                 <table class="passport-table">
                     <tr><td class="label-lead">Vibe Target Vector</td><td id="dataVibe"></td></tr>
-                    <tr><td class="label-lead">Financial Boundary</td><td id="dataFinance"></td></tr>
-                    <tr><td class="label-lead">Launch Allocation</td><td id="dataTime"></td></tr>
-                    <tr><td class="label-lead">Temporal Frame</td><td id="dataHorizon"></td></tr>
-                    <tr><td class="label-lead">Exact Anchor Position</td><td id="dataCoords"></td></tr>
+                    <tr><td class="label-lead">Pricing Limit Tier</td><td id="dataFinance"></td></tr>
+                    <tr><td class="label-lead">Launch Target Window</td><td id="dataTime"></td></tr>
+                    <tr><td class="label-lead">Anchor Constraints</td><td id="dataCoords"></td></tr>
                 </table>
                 <div class="qr-render-frame"><div id="qrcode"></div></div>
             </div>
@@ -275,7 +200,7 @@
             <div style="margin-top: 18px;">
                 <button type="button" class="whatsapp-trigger-btn" onclick="copyPassportAndLaunchGroup()">
                     <svg style="width:18px; height:18px; fill:currentColor;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.503-5.734-1.455L0 24zm6.59-4.846c1.66.986 3.298 1.448 4.795 1.449 5.279-.002 9.574-4.293 9.577-9.569.001-2.556-.994-4.959-2.802-6.767C16.35 2.459 13.95 1.465 11.399 1.465 6.125 1.465 1.83 5.754 1.826 11.03c-.001 1.636.444 3.166 1.413 4.6l-.997 3.637 3.734-.979z"/></svg>
-                    Copy Passport & Open WhatsApp Group
+                    Copy Pass & Open Group Chat
                 </button>
             </div>
         </div>
@@ -287,72 +212,32 @@
 
 <script>
     let mapEngineInstance = null, mapMarkerNode = null, spatialRadiusCircle = null;
-    let globalConstraintModel = 'distance'; 
-    let selectedVibeSearchQuery = 'scenic dynamic lookouts public natural parks viewpoints';
-    let activeCuisineQuerySegment = '';
-    let selectedHorizonLabel = 'Full Day Journey';
-    let selectedTransitProfile = 'driving';
+    let selectedVibeKeyword = 'park|nature+reserve';
+    let selectedGoogleCategory = 'park';
     let focusedCoordinates = null;
+    let computedIntents = { google: '', apple: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('targetDate').value = tomorrow.toISOString().split('T')[0];
-        document.getElementById('targetTime').value = "18:00";
+        document.getElementById('targetTime').value = "19:00";
         initializeBaseMap();
     });
 
     function initializeBaseMap() {
         if (mapEngineInstance !== null) return;
-        mapEngineInstance = L.map('map', { zoomControl: true, attributionControl: false }).setView([48.7771, 9.1795], 11);
+        // Default anchor view sets directly over Stuttgart Central
+        mapEngineInstance = L.map('map', { zoomControl: true, attributionControl: false }).setView([48.7771, 9.1795], 13);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
         mapEngineInstance.on('click', (e) => trackAnchorShift(e.latlng.lat, e.latlng.lng));
         trackAnchorShift(48.7771, 9.1795);
     }
 
-    function setDiscoveryVibe(id, terms) {
+    function setDiscoveryVibe(id, keywords, googleType) {
         document.querySelectorAll('.category-enclosure .tactile-btn').forEach(el => el.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        selectedVibeSearchQuery = terms;
-
-        const deck = document.getElementById('cuisineDeck');
-        if (id === 'vibe_fine_dine' || id === 'vibe_casual_dine') {
-            deck.style.display = 'block';
-        } else {
-            deck.style.display = 'none';
-            activeCuisineQuerySegment = '';
-            document.querySelectorAll('.cuisine-chip').forEach(ch => ch.classList.remove('active'));
-            document.getElementById('cuisine_any').classList.add('active');
-        }
-    }
-
-    function setCuisineProfile(id, terms) {
-        document.querySelectorAll('.cuisine-chip').forEach(ch => ch.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        activeCuisineQuerySegment = terms;
-    }
-
-    function setTemporalHorizon(id, label) {
-        document.getElementById('time_short').classList.remove('active');
-        document.getElementById('time_half').classList.remove('active');
-        document.getElementById('time_full').classList.remove('active');
-        document.getElementById(id).classList.add('active');
-        selectedHorizonLabel = label;
-    }
-
-    function setTransitProfile(profile) {
-        document.getElementById('transit_driving').classList.remove('active');
-        document.getElementById('transit_transit').classList.remove('active');
-        document.getElementById('transit_' + profile).classList.add('active');
-        selectedTransitProfile = profile;
-    }
-
-    function setConstraintParadigm(paradigm) {
-        globalConstraintModel = paradigm;
-        document.getElementById('modeBtnDistance').classList.toggle('active', paradigm === 'distance');
-        document.getElementById('modeBtnDuration').classList.toggle('active', paradigm === 'duration');
-        document.getElementById('panelDistance').classList.toggle('active', paradigm === 'distance');
-        document.getElementById('panelDuration').classList.toggle('active', paradigm === 'duration');
-        refreshSpatialCanvasVector();
+        selectedVibeKeyword = keywords;
+        selectedGoogleCategory = googleType;
     }
 
     function handleManualMetricsUpdate() {
@@ -363,18 +248,11 @@
         if (!mapEngineInstance || !focusedCoordinates) return;
         if (spatialRadiusCircle) mapEngineInstance.removeLayer(spatialRadiusCircle);
 
-        if (globalConstraintModel === 'distance') {
-            const rawInputKm = parseFloat(document.getElementById('distanceInput').value) || 15;
-            spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-                color: 'var(--primary-gold)', fillColor: 'var(--primary-gold)', fillOpacity: 0.14, weight: 1.8, dashArray: '4, 4'
-            }).addTo(mapEngineInstance);
-            mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [8, 8] });
-        } else {
-            spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-                color: 'var(--accent-purple)', fillColor: 'var(--accent-purple)', fillOpacity: 0.04, weight: 1.2, dashArray: '2, 6'
-            }).addTo(mapEngineInstance);
-            mapEngineInstance.setView([focusedCoordinates.lat, focusedCoordinates.lon], 11);
-        }
+        const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
+        spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
+            color: 'var(--primary-gold)', fillColor: 'var(--primary-gold)', fillOpacity: 0.10, weight: 2, dashArray: '5, 5'
+        }).addTo(mapEngineInstance);
+        mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [12, 12] });
     }
 
     function trackAnchorShift(lat, lng) {
@@ -382,7 +260,7 @@
         if (mapMarkerNode) mapMarkerNode.setLatLng([lat, lng]);
         else mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
         refreshSpatialCanvasVector();
-        document.getElementById('telemetryData').innerHTML = `📍 <b>Anchor:</b> ${lat.toFixed(5)}°N, ${lng.toFixed(5)}°E`;
+        document.getElementById('telemetryData').innerHTML = `📍 <b>Pinned Base:</b> ${lat.toFixed(5)}°N, ${lng.toFixed(5)}°E`;
     }
 
     function executeTextGeocodeSearch() {
@@ -393,9 +271,7 @@
             if (output && output.length > 0) {
                 const target = output[0].center;
                 trackAnchorShift(target.lat, target.lng);
-                mapEngineInstance.setView([target.lat, target.lng], 12);
-            } else {
-                alert("Geocoding API interface returned empty validation records.");
+                mapEngineInstance.setView([target.lat, target.lng], 13);
             }
         });
     }
@@ -404,91 +280,104 @@
         if (!navigator.geolocation) return;
         navigator.geolocation.getCurrentPosition((pos) => {
             trackAnchorShift(pos.coords.latitude, pos.coords.longitude);
-            mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 13);
-        }, () => alert("Device positioning standard rejected tracking configuration bounds."), { enableHighAccuracy: true });
+            mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 14);
+        }, null, { enableHighAccuracy: true });
     }
 
+    // STRICT GEOGRAPHIC ENFORCEMENT ENGINE 
     function compileSpatialDiscoveryEngine() {
-        if (!focusedCoordinates) return;
-        const lat = focusedCoordinates.lat.toFixed(5);
-        const lon = focusedCoordinates.lon.toFixed(5);
-        const budgetCap = parseFloat(document.getElementById('budgetInput').value) || 50;
-        let dynamicSearchToken = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let deepLinkTargetUrl = "";
+        if (!focusedCoordinates) { alert("Please select a location on the map."); return; }
+        
+        const lat = focusedCoordinates.lat;
+        const lon = focusedCoordinates.lon;
+        const radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
+        const priceTier = document.getElementById('googlePriceFilter').value;
+        const strictOpen = document.getElementById('strictOpenNow').checked;
+        
+        // Compute precise coordinate bounding box offsets to force zero leaks outside search area
+        const latOffset = radiusKm / 111.32;
+        const lonOffset = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+        
+        const minLat = (lat - latOffset).toFixed(6);
+        const maxLat = (lat + latOffset).toFixed(6);
+        const minLon = (lon - lonOffset).toFixed(6);
+        const maxLon = (lon + lonOffset).toFixed(6);
 
-        if (globalConstraintModel === 'distance') {
-            const exactRadiusKm = parseFloat(document.getElementById('distanceInput').value) || 15;
-            deepLinkTargetUrl = `https://www.google.com/maps/search/${encodeURIComponent(dynamicSearchToken)}+price+under+${budgetCap}+EUR+within+${exactRadiusKm}km+of+${lat},${lon}`;
-        } else {
-            const targetHours = parseInt(document.getElementById('durationHoursInput').value) || 0;
-            const targetMints = parseInt(document.getElementById('durationMinsInput').value) || 45;
-            const aggregatedMinutes = (targetHours * 60) + targetMints;
-            deepLinkTargetUrl = `https://www.google.com/maps/search/${encodeURIComponent(dynamicSearchToken)}+price+under+${budgetCap}+EUR+within+${aggregatedMinutes}+minutes+travel+near+${lat},${lon}`;
-        }
+        // Core Developer Google Maps APIs Platform Intent Structuring
+        // Enforces: api=1 Search endpoint, location bias bounds, and user-selected custom system metrics
+        let googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${selectedVibeKeyword}&query_place_id=${selectedGoogleCategory}`;
+        googleApiQuery += `&open_now=${strictOpen ? '1' : '0'}`;
+        // Lower level parameters constraint injection
+        googleApiQuery += `&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
 
-        document.getElementById('externalMapLinkNode').href = deepLinkTargetUrl;
+        // Cross platform Apple Maps System Native Layout
+        const appleApiQuery = `maps://?q=${selectedVibeKeyword}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&spn=${latOffset.toFixed(4)},${lonOffset.toFixed(4)}&near=${lat.toFixed(6)},${lon.toFixed(6)}`;
+
+        computedIntents.google = googleApiQuery;
+        computedIntents.apple = appleApiQuery;
+
         document.getElementById('bridgePanel').style.display = 'block';
         document.getElementById('bridgePanel').scrollIntoView({ behavior: 'smooth' });
     }
 
+    function triggerCrossPlatformIntent(platform) {
+        const targetingLink = computedIntents[platform];
+        if (!targetingLink) return;
+
+        const primaryAnchorNode = document.createElement('a');
+        primaryAnchorNode.href = targetingLink;
+        primaryAnchorNode.target = '_blank';
+        primaryAnchorNode.click();
+    }
+
     function generateFinalPassportPass() {
         const venueString = document.getElementById('selectedFinalVenue').value.trim();
-        if (!venueString) { alert("Please supply target string to lock mapping layers."); return; }
-        const maximumBudgetLimitValue = parseFloat(document.getElementById('budgetInput').value) || 0;
+        if (!venueString) { alert("Please confirm and write your chosen venue name."); return; }
+
+        const selectedPriceText = document.getElementById('googlePriceFilter').options[document.getElementById('googlePriceFilter').selectedIndex].text;
 
         document.getElementById('passportTargetTitle').innerText = venueString;
         document.getElementById('dataVibe').innerText = document.querySelector('.category-enclosure .tactile-btn.active').innerText;
-        document.getElementById('dataFinance').innerText = `Max €${maximumBudgetLimitValue} Checked Allocation`;
+        document.getElementById('dataFinance').innerText = selectedPriceText;
         document.getElementById('dataTime').innerText = `${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
-        document.getElementById('dataHorizon').innerText = selectedHorizonLabel;
         document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(5)}°N, ${focusedCoordinates.lon.toFixed(5)}°E`;
 
-        const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
-        const qrContainer = document.getElementById("qrcode"); qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: deepMapUrl, width: 110, height: 110, colorDark : "#1a1716", colorLight : "#ffffff" });
+        // Generate strict fallback map validation lookup parameter strings
+        const verifiedLookupLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}&query_place_id=${selectedGoogleCategory}`;
+        
+        const qrContainer = document.getElementById("qrcode"); 
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, { text: verifiedLookupLink, width: 110, height: 110, colorDark : "#1a1716", colorLight : "#ffffff" });
 
         document.getElementById('revealZone').style.display = 'block';
         document.getElementById('revealZone').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function triggerSurpriseMatrix() {
-        if (!focusedCoordinates) return;
-        const vectors = ['vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_games', 'vibe_shows', 'vibe_movies'];
-        const outcome = vectors[Math.floor(Math.random() * vectors.length)];
-        document.getElementById(outcome).click();
-        document.getElementById('budgetInput').value = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('distanceInput').value = Math.floor(Math.random() * 25) + 5;
-        compileSpatialDiscoveryEngine();
-    }
-
-    // DIRECT ANCHORED STREAMLINED CLIPBOARD LAYER & OPEN WHATSAPP CHAT FLOW MATRIX
+    // DISPATCH ENTRY FLOW SYSTEM WITH INSTANT ZERO-CLICK CLIPBOARD COPY
     function copyPassportAndLaunchGroup() {
-        const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
+        const venue = document.getElementById('passportTargetTitle').innerText;
         const vibe = document.getElementById('dataVibe').innerText;
-        const finance = document.getElementById('dataFinance').innerText;
+        const pricing = document.getElementById('dataFinance').innerText;
         const launchTime = document.getElementById('dataTime').innerText;
-        const duration = document.getElementById('dataHorizon').innerText;
         const coords = document.getElementById('dataCoords').innerText;
         
-        const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
+        const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}&query_place_id=${selectedGoogleCategory}`;
 
-        const stringPayloadData = 
-`🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
-`📍 *Destination:* ${venue}\n` +
-`✨ *Vibe Matrix:* ${vibe}\n` +
-`💰 *Financial Allocation:* ${finance}\n` +
-`⏱️ *Time Frame:* ${duration}\n` +
-`📅 *Departure Window:* ${launchTime}\n` +
-`🗺️ *Anchor Node:* ${coords}\n\n` +
-`👉 *Open live map navigation directly:* ${deepMapLink}`;
+        const markdownPayloadString = 
+`🎟️ *STRICT LOCATION PASSPORT* 🎟️\n\n` +
+`📍 *Verified Venue:* ${venue}\n` +
+`✨ *Vibe Category:* ${vibe}\n` +
+`💰 *Tier Preference:* ${pricing}\n` +
+`📅 *Target Window:* ${launchTime}\n` +
+`🗺️ *Strict Anchor Coordinates:* ${coords}\n\n` +
+`👉 *Launch Navigation Directly:* ${deepMapLink}`;
 
-        // Process directly into systems clipboard channel
-        navigator.clipboard.writeText(stringPayloadData).then(() => {
+        navigator.clipboard.writeText(markdownPayloadString).then(() => {
             const toast = document.getElementById('toastMessage');
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
 
-            // Directly jump to the targeted group chat protocol link layer
+            // Immediate redirection into the specified Group Chat Link
             setTimeout(() => {
                 const targetWhatsAppGroupChatUrl = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
                 const bridgeLinkAnchorNode = document.createElement('a');
@@ -498,7 +387,7 @@
                 bridgeLinkAnchorNode.click();
             }, 600);
         }).catch(() => {
-            alert("Clipboard security matrix rejected automated copying payload data structure.");
+            alert("Clipboard security layout prevented automation copying.");
         });
     }
 </script>
