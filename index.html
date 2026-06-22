@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,500;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,500;1,400&family=Montserrat:wght=400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -226,15 +226,9 @@
             </div>
             
             <div class="cuisine-sub-deck" id="cuisineDeck">
-                <span class="enclosure-title" style="color:var(--ink-main); margin-bottom:4px; font-size:0.62rem;">Gastronomy Profile Selection</span>
-                <div class="cuisine-grid">
-                    <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
-                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian+restaurant|tandoori|curry')">🍛 Indian</div>
-                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian+restaurant|pasta|trattoria')">🍝 Italian</div>
-                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian+restaurant|sushi|ramen')">🥢 Asian</div>
-                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french+restaurant|bistro')">🥖 French</div>
-                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional+traditional+restaurant')">🥩 Regional</div>
-                </div>
+                <span class="enclosure-title" id="subDeckTitle" style="color:var(--ink-main); margin-bottom:4px; font-size:0.62rem;">Gastronomy Profile Selection</span>
+                <div class="cuisine-grid" id="subDeckGrid">
+                    </div>
             </div>
         </div>
 
@@ -313,6 +307,7 @@
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
+    let selectedHorizonQueryModifier = ''; // Handles smart filtering injection for time lengths
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
     let focusedCoordinates = null;
@@ -364,13 +359,37 @@
         selectedGoogleCategory = googleType;
 
         const deck = document.getElementById('cuisineDeck');
+        const title = document.getElementById('subDeckTitle');
+        const grid = document.getElementById('subDeckGrid');
+        
+        grid.innerHTML = ''; 
+        activeCuisineQuerySegment = '';
+
         if (id === 'vibe_fine_dine' || id === 'vibe_casual_dine') {
             deck.style.display = 'block';
+            title.innerText = "Gastronomy Profile Selection";
+            grid.innerHTML = `
+                <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
+                <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian+restaurant|tandoori|curry')">🍛 Indian</div>
+                <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian+restaurant|pasta|trattoria')">🍝 Italian</div>
+                <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian+restaurant|sushi|ramen')">🥢 Asian</div>
+                <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french+restaurant|bistro')">🥖 French</div>
+                <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional+traditional+restaurant')">🥩 Regional</div>
+            `;
+        } else if (id === 'vibe_cafes') {
+            deck.style.display = 'block';
+            title.innerText = "Cafe Specialty Focus Selection";
+            grid.innerHTML = `
+                <div id="cafe_any" class="cuisine-chip active" onclick="setCuisineProfile('cafe_any', '')">All Treats</div>
+                <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery+pastries|croissant|patisserie')">🥐 Pastries</div>
+                <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles+crepes|dessert+shop')">🧇 Waffles</div>
+                <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble+tea|boba+cafe')">🧋 Bubble Tea</div>
+                <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie+bar|juice+bar|healthy+cafe')">🥤 Smoothies</div>
+                <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato+shop|italian+ice+cream')">🍧 Gelato</div>
+                <div id="cafe_icecream" class="cuisine-chip" onclick="setCuisineProfile('cafe_icecream', 'ice+cream+parlor|dessert')">🍦 Ice Creams</div>
+            `;
         } else {
             deck.style.display = 'none';
-            activeCuisineQuerySegment = '';
-            document.querySelectorAll('.cuisine-chip').forEach(ch => ch.classList.remove('active'));
-            document.getElementById('cuisine_any').classList.add('active');
         }
     }
 
@@ -384,6 +403,15 @@
         document.querySelectorAll('.horizon-chip').forEach(ch => ch.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         selectedHorizonLabel = label;
+
+        // Smart Query Mapping depending on user duration constraint choice
+        if (id === 'time_short') {
+            selectedHorizonQueryModifier = "quick+service|takeaway|express";
+        } else if (id === 'time_half') {
+            selectedHorizonQueryModifier = "experience|leisure";
+        } else {
+            selectedHorizonQueryModifier = "premium+journey|destination";
+        }
     }
 
     function handleManualMetricsUpdate() {
@@ -419,7 +447,6 @@
         else mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
         
         refreshSpatialCanvasVector();
-        document.getElementById('telemetryData');
     }
 
     function executeTextGeocodeSearch() {
@@ -476,17 +503,21 @@
         const minLon = (lon - lonOffset).toFixed(6);
         const maxLon = (lon + lonOffset).toFixed(6);
 
-        let activeTargetQueryToken = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
+        // Core compilation strategy using smart horizon filters + explicit top ratings logic triggers
+        let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
+        let combinedSearchString = `${baseTerms}+${selectedHorizonQueryModifier}+top+rated+highly+recommended`;
 
-        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${activeTargetQueryToken}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
-        const appleApiQuery = `maps://?q=${activeTargetQueryToken}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&spn=${latOffset.toFixed(4)},${lonOffset.toFixed(4)}&saddr=${lat.toFixed(6)},${lon.toFixed(6)}`;
+        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${combinedSearchString}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
+        
+        // Cleaned up syntax for seamless Apple Maps native redirection targeting mobile Safari & iOS app hooks
+        const appleApiQuery = `https://maps.apple.com/?q=${combinedSearchString}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
 
         const badge = document.getElementById('auditBadge');
         badge.className = "audit-compliance-badge";
-        badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription} Maximum Budget Tier: Tier ${priceTier}. Outlying anomalies hidden.`;
+        badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription} Maximum Budget Tier: Tier ${priceTier}. Filtered for Highly Rated options.`;
         badge.style.display = "block";
 
         document.getElementById('bridgePanel').style.display = 'block';
@@ -537,6 +568,10 @@
         
         document.getElementById('googlePriceFilter').value = Math.floor(Math.random() * 3) + 1;
         
+        const horizons = ['time_short', 'time_half', 'time_full'];
+        const selectedHor = horizons[Math.floor(Math.random() * horizons.length)];
+        document.getElementById(selectedHor).click();
+
         if (Math.random() > 0.5) {
             switchRoutingScenario('radius');
             document.getElementById('distanceInput').value = Math.floor(Math.random() * 6) + 2;
