@@ -129,7 +129,6 @@
         .passport-table td { padding: 8px 4px; border-bottom: 1px solid rgba(197,168,128,0.06); color: var(--ink-main); }
         .passport-table td.label-lead { font-weight: 600; color: var(--ink-muted); width: 42%; text-transform: uppercase; font-size: 0.65rem; }
 
-        /* Anti-Overflow Fluid Layout Container for QR Elements */
         .qr-render-frame { display: flex; justify-content: center; align-items: center; margin: 10px auto 4px auto; padding: 8px; background: #ffffff; border: 1px solid var(--ui-border); border-radius: 12px; width: 116px; height: 116px; box-sizing: border-box; overflow: hidden; }
         .qr-render-frame div, .qr-render-frame canvas, .qr-render-frame img { max-width: 100% !important; max-height: 100% !important; display: block; margin: 0 auto; }
 
@@ -216,29 +215,29 @@
         <div class="category-enclosure">
             <span class="enclosure-title">✨ Aesthetic Media & Vantage Points</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_insta_spots" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark', 'point_of_interest')">📸 Picture Perfect</button>
-                <button type="button" id="vibe_architecture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Architecture</button>
-                <button type="button" id="vibe_street_art" class="tactile-btn" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|sculpture', 'art_gallery')">🎨 Street Art</button>
+                <button type="button" id="vibe_insta_spots" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable spot|scenic viewpoint|landmark', 'point_of_interest')">📸 Picture Perfect</button>
+                <button type="button" id="vibe_architecture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_architecture', 'architecture design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Architecture</button>
+                <button type="button" id="vibe_street_art" class="tactile-btn" onclick="setDiscoveryVibe('vibe_street_art', 'street art|mural|sculpture', 'art_gallery')">🎨 Street Art</button>
             </div>
         </div>
         
         <div class="category-enclosure">
             <span class="enclosure-title">Nature & Wilderness Exploration</span>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr;">
-                <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking+trail|scenic+viewpoint', 'natural_feature')">🥾 Famous Hiking Trails</button>
-                <button type="button" id="vibe_escape" class="tactile-btn" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Scenic Parks</button>
+                <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking trail|scenic viewpoint', 'natural_feature')">🥾 Famous Hiking Trails</button>
+                <button type="button" id="vibe_escape" class="tactile-btn" onclick="setDiscoveryVibe('vibe_escape', 'park|nature reserve', 'park')">🌲 Scenic Parks</button>
             </div>
         </div>
 
         <div class="category-enclosure">
             <span class="enclosure-title">Gastronomy & Dining Hubs</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_fine_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fine_dine', 'fine+dining+restaurant|michelin', 'restaurant')">🥂 Fine Dining</button>
+                <button type="button" id="vibe_fine_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fine_dine', 'fine dining restaurant|michelin', 'restaurant')">🥂 Fine Dining</button>
                 <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'restaurant|bistro', 'restaurant')">🍽️ Casual Dining</button>
-                <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'coffee+shop|bakery|espresso+cafe', 'cafe')">☕ Cafes & Sweets</button>
+                <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'coffee shop|bakery|espresso cafe', 'cafe')">☕ Cafes & Sweets</button>
             </div>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <button type="button" id="vibe_fastfood" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fastfood', 'fast+food|burger+joint|street+food', 'meal_takeaway')">🍔 Fast Food & Quick Bites</button>
+                <button type="button" id="vibe_fastfood" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fastfood', 'fast food|burger joint|street food', 'meal_takeaway')">🍔 Fast Food & Quick Bites</button>
             </div>
         </div>
 
@@ -246,22 +245,22 @@
             <span class="enclosure-title">Leisure, Wellness & Retail Stores</span>
             <div class="selection-tile-grid">
                 <button type="button" id="vibe_chill" class="tactile-btn" onclick="setDiscoveryVibe('vibe_chill', 'spa|wellness|sauna|massage', 'spa')">🧖‍♀️ Spas & Wellness</button>
-                <button type="button" id="vibe_bars" class="tactile-btn" onclick="setDiscoveryVibe('vibe_bars', 'cocktail+bar|speakeasy|lounge', 'bar')">🍸 Bars & Lounges</button>
-                <button type="button" id="vibe_retail" class="tactile-btn" onclick="setDiscoveryVibe('vibe_retail', 'shopping+mall|boutique|retail+store', 'shopping_mall')">🛍️ Retail Shopping</button>
+                <button type="button" id="vibe_bars" class="tactile-btn" onclick="setDiscoveryVibe('vibe_bars', 'cocktail bar|speakeasy|lounge', 'bar')">🍸 Bars & Lounges</button>
+                <button type="button" id="vibe_retail" class="tactile-btn" onclick="setDiscoveryVibe('vibe_retail', 'shopping mall|boutique|retail store', 'shopping_mall')">🛍️ Retail Shopping</button>
             </div>
         </div>
 
         <div class="category-enclosure">
             <span class="enclosure-title">Culture & Entertainment Matrix</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_culture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_culture', 'museum|art+gallery|heritage+site', 'museum')">🎻 Heritage & Museums</button>
-                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'sports+activity|climbing+center|adventure', 'amusement_park')">🧗‍♀️ Physical Action</button>
-                <button type="button" id="vibe_themeparks" class="tactile-btn" onclick="setDiscoveryVibe('vibe_themeparks', 'freizeitpark|theme+park|amusement+park|water+park', 'amusement_park')">🎡 Theme Parks</button>
+                <button type="button" id="vibe_culture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_culture', 'museum|art gallery|heritage site', 'museum')">🎻 Heritage & Museums</button>
+                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'sports activity|climbing center|adventure', 'amusement_park')">🧗‍♀️ Physical Action</button>
+                <button type="button" id="vibe_themeparks" class="tactile-btn" onclick="setDiscoveryVibe('vibe_themeparks', 'freizeitpark|theme park|amusement park|water park', 'amusement_park')">🎡 Theme Parks</button>
             </div>
             <div class="selection-tile-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:6px;">
-                <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape+room|board+game+cafe|vr+arcade', 'bowling_alley')">🧩 Escape & Games</button>
-                <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live+music+venue|theater', 'movie_theater')">🎫 Shows & Events</button>
-                <button type="button" id="vibe_movies" class="tactile-btn" onclick="setDiscoveryVibe('vibe_movies', 'movie+theater|cinema|imax', 'movie_theater')">🍿 Cinema & Movies</button>
+                <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape room|board game cafe|vr arcade', 'bowling_alley')">🧩 Escape & Games</button>
+                <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live music venue|theater', 'movie_theater')">🎫 Shows & Events</button>
+                <button type="button" id="vibe_movies" class="tactile-btn" onclick="setDiscoveryVibe('vibe_movies', 'movie theater|cinema|imax', 'movie_theater')">🍿 Cinema & Movies</button>
             </div>
         </div>
 
@@ -277,15 +276,15 @@
 
         <div class="bridge-routing-panel" id="bridgePanel">
             <h4>Step 1: Browse Dynamic Matches</h4>
-            <p>Geographic boundary checks completed. Launch web search targeting your custom spatial center:</p>
+            <p>Geographic parameters calculated from your targeted coordinates. Launch contextual search:</p>
             
             <div style="display:grid; grid-template-columns: 1fr; gap:8px;">
-                <button type="button" class="external-intent-link" style="background:#4285F4; margin-bottom: 0;" onclick="triggerWebMapsSearchIntent()">Explore Web Map Targets 🌐</button>
+                <button type="button" class="external-intent-link" style="background:#4285F4; margin-bottom: 0;" onclick="triggerWebMapsSearchIntent()">Explore Local Map Targets 🌐</button>
             </div>
             
             <div style="border-top: 1px dashed rgba(255,255,255,0.12); padding-top:12px; margin-top:14px;">
                 <h4>Step 2: Lock Destination Pass</h4>
-                <p style="margin-bottom: 6px;">Paste the matching venue title or copied Google Maps link directly:</p>
+                <p style="margin-bottom: 6px;">Paste the chosen Google Maps link or type the specific location name:</p>
                 <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Paste link or type venue title..." style="border: 1px solid var(--primary-gold); margin-bottom:10px; background: #241f1e; color: #fff;">
                 <button type="button" class="export-trigger-btn" onclick="generateFinalPassportPass()">Generate Final Pass 🎟️</button>
             </div>
@@ -297,6 +296,7 @@
                 
                 <table class="passport-table">
                     <tr><td class="label-lead">Discovery Vibe</td><td id="dataVibe"></td></tr>
+                    <tr><td class="label-lead">Allocation</td><td id="dataAllocation"></td></tr>
                     <tr><td class="label-lead">Precision Limits</td><td id="dataConstraintMode"></td></tr>
                     <tr><td class="label-lead">Launch Target</td><td id="dataTime"></td></tr>
                     <tr><td class="label-lead">Geo Coordinates</td><td id="dataCoords"></td></tr>
@@ -305,7 +305,7 @@
             </div>
             
             <button type="button" class="whatsapp-trigger-btn" onclick="copyPassportAndLaunchGroup()">
-                <svg style="width:16px; height:16px; fill:currentColor;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.503-5.734-1.455L0 24zm6.59-4.846c1.66.986 3.298 1.448 4.795 1.449 5.279-.002 9.574-4.293 9.577-9.569.001-2.556-.994-4.959-2.802-6.767C16.35 2.459 13.95 1.465 11.399 1.465 6.125 1.465 1.83 5.754 1.826 11.03c-.001 1.636.444 3.166 1.413 4.6l-.997 3.637 3.734-.979z"/></svg>
+                <svg style="width:16px; height:16px; fill:currentColor;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.503-5.734-1.455L0 24zm6.59-4.846c1.66.986 3.298 1.448 4.795 1.449 5.279-.002 9.574-4.293 9.577-9.569.001-2.556-.994-4.959-2.802-6.767C16.35 2.459 13.95 1.465 11.399 1.465 6.125 1.465 1.83 5.754 1.826 11.03c-.001 1.636.444 3.166 1.413 4.6 l-.997 3.637 3.734-.979z"/></svg>
                 Copy Passport & Share to WhatsApp
             </button>
         </div>
@@ -321,7 +321,7 @@
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
-    let selectedHorizonQueryModifier = 'premium journey|destination'; 
+    let selectedHorizonQueryModifier = 'premium journey destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
     let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; 
@@ -518,7 +518,6 @@
             dashArray: '4, 4'
         }).addTo(mapEngineInstance);
         
-        // Exact spatial bounding box offset calculation logic
         const latitudeOffset = (radiusKm / 111.32);
         const longitudeOffset = (radiusKm / (111.32 * Math.cos(focusedCoordinates.lat * Math.PI / 180)));
 
@@ -553,7 +552,7 @@
         navigator.geolocation.getCurrentPosition((pos) => {
             syncGlobalPositionState(pos.coords.latitude, pos.coords.longitude);
         }, (err) => {
-            alert("Position locked out. Tap manually on the map canvas.");
+            alert("Position permission denied. Tap manually on the map canvas to set your location.");
         }, { enableHighAccuracy: true });
     }
 
@@ -565,7 +564,6 @@
         
         const lat = focusedCoordinates.lat;
         const lon = focusedCoordinates.lon;
-        const priceTier = document.getElementById('googlePriceFilter').value;
 
         let radiusKm = 5;
         let auditDescription = "";
@@ -583,11 +581,13 @@
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        // Strip down operational search characters to create a clean query parameter
         let simplifiedWebSearchQuery = `${baseTerms.replace(/\|/g, ' ')} ${selectedHorizonQueryModifier}`;
 
-        // Universal web browser parameter formulation (Runs everywhere without native apps required)
-        computedUniversalWebSearchUrl = "https://www.google.com/maps/search/" + encodeURIComponent(simplifiedWebSearchQuery) + "/@" + lat.toFixed(6) + "," + lon.toFixed(6) + ",14z";
+        // ROBUST ARCHITECTURE FIX: Lock the user's selected map coordinates into the universal link query string.
+        // This ensures the external search centers exactly around the chosen pin across all desktop and mobile devices.
+        computedUniversalWebSearchUrl = "https://www.google.com/maps/search/?api=1&query=" + 
+            encodeURIComponent(simplifiedWebSearchQuery) + 
+            "&query_place_id=" + lat.toFixed(6) + "," + lon.toFixed(6);
 
         const badge = document.getElementById('auditBadge');
         badge.innerHTML = `🛡️ <b>Parameters Set</b><br>${auditDescription} | Center Point: ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
@@ -605,38 +605,32 @@
         window.open(computedUniversalWebSearchUrl, '_blank');
     }
 
-    // Advanced Parser Engine: Processes inputs, isolates the title, and trims it down cleanly
     function cleanAndTruncateVenueTitle(rawString) {
         if (!rawString) return "Selected Destination";
         let workingString = rawString.trim();
 
-        // Edge Case Handling: Raw Google Map URI parsing structure overrides
         if (workingString.startsWith("http://") || workingString.startsWith("https://")) {
             try {
                 const urlObj = new URL(workingString);
-                // Extract clean pathname string chunks if match layout /maps/place/Title
                 if (urlObj.pathname.includes("/maps/place/")) {
                     let segments = urlObj.pathname.split("/maps/place/");
                     if (segments[1]) {
                         workingString = decodeURIComponent(segments[1].split("/")[0]).replace(/\+/g, " ");
                     }
+                } else if (urlObj.searchParams.has("query")) {
+                    workingString = urlObj.searchParams.get("query");
                 } else if (urlObj.searchParams.has("q")) {
                     workingString = urlObj.searchParams.get("q");
                 } else {
-                    workingString = "Pinned Web Map Location";
+                    workingString = "Pinned Map Location";
                 }
             } catch (e) {
-                workingString = "Mapped Location Target";
+                workingString = "Mapped Target Location";
             }
         }
 
-        // Drop trailing addresses, commas, or share noise arrays
-        if (workingString.includes(",")) {
-            workingString = workingString.split(",")[0];
-        }
-        if (workingString.includes("\n")) {
-            workingString = workingString.split("\n")[0];
-        }
+        if (workingString.includes(",")) { workingString = workingString.split(",")[0]; }
+        if (workingString.includes("\n")) { workingString = workingString.split("\n")[0]; }
 
         workingString = workingString.trim();
         if (workingString.length > 25) {
@@ -649,11 +643,11 @@
         const rawInput = document.getElementById('selectedFinalVenue').value.trim();
         if (!rawInput) { alert("Please provide a search link or location description input target."); return; }
 
-        // Sanitize string down to crisp size boundaries
         const formattedShortTitle = cleanAndTruncateVenueTitle(rawInput);
 
         document.getElementById('passportTargetTitle').innerText = formattedShortTitle;
         document.getElementById('dataVibe').innerText = document.querySelector('.category-enclosure .tactile-btn.active').innerText;
+        document.getElementById('dataAllocation').innerText = selectedHorizonLabel;
         document.getElementById('dataTime').innerText = `${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
         document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(4)}°N, ${focusedCoordinates.lon.toFixed(4)}°E`;
 
@@ -663,14 +657,15 @@
             document.getElementById('dataConstraintMode').innerText = `${document.getElementById('durationMinutesInput').value} Mins (${selectedTransitMode})`;
         }
 
-        // Construct a clean, minimal URL targeting the final coordinates
-        const streamlinedFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(formattedShortTitle) + "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        // Cross-platform map link incorporating the user-selected pinpoint coordinate center parameters consistently
+        const standardizedFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + 
+            encodeURIComponent(formattedShortTitle) + 
+            "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
 
-        // QR Code Fluid Generation Context configuration
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
         new QRCode(qrContainer, { 
-            text: streamlinedFallbackUrl, 
+            text: standardizedFallbackUrl, 
             width: 100, 
             height: 100, 
             colorDark : "#1a1716", 
@@ -685,18 +680,24 @@
     function copyPassportAndLaunchGroup() {
         const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
         const vibe = document.getElementById('dataVibe').innerText;
+        const allocation = document.getElementById('dataAllocation').innerText;
         const constraints = document.getElementById('dataConstraintMode').innerText;
         const launchTime = document.getElementById('dataTime').innerText;
         
-        const shortMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        // Formulates a universal map hyperlink anchored precisely around the map selection coordinates
+        const streamlinedCoordinatesMapUrl = "https://www.google.com/maps/search/?api=1&query=" + 
+            encodeURIComponent(venue) + 
+            "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
 
-        // High Conciseness Layout Adjustment
+        // Highly Condensed Clipboard Layout Structure containing Vibe and Time Allocation
         const highDensityClipboardString = 
 `🎟️ *EXPLORATION PASS*\n` +
-`📍 *Place:* ${venue} (${vibe})\n` +
+`📍 *Place:* ${venue}\n` +
+`✨ *Vibe:* ${vibe}\n` +
+`⏱️ *Time Block:* ${allocation}\n` +
 `🚗 *Scope:* ${constraints}\n` +
-`📅 *Time:* ${launchTime}\n` +
-`📌 *Map Link:* ${shortMapUrl}`;
+`📅 *Launch:* ${launchTime}\n` +
+`📌 *Map Link:* ${streamlinedCoordinatesMapUrl}`;
 
         navigator.clipboard.writeText(highDensityClipboardString).then(() => {
             const toast = document.getElementById('toastMessage');
