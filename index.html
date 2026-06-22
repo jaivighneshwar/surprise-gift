@@ -224,6 +224,9 @@
                 <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'restaurant|bistro', 'restaurant')">🍽️ Casual Eating</button>
                 <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'artisan+coffee+shop|bakery|espresso+cafe', 'cafe')">☕ Cafes & Bakeries</button>
             </div>
+            <div class="selection-tile-grid" style="grid-template-columns: 1fr; margin-top:6px;">
+                <button type="button" id="vibe_fastfood" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fastfood', 'fast+food|burger+joint|street+food', 'meal_takeaway')">🍔 Fast Food & Quick Bites</button>
+            </div>
             
             <div class="cuisine-sub-deck" id="cuisineDeck">
                 <span class="enclosure-title" id="subDeckTitle" style="color:var(--ink-main); margin-bottom:4px; font-size:0.62rem;">Gastronomy Profile Selection</span>
@@ -242,13 +245,14 @@
         </div>
 
         <div class="category-enclosure">
-            <span class="enclosure-title">Culture & Group Entertainment Matrix</span>
+            <span class="enclosure-title">Culture & Entertainment Matrix</span>
             <div class="selection-tile-grid">
                 <button type="button" id="vibe_culture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_culture', 'museum|art+gallery|heritage+site', 'museum')">🎻 Heritage & Museums</button>
-                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'amusement+park|climbing+center|sports+activity', 'amusement_park')">🧗‍♀️ Sports & Action</button>
-                <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape+room|board+game+cafe|vr+arcade', 'bowling_alley')">🧩 Escape & Games</button>
+                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'sports+activity|climbing+center|adventure', 'amusement_park')">🧗‍♀️ Sports & Outdoor Action</button>
+                <button type="button" id="vibe_themeparks" class="tactile-btn" onclick="setDiscoveryVibe('vibe_themeparks', 'freizeitpark|theme+park|amusement+park|water+park', 'amusement_park')">🎡 Freizeitparks & Theme Parks</button>
             </div>
-            <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr; margin-top:6px;">
+            <div class="selection-tile-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:6px;">
+                <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape+room|board+game+cafe|vr+arcade', 'bowling_alley')">🧩 Escape & Games</button>
                 <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live+music+venue|theater|concert+hall', 'movie_theater')">🎫 Shows & Events</button>
                 <button type="button" id="vibe_movies" class="tactile-btn" onclick="setDiscoveryVibe('vibe_movies', 'movie+theater|cinema|imax', 'movie_theater')">🍿 Cinema & Movies</button>
             </div>
@@ -307,7 +311,7 @@
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
-    let selectedHorizonQueryModifier = ''; // Handles smart filtering injection for time lengths
+    let selectedHorizonQueryModifier = 'premium+journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
     let focusedCoordinates = null;
@@ -388,6 +392,37 @@
                 <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato+shop|italian+ice+cream')">🍧 Gelato</div>
                 <div id="cafe_icecream" class="cuisine-chip" onclick="setCuisineProfile('cafe_icecream', 'ice+cream+parlor|dessert')">🍦 Ice Creams</div>
             `;
+        } else if (id === 'vibe_fastfood') {
+            deck.style.display = 'block';
+            title.innerText = "Fast Food & Quick Bites Focus Selection";
+            grid.innerHTML = `
+                <div id="fast_any" class="cuisine-chip active" onclick="setCuisineProfile('fast_any', '')">All Fast Food</div>
+                <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash+burger|gourmet+burger|loaded+fries')">🍔 Smash Burgers</div>
+                <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco+stand|kebab+house|noodle+box|street+food')">🌮 Street Food</div>
+                <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza+slice|fried+chicken|drive+in')">🍕 Comfort Bites</div>
+            `;
+        } else if (id === 'vibe_action') {
+            deck.style.display = 'block';
+            title.innerText = "Active & Outdoor Sports Specialty Focus";
+            grid.innerHTML = `
+                <div id="action_any" class="cuisine-chip active" onclick="setCuisineProfile('action_any', '')">All Action</div>
+                <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat+rental|electric+boat|motorboat|boating')">⛵ Boating</div>
+                <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand+up+paddleboarding|sup+surf|paddleboard')">🏄‍♂️ SUP / Paddling</div>
+                <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak+tour|canoe+rental|rafting')">🛶 Kayak & Canoe</div>
+                <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high+ropes|bouldering|climbing')">🧗‍♀️ Ropes & Climbing</div>
+                <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser+tag|axe+throwing')">🎯 Tactical Action</div>
+                <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go+kart|pumptrack|quad+biking|speedway')">🏎️ Wheels & Speed</div>
+            `;
+        } else if (id === 'vibe_themeparks') {
+            deck.style.display = 'block';
+            title.innerText = "Amusement & Theme Park Matrix Selection";
+            grid.innerHTML = `
+                <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
+                <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement+park|roller+coaster')">🎢 Freizeitparks</div>
+                <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water+theme+park|aquapark|water+slides')">🏊‍♂️ Water Worlds</div>
+                <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline+park|ninja+warrior|action+hall')">🤸‍♀️ Action & Trampoline</div>
+                <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr+arena|virtual+reality|skydiving+simulator')">🽴 VR & Simulation</div>
+            `;
         } else {
             deck.style.display = 'none';
         }
@@ -404,13 +439,12 @@
         document.getElementById(id).classList.add('active');
         selectedHorizonLabel = label;
 
-        // Smart Query Mapping depending on user duration constraint choice
         if (id === 'time_short') {
-            selectedHorizonQueryModifier = "quick+service|takeaway|express";
+            selectedHorizonQueryModifier = "quick+service|takeaway|express|express+outing";
         } else if (id === 'time_half') {
-            selectedHorizonQueryModifier = "experience|leisure";
+            selectedHorizonQueryModifier = "experience|leisure|hangout";
         } else {
-            selectedHorizonQueryModifier = "premium+journey|destination";
+            selectedHorizonQueryModifier = "premium+journey|destination|full+experience";
         }
     }
 
@@ -495,22 +529,19 @@
             auditDescription = `${travelMins} Mins via ${selectedTransitMode} (Bound to max ${radiusKm.toFixed(2)} KM).`;
         }
 
-        const latOffset = radiusKm / 111.32;
-        const lonOffset = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
-        
-        const minLat = (lat - latOffset).toFixed(6);
-        const maxLat = (lat + latOffset).toFixed(6);
-        const minLon = (lon - lonOffset).toFixed(6);
-        const maxLon = (lon + lonOffset).toFixed(6);
-
-        // Core compilation strategy using smart horizon filters + explicit top ratings logic triggers
+        // Search Tuning Logic: Inject explicitly high-ranking keyword parameters
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let combinedSearchString = `${baseTerms}+${selectedHorizonQueryModifier}+top+rated+highly+recommended`;
+        let combinedSearchString = `${baseTerms}+${selectedHorizonQueryModifier}+top+rated+best+highly+recommended`;
 
-        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${combinedSearchString}+open+at+${dateString}+${timeString}&maxprice=${priceTier}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}&bounds=${minLat},${minLon}|${maxLat},${maxLon}`;
+        // Cross-Platform Engine Repair:
+        // iOS requires absolute URI structural encapsulation parameters via official standard hooks or it breaks maps delivery inside native wrappers.
+        const isIPhoneDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
         
-        // Cleaned up syntax for seamless Apple Maps native redirection targeting mobile Safari & iOS app hooks
-        const appleApiQuery = `https://maps.apple.com/?q=${combinedSearchString}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
+        // Universal Standard Google Link Architecture forcing immediate runtime container activation on Android and mobile desktop browsers
+        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(combinedSearchString)}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}`;
+        
+        // Fully fixed structural Apple Maps link syntax that allows the iPhone kernel to transition flawlessly out of Safari into native Apple Maps
+        const appleApiQuery = `https://maps.apple.com/?q=${encodeURIComponent(combinedSearchString)}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
@@ -552,7 +583,7 @@
             document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins / ${selectedTransitMode})`;
         }
 
-        const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}&query_place_id=${selectedGoogleCategory}`;
+        const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
         const qrContainer = document.getElementById("qrcode"); qrContainer.innerHTML = "";
         new QRCode(qrContainer, { text: deepMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
 
@@ -562,7 +593,7 @@
 
     function triggerSurpriseMatrix() {
         if (!focusedCoordinates) return;
-        const vectors = ['vibe_insta_spots', 'vibe_architecture', 'vibe_street_art', 'vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_games', 'vibe_shows', 'vibe_movies'];
+        const vectors = ['vibe_insta_spots', 'vibe_architecture', 'vibe_street_art', 'vibe_hikes', 'vibe_escape', 'vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_fastfood', 'vibe_chill', 'vibe_bars', 'vibe_retail', 'vibe_culture', 'vibe_action', 'vibe_themeparks', 'vibe_games', 'vibe_shows', 'vibe_movies'];
         const outcome = vectors[Math.floor(Math.random() * vectors.length)];
         document.getElementById(outcome).click();
         
@@ -595,7 +626,7 @@
         const duration = document.getElementById('dataHorizon').innerText;
         const coords = document.getElementById('dataCoords').innerText;
         
-        const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}&query_place_id=${selectedGoogleCategory}`;
+        const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
 
         const structuredMarkdownText = 
 `🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
