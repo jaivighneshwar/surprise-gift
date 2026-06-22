@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/2.4.0/Control.Geocoder.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
@@ -43,7 +42,6 @@
 
         .section-divider-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--ink-main); display: block; margin: 20px 0 10px 0; border-bottom: 1px solid var(--ui-border); padding-bottom: 4px; }
 
-        /* PARAMETERS ENGINE HUD CONTAINER */
         .unified-control-deck { background: rgba(197, 168, 128, 0.04); border: 1px solid var(--ui-border); border-radius: 20px; padding: 12px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
         
         .map-hud-row { display: flex; gap: 6px; }
@@ -80,7 +78,6 @@
 
         .audit-compliance-badge { padding: 10px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 500; display: none; line-height: 1.35; background: #f4f9f4; color: var(--success-green); border: 1px solid rgba(79,138,16,0.15); }
 
-        /* CLASSIFICATION CONTAINER AND TILES */
         .category-enclosure { background: #ffffff; padding: 4px 0; margin-bottom: 12px; }
         .enclosure-title { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--dark-gold); display: block; margin-bottom: 6px; padding-left: 2px; }
         .selection-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -92,7 +89,7 @@
         .tactile-btn:active { transform: scale(0.98); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #fbf9f4; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
 
-        /* FIXED SUB-MENU DRAWER FOR CONTEXTUAL INJECTION */
+        /* CONTEXTUAL SUBMENU DRAWER SYSTEM */
         .cuisine-sub-deck { 
             display: none; 
             background: #faf9f5; 
@@ -116,12 +113,10 @@
         .cuisine-chip { background: #fff; border: 1px solid rgba(0,0,0,0.06); padding: 7px 2px; border-radius: 6px; font-size: 0.68rem; font-weight: 500; cursor: pointer; text-align: center; color: var(--ink-muted); }
         .cuisine-chip.active { background: var(--ink-main); color: #fff; border-color: var(--ink-main); font-weight: 600; }
 
-        /* EXECUTION ACTION CONSOLE FOOTER */
         .control-console-deck { display: flex; gap: 8px; margin-top: 16px; }
         .btn-run-synthesize { background-color: var(--ink-main); color: var(--surface-card); border: none; flex: 2; padding: 15px; border-radius: 30px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; box-shadow: 0 4px 12px rgba(34,30,29,0.06); }
         .btn-run-surprise { background-color: var(--accent-purple); color: var(--surface-card); border: none; flex: 1; padding: 15px; border-radius: 30px; font-weight: 600; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; }
 
-        /* OUTPUT COMPONENT PANELS */
         .bridge-routing-panel { display: none; background: var(--dark-panel); border-radius: 20px; padding: 16px; margin-top: 20px; text-align: left; }
         .bridge-routing-panel h4 { font-size: 0.95rem; color: white; font-weight: 600; margin-bottom: 4px; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; }
         .bridge-routing-panel p { font-size: 0.72rem; color: #bcaea3; margin-bottom: 12px; }
@@ -154,7 +149,7 @@
 
         <div class="unified-control-deck">
             <div class="map-hud-row">
-                <input type="text" id="mapTextInput" class="map-text-input" placeholder="Enter target city or address...">
+                <input type="text" id="mapTextInput" class="map-text-input" placeholder="Type city or specific address...">
                 <button type="button" class="hud-trigger" onclick="executeTextGeocodeSearch()">Find</button>
                 <button type="button" class="hud-trigger gps-pin-accent" onclick="triggerDeviceLiveLocation()">📍</button>
             </div>
@@ -329,7 +324,7 @@
     let selectedHorizonQueryModifier = 'premium+journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = null;
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Standard default anchor setting
     let computedIntents = { google: '', apple: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -341,16 +336,32 @@
 
     function initializeBaseMap() {
         if (mapEngineInstance !== null) return;
-        // iOS 17/18 Tap Compatibility Flag Layer configurations explicitly defined
+        
+        // Mobile tap engine explicitly handles raw element overlays accurately
         mapEngineInstance = L.map('map', { 
             zoomControl: false, 
             attributionControl: false,
             tap: false 
-        }).setView([48.7771, 9.1795], 13);
+        }).setView([focusedCoordinates.lat, focusedCoordinates.lon], 13);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
-        mapEngineInstance.on('click', (e) => trackAnchorShift(e.latlng.lat, e.latlng.lng));
-        trackAnchorShift(48.7771, 9.1795);
+        
+        mapEngineInstance.on('click', (e) => syncGlobalPositionState(e.latlng.lat, e.latlng.lng));
+        syncGlobalPositionState(focusedCoordinates.lat, focusedCoordinates.lon);
+    }
+
+    // CENTRAL POSITION SYNC ENGINE CONTROL GATEWAY
+    function syncGlobalPositionState(lat, lng) {
+        focusedCoordinates.lat = parseFloat(lat);
+        focusedCoordinates.lon = parseFloat(lng);
+        
+        if (mapMarkerNode) {
+            mapMarkerNode.setLatLng([lat, lng]);
+        } else {
+            mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
+        }
+        
+        refreshSpatialCanvasVector();
     }
 
     function switchRoutingScenario(scenarioType) {
@@ -377,7 +388,6 @@
         refreshSpatialCanvasVector();
     }
 
-    // INTERACTIVE REAL-TIME TARGET INLINE EXPANSION LOGIC
     function setDiscoveryVibe(id, terms, googleType) {
         const clickedElement = document.getElementById(id);
         
@@ -446,12 +456,10 @@
                 `;
             }
 
-            // DYNAMIC INLINE ROW POSITIONING ENGINE
             const parentGrid = clickedElement.parentElement;
             parentGrid.appendChild(deck);
             deck.style.display = 'block';
 
-            // Calculate exact left offset alignment mapping for the indicator arrow
             const tileLeftOffset = clickedElement.offsetLeft;
             const tileWidth = clickedElement.offsetWidth;
             const gridLeftOffset = parentGrid.offsetLeft;
@@ -460,7 +468,7 @@
             deck.style.setProperty('--arrow-left', `${targetArrowPosition}px`);
         } else {
             deck.style.display = 'none';
-            document.body.appendChild(deck); // Park off-screen safely
+            document.body.appendChild(deck);
         }
     }
 
@@ -510,14 +518,7 @@
         mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [8, 8] });
     }
 
-    function trackAnchorShift(lat, lng) {
-        focusedCoordinates = { lat: lat, lon: lng };
-        if (mapMarkerNode) mapMarkerNode.setLatLng([lat, lng]);
-        else mapMarkerNode = L.marker([lat, lng]).addTo(mapEngineInstance);
-        
-        refreshSpatialCanvasVector();
-    }
-
+    // RESOLVES TEXT FIELD INTO MAP POSITION COORDINATES
     function executeTextGeocodeSearch() {
         const query = document.getElementById('mapTextInput').value.trim();
         if (!query) return;
@@ -526,23 +527,34 @@
         locator.geocode(query, (output) => {
             if (output && output.length > 0) {
                 const target = output[0].center;
-                trackAnchorShift(target.lat, target.lng);
+                // Force written coordinate update immediately
+                syncGlobalPositionState(target.lat, target.lng);
                 mapEngineInstance.setView([target.lat, target.lng], 13);
+            } else {
+                alert("Location could not be found. Please check spelling adjustments.");
             }
         });
     }
 
     function triggerDeviceLiveLocation() {
-        if (!navigator.geolocation) return;
+        if (!navigator.geolocation) {
+            alert("Geolocation services are not supported by this browser client.");
+            return;
+        }
         navigator.geolocation.getCurrentPosition((pos) => {
-            trackAnchorShift(pos.coords.latitude, pos.coords.longitude);
+            syncGlobalPositionState(pos.coords.latitude, pos.coords.longitude);
             mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 14);
-        }, null, { enableHighAccuracy: true });
+        }, (err) => {
+            alert("Could not access device position. Please set manually on viewport configuration layout map.");
+        }, { enableHighAccuracy: true });
     }
 
-    // INTENT COMPILATION ENGINE
+    // COMPILES GEOGRAPHIC AND PARAMETER STRINGS FOR DEEP LINKING
     function compileSpatialDiscoveryEngine() {
-        if (!focusedCoordinates) { alert("Please position a marker pin on the map viewport."); return; }
+        if (!focusedCoordinates || !focusedCoordinates.lat || !focusedCoordinates.lon) { 
+            alert("Please position a marker pin on the map view layout environment first."); 
+            return; 
+        }
         
         const lat = focusedCoordinates.lat;
         const lon = focusedCoordinates.lon;
@@ -553,31 +565,28 @@
 
         if (currentScenario === 'radius') {
             radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
-            auditDescription = `Radius set strictly to ${radiusKm} KM.`;
+            auditDescription = `Radius restricted safely to ${radiusKm} KM.`;
         } else {
             const travelMins = parseInt(document.getElementById('durationMinutesInput').value) || 20;
             let speedKmh = 40; 
             if (selectedTransitMode === 'walking') speedKmh = 4.5;
             if (selectedTransitMode === 'transit') speedKmh = 22;
             radiusKm = speedKmh * (travelMins / 60);
-            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (Bound to max ${radiusKm.toFixed(2)} KM).`;
+            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (Equivalent to ${radiusKm.toFixed(2)} KM).`;
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let combinedSearchString = `${baseTerms} ${selectedHorizonQueryModifier} top rated best`;
+        let finalSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
 
-        // SOLID CROSS-PLATFORM DEEP LINK FORMULATION
-        // Google Maps URL API Standard format (flawless fallback initialization on iOS + Native processing on Android)
-        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(combinedSearchString)}&location=${lat.toFixed(6)},${lon.toFixed(6)}`;
-        
-        // Strict Apple Maps Scheme containing structural viewport constraint biases (Fires native Apple Maps context natively inside iPhones)
-        const appleApiQuery = `https://maps.apple.com/?q=${encodeURIComponent(combinedSearchString)}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
+        // UNIVERSAL GEO DEEP LINKS (No variable parsing errors)
+        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(finalSearchString)}&center=${lat.toFixed(6)},${lon.toFixed(6)}`;
+        const appleApiQuery = `maps://?q=${encodeURIComponent(finalSearchString)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&near=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
 
         const badge = document.getElementById('auditBadge');
-        badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription} Maximum Budget Tier: Tier ${priceTier}. Filtered for Highly Rated options.`;
+        badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription}<br>Location Anchor: ${lat.toFixed(4)}, ${lon.toFixed(4)} | Price Limit: Tier ${priceTier}`;
         badge.style.display = "block";
 
         document.getElementById('bridgePanel').style.display = 'block';
@@ -609,7 +618,6 @@
             document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins / ${selectedTransitMode})`;
         }
 
-        // Generate Clean Universal Reference URL inside the QR footprint matrix
         const qrMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
@@ -619,7 +627,6 @@
         document.getElementById('revealZone').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // SYNCHRONOUS SINGLE EVENT CHAIN: CLIPBOARD & DEEP LINK WHATSAPP PASSTHROUGH
     function copyPassportAndLaunchGroup() {
         const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
         const vibe = document.getElementById('dataVibe').innerText;
@@ -642,19 +649,16 @@
 `🗺️ *Strict Anchor Position:* ${coords}\n\n` +
 `👉 *Open Navigation Route:* ${universalMapLink}`;
 
-        // Executive synchronous fallback execution layout avoiding thread drops on iPhone Safari Mobile web views
         navigator.clipboard.writeText(structuredMarkdownText).then(() => {
             const toast = document.getElementById('toastMessage');
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
 
-            // Execute using official WhatsApp text API specification parameters
             setTimeout(() => {
                 const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
                 window.open(whatsappUrl, '_blank');
             }, 300);
         }).catch(() => {
-            // Hard fallback execution path for old iOS or restrictive permissions sandboxes
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
             window.open(whatsappUrl, '_blank');
         });
