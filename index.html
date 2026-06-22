@@ -323,8 +323,8 @@
     let selectedHorizonQueryModifier = 'premium journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Default initialization point
-    let computedIntents = { google: '', apple: '', webFallbackGoogle: '' };
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // System-level anchoring point
+    let computedIntents = { androidIntent: '', browserFallbackUrl: '', appleUrl: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
@@ -339,12 +339,16 @@
         mapEngineInstance = L.map('map', { 
             zoomControl: false, 
             attributionControl: false,
-            tap: false
+            tap: false 
         }).setView([focusedCoordinates.lat, focusedCoordinates.lon], 13);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
         
-        mapEngineInstance.on('click', (e) => syncGlobalPositionState(e.latlng.lat, e.latlng.lng));
+        // Binds the native tap/click event on the 2D canvas to the reactive global updating loop
+        mapEngineInstance.on('click', (e) => {
+            syncGlobalPositionState(e.latlng.lat, e.latlng.lng);
+        });
+        
         syncGlobalPositionState(focusedCoordinates.lat, focusedCoordinates.lon);
     }
 
@@ -447,7 +451,7 @@
                 grid.innerHTML = `
                     <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
                     <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement park|roller coaster')">🎢 Freizeitparks</div>
-                    <div id="park_water" class="cuisine-chip" onclick="setModelCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
+                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
                     <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline park|ninja warrior')">🤸‍♀️ Trampoline</div>
                     <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr arena|virtual reality')">🽴 VR Arena</div>
                 `;
@@ -544,10 +548,10 @@
         }, { enableHighAccuracy: true });
     }
 
-    // ANDROID-HARDENED GEOGRAPHIC INTENT RESOLVER
+    // MULTI-STEP INTENT LOGIC BLOCK
     function compileSpatialDiscoveryEngine() {
         if (!focusedCoordinates || isNaN(focusedCoordinates.lat) || isNaN(focusedCoordinates.lon)) { 
-            alert("No geographic reference found. Select a spot on the mapping grid."); 
+            alert("No position reference locked. Please select an area on the interactive map canvas."); 
             return; 
         }
         
@@ -573,20 +577,16 @@
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
         let cleanSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
 
-        // BUILDER 1: Native Android Geo Proximity Intent Scheme
-        // Passing coordinates inside the 'geo' root forces Android to anchor map instances before executing search queries 'q'
-        const androidGeoIntent = "geo:" + lat.toFixed(6) + "," + lon.toFixed(6) + "?q=" + encodeURIComponent(cleanSearchString);
+        // Phase 1: High-Precision Native Intent String. 
+        // Specifying 'geo:lat,lon?q=' forces Android to snap the focus exactly on the coordinates before applying keywords.
+        computedIntents.androidIntent = "geo:" + lat.toFixed(6) + "," + lon.toFixed(6) + "?q=" + encodeURIComponent(cleanSearchString);
         
-        // BUILDER 2: Google Universal cross-platform Search API framework
-        // Hard-locks coordinates into the query array alongside contextual strings for standard browsers
-        const webFallbackGoogleUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanSearchString) + "&center=" + lat.toFixed(6) + "," + lon.toFixed(6);
+        // Phase 2: Structural Web / WebView URL Scheme Framework
+        // Uses the cross-platform search standard with hard-locked center-coordinate anchors.
+        computedIntents.browserFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanSearchString) + "&center=" + lat.toFixed(6) + "," + lon.toFixed(6);
 
-        // BUILDER 3: Apple Maps strict query paired matching bounds
-        const appleApiQuery = "maps://?q=" + encodeURIComponent(cleanSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
-
-        computedIntents.google = androidGeoIntent;
-        computedIntents.webFallbackGoogle = webFallbackGoogleUrl;
-        computedIntents.apple = appleApiQuery;
+        // Phase 3: Spatial Apple Maps URL Standard
+        computedIntents.appleUrl = "maps://?q=" + encodeURIComponent(cleanSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
 
         const badge = document.getElementById('auditBadge');
         badge.innerHTML = `🛡️ <b>Parameters Active</b><br>${auditDescription}<br>Anchor: ${lat.toFixed(5)}, ${lon.toFixed(5)} | Price Tier: ${priceTier}`;
@@ -598,33 +598,32 @@
 
     function triggerCrossPlatformIntent(platform) {
         if (platform === 'apple') {
-            if (!computedIntents.apple) { alert("Synthesize parameters first."); return; }
-            window.open(computedIntents.apple, '_blank');
+            if (!computedIntents.appleUrl) { alert("Please click 'Synthesize Parameters' first."); return; }
+            window.open(computedIntents.appleUrl, '_system');
             return;
         }
 
-        // Dedicated Fallback Router Strategy for Android WebViews & Chrome Interfaces
-        if (!computedIntents.google || !computedIntents.webFallbackGoogle) {
+        if (!computedIntents.androidIntent || !computedIntents.browserFallbackUrl) {
             alert("Please click 'Synthesize Parameters' first to lock in parameters.");
             return;
         }
 
-        const fallbackTimeoutWindow = 1500;
-        const initiationTimestamp = Date.now();
-        
-        // Create an ephemeral background frame redirection pattern to execute the deep intent natively
-        const transportFrame = document.createElement("iframe");
-        transportFrame.style.display = "none";
-        transportFrame.src = computedIntents.google;
-        document.body.appendChild(transportFrame);
+        // Execution Routing Logic: Attempt native anchor resolution via direct location dispatching
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isAndroidDevice = /android/i.test(userAgent);
 
-        setTimeout(() => {
-            document.body.removeChild(transportFrame);
-            // If the application doesn't blur execution out of frame, drop into the browser URL
-            if (Date.now() - initiationTimestamp < fallbackTimeoutWindow + 200) {
-                window.open(computedIntents.webFallbackGoogle, '_blank');
-            }
-        }, fallbackTimeoutWindow);
+        if (isAndroidDevice) {
+            // Android Chrome/WebView Native Intent Protocol dispatch
+            window.location.href = computedIntents.androidIntent;
+            
+            // Safety Check: If the app window isn't paged out, route directly into the cross-platform search fallback
+            setTimeout(() => {
+                window.open(computedIntents.browserFallbackUrl, '_blank');
+            }, 1000);
+        } else {
+            // Desktop & iOS browser standard redirection
+            window.open(computedIntents.browserFallbackUrl, '_blank');
+        }
     }
 
     function generateFinalPassportPass() {
