@@ -51,7 +51,7 @@
         .hud-trigger { background: var(--ink-main); color: #fff; border: none; padding: 0 14px; border-radius: 12px; font-weight: 600; font-size: 0.78rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; }
         .hud-trigger.gps-pin-accent { background: var(--primary-gold); font-size: 1rem; padding: 0 10px; }
 
-        #map { width: 100%; height: 170px; border-radius: 14px; z-index: 1; border: 1px solid rgba(0,0,0,0.04); }
+        #map { width: 100%; height: 180px; border-radius: 14px; z-index: 1; border: 1px solid rgba(0,0,0,0.04); }
         
         .scenario-tab-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: rgba(0, 0, 0, 0.03); padding: 3px; border-radius: 10px; }
         .scenario-tab { background: none; border: none; padding: 8px 2px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--ink-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px; transition: all var(--speed-fast); }
@@ -123,13 +123,16 @@
         
         .output-passport-reveal { margin-top: 20px; display: none; }
         .passport-print-card { padding: 20px 14px; background: #ffffff; border-radius: 16px; border: 1px dashed var(--primary-gold); text-align: center; }
-        .passport-title-col { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin-bottom: 12px; color: var(--ink-main); }
+        .passport-title-col { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 600; margin-bottom: 12px; color: var(--ink-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; }
         
-        .passport-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; text-align: left; font-size: 0.78rem; }
+        .passport-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; text-align: left; font-size: 0.78rem; }
         .passport-table td { padding: 8px 4px; border-bottom: 1px solid rgba(197,168,128,0.06); color: var(--ink-main); }
         .passport-table td.label-lead { font-weight: 600; color: var(--ink-muted); width: 42%; text-transform: uppercase; font-size: 0.65rem; }
 
-        .qr-render-frame { display: inline-block; margin: 4px auto; padding: 6px; background: #ffffff; border: 1px solid var(--ui-border); border-radius: 10px; }
+        /* Anti-Overflow Fluid Layout Container for QR Elements */
+        .qr-render-frame { display: flex; justify-content: center; align-items: center; margin: 10px auto 4px auto; padding: 8px; background: #ffffff; border: 1px solid var(--ui-border); border-radius: 12px; width: 116px; height: 116px; box-sizing: border-box; overflow: hidden; }
+        .qr-render-frame div, .qr-render-frame canvas, .qr-render-frame img { max-width: 100% !important; max-height: 100% !important; display: block; margin: 0 auto; }
+
         .export-trigger-btn { border: none; padding: 14px; border-radius: 30px; font-weight: 600; font-size: 0.8rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--primary-gold); color: white; }
         
         .whatsapp-trigger-btn { border: none; padding: 14px; border-radius: 30px; font-weight: 600; font-size: 0.8rem; cursor: pointer; width: 100%; text-transform: uppercase; background-color: var(--whatsapp-green); color: white; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -273,17 +276,17 @@
         </div>
 
         <div class="bridge-routing-panel" id="bridgePanel">
-            <h4>Step 1: Browse Verified Matches</h4>
-            <p>Geographic boundary checks completed. Launch native mapping application frameworks:</p>
+            <h4>Step 1: Browse Dynamic Matches</h4>
+            <p>Geographic boundary checks completed. Launch web search targeting your custom spatial center:</p>
             
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                <button type="button" class="external-intent-link" style="background:#4285F4;" onclick="triggerCrossPlatformIntent('google')">Google Maps 📱</button>
-                <button type="button" class="external-intent-link" style="background:#221e1d; border:1px solid rgba(255,255,255,0.15);" onclick="triggerCrossPlatformIntent('apple')">Apple Maps 🍏</button>
+            <div style="display:grid; grid-template-columns: 1fr; gap:8px;">
+                <button type="button" class="external-intent-link" style="background:#4285F4; margin-bottom: 0;" onclick="triggerWebMapsSearchIntent()">Explore Web Map Targets 🌐</button>
             </div>
             
             <div style="border-top: 1px dashed rgba(255,255,255,0.12); padding-top:12px; margin-top:14px;">
                 <h4>Step 2: Lock Destination Pass</h4>
-                <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Type chosen venue title here..." style="border: 1px solid var(--primary-gold); margin-bottom:10px; background: #241f1e; color: #fff;">
+                <p style="margin-bottom: 6px;">Paste the matching venue title or copied Google Maps link directly:</p>
+                <input type="text" class="raw-native-box" id="selectedFinalVenue" placeholder="Paste link or type venue title..." style="border: 1px solid var(--primary-gold); margin-bottom:10px; background: #241f1e; color: #fff;">
                 <button type="button" class="export-trigger-btn" onclick="generateFinalPassportPass()">Generate Final Pass 🎟️</button>
             </div>
         </div>
@@ -295,9 +298,7 @@
                 <table class="passport-table">
                     <tr><td class="label-lead">Discovery Vibe</td><td id="dataVibe"></td></tr>
                     <tr><td class="label-lead">Precision Limits</td><td id="dataConstraintMode"></td></tr>
-                    <tr><td class="label-lead">Budget Index</td><td id="dataFinance"></td></tr>
                     <tr><td class="label-lead">Launch Target</td><td id="dataTime"></td></tr>
-                    <tr><td class="label-lead">Time Frame</td><td id="dataHorizon"></td></tr>
                     <tr><td class="label-lead">Geo Coordinates</td><td id="dataCoords"></td></tr>
                 </table>
                 <div class="qr-render-frame"><div id="qrcode"></div></div>
@@ -323,8 +324,8 @@
     let selectedHorizonQueryModifier = 'premium journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // System anchoring point
-    let computedIntents = { androidIntent: '', browserFallbackUrl: '', appleUrl: '' };
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; 
+    let computedUniversalWebSearchUrl = '';
 
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
@@ -410,49 +411,42 @@
                 title.innerText = "Gastronomy Profile Selection";
                 grid.innerHTML = `
                     <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
-                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian restaurant|tandoori')">🍛 Indian</div>
-                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian restaurant|trattoria')">🍝 Italian</div>
-                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian restaurant|sushi|ramen')">🥢 Asian</div>
-                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french restaurant|bistro')">🥖 French</div>
-                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional traditional restaurant')">🥩 Regional</div>
+                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian restaurant')">🍛 Indian</div>
+                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian restaurant')">🍝 Italian</div>
+                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian restaurant')">🥢 Asian</div>
+                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french restaurant')">🥖 French</div>
+                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'traditional restaurant')">🥩 Regional</div>
                 `;
             } else if (id === 'vibe_cafes') {
                 title.innerText = "Cafe Specialty Focus Selection";
                 grid.innerHTML = `
                     <div id="cafe_any" class="cuisine-chip active" onclick="setCuisineProfile('cafe_any', '')">All Treats</div>
-                    <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery|croissant|patisserie')">🥐 Pastries</div>
-                    <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles crepes|dessert shop')">🧇 Waffles</div>
-                    <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble tea|boba cafe')">🧋 Bubble Tea</div>
-                    <div id="cafe_smoothies" class="cuisine-chip" onclick="smoothies', 'smoothie bar|juice bar|healthy cafe')">🥤 Smoothies</div>
-                    <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato shop|ice cream')">🍧 Gelato</div>
+                    <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery specialty cafe')">🥐 Pastries</div>
+                    <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'dessert specialty shop')">🧇 Waffles</div>
+                    <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble tea cafe')">🧋 Boba</div>
+                    <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato ice cream shop')">🍧 Gelato</div>
                 `;
             } else if (id === 'vibe_fastfood') {
-                title.innerText = "Fast Food & Quick Bites Focus Selection";
+                title.innerText = "Fast Food Focus Selection";
                 grid.innerHTML = `
                     <div id="fast_any" class="cuisine-chip active" onclick="setCuisineProfile('fast_any', '')">All Fast Food</div>
-                    <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash burger|loaded fries')">🍔 Burgers</div>
-                    <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco stand|kebab house|street food')">🌮 Street Food</div>
-                    <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza slice|fried chicken')">🍕 Comfort Bites</div>
+                    <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'burger joint fries')">🍔 Burgers</div>
+                    <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco kebab street food')">🌮 Street Food</div>
                 `;
             } else if (id === 'vibe_action') {
                 title.innerText = "Active & Outdoor Sports Specialty Focus";
                 grid.innerHTML = `
                     <div id="action_any" class="cuisine-chip active" onclick="setCuisineProfile('action_any', '')">All Action</div>
-                    <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat rental|electric boat|boating')">⛵ Boating</div>
-                    <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand up paddleboarding|paddleboard')">🏄‍♂️ SUP</div>
-                    <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak tour|canoe rental')">🛶 Kayak</div>
-                    <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high ropes|bouldering')">🧗‍♀️ Climbing</div>
-                    <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser tag|axe throwing')">🎯 Tactical</div>
-                    <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go kart|pumptrack|quad biking')">🏎️ Speed</div>
+                    <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat rental center')">⛵ Boating</div>
+                    <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'climbing bouldering gym')">🧗‍♀️ Climbing</div>
+                    <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go kart track activity')">🏎️ Speed</div>
                 `;
             } else if (id === 'vibe_themeparks') {
-                title.innerText = "Amusement & Theme Park Matrix Selection";
+                title.innerText = "Amusement Park Focus Matrix";
                 grid.innerHTML = `
-                    <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
-                    <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement park|roller coaster')">🎢 Freizeitparks</div>
-                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
-                    <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline park|ninja warrior')">🤸‍♀️ Trampoline</div>
-                    <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr arena|virtual reality')">🽴 VR Arena</div>
+                    <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Parks</div>
+                    <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'amusement theme park')">🎢 Theme Parks</div>
+                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water theme park')">🏊‍♂️ Water Parks</div>
                 `;
             }
 
@@ -484,11 +478,11 @@
         selectedHorizonLabel = label;
 
         if (id === 'time_short') {
-            selectedHorizonQueryModifier = "quick service|takeaway|express";
+            selectedHorizonQueryModifier = "quick destination";
         } else if (id === 'time_half') {
-            selectedHorizonQueryModifier = "experience|leisure|hangout";
+            selectedHorizonQueryModifier = "leisure experience";
         } else {
-            selectedHorizonQueryModifier = "premium journey|destination|full experience";
+            selectedHorizonQueryModifier = "premium journey destination";
         }
     }
 
@@ -499,7 +493,6 @@
     function refreshSpatialCanvasVector() {
         if (!mapEngineInstance || !focusedCoordinates) return;
         
-        // Wipe old spatial boundary vectors cleanly from memory
         if (spatialRadiusCircle) {
             mapEngineInstance.removeLayer(spatialRadiusCircle);
             spatialRadiusCircle = null;
@@ -516,9 +509,8 @@
             radiusKm = speedKmh * (travelMins / 60);
         }
 
-        // Draw standard mathematical representation circle
         spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-            radius: radiusKm * 1000, // Convert to meters explicitly
+            radius: radiusKm * 1000, 
             color: 'var(--primary-gold)', 
             fillColor: 'var(--primary-gold)', 
             fillOpacity: 0.09, 
@@ -526,8 +518,7 @@
             dashArray: '4, 4'
         }).addTo(mapEngineInstance);
         
-        // High-precision geographic viewport calculation replacement pattern 
-        // Employs destination bounding box checks to completely fix inverted zoom behavior.
+        // Exact spatial bounding box offset calculation logic
         const latitudeOffset = (radiusKm / 111.32);
         const longitudeOffset = (radiusKm / (111.32 * Math.cos(focusedCoordinates.lat * Math.PI / 180)));
 
@@ -536,7 +527,6 @@
             [focusedCoordinates.lat + latitudeOffset, focusedCoordinates.lon + longitudeOffset]
         );
 
-        // Snap canvas view structure exactly to envelope values cleanly with comfortable padding metrics
         mapEngineInstance.fitBounds(explicitBBox, { padding: [10, 10], animate: true });
     }
 
@@ -548,40 +538,28 @@
         locator.geocode(query, (output) => {
             if (output && output.length > 0) {
                 const target = output[0].center;
-                
-                // Locks anchor point values explicitly
-                focusedCoordinates.lat = parseFloat(target.lat);
-                focusedCoordinates.lon = parseFloat(target.lng);
-
-                if (mapMarkerNode) {
-                    mapMarkerNode.setLatLng([focusedCoordinates.lat, focusedCoordinates.lon]);
-                } else {
-                    mapMarkerNode = L.marker([focusedCoordinates.lat, focusedCoordinates.lon]).addTo(mapEngineInstance);
-                }
-
-                // Generates circle and cleanly scales boundaries down/up dynamically
-                refreshSpatialCanvasVector();
+                syncGlobalPositionState(target.lat, target.lng);
             } else {
-                alert("Location could not be found. Please optimize search terms.");
+                alert("Location not found. Please try clarifying the search text.");
             }
         });
     }
 
     function triggerDeviceLiveLocation() {
         if (!navigator.geolocation) {
-            alert("Geolocation features are missing on this client device configuration.");
+            alert("Geolocation features are missing on this device browser profile.");
             return;
         }
         navigator.geolocation.getCurrentPosition((pos) => {
             syncGlobalPositionState(pos.coords.latitude, pos.coords.longitude);
         }, (err) => {
-            alert("Could not pull current geolocation coordinates. Point manually on map canvas.");
+            alert("Position locked out. Tap manually on the map canvas.");
         }, { enableHighAccuracy: true });
     }
 
     function compileSpatialDiscoveryEngine() {
         if (!focusedCoordinates || isNaN(focusedCoordinates.lat) || isNaN(focusedCoordinates.lon)) { 
-            alert("No position reference locked. Please select an area on the interactive map canvas."); 
+            alert("No map reference anchor set."); 
             return; 
         }
         
@@ -594,79 +572,111 @@
 
         if (currentScenario === 'radius') {
             radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
-            auditDescription = `Radius restricted to ${radiusKm} KM.`;
+            auditDescription = `Radius: ${radiusKm} KM.`;
         } else {
             const travelMins = parseInt(document.getElementById('durationMinutesInput').value) || 20;
             let speedKmh = 40; 
             if (selectedTransitMode === 'walking') speedKmh = 4.5;
             if (selectedTransitMode === 'transit') speedKmh = 22;
             radiusKm = speedKmh * (travelMins / 60);
-            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (~${radiusKm.toFixed(2)} KM window).`;
+            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (~${radiusKm.toFixed(1)} KM).`;
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let cleanSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
+        // Strip down operational search characters to create a clean query parameter
+        let simplifiedWebSearchQuery = `${baseTerms.replace(/\|/g, ' ')} ${selectedHorizonQueryModifier}`;
 
-        computedIntents.androidIntent = "geo:" + lat.toFixed(6) + "," + lon.toFixed(6) + "?q=" + encodeURIComponent(cleanSearchString);
-        computedIntents.browserFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanSearchString) + "&center=" + lat.toFixed(6) + "," + lon.toFixed(6);
-        computedIntents.appleUrl = "maps://?q=" + encodeURIComponent(cleanSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
+        // Universal web browser parameter formulation (Runs everywhere without native apps required)
+        computedUniversalWebSearchUrl = "https://www.google.com/maps/search/" + encodeURIComponent(simplifiedWebSearchQuery) + "/@" + lat.toFixed(6) + "," + lon.toFixed(6) + ",14z";
 
         const badge = document.getElementById('auditBadge');
-        badge.innerHTML = `🛡️ <b>Parameters Active</b><br>${auditDescription}<br>Anchor: ${lat.toFixed(5)}, ${lon.toFixed(5)} | Price Tier: ${priceTier}`;
+        badge.innerHTML = `🛡️ <b>Parameters Set</b><br>${auditDescription} | Center Point: ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
         badge.style.display = "block";
 
         document.getElementById('bridgePanel').style.display = 'block';
         document.getElementById('bridgePanel').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function triggerCrossPlatformIntent(platform) {
-        if (platform === 'apple') {
-            if (!computedIntents.appleUrl) { alert("Please click 'Synthesize Parameters' first."); return; }
-            window.open(computedIntents.appleUrl, '_system');
-            return;
+    function triggerWebMapsSearchIntent() {
+        if (!computedUniversalWebSearchUrl) { 
+            alert("Please click 'Synthesize Parameters' to construct your link."); 
+            return; 
+        }
+        window.open(computedUniversalWebSearchUrl, '_blank');
+    }
+
+    // Advanced Parser Engine: Processes inputs, isolates the title, and trims it down cleanly
+    function cleanAndTruncateVenueTitle(rawString) {
+        if (!rawString) return "Selected Destination";
+        let workingString = rawString.trim();
+
+        // Edge Case Handling: Raw Google Map URI parsing structure overrides
+        if (workingString.startsWith("http://") || workingString.startsWith("https://")) {
+            try {
+                const urlObj = new URL(workingString);
+                // Extract clean pathname string chunks if match layout /maps/place/Title
+                if (urlObj.pathname.includes("/maps/place/")) {
+                    let segments = urlObj.pathname.split("/maps/place/");
+                    if (segments[1]) {
+                        workingString = decodeURIComponent(segments[1].split("/")[0]).replace(/\+/g, " ");
+                    }
+                } else if (urlObj.searchParams.has("q")) {
+                    workingString = urlObj.searchParams.get("q");
+                } else {
+                    workingString = "Pinned Web Map Location";
+                }
+            } catch (e) {
+                workingString = "Mapped Location Target";
+            }
         }
 
-        if (!computedIntents.androidIntent || !computedIntents.browserFallbackUrl) {
-            alert("Please click 'Synthesize Parameters' first to lock in parameters.");
-            return;
+        // Drop trailing addresses, commas, or share noise arrays
+        if (workingString.includes(",")) {
+            workingString = workingString.split(",")[0];
+        }
+        if (workingString.includes("\n")) {
+            workingString = workingString.split("\n")[0];
         }
 
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isAndroidDevice = /android/i.test(userAgent);
-
-        if (isAndroidDevice) {
-            window.location.href = computedIntents.androidIntent;
-            setTimeout(() => {
-                window.open(computedIntents.browserFallbackUrl, '_blank');
-            }, 1000);
-        } else {
-            window.open(computedIntents.browserFallbackUrl, '_blank');
+        workingString = workingString.trim();
+        if (workingString.length > 25) {
+            return workingString.substring(0, 25).trim() + "...";
         }
+        return workingString;
     }
 
     function generateFinalPassportPass() {
-        const venueString = document.getElementById('selectedFinalVenue').value.trim();
-        if (!venueString) { alert("Please write down the name of the chosen venue first."); return; }
+        const rawInput = document.getElementById('selectedFinalVenue').value.trim();
+        if (!rawInput) { alert("Please provide a search link or location description input target."); return; }
 
-        const selectedPriceText = document.getElementById('googlePriceFilter').options[document.getElementById('googlePriceFilter').selectedIndex].text;
+        // Sanitize string down to crisp size boundaries
+        const formattedShortTitle = cleanAndTruncateVenueTitle(rawInput);
 
-        document.getElementById('passportTargetTitle').innerText = venueString;
+        document.getElementById('passportTargetTitle').innerText = formattedShortTitle;
         document.getElementById('dataVibe').innerText = document.querySelector('.category-enclosure .tactile-btn.active').innerText;
-        document.getElementById('dataFinance').innerText = selectedPriceText;
         document.getElementById('dataTime').innerText = `${document.getElementById('targetDate').value} @ ${document.getElementById('targetTime').value}`;
-        document.getElementById('dataHorizon').innerText = selectedHorizonLabel;
-        document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(5)}°N, ${focusedCoordinates.lon.toFixed(5)}°E`;
+        document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(4)}°N, ${focusedCoordinates.lon.toFixed(4)}°E`;
 
         if(currentScenario === 'radius') {
-            document.getElementById('dataConstraintMode').innerText = `Radius Bound (${document.getElementById('distanceInput').value} KM)`;
+            document.getElementById('dataConstraintMode').innerText = `Within ${document.getElementById('distanceInput').value} KM`;
         } else {
-            document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins via ${selectedTransitMode})`;
+            document.getElementById('dataConstraintMode').innerText = `${document.getElementById('durationMinutesInput').value} Mins (${selectedTransitMode})`;
         }
 
-        const qrMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venueString) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        // Construct a clean, minimal URL targeting the final coordinates
+        const streamlinedFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(formattedShortTitle) + "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+
+        // QR Code Fluid Generation Context configuration
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: qrMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
+        new QRCode(qrContainer, { 
+            text: streamlinedFallbackUrl, 
+            width: 100, 
+            height: 100, 
+            colorDark : "#1a1716", 
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+        });
 
         document.getElementById('revealZone').style.display = 'block';
         document.getElementById('revealZone').scrollIntoView({ behavior: 'smooth' });
@@ -675,36 +685,30 @@
     function copyPassportAndLaunchGroup() {
         const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
         const vibe = document.getElementById('dataVibe').innerText;
-        const constraint = document.getElementById('dataConstraintMode').innerText;
-        const finance = document.getElementById('dataFinance').innerText;
+        const constraints = document.getElementById('dataConstraintMode').innerText;
         const launchTime = document.getElementById('dataTime').innerText;
-        const duration = document.getElementById('dataHorizon').innerText;
-        const coords = document.getElementById('dataCoords').innerText;
         
-        const universalMapLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        const shortMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
 
-        const structuredMarkdownText = 
-`🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
-`📍 *Destination:* ${venue}\n` +
-`✨ *Vibe Category:* ${vibe}\n` +
-`🛡 *Routing Parameter:* ${constraint}\n` +
-`💰 *Pricing Range:* ${finance}\n` +
-`⏱ *Time Allocation:* ${duration}\n` +
-`📅 *Event Schedule:* ${launchTime}\n` +
-`🗺️ *Strict Anchor Position:* ${coords}\n\n` +
-`👉 *Open Navigation Route:* ${universalMapLink}`;
+        // High Conciseness Layout Adjustment
+        const highDensityClipboardString = 
+`🎟️ *EXPLORATION PASS*\n` +
+`📍 *Place:* ${venue} (${vibe})\n` +
+`🚗 *Scope:* ${constraints}\n` +
+`📅 *Time:* ${launchTime}\n` +
+`📌 *Map Link:* ${shortMapUrl}`;
 
-        navigator.clipboard.writeText(structuredMarkdownText).then(() => {
+        navigator.clipboard.writeText(highDensityClipboardString).then(() => {
             const toast = document.getElementById('toastMessage');
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2500);
 
             setTimeout(() => {
-                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(highDensityClipboardString)}`;
                 window.open(whatsappUrl, '_blank');
             }, 300);
         }).catch(() => {
-            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(highDensityClipboardString)}`;
             window.open(whatsappUrl, '_blank');
         });
     }
@@ -723,7 +727,7 @@
 
         if (Math.random() > 0.5) {
             switchRoutingScenario('radius');
-            document.getElementById('distanceInput').value = Math.floor(Math.random() * 6) + 2;
+            document.getElementById('distanceInput').value = Math.floor(Math.random() * 8) + 2;
         } else {
             switchRoutingScenario('transit');
             document.getElementById('durationMinutesInput').value = Math.floor(Math.random() * 25) + 10;
