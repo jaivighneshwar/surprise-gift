@@ -323,7 +323,7 @@
     let selectedHorizonQueryModifier = 'premium journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // System-level anchoring point
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // System anchoring point
     let computedIntents = { androidIntent: '', browserFallbackUrl: '', appleUrl: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -344,7 +344,6 @@
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
         
-        // Binds the native tap/click event on the 2D canvas to the reactive global updating loop
         mapEngineInstance.on('click', (e) => {
             syncGlobalPositionState(e.latlng.lat, e.latlng.lng);
         });
@@ -424,7 +423,7 @@
                     <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery|croissant|patisserie')">🥐 Pastries</div>
                     <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles crepes|dessert shop')">🧇 Waffles</div>
                     <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble tea|boba cafe')">🧋 Bubble Tea</div>
-                    <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie bar|juice bar|healthy cafe')">🥤 Smoothies</div>
+                    <div id="cafe_smoothies" class="cuisine-chip" onclick="smoothies', 'smoothie bar|juice bar|healthy cafe')">🥤 Smoothies</div>
                     <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato shop|ice cream')">🍧 Gelato</div>
                 `;
             } else if (id === 'vibe_fastfood') {
@@ -499,7 +498,12 @@
 
     function refreshSpatialCanvasVector() {
         if (!mapEngineInstance || !focusedCoordinates) return;
-        if (spatialRadiusCircle) mapEngineInstance.removeLayer(spatialRadiusCircle);
+        
+        // Wipe old spatial boundary vectors cleanly from memory
+        if (spatialRadiusCircle) {
+            mapEngineInstance.removeLayer(spatialRadiusCircle);
+            spatialRadiusCircle = null;
+        }
 
         let radiusKm = 5;
         if (currentScenario === 'radius') {
@@ -512,11 +516,28 @@
             radiusKm = speedKmh * (travelMins / 60);
         }
 
+        // Draw standard mathematical representation circle
         spatialRadiusCircle = L.circle([focusedCoordinates.lat, focusedCoordinates.lon], {
-            color: 'var(--primary-gold)', fillColor: 'var(--primary-gold)', fillOpacity: 0.09, weight: 1.5, dashArray: '4, 4'
+            radius: radiusKm * 1000, // Convert to meters explicitly
+            color: 'var(--primary-gold)', 
+            fillColor: 'var(--primary-gold)', 
+            fillOpacity: 0.09, 
+            weight: 1.5, 
+            dashArray: '4, 4'
         }).addTo(mapEngineInstance);
         
-        mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [8, 8] });
+        // High-precision geographic viewport calculation replacement pattern 
+        // Employs destination bounding box checks to completely fix inverted zoom behavior.
+        const latitudeOffset = (radiusKm / 111.32);
+        const longitudeOffset = (radiusKm / (111.32 * Math.cos(focusedCoordinates.lat * Math.PI / 180)));
+
+        const explicitBBox = L.latLngBounds(
+            [focusedCoordinates.lat - latitudeOffset, focusedCoordinates.lon - longitudeOffset],
+            [focusedCoordinates.lat + latitudeOffset, focusedCoordinates.lon + longitudeOffset]
+        );
+
+        // Snap canvas view structure exactly to envelope values cleanly with comfortable padding metrics
+        mapEngineInstance.fitBounds(explicitBBox, { padding: [10, 10], animate: true });
     }
 
     function executeTextGeocodeSearch() {
@@ -527,8 +548,19 @@
         locator.geocode(query, (output) => {
             if (output && output.length > 0) {
                 const target = output[0].center;
-                syncGlobalPositionState(target.lat, target.lng);
-                mapEngineInstance.setView([target.lat, target.lng], 13);
+                
+                // Locks anchor point values explicitly
+                focusedCoordinates.lat = parseFloat(target.lat);
+                focusedCoordinates.lon = parseFloat(target.lng);
+
+                if (mapMarkerNode) {
+                    mapMarkerNode.setLatLng([focusedCoordinates.lat, focusedCoordinates.lon]);
+                } else {
+                    mapMarkerNode = L.marker([focusedCoordinates.lat, focusedCoordinates.lon]).addTo(mapEngineInstance);
+                }
+
+                // Generates circle and cleanly scales boundaries down/up dynamically
+                refreshSpatialCanvasVector();
             } else {
                 alert("Location could not be found. Please optimize search terms.");
             }
@@ -542,13 +574,11 @@
         }
         navigator.geolocation.getCurrentPosition((pos) => {
             syncGlobalPositionState(pos.coords.latitude, pos.coords.longitude);
-            mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 14);
         }, (err) => {
             alert("Could not pull current geolocation coordinates. Point manually on map canvas.");
         }, { enableHighAccuracy: true });
     }
 
-    // MULTI-STEP INTENT LOGIC BLOCK
     function compileSpatialDiscoveryEngine() {
         if (!focusedCoordinates || isNaN(focusedCoordinates.lat) || isNaN(focusedCoordinates.lon)) { 
             alert("No position reference locked. Please select an area on the interactive map canvas."); 
@@ -577,15 +607,8 @@
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
         let cleanSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
 
-        // Phase 1: High-Precision Native Intent String. 
-        // Specifying 'geo:lat,lon?q=' forces Android to snap the focus exactly on the coordinates before applying keywords.
         computedIntents.androidIntent = "geo:" + lat.toFixed(6) + "," + lon.toFixed(6) + "?q=" + encodeURIComponent(cleanSearchString);
-        
-        // Phase 2: Structural Web / WebView URL Scheme Framework
-        // Uses the cross-platform search standard with hard-locked center-coordinate anchors.
         computedIntents.browserFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanSearchString) + "&center=" + lat.toFixed(6) + "," + lon.toFixed(6);
-
-        // Phase 3: Spatial Apple Maps URL Standard
         computedIntents.appleUrl = "maps://?q=" + encodeURIComponent(cleanSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
 
         const badge = document.getElementById('auditBadge');
@@ -608,20 +631,15 @@
             return;
         }
 
-        // Execution Routing Logic: Attempt native anchor resolution via direct location dispatching
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         const isAndroidDevice = /android/i.test(userAgent);
 
         if (isAndroidDevice) {
-            // Android Chrome/WebView Native Intent Protocol dispatch
             window.location.href = computedIntents.androidIntent;
-            
-            // Safety Check: If the app window isn't paged out, route directly into the cross-platform search fallback
             setTimeout(() => {
                 window.open(computedIntents.browserFallbackUrl, '_blank');
             }, 1000);
         } else {
-            // Desktop & iOS browser standard redirection
             window.open(computedIntents.browserFallbackUrl, '_blank');
         }
     }
