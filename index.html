@@ -24,7 +24,7 @@
             --ink-main: #221e1d;
             --ink-muted: #7d7268;
             --ui-border: rgba(197, 168, 128, 0.28);
-            --speed-fast: 0.2s;
+            --speed-fast: 0.22s;
             --accent-purple: #786982;
             --whatsapp-green: #25d366;
             --dark-panel: #1a1716;
@@ -43,7 +43,7 @@
 
         .section-divider-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--ink-main); display: block; margin: 20px 0 10px 0; border-bottom: 1px solid var(--ui-border); padding-bottom: 4px; }
 
-        /* UNIFIED CONTROL CONTAINER DECK */
+        /* PARAMETERS ENGINE HUD CONTAINER */
         .unified-control-deck { background: rgba(197, 168, 128, 0.04); border: 1px solid var(--ui-border); border-radius: 20px; padding: 12px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
         
         .map-hud-row { display: flex; gap: 6px; }
@@ -55,7 +55,6 @@
 
         #map { width: 100%; height: 170px; border-radius: 14px; z-index: 1; border: 1px solid rgba(0,0,0,0.04); }
         
-        /* PARAMETERS QUICK MATRIX LAYOUT */
         .scenario-tab-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: rgba(0, 0, 0, 0.03); padding: 3px; border-radius: 10px; }
         .scenario-tab { background: none; border: none; padding: 8px 2px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--ink-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px; transition: all var(--speed-fast); }
         .scenario-tab.active { background: var(--surface-card); color: var(--ink-main); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
@@ -81,35 +80,52 @@
 
         .audit-compliance-badge { padding: 10px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 500; display: none; line-height: 1.35; background: #f4f9f4; color: var(--success-green); border: 1px solid rgba(79,138,16,0.15); }
 
-        /* DISCOVERY CLASSIFICATION CATEGORIES */
+        /* CLASSIFICATION CONTAINER AND TILES */
         .category-enclosure { background: #ffffff; padding: 4px 0; margin-bottom: 12px; }
         .enclosure-title { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--dark-gold); display: block; margin-bottom: 6px; padding-left: 2px; }
         .selection-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 
         .tactile-btn {
             background: var(--surface-card); border: 1px solid var(--ui-border); padding: 10px 4px; border-radius: 12px; cursor: pointer; transition: all var(--speed-fast);
-            font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 500; color: var(--ink-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; text-align: center;
+            font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 500; color: var(--ink-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 54px; text-align: center;
         }
         .tactile-btn:active { transform: scale(0.98); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #fbf9f4; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
 
-        /* GASTRONOMY CUISINE SUB DECK */
-        .cuisine-sub-deck { display: none; background: #faf9f5; border-radius: 12px; border: 1px dashed var(--primary-gold); padding: 8px; margin-top: 6px; animation: fadeInSub 0.2s ease-out forwards; }
-        @keyframes fadeInSub { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        /* FIXED SUB-MENU DRAWER FOR CONTEXTUAL INJECTION */
+        .cuisine-sub-deck { 
+            display: none; 
+            background: #faf9f5; 
+            border-radius: 12px; 
+            border: 1px dashed var(--primary-gold); 
+            padding: 10px; 
+            margin-top: 8px; 
+            margin-bottom: 8px;
+            grid-column: 1 / -1; 
+            position: relative;
+            animation: slideDownSub var(--speed-fast) cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        @keyframes slideDownSub { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .cuisine-sub-deck::before {
+            content: ''; position: absolute; top: -6px; left: var(--arrow-left, 50%); transform: translateX(-50%);
+            border-width: 0 6px 6px 6px; border-style: solid; border-color: transparent transparent var(--primary-gold) transparent;
+            transition: left var(--speed-fast) ease;
+        }
         .cuisine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
         .cuisine-chip { background: #fff; border: 1px solid rgba(0,0,0,0.06); padding: 7px 2px; border-radius: 6px; font-size: 0.68rem; font-weight: 500; cursor: pointer; text-align: center; color: var(--ink-muted); }
         .cuisine-chip.active { background: var(--ink-main); color: #fff; border-color: var(--ink-main); font-weight: 600; }
 
-        /* EXECUTION ACTION FOOTER CONSOLE */
+        /* EXECUTION ACTION CONSOLE FOOTER */
         .control-console-deck { display: flex; gap: 8px; margin-top: 16px; }
         .btn-run-synthesize { background-color: var(--ink-main); color: var(--surface-card); border: none; flex: 2; padding: 15px; border-radius: 30px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; box-shadow: 0 4px 12px rgba(34,30,29,0.06); }
         .btn-run-surprise { background-color: var(--accent-purple); color: var(--surface-card); border: none; flex: 1; padding: 15px; border-radius: 30px; font-weight: 600; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; }
 
-        /* ROUTING PANELS & OUTPUT FLIGHT PASSES */
+        /* OUTPUT COMPONENT PANELS */
         .bridge-routing-panel { display: none; background: var(--dark-panel); border-radius: 20px; padding: 16px; margin-top: 20px; text-align: left; }
         .bridge-routing-panel h4 { font-size: 0.95rem; color: white; font-weight: 600; margin-bottom: 4px; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; }
         .bridge-routing-panel p { font-size: 0.72rem; color: #bcaea3; margin-bottom: 12px; }
-        .external-intent-link { display: flex; align-items: center; justify-content: center; background: var(--primary-gold); color: #ffffff; padding: 12px; border-radius: 30px; font-weight: 600; font-size: 0.78rem; text-decoration: none; text-transform: uppercase; width: 100%; text-align: center; margin-bottom: 12px; }
+        .external-intent-link { display: flex; align-items: center; justify-content: center; background: var(--primary-gold); color: #ffffff; padding: 12px; border-radius: 30px; font-weight: 600; font-size: 0.78rem; text-decoration: none; text-transform: uppercase; width: 100%; text-align: center; margin-bottom: 12px; cursor: pointer; border: none; }
         
         .output-passport-reveal { margin-top: 20px; display: none; }
         .passport-print-card { padding: 20px 14px; background: #ffffff; border-radius: 16px; border: 1px dashed var(--primary-gold); text-align: center; }
@@ -203,9 +219,9 @@
         <div class="category-enclosure">
             <span class="enclosure-title">✨ Aesthetic Media & Vantage Points</span>
             <div class="selection-tile-grid">
-                <button type="button" id="vibe_insta_spots" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark|monument', 'point_of_interest')">📸 Picture Perfect Spots</button>
-                <button type="button" id="vibe_architecture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Visual Architecture</button>
-                <button type="button" id="vibe_street_art" class="tactile-btn" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|graffiti+wall|sculpture', 'art_gallery')">🎨 Murals & Street Art</button>
+                <button type="button" id="vibe_insta_spots" class="tactile-btn active" onclick="setDiscoveryVibe('vibe_insta_spots', 'instagrammable+spot|scenic+viewpoint|landmark', 'point_of_interest')">📸 Picture Perfect</button>
+                <button type="button" id="vibe_architecture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_architecture', 'architecture+design|palace|castle|cathedral', 'tourist_attraction')">🏛️ Architecture</button>
+                <button type="button" id="vibe_street_art" class="tactile-btn" onclick="setDiscoveryVibe('vibe_street_art', 'street+art|mural|sculpture', 'art_gallery')">🎨 Street Art</button>
             </div>
         </div>
         
@@ -213,7 +229,7 @@
             <span class="enclosure-title">Nature & Wilderness Exploration</span>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr 1fr;">
                 <button type="button" id="vibe_hikes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_hikes', 'hiking+trail|scenic+viewpoint', 'natural_feature')">🥾 Famous Hiking Trails</button>
-                <button type="button" id="vibe_escape" class="tactile-btn" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Scenic Viewpoints & Parks</button>
+                <button type="button" id="vibe_escape" class="tactile-btn" onclick="setDiscoveryVibe('vibe_escape', 'park|nature+reserve', 'park')">🌲 Scenic Parks</button>
             </div>
         </div>
 
@@ -221,17 +237,11 @@
             <span class="enclosure-title">Gastronomy & Dining Hubs</span>
             <div class="selection-tile-grid">
                 <button type="button" id="vibe_fine_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fine_dine', 'fine+dining+restaurant|michelin', 'restaurant')">🥂 Fine Dining</button>
-                <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'restaurant|bistro', 'restaurant')">🍽️ Casual Eating</button>
-                <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'artisan+coffee+shop|bakery|espresso+cafe', 'cafe')">☕ Cafes & Bakeries</button>
+                <button type="button" id="vibe_casual_dine" class="tactile-btn" onclick="setDiscoveryVibe('vibe_casual_dine', 'restaurant|bistro', 'restaurant')">🍽️ Casual Dining</button>
+                <button type="button" id="vibe_cafes" class="tactile-btn" onclick="setDiscoveryVibe('vibe_cafes', 'coffee+shop|bakery|espresso+cafe', 'cafe')">☕ Cafes & Sweets</button>
             </div>
             <div class="selection-tile-grid" style="grid-template-columns: 1fr; margin-top:6px;">
                 <button type="button" id="vibe_fastfood" class="tactile-btn" onclick="setDiscoveryVibe('vibe_fastfood', 'fast+food|burger+joint|street+food', 'meal_takeaway')">🍔 Fast Food & Quick Bites</button>
-            </div>
-            
-            <div class="cuisine-sub-deck" id="cuisineDeck">
-                <span class="enclosure-title" id="subDeckTitle" style="color:var(--ink-main); margin-bottom:4px; font-size:0.62rem;">Gastronomy Profile Selection</span>
-                <div class="cuisine-grid" id="subDeckGrid">
-                    </div>
             </div>
         </div>
 
@@ -248,14 +258,19 @@
             <span class="enclosure-title">Culture & Entertainment Matrix</span>
             <div class="selection-tile-grid">
                 <button type="button" id="vibe_culture" class="tactile-btn" onclick="setDiscoveryVibe('vibe_culture', 'museum|art+gallery|heritage+site', 'museum')">🎻 Heritage & Museums</button>
-                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'sports+activity|climbing+center|adventure', 'amusement_park')">🧗‍♀️ Sports & Outdoor Action</button>
-                <button type="button" id="vibe_themeparks" class="tactile-btn" onclick="setDiscoveryVibe('vibe_themeparks', 'freizeitpark|theme+park|amusement+park|water+park', 'amusement_park')">🎡 Freizeitparks & Theme Parks</button>
+                <button type="button" id="vibe_action" class="tactile-btn" onclick="setDiscoveryVibe('vibe_action', 'sports+activity|climbing+center|adventure', 'amusement_park')">🧗‍♀️ Physical Action</button>
+                <button type="button" id="vibe_themeparks" class="tactile-btn" onclick="setDiscoveryVibe('vibe_themeparks', 'freizeitpark|theme+park|amusement+park|water+park', 'amusement_park')">🎡 Theme Parks</button>
             </div>
             <div class="selection-tile-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:6px;">
                 <button type="button" id="vibe_games" class="tactile-btn" onclick="setDiscoveryVibe('vibe_games', 'escape+room|board+game+cafe|vr+arcade', 'bowling_alley')">🧩 Escape & Games</button>
-                <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live+music+venue|theater|concert+hall', 'movie_theater')">🎫 Shows & Events</button>
+                <button type="button" id="vibe_shows" class="tactile-btn" onclick="setDiscoveryVibe('vibe_shows', 'live+music+venue|theater', 'movie_theater')">🎫 Shows & Events</button>
                 <button type="button" id="vibe_movies" class="tactile-btn" onclick="setDiscoveryVibe('vibe_movies', 'movie+theater|cinema|imax', 'movie_theater')">🍿 Cinema & Movies</button>
             </div>
+        </div>
+
+        <div class="cuisine-sub-deck" id="cuisineDeck">
+            <span class="enclosure-title" id="subDeckTitle" style="color:var(--ink-main); margin-bottom:6px; font-size:0.62rem;">Gastronomy Profile Selection</span>
+            <div class="cuisine-grid" id="subDeckGrid"></div>
         </div>
 
         <div class="control-console-deck">
@@ -265,11 +280,11 @@
 
         <div class="bridge-routing-panel" id="bridgePanel">
             <h4>Step 1: Browse Verified Matches</h4>
-            <p>Geographic boundary checks completed. Launch isolated mapping framework options:</p>
+            <p>Geographic boundary checks completed. Launch native mapping application frameworks:</p>
             
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                <button type="button" class="external-intent-link" style="background:#4285F4; margin-bottom:0;" onclick="triggerCrossPlatformIntent('google')">Google Maps 📱</button>
-                <button type="button" class="external-intent-link" style="background:#221e1d; margin-bottom:0; border:1px solid rgba(255,255,255,0.15);" onclick="triggerCrossPlatformIntent('apple')">Apple Maps 🍏</button>
+                <button type="button" class="external-intent-link" style="background:#4285F4;" onclick="triggerCrossPlatformIntent('google')">Google Maps 📱</button>
+                <button type="button" class="external-intent-link" style="background:#221e1d; border:1px solid rgba(255,255,255,0.15);" onclick="triggerCrossPlatformIntent('apple')">Apple Maps 🍏</button>
             </div>
             
             <div style="border-top: 1px dashed rgba(255,255,255,0.12); padding-top:12px; margin-top:14px;">
@@ -307,7 +322,7 @@
 
 <script>
     let mapEngineInstance = null, mapMarkerNode = null, spatialRadiusCircle = null;
-    let selectedVibeSearchQuery = 'instagrammable+spot|scenic+viewpoint|landmark|monument';
+    let selectedVibeSearchQuery = 'instagrammable+spot|scenic+viewpoint|landmark';
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
@@ -326,7 +341,13 @@
 
     function initializeBaseMap() {
         if (mapEngineInstance !== null) return;
-        mapEngineInstance = L.map('map', { zoomControl: false, attributionControl: false }).setView([48.7771, 9.1795], 13);
+        // iOS 17/18 Tap Compatibility Flag Layer configurations explicitly defined
+        mapEngineInstance = L.map('map', { 
+            zoomControl: false, 
+            attributionControl: false,
+            tap: false 
+        }).setView([48.7771, 9.1795], 13);
+        
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
         mapEngineInstance.on('click', (e) => trackAnchorShift(e.latlng.lat, e.latlng.lng));
         trackAnchorShift(48.7771, 9.1795);
@@ -356,9 +377,12 @@
         refreshSpatialCanvasVector();
     }
 
+    // INTERACTIVE REAL-TIME TARGET INLINE EXPANSION LOGIC
     function setDiscoveryVibe(id, terms, googleType) {
+        const clickedElement = document.getElementById(id);
+        
         document.querySelectorAll('.category-enclosure .tactile-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        clickedElement.classList.add('active');
         selectedVibeSearchQuery = terms;
         selectedGoogleCategory = googleType;
 
@@ -369,62 +393,74 @@
         grid.innerHTML = ''; 
         activeCuisineQuerySegment = '';
 
-        if (id === 'vibe_fine_dine' || id === 'vibe_casual_dine') {
+        const needsSubMenu = ['vibe_fine_dine', 'vibe_casual_dine', 'vibe_cafes', 'vibe_fastfood', 'vibe_action', 'vibe_themeparks'].includes(id);
+
+        if (needsSubMenu) {
+            if (id === 'vibe_fine_dine' || id === 'vibe_casual_dine') {
+                title.innerText = "Gastronomy Profile Selection";
+                grid.innerHTML = `
+                    <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
+                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian+restaurant|tandoori')">🍛 Indian</div>
+                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian+restaurant|trattoria')">🍝 Italian</div>
+                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian+restaurant|sushi|ramen')">🥢 Asian</div>
+                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french+restaurant|bistro')">🥖 French</div>
+                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional+traditional+restaurant')">🥩 Regional</div>
+                `;
+            } else if (id === 'vibe_cafes') {
+                title.innerText = "Cafe Specialty Focus Selection";
+                grid.innerHTML = `
+                    <div id="cafe_any" class="cuisine-chip active" onclick="setCuisineProfile('cafe_any', '')">All Treats</div>
+                    <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery|croissant|patisserie')">🥐 Pastries</div>
+                    <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles+crepes|dessert+shop')">🧇 Waffles</div>
+                    <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble+tea|boba+cafe')">🧋 Bubble Tea</div>
+                    <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie+bar|juice+bar|healthy+cafe')">🥤 Smoothies</div>
+                    <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato+shop|ice+cream')">🍧 Gelato</div>
+                `;
+            } else if (id === 'vibe_fastfood') {
+                title.innerText = "Fast Food & Quick Bites Focus Selection";
+                grid.innerHTML = `
+                    <div id="fast_any" class="cuisine-chip active" onclick="setCuisineProfile('fast_any', '')">All Fast Food</div>
+                    <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash+burger|loaded+fries')">🍔 Burgers</div>
+                    <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco+stand|kebab+house|street+food')">🌮 Street Food</div>
+                    <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza+slice|fried+chicken')">🍕 Comfort Bites</div>
+                `;
+            } else if (id === 'vibe_action') {
+                title.innerText = "Active & Outdoor Sports Specialty Focus";
+                grid.innerHTML = `
+                    <div id="action_any" class="cuisine-chip active" onclick="setCuisineProfile('action_any', '')">All Action</div>
+                    <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat+rental|electric+boat|boating')">⛵ Boating</div>
+                    <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand+up+paddleboarding|paddleboard')">🏄‍♂️ SUP</div>
+                    <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak+tour|canoe+rental')">🛶 Kayak</div>
+                    <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high+ropes|bouldering')">🧗‍♀️ Climbing</div>
+                    <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser+tag|axe+throwing')">🎯 Tactical</div>
+                    <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go+kart|pumptrack|quad+biking')">🏎️ Speed</div>
+                `;
+            } else if (id === 'vibe_themeparks') {
+                title.innerText = "Amusement & Theme Park Matrix Selection";
+                grid.innerHTML = `
+                    <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
+                    <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement+park|roller+coaster')">🎢 Freizeitparks</div>
+                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water+theme+park|aquapark')">🏊‍♂️ Water Worlds</div>
+                    <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline+park|ninja+warrior')">🤸‍♀️ Trampoline</div>
+                    <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr+arena|virtual+reality')">🽴 VR Arena</div>
+                `;
+            }
+
+            // DYNAMIC INLINE ROW POSITIONING ENGINE
+            const parentGrid = clickedElement.parentElement;
+            parentGrid.appendChild(deck);
             deck.style.display = 'block';
-            title.innerText = "Gastronomy Profile Selection";
-            grid.innerHTML = `
-                <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
-                <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian+restaurant|tandoori|curry')">🍛 Indian</div>
-                <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian+restaurant|pasta|trattoria')">🍝 Italian</div>
-                <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian+restaurant|sushi|ramen')">🥢 Asian</div>
-                <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french+restaurant|bistro')">🥖 French</div>
-                <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional+traditional+restaurant')">🥩 Regional</div>
-            `;
-        } else if (id === 'vibe_cafes') {
-            deck.style.display = 'block';
-            title.innerText = "Cafe Specialty Focus Selection";
-            grid.innerHTML = `
-                <div id="cafe_any" class="cuisine-chip active" onclick="setCuisineProfile('cafe_any', '')">All Treats</div>
-                <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery+pastries|croissant|patisserie')">🥐 Pastries</div>
-                <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles+crepes|dessert+shop')">🧇 Waffles</div>
-                <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble+tea|boba+cafe')">🧋 Bubble Tea</div>
-                <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie+bar|juice+bar|healthy+cafe')">🥤 Smoothies</div>
-                <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato+shop|italian+ice+cream')">🍧 Gelato</div>
-                <div id="cafe_icecream" class="cuisine-chip" onclick="setCuisineProfile('cafe_icecream', 'ice+cream+parlor|dessert')">🍦 Ice Creams</div>
-            `;
-        } else if (id === 'vibe_fastfood') {
-            deck.style.display = 'block';
-            title.innerText = "Fast Food & Quick Bites Focus Selection";
-            grid.innerHTML = `
-                <div id="fast_any" class="cuisine-chip active" onclick="setCuisineProfile('fast_any', '')">All Fast Food</div>
-                <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash+burger|gourmet+burger|loaded+fries')">🍔 Smash Burgers</div>
-                <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco+stand|kebab+house|noodle+box|street+food')">🌮 Street Food</div>
-                <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza+slice|fried+chicken|drive+in')">🍕 Comfort Bites</div>
-            `;
-        } else if (id === 'vibe_action') {
-            deck.style.display = 'block';
-            title.innerText = "Active & Outdoor Sports Specialty Focus";
-            grid.innerHTML = `
-                <div id="action_any" class="cuisine-chip active" onclick="setCuisineProfile('action_any', '')">All Action</div>
-                <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat+rental|electric+boat|motorboat|boating')">⛵ Boating</div>
-                <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand+up+paddleboarding|sup+surf|paddleboard')">🏄‍♂️ SUP / Paddling</div>
-                <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak+tour|canoe+rental|rafting')">🛶 Kayak & Canoe</div>
-                <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high+ropes|bouldering|climbing')">🧗‍♀️ Ropes & Climbing</div>
-                <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser+tag|axe+throwing')">🎯 Tactical Action</div>
-                <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go+kart|pumptrack|quad+biking|speedway')">🏎️ Wheels & Speed</div>
-            `;
-        } else if (id === 'vibe_themeparks') {
-            deck.style.display = 'block';
-            title.innerText = "Amusement & Theme Park Matrix Selection";
-            grid.innerHTML = `
-                <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
-                <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement+park|roller+coaster')">🎢 Freizeitparks</div>
-                <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water+theme+park|aquapark|water+slides')">🏊‍♂️ Water Worlds</div>
-                <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline+park|ninja+warrior|action+hall')">🤸‍♀️ Action & Trampoline</div>
-                <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr+arena|virtual+reality|skydiving+simulator')">🽴 VR & Simulation</div>
-            `;
+
+            // Calculate exact left offset alignment mapping for the indicator arrow
+            const tileLeftOffset = clickedElement.offsetLeft;
+            const tileWidth = clickedElement.offsetWidth;
+            const gridLeftOffset = parentGrid.offsetLeft;
+            const targetArrowPosition = (tileLeftOffset + (tileWidth / 2)) - gridLeftOffset;
+            
+            deck.style.setProperty('--arrow-left', `${targetArrowPosition}px`);
         } else {
             deck.style.display = 'none';
+            document.body.appendChild(deck); // Park off-screen safely
         }
     }
 
@@ -440,7 +476,7 @@
         selectedHorizonLabel = label;
 
         if (id === 'time_short') {
-            selectedHorizonQueryModifier = "quick+service|takeaway|express|express+outing";
+            selectedHorizonQueryModifier = "quick+service|takeaway|express";
         } else if (id === 'time_half') {
             selectedHorizonQueryModifier = "experience|leisure|hangout";
         } else {
@@ -457,7 +493,6 @@
         if (spatialRadiusCircle) mapEngineInstance.removeLayer(spatialRadiusCircle);
 
         let radiusKm = 5;
-
         if (currentScenario === 'radius') {
             radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
         } else {
@@ -505,14 +540,13 @@
         }, null, { enableHighAccuracy: true });
     }
 
+    // INTENT COMPILATION ENGINE
     function compileSpatialDiscoveryEngine() {
-        if (!focusedCoordinates) { alert("Please click on the map canvas to set a tracking location pin."); return; }
+        if (!focusedCoordinates) { alert("Please position a marker pin on the map viewport."); return; }
         
         const lat = focusedCoordinates.lat;
         const lon = focusedCoordinates.lon;
         const priceTier = document.getElementById('googlePriceFilter').value;
-        const dateString = document.getElementById('targetDate').value;
-        const timeString = document.getElementById('targetTime').value;
 
         let radiusKm = 5;
         let auditDescription = "";
@@ -529,25 +563,20 @@
             auditDescription = `${travelMins} Mins via ${selectedTransitMode} (Bound to max ${radiusKm.toFixed(2)} KM).`;
         }
 
-        // Search Tuning Logic: Inject explicitly high-ranking keyword parameters
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let combinedSearchString = `${baseTerms}+${selectedHorizonQueryModifier}+top+rated+best+highly+recommended`;
+        let combinedSearchString = `${baseTerms} ${selectedHorizonQueryModifier} top rated best`;
 
-        // Cross-Platform Engine Repair:
-        // iOS requires absolute URI structural encapsulation parameters via official standard hooks or it breaks maps delivery inside native wrappers.
-        const isIPhoneDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        // SOLID CROSS-PLATFORM DEEP LINK FORMULATION
+        // Google Maps URL API Standard format (flawless fallback initialization on iOS + Native processing on Android)
+        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(combinedSearchString)}&location=${lat.toFixed(6)},${lon.toFixed(6)}`;
         
-        // Universal Standard Google Link Architecture forcing immediate runtime container activation on Android and mobile desktop browsers
-        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(combinedSearchString)}&query_place_id=${selectedGoogleCategory}&location=${lat.toFixed(6)},${lon.toFixed(6)}`;
-        
-        // Fully fixed structural Apple Maps link syntax that allows the iPhone kernel to transition flawlessly out of Safari into native Apple Maps
+        // Strict Apple Maps Scheme containing structural viewport constraint biases (Fires native Apple Maps context natively inside iPhones)
         const appleApiQuery = `https://maps.apple.com/?q=${encodeURIComponent(combinedSearchString)}&ll=${lat.toFixed(6)},${lon.toFixed(6)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
 
         const badge = document.getElementById('auditBadge');
-        badge.className = "audit-compliance-badge";
         badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription} Maximum Budget Tier: Tier ${priceTier}. Filtered for Highly Rated options.`;
         badge.style.display = "block";
 
@@ -558,10 +587,7 @@
     function triggerCrossPlatformIntent(platform) {
         const targetUrl = computedIntents[platform];
         if (!targetUrl) return;
-        const actionNode = document.createElement('a');
-        actionNode.href = targetUrl;
-        actionNode.target = '_blank';
-        actionNode.click();
+        window.open(targetUrl, '_blank');
     }
 
     function generateFinalPassportPass() {
@@ -583,12 +609,55 @@
             document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins / ${selectedTransitMode})`;
         }
 
-        const deepMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
-        const qrContainer = document.getElementById("qrcode"); qrContainer.innerHTML = "";
-        new QRCode(qrContainer, { text: deepMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
+        // Generate Clean Universal Reference URL inside the QR footprint matrix
+        const qrMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
+        const qrContainer = document.getElementById("qrcode"); 
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, { text: qrMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
 
         document.getElementById('revealZone').style.display = 'block';
         document.getElementById('revealZone').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // SYNCHRONOUS SINGLE EVENT CHAIN: CLIPBOARD & DEEP LINK WHATSAPP PASSTHROUGH
+    function copyPassportAndLaunchGroup() {
+        const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
+        const vibe = document.getElementById('dataVibe').innerText;
+        const constraint = document.getElementById('dataConstraintMode').innerText;
+        const finance = document.getElementById('dataFinance').innerText;
+        const launchTime = document.getElementById('dataTime').innerText;
+        const duration = document.getElementById('dataHorizon').innerText;
+        const coords = document.getElementById('dataCoords').innerText;
+        
+        const universalMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
+
+        const structuredMarkdownText = 
+`🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
+`📍 *Destination:* ${venue}\n` +
+`✨ *Vibe Category:* ${vibe}\n` +
+`🛡 *Routing Parameter:* ${constraint}\n` +
+`💰 *Pricing Range:* ${finance}\n` +
+`⏱ *Time Allocation:* ${duration}\n` +
+`📅 *Event Schedule:* ${launchTime}\n` +
+`🗺️ *Strict Anchor Position:* ${coords}\n\n` +
+`👉 *Open Navigation Route:* ${universalMapLink}`;
+
+        // Executive synchronous fallback execution layout avoiding thread drops on iPhone Safari Mobile web views
+        navigator.clipboard.writeText(structuredMarkdownText).then(() => {
+            const toast = document.getElementById('toastMessage');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+
+            // Execute using official WhatsApp text API specification parameters
+            setTimeout(() => {
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
+                window.open(whatsappUrl, '_blank');
+            }, 300);
+        }).catch(() => {
+            // Hard fallback execution path for old iOS or restrictive permissions sandboxes
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(structuredMarkdownText)}`;
+            window.open(whatsappUrl, '_blank');
+        });
     }
 
     function triggerSurpriseMatrix() {
@@ -615,46 +684,6 @@
         }
         
         compileSpatialDiscoveryEngine();
-    }
-
-    function copyPassportAndLaunchGroup() {
-        const venue = document.getElementById('passportTargetTitle').innerText || "Selected Destination";
-        const vibe = document.getElementById('dataVibe').innerText;
-        const constraint = document.getElementById('dataConstraintMode').innerText;
-        const finance = document.getElementById('dataFinance').innerText;
-        const launchTime = document.getElementById('dataTime').innerText;
-        const duration = document.getElementById('dataHorizon').innerText;
-        const coords = document.getElementById('dataCoords').innerText;
-        
-        const deepMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
-
-        const structuredMarkdownText = 
-`🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
-`📍 *Destination:* ${venue}\n` +
-`✨ *Vibe Category:* ${vibe}\n` +
-`🛡️ *Routing Parameter:* ${constraint}\n` +
-`💰 *Pricing Range:* ${finance}\n` +
-`⏱ *Time Allocation:* ${duration}\n` +
-`📅 *Event Schedule:* ${launchTime}\n` +
-`🗺️ *Strict Anchor Position:* ${coords}\n\n` +
-`👉 *Open Navigation Route:* ${deepMapLink}`;
-
-        navigator.clipboard.writeText(structuredMarkdownText).then(() => {
-            const toast = document.getElementById('toastMessage');
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2500);
-
-            setTimeout(() => {
-                const targetWhatsAppGroupChatUrl = "https://chat.whatsapp.com/Br544DS1KT1CSYNHDDvVyw";
-                const bridgeLinkAnchorNode = document.createElement('a');
-                bridgeLinkAnchorNode.href = targetWhatsAppGroupChatUrl;
-                bridgeLinkAnchorNode.target = '_blank';
-                bridgeLinkAnchorNode.rel = 'noopener noreferrer';
-                bridgeLinkAnchorNode.click();
-            }, 600);
-        }).catch(() => {
-            alert("Clipboard context authorization failure.");
-        });
     }
 </script>
 </body>
