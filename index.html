@@ -323,8 +323,8 @@
     let selectedHorizonQueryModifier = 'premium journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Default fallback anchor
-    let computedIntents = { google: '', apple: '' };
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Default initialization point
+    let computedIntents = { google: '', apple: '', webFallbackGoogle: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
@@ -339,7 +339,7 @@
         mapEngineInstance = L.map('map', { 
             zoomControl: false, 
             attributionControl: false,
-            tap: false // Disables conflicting Leaflet legacy tap engines to let iOS native handle events flawlessly
+            tap: false
         }).setView([focusedCoordinates.lat, focusedCoordinates.lon], 13);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
@@ -348,7 +348,6 @@
         syncGlobalPositionState(focusedCoordinates.lat, focusedCoordinates.lon);
     }
 
-    // ROBUST POSITIONAL SYNCHRONIZATION BACKBONE
     function syncGlobalPositionState(lat, lng) {
         focusedCoordinates.lat = parseFloat(lat);
         focusedCoordinates.lon = parseFloat(lng);
@@ -448,7 +447,7 @@
                 grid.innerHTML = `
                     <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
                     <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement park|roller coaster')">🎢 Freizeitparks</div>
-                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
+                    <div id="park_water" class="cuisine-chip" onclick="setModelCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
                     <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline park|ninja warrior')">🤸‍♀️ Trampoline</div>
                     <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr arena|virtual reality')">🽴 VR Arena</div>
                 `;
@@ -524,7 +523,6 @@
         locator.geocode(query, (output) => {
             if (output && output.length > 0) {
                 const target = output[0].center;
-                // Instantly update current position global parameters
                 syncGlobalPositionState(target.lat, target.lng);
                 mapEngineInstance.setView([target.lat, target.lng], 13);
             } else {
@@ -546,7 +544,7 @@
         }, { enableHighAccuracy: true });
     }
 
-    // THE DEEP-LINK COMPILER ENGINE
+    // ANDROID-HARDENED GEOGRAPHIC INTENT RESOLVER
     function compileSpatialDiscoveryEngine() {
         if (!focusedCoordinates || isNaN(focusedCoordinates.lat) || isNaN(focusedCoordinates.lon)) { 
             alert("No geographic reference found. Select a spot on the mapping grid."); 
@@ -573,16 +571,21 @@
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let finalSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
+        let cleanSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
 
-        // FIX: Replaced broken syntactic templates with fully valid, strict URI parameter builders
-        // Google Maps uses 'q' for structural keywords and 'll' to center search queries accurately
-        const googleApiQuery = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(finalSearchString) + "&ll=" + lat.toFixed(6) + "," + lon.toFixed(6);
+        // BUILDER 1: Native Android Geo Proximity Intent Scheme
+        // Passing coordinates inside the 'geo' root forces Android to anchor map instances before executing search queries 'q'
+        const androidGeoIntent = "geo:" + lat.toFixed(6) + "," + lon.toFixed(6) + "?q=" + encodeURIComponent(cleanSearchString);
         
-        // Apple Maps handles absolute coordinates via the 'sll'/'near' vector properties
-        const appleApiQuery = "maps://?q=" + encodeURIComponent(finalSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
+        // BUILDER 2: Google Universal cross-platform Search API framework
+        // Hard-locks coordinates into the query array alongside contextual strings for standard browsers
+        const webFallbackGoogleUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanSearchString) + "&center=" + lat.toFixed(6) + "," + lon.toFixed(6);
 
-        computedIntents.google = googleApiQuery;
+        // BUILDER 3: Apple Maps strict query paired matching bounds
+        const appleApiQuery = "maps://?q=" + encodeURIComponent(cleanSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
+
+        computedIntents.google = androidGeoIntent;
+        computedIntents.webFallbackGoogle = webFallbackGoogleUrl;
         computedIntents.apple = appleApiQuery;
 
         const badge = document.getElementById('auditBadge');
@@ -594,12 +597,34 @@
     }
 
     function triggerCrossPlatformIntent(platform) {
-        const targetUrl = computedIntents[platform];
-        if (!targetUrl) {
+        if (platform === 'apple') {
+            if (!computedIntents.apple) { alert("Synthesize parameters first."); return; }
+            window.open(computedIntents.apple, '_blank');
+            return;
+        }
+
+        // Dedicated Fallback Router Strategy for Android WebViews & Chrome Interfaces
+        if (!computedIntents.google || !computedIntents.webFallbackGoogle) {
             alert("Please click 'Synthesize Parameters' first to lock in parameters.");
             return;
         }
-        window.open(targetUrl, '_blank');
+
+        const fallbackTimeoutWindow = 1500;
+        const initiationTimestamp = Date.now();
+        
+        // Create an ephemeral background frame redirection pattern to execute the deep intent natively
+        const transportFrame = document.createElement("iframe");
+        transportFrame.style.display = "none";
+        transportFrame.src = computedIntents.google;
+        document.body.appendChild(transportFrame);
+
+        setTimeout(() => {
+            document.body.removeChild(transportFrame);
+            // If the application doesn't blur execution out of frame, drop into the browser URL
+            if (Date.now() - initiationTimestamp < fallbackTimeoutWindow + 200) {
+                window.open(computedIntents.webFallbackGoogle, '_blank');
+            }
+        }, fallbackTimeoutWindow);
     }
 
     function generateFinalPassportPass() {
@@ -621,7 +646,7 @@
             document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins via ${selectedTransitMode})`;
         }
 
-        const qrMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venueString) + "&ll=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        const qrMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venueString) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
         new QRCode(qrContainer, { text: qrMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
@@ -639,7 +664,7 @@
         const duration = document.getElementById('dataHorizon').innerText;
         const coords = document.getElementById('dataCoords').innerText;
         
-        const universalMapLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&ll=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+        const universalMapLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
 
         const structuredMarkdownText = 
 `🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
