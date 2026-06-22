@@ -89,7 +89,6 @@
         .tactile-btn:active { transform: scale(0.98); }
         .tactile-btn.active { border-color: var(--primary-gold); background-color: #fbf9f4; color: var(--ink-main); font-weight: 600; box-shadow: inset 0 0 0 1px var(--primary-gold); }
 
-        /* CONTEXTUAL SUBMENU DRAWER SYSTEM */
         .cuisine-sub-deck { 
             display: none; 
             background: #faf9f5; 
@@ -317,14 +316,14 @@
 
 <script>
     let mapEngineInstance = null, mapMarkerNode = null, spatialRadiusCircle = null;
-    let selectedVibeSearchQuery = 'instagrammable+spot|scenic+viewpoint|landmark';
+    let selectedVibeSearchQuery = 'instagrammable spot|scenic viewpoint|landmark';
     let selectedGoogleCategory = 'point_of_interest';
     let activeCuisineQuerySegment = '';
     let selectedHorizonLabel = 'Full Day Journey';
-    let selectedHorizonQueryModifier = 'premium+journey|destination'; 
+    let selectedHorizonQueryModifier = 'premium journey|destination'; 
     let currentScenario = 'radius'; 
     let selectedTransitMode = 'driving'; 
-    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Standard default anchor setting
+    let focusedCoordinates = { lat: 48.7771, lon: 9.1795 }; // Default fallback anchor
     let computedIntents = { google: '', apple: '' };
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -337,11 +336,10 @@
     function initializeBaseMap() {
         if (mapEngineInstance !== null) return;
         
-        // Mobile tap engine explicitly handles raw element overlays accurately
         mapEngineInstance = L.map('map', { 
             zoomControl: false, 
             attributionControl: false,
-            tap: false 
+            tap: false // Disables conflicting Leaflet legacy tap engines to let iOS native handle events flawlessly
         }).setView([focusedCoordinates.lat, focusedCoordinates.lon], 13);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mapEngineInstance);
@@ -350,7 +348,7 @@
         syncGlobalPositionState(focusedCoordinates.lat, focusedCoordinates.lon);
     }
 
-    // CENTRAL POSITION SYNC ENGINE CONTROL GATEWAY
+    // ROBUST POSITIONAL SYNCHRONIZATION BACKBONE
     function syncGlobalPositionState(lat, lng) {
         focusedCoordinates.lat = parseFloat(lat);
         focusedCoordinates.lon = parseFloat(lng);
@@ -410,49 +408,49 @@
                 title.innerText = "Gastronomy Profile Selection";
                 grid.innerHTML = `
                     <div id="cuisine_any" class="cuisine-chip active" onclick="setCuisineProfile('cuisine_any', '')">All Profiles</div>
-                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian+restaurant|tandoori')">🍛 Indian</div>
-                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian+restaurant|trattoria')">🍝 Italian</div>
-                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian+restaurant|sushi|ramen')">🥢 Asian</div>
-                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french+restaurant|bistro')">🥖 French</div>
-                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional+traditional+restaurant')">🥩 Regional</div>
+                    <div id="cuisine_indian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_indian', 'indian restaurant|tandoori')">🍛 Indian</div>
+                    <div id="cuisine_italian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_italian', 'italian restaurant|trattoria')">🍝 Italian</div>
+                    <div id="cuisine_asian" class="cuisine-chip" onclick="setCuisineProfile('cuisine_asian', 'asian restaurant|sushi|ramen')">🥢 Asian</div>
+                    <div id="cuisine_french" class="cuisine-chip" onclick="setCuisineProfile('cuisine_french', 'french restaurant|bistro')">🥖 French</div>
+                    <div id="cuisine_local" class="cuisine-chip" onclick="setCuisineProfile('cuisine_local', 'regional traditional restaurant')">🥩 Regional</div>
                 `;
             } else if (id === 'vibe_cafes') {
                 title.innerText = "Cafe Specialty Focus Selection";
                 grid.innerHTML = `
                     <div id="cafe_any" class="cuisine-chip active" onclick="setCuisineProfile('cafe_any', '')">All Treats</div>
                     <div id="cafe_pastries" class="cuisine-chip" onclick="setCuisineProfile('cafe_pastries', 'bakery|croissant|patisserie')">🥐 Pastries</div>
-                    <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles+crepes|dessert+shop')">🧇 Waffles</div>
-                    <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble+tea|boba+cafe')">🧋 Bubble Tea</div>
-                    <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie+bar|juice+bar|healthy+cafe')">🥤 Smoothies</div>
-                    <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato+shop|ice+cream')">🍧 Gelato</div>
+                    <div id="cafe_waffles" class="cuisine-chip" onclick="setCuisineProfile('cafe_waffles', 'waffles crepes|dessert shop')">🧇 Waffles</div>
+                    <div id="cafe_bubble" class="cuisine-chip" onclick="setCuisineProfile('cafe_bubble', 'bubble tea|boba cafe')">🧋 Bubble Tea</div>
+                    <div id="cafe_smoothies" class="cuisine-chip" onclick="setCuisineProfile('cafe_smoothies', 'smoothie bar|juice bar|healthy cafe')">🥤 Smoothies</div>
+                    <div id="cafe_gelato" class="cuisine-chip" onclick="setCuisineProfile('cafe_gelato', 'gelato shop|ice cream')">🍧 Gelato</div>
                 `;
             } else if (id === 'vibe_fastfood') {
                 title.innerText = "Fast Food & Quick Bites Focus Selection";
                 grid.innerHTML = `
                     <div id="fast_any" class="cuisine-chip active" onclick="setCuisineProfile('fast_any', '')">All Fast Food</div>
-                    <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash+burger|loaded+fries')">🍔 Burgers</div>
-                    <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco+stand|kebab+house|street+food')">🌮 Street Food</div>
-                    <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza+slice|fried+chicken')">🍕 Comfort Bites</div>
+                    <div id="fast_burgers" class="cuisine-chip" onclick="setCuisineProfile('fast_burgers', 'smash burger|loaded fries')">🍔 Burgers</div>
+                    <div id="fast_street" class="cuisine-chip" onclick="setCuisineProfile('fast_street', 'taco stand|kebab house|street food')">🌮 Street Food</div>
+                    <div id="fast_comfort" class="cuisine-chip" onclick="setCuisineProfile('fast_comfort', 'pizza slice|fried chicken')">🍕 Comfort Bites</div>
                 `;
             } else if (id === 'vibe_action') {
                 title.innerText = "Active & Outdoor Sports Specialty Focus";
                 grid.innerHTML = `
                     <div id="action_any" class="cuisine-chip active" onclick="setCuisineProfile('action_any', '')">All Action</div>
-                    <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat+rental|electric+boat|boating')">⛵ Boating</div>
-                    <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand+up+paddleboarding|paddleboard')">🏄‍♂️ SUP</div>
-                    <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak+tour|canoe+rental')">🛶 Kayak</div>
-                    <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high+ropes|bouldering')">🧗‍♀️ Climbing</div>
-                    <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser+tag|axe+throwing')">🎯 Tactical</div>
-                    <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go+kart|pumptrack|quad+biking')">🏎️ Speed</div>
+                    <div id="action_boating" class="cuisine-chip" onclick="setCuisineProfile('action_boating', 'boat rental|electric boat|boating')">⛵ Boating</div>
+                    <div id="action_sup" class="cuisine-chip" onclick="setCuisineProfile('action_sup', 'stand up paddleboarding|paddleboard')">🏄‍♂️ SUP</div>
+                    <div id="action_water" class="cuisine-chip" onclick="setCuisineProfile('action_water', 'kayak tour|canoe rental')">🛶 Kayak</div>
+                    <div id="action_climb" class="cuisine-chip" onclick="setCuisineProfile('action_climb', 'kletterwald|high ropes|bouldering')">🧗‍♀️ Climbing</div>
+                    <div id="action_tactical" class="cuisine-chip" onclick="setCuisineProfile('action_tactical', 'paintball|laser tag|axe throwing')">🎯 Tactical</div>
+                    <div id="action_speed" class="cuisine-chip" onclick="setCuisineProfile('action_speed', 'go kart|pumptrack|quad biking')">🏎️ Speed</div>
                 `;
             } else if (id === 'vibe_themeparks') {
                 title.innerText = "Amusement & Theme Park Matrix Selection";
                 grid.innerHTML = `
                     <div id="park_any" class="cuisine-chip active" onclick="setCuisineProfile('park_any', '')">All Theme Parks</div>
-                    <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement+park|roller+coaster')">🎢 Freizeitparks</div>
-                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water+theme+park|aquapark')">🏊‍♂️ Water Worlds</div>
-                    <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline+park|ninja+warrior')">🤸‍♀️ Trampoline</div>
-                    <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr+arena|virtual+reality')">🽴 VR Arena</div>
+                    <div id="park_amuse" class="cuisine-chip" onclick="setCuisineProfile('park_amuse', 'freizeitpark|amusement park|roller coaster')">🎢 Freizeitparks</div>
+                    <div id="park_water" class="cuisine-chip" onclick="setCuisineProfile('park_water', 'water theme park|aquapark')">🏊‍♂️ Water Worlds</div>
+                    <div id="park_trampoline" class="cuisine-chip" onclick="setCuisineProfile('park_trampoline', 'trampoline park|ninja warrior')">🤸‍♀️ Trampoline</div>
+                    <div id="park_vr" class="cuisine-chip" onclick="setCuisineProfile('park_vr', 'vr arena|virtual reality')">🽴 VR Arena</div>
                 `;
             }
 
@@ -484,11 +482,11 @@
         selectedHorizonLabel = label;
 
         if (id === 'time_short') {
-            selectedHorizonQueryModifier = "quick+service|takeaway|express";
+            selectedHorizonQueryModifier = "quick service|takeaway|express";
         } else if (id === 'time_half') {
             selectedHorizonQueryModifier = "experience|leisure|hangout";
         } else {
-            selectedHorizonQueryModifier = "premium+journey|destination|full+experience";
+            selectedHorizonQueryModifier = "premium journey|destination|full experience";
         }
     }
 
@@ -518,7 +516,6 @@
         mapEngineInstance.fitBounds(spatialRadiusCircle.getBounds(), { padding: [8, 8] });
     }
 
-    // RESOLVES TEXT FIELD INTO MAP POSITION COORDINATES
     function executeTextGeocodeSearch() {
         const query = document.getElementById('mapTextInput').value.trim();
         if (!query) return;
@@ -527,32 +524,32 @@
         locator.geocode(query, (output) => {
             if (output && output.length > 0) {
                 const target = output[0].center;
-                // Force written coordinate update immediately
+                // Instantly update current position global parameters
                 syncGlobalPositionState(target.lat, target.lng);
                 mapEngineInstance.setView([target.lat, target.lng], 13);
             } else {
-                alert("Location could not be found. Please check spelling adjustments.");
+                alert("Location could not be found. Please optimize search terms.");
             }
         });
     }
 
     function triggerDeviceLiveLocation() {
         if (!navigator.geolocation) {
-            alert("Geolocation services are not supported by this browser client.");
+            alert("Geolocation features are missing on this client device configuration.");
             return;
         }
         navigator.geolocation.getCurrentPosition((pos) => {
             syncGlobalPositionState(pos.coords.latitude, pos.coords.longitude);
             mapEngineInstance.setView([pos.coords.latitude, pos.coords.longitude], 14);
         }, (err) => {
-            alert("Could not access device position. Please set manually on viewport configuration layout map.");
+            alert("Could not pull current geolocation coordinates. Point manually on map canvas.");
         }, { enableHighAccuracy: true });
     }
 
-    // COMPILES GEOGRAPHIC AND PARAMETER STRINGS FOR DEEP LINKING
+    // THE DEEP-LINK COMPILER ENGINE
     function compileSpatialDiscoveryEngine() {
-        if (!focusedCoordinates || !focusedCoordinates.lat || !focusedCoordinates.lon) { 
-            alert("Please position a marker pin on the map view layout environment first."); 
+        if (!focusedCoordinates || isNaN(focusedCoordinates.lat) || isNaN(focusedCoordinates.lon)) { 
+            alert("No geographic reference found. Select a spot on the mapping grid."); 
             return; 
         }
         
@@ -565,28 +562,31 @@
 
         if (currentScenario === 'radius') {
             radiusKm = parseFloat(document.getElementById('distanceInput').value) || 5;
-            auditDescription = `Radius restricted safely to ${radiusKm} KM.`;
+            auditDescription = `Radius restricted to ${radiusKm} KM.`;
         } else {
             const travelMins = parseInt(document.getElementById('durationMinutesInput').value) || 20;
             let speedKmh = 40; 
             if (selectedTransitMode === 'walking') speedKmh = 4.5;
             if (selectedTransitMode === 'transit') speedKmh = 22;
             radiusKm = speedKmh * (travelMins / 60);
-            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (Equivalent to ${radiusKm.toFixed(2)} KM).`;
+            auditDescription = `${travelMins} Mins via ${selectedTransitMode} (~${radiusKm.toFixed(2)} KM window).`;
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
         let finalSearchString = `${baseTerms} ${selectedHorizonQueryModifier}`;
 
-        // UNIVERSAL GEO DEEP LINKS (No variable parsing errors)
-        const googleApiQuery = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(finalSearchString)}&center=${lat.toFixed(6)},${lon.toFixed(6)}`;
-        const appleApiQuery = `maps://?q=${encodeURIComponent(finalSearchString)}&sll=${lat.toFixed(6)},${lon.toFixed(6)}&near=${lat.toFixed(6)},${lon.toFixed(6)}&radius=${(radiusKm * 1000).toFixed(0)}`;
+        // FIX: Replaced broken syntactic templates with fully valid, strict URI parameter builders
+        // Google Maps uses 'q' for structural keywords and 'll' to center search queries accurately
+        const googleApiQuery = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(finalSearchString) + "&ll=" + lat.toFixed(6) + "," + lon.toFixed(6);
+        
+        // Apple Maps handles absolute coordinates via the 'sll'/'near' vector properties
+        const appleApiQuery = "maps://?q=" + encodeURIComponent(finalSearchString) + "&sll=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&near=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&radius=" + (radiusKm * 1000).toFixed(0);
 
         computedIntents.google = googleApiQuery;
         computedIntents.apple = appleApiQuery;
 
         const badge = document.getElementById('auditBadge');
-        badge.innerHTML = `🛡️ <b>Strict Parameters Enforced</b><br>${auditDescription}<br>Location Anchor: ${lat.toFixed(4)}, ${lon.toFixed(4)} | Price Limit: Tier ${priceTier}`;
+        badge.innerHTML = `🛡️ <b>Parameters Active</b><br>${auditDescription}<br>Anchor: ${lat.toFixed(5)}, ${lon.toFixed(5)} | Price Tier: ${priceTier}`;
         badge.style.display = "block";
 
         document.getElementById('bridgePanel').style.display = 'block';
@@ -595,13 +595,16 @@
 
     function triggerCrossPlatformIntent(platform) {
         const targetUrl = computedIntents[platform];
-        if (!targetUrl) return;
+        if (!targetUrl) {
+            alert("Please click 'Synthesize Parameters' first to lock in parameters.");
+            return;
+        }
         window.open(targetUrl, '_blank');
     }
 
     function generateFinalPassportPass() {
         const venueString = document.getElementById('selectedFinalVenue').value.trim();
-        if (!venueString) { alert("Please input the title of your selected venue location."); return; }
+        if (!venueString) { alert("Please write down the name of the chosen venue first."); return; }
 
         const selectedPriceText = document.getElementById('googlePriceFilter').options[document.getElementById('googlePriceFilter').selectedIndex].text;
 
@@ -613,12 +616,12 @@
         document.getElementById('dataCoords').innerText = `${focusedCoordinates.lat.toFixed(5)}°N, ${focusedCoordinates.lon.toFixed(5)}°E`;
 
         if(currentScenario === 'radius') {
-            document.getElementById('dataConstraintMode').innerText = `Strict Radius (${document.getElementById('distanceInput').value} KM)`;
+            document.getElementById('dataConstraintMode').innerText = `Radius Bound (${document.getElementById('distanceInput').value} KM)`;
         } else {
-            document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins / ${selectedTransitMode})`;
+            document.getElementById('dataConstraintMode').innerText = `Transit Envelope (${document.getElementById('durationMinutesInput').value} Mins via ${selectedTransitMode})`;
         }
 
-        const qrMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueString)}`;
+        const qrMapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venueString) + "&ll=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
         new QRCode(qrContainer, { text: qrMapUrl, width: 100, height: 100, colorDark : "#1a1716", colorLight : "#ffffff" });
@@ -636,7 +639,7 @@
         const duration = document.getElementById('dataHorizon').innerText;
         const coords = document.getElementById('dataCoords').innerText;
         
-        const universalMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
+        const universalMapLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(venue) + "&ll=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
 
         const structuredMarkdownText = 
 `🎟️ *EXPLORATION PASSPORT GENERATED* 🎟️\n\n` +
