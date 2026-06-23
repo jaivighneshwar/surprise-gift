@@ -581,13 +581,16 @@
         }
 
         let baseTerms = activeCuisineQuerySegment ? activeCuisineQuerySegment : selectedVibeSearchQuery;
-        let simplifiedWebSearchQuery = `${baseTerms.replace(/\|/g, ' ')} ${selectedHorizonQueryModifier}`;
+        // Clean alternative pipe syntax down into space separation for search boxes
+        let cleanQueryTerms = baseTerms.replace(/\|/g, ' ');
+        let combinedSearchString = `${cleanQueryTerms} ${selectedHorizonQueryModifier}`;
 
-        // ROBUST ARCHITECTURE FIX: Lock the user's selected map coordinates into the universal link query string.
-        // This ensures the external search centers exactly around the chosen pin across all desktop and mobile devices.
+        // UNIVERSAL GEOLOCATION FIX: Uses the Google Search API scheme mapping coordinates into the explicit query parameter 
+        // to prevent mobile operating systems from running a broad geographic fallback loop.
         computedUniversalWebSearchUrl = "https://www.google.com/maps/search/?api=1&query=" + 
-            encodeURIComponent(simplifiedWebSearchQuery) + 
-            "&query_place_id=" + lat.toFixed(6) + "," + lon.toFixed(6);
+            encodeURIComponent(combinedSearchString) + 
+            "&center=" + lat.toFixed(6) + "," + lon.toFixed(6) + 
+            "&zoom=15";
 
         const badge = document.getElementById('auditBadge');
         badge.innerHTML = `🛡️ <b>Parameters Set</b><br>${auditDescription} | Center Point: ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
@@ -657,10 +660,11 @@
             document.getElementById('dataConstraintMode').innerText = `${document.getElementById('durationMinutesInput').value} Mins (${selectedTransitMode})`;
         }
 
-        // Cross-platform map link incorporating the user-selected pinpoint coordinate center parameters consistently
+        // Standardized custom fallback deep link matching the location center logic
         const standardizedFallbackUrl = "https://www.google.com/maps/search/?api=1&query=" + 
             encodeURIComponent(formattedShortTitle) + 
-            "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+            "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6) + 
+            "&zoom=16";
 
         const qrContainer = document.getElementById("qrcode"); 
         qrContainer.innerHTML = "";
@@ -684,12 +688,11 @@
         const constraints = document.getElementById('dataConstraintMode').innerText;
         const launchTime = document.getElementById('dataTime').innerText;
         
-        // Formulates a universal map hyperlink anchored precisely around the map selection coordinates
         const streamlinedCoordinatesMapUrl = "https://www.google.com/maps/search/?api=1&query=" + 
             encodeURIComponent(venue) + 
-            "&query_place_id=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6);
+            "&center=" + focusedCoordinates.lat.toFixed(6) + "," + focusedCoordinates.lon.toFixed(6) + 
+            "&zoom=16";
 
-        // Highly Condensed Clipboard Layout Structure containing Vibe and Time Allocation
         const highDensityClipboardString = 
 `🎟️ *EXPLORATION PASS*\n` +
 `📍 *Place:* ${venue}\n` +
